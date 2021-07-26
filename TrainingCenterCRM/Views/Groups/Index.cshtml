@@ -1,0 +1,28 @@
+﻿@model List<GroupModel>
+@{
+    ViewData["Title"] = "Groups";
+}
+<table class="table text-center">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Start date</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model)
+        {
+
+            <tr>
+                <th scope="col">@group.Name</th>
+                <th scope="col">@group.StartDate</th>
+                <th scope="col">
+                    <a class="btn btn-success" asp-controller="Groups" asp-action="EditGroup" asp-route-id="@group.Id">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id">Delete</a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-primary" asp-controller="Groups" asp-action="AddGroup">Add new group</a>
