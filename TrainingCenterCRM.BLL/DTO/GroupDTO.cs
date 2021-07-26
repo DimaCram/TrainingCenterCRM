@@ -4,14 +4,12 @@ using System.Text;
 
 namespace TrainingCenterCRM.BLL.DTO
 {
-    public class StudentDTO
+    public class GroupDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public int Age { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public int GroupId { get; set; }
-        public GroupDTO Group { get; set; }
+        public List<StudentDTO> Students { get; set; } = new List<StudentDTO>();
     }
 }

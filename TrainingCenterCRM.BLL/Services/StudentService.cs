@@ -66,7 +66,7 @@ namespace TrainingCenterCRM.BLL.Services
                 Age = student.Age
             };
         }
-        public IEnumerable<StudentDTO> GetStudents()
+        public List<StudentDTO> GetStudents()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Student, StudentDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<Student>, List<StudentDTO>>(db.Students.GetAll());
