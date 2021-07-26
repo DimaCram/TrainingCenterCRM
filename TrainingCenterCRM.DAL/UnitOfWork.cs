@@ -13,6 +13,7 @@ namespace TrainingCenterCRM.DAL
         private readonly TrainingCenterContext db;
 
         private StudentRepository studentRepository;
+        private GroupRepository groupRepository;
 
         public UnitOfWork()
         {
@@ -27,6 +28,17 @@ namespace TrainingCenterCRM.DAL
                     studentRepository = new StudentRepository(db);
 
                 return studentRepository;
+            }
+        }
+
+        public IRepository<Group> Groups
+        {
+            get
+            {
+                if (groupRepository == null)
+                    groupRepository = new GroupRepository(db);
+
+                return groupRepository;
             }
         }
 

@@ -9,6 +9,7 @@ namespace TrainingCenterCRM.DAL.Context
     public class TrainingCenterContext : DbContext 
     {
         public DbSet<Student> Students { get; set; }
+        public DbSet<Group> Groups { get; set; }
 
         public TrainingCenterContext()
         {
