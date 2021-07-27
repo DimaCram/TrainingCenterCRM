@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TrainingCenterCRM.BLL.DTO;
+using TrainingCenterCRM.DAL.Enttities;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
@@ -11,7 +12,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         void EditStudent(StudentDTO studentDTO);
         void DeleteStudent(int id);
         StudentDTO GetStudent(int id);
-        List<StudentDTO> GetStudents();
+        List<Student> GetStudents();
         void Dispose();
     }
 }

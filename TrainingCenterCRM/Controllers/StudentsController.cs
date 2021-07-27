@@ -29,24 +29,10 @@ namespace TrainingCenterCRM.Controllers
 
         public IActionResult Index()
         {
-            var students = new List<StudentModel>();
-            foreach (var studentsDTO in studentService.GetStudents())
-            {
-                students.Add(new StudentModel()
-                {
-                    Id = studentsDTO.Id,
-                    Name = studentsDTO.Name,
-                    Surname = studentsDTO.Surname,
-                    Age = studentsDTO.Age,
-                    Group = new GroupModel()
-                    {
-                        Name = studentsDTO.Group.Name,
-                        StartDate = studentsDTO.Group.StartDate
-                    },
-                });
-            }
+            var students = studentService.GetStudents();
+            var studentsDto = mapper.Map<IEnumerable<Student>, List<StudentDTO>>(students);
 
-            return View(students);
+            return View(studentsDto);
         }
 
         [HttpGet]

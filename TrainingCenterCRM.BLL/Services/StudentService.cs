@@ -67,25 +67,9 @@ namespace TrainingCenterCRM.BLL.Services
                 Age = student.Age
             };
         }
-        public List<StudentDTO> GetStudents()
+        public List<Student> GetStudents()
         {
-            var studentsDTO = new List<StudentDTO>();
-            foreach(var student in db.Students.GetAll())
-            {
-                studentsDTO.Add(new StudentDTO()
-                {
-                    Id = student.Id,
-                    Name = student.Name,
-                    Surname = student.Surname,
-                    Age = student.Age,
-                    Group = new GroupDTO()
-                    {
-                        Name = student.Group.Name,
-                        StartDate = student.Group.StartDate
-                    },
-                });
-            }
-            return studentsDTO;
+            return (List<Student>)db.Students.GetAll();
         }
         public void Dispose()
         {
