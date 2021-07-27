@@ -16,7 +16,7 @@
 
             <tr>
                 <th scope="col">@group.Name</th>
-                <th scope="col">@group.StartDate</th>
+                <th scope="col">@group.StartDate.ToString("dd.MM.yyyy")</th>
                 <th scope="col">
                     <a class="btn btn-success" asp-controller="Groups" asp-action="EditGroup" asp-route-id="@group.Id">Edit</a>
                     <a class="btn btn-danger" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id">Delete</a>
