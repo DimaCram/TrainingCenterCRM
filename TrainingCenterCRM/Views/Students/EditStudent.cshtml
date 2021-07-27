@@ -1,4 +1,7 @@
-﻿@model StudentModel
+﻿@using TrainingCenterCRM.BLL.DTO
+
+@model StudentModel
+
 @{
     ViewData["Title"] = "Edit student";
 }
@@ -21,6 +24,22 @@
             <div class="form-group">
                 <label asp-for="Age"></label><br />
                 <input class="form-control" type="number" asp-for="Age" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupId"></label><br />
+                <select class="form-control" asp-for="GroupId" required>
+                    @foreach (var group in (List<GroupDTO>)ViewData["Groups"])
+                    {
+                        if (group.Id == Model.GroupId)
+                        {
+                            <option value="@group.Id" selected>@group.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@group.Id">@group.Name</option>
+                        }
+                    }
+                </select>
             </div>
             <button type="submit" class="btn btn-success">Edit student</button>
         }
