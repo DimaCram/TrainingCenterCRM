@@ -16,9 +16,9 @@ namespace TrainingCenterCRM.DAL.Repositories
         {
             this.db = db;
         }
-        public IEnumerable<Group> GetAll()
+        public List<Group> GetAll()
         {
-            return db.Groups;
+            return db.Groups.ToList();
         }
 
         public Group Get(int id)

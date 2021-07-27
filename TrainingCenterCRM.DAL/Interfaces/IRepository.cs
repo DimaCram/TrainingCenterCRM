@@ -6,7 +6,7 @@ namespace TrainingCenterCRM.DAL.Interfaces
 {
     public interface IRepository<T> where T: class
     {
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
         T Get(int id);
         IEnumerable<T> Find(Func<T, Boolean> predicate);
         void Create(T item);

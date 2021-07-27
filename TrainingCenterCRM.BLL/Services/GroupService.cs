@@ -13,11 +13,13 @@ namespace TrainingCenterCRM.BLL.Services
     public class GroupService : IGroupService
     {
         private readonly IUnitOfWork db;
-        private readonly IStudentService studentService;
+        private readonly IMapper mapper;
 
-        public GroupService(IUnitOfWork db, IStudentService studentService)
+        private readonly IStudentService studentService;
+        public GroupService(IUnitOfWork db, IStudentService studentService, IMapper mapper)
         {
             this.db = db;
+            this.mapper = mapper;
 
             this.studentService = studentService;
         }
@@ -26,12 +28,7 @@ namespace TrainingCenterCRM.BLL.Services
             if (groupDTO == null)
                 throw new ArgumentException();
 
-            var group = new Group()
-            {
-                Id = groupDTO.Id,
-                Name = groupDTO.Name,
-                StartDate = groupDTO.StartDate
-            };
+            var group = mapper.Map<Group>(groupDTO);
 
             db.Groups.Create(group);
             db.Save();
@@ -53,12 +50,7 @@ namespace TrainingCenterCRM.BLL.Services
             if (groupDTO == null)
                 throw new ArgumentException();
 
-            var group = new Group()
-            {
-                Id = groupDTO.Id,
-                Name = groupDTO.Name,
-                StartDate = groupDTO.StartDate
-            };
+            var group = mapper.Map<Group>(groupDTO);
 
             db.Groups.Update(group);
             db.Save();
@@ -67,16 +59,11 @@ namespace TrainingCenterCRM.BLL.Services
         public GroupDTO GetGroup(int id)
         {
             var group = db.Groups.Get(id);
-            return new GroupDTO()
-            {
-                Id = group.Id,
-                Name = group.Name,
-                StartDate = group.StartDate,
-                Students = studentService.GetStudents().FindAll(x => x.GroupId == id)
-            };
+
+            return mapper.Map<GroupDTO>(group);
         }
 
-        public IEnumerable<Group> GetGroups()
+        public List<Group> GetGroups()
         {
             return db.Groups.GetAll();
         }

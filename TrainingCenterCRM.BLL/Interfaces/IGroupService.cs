@@ -12,7 +12,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         void EditGroup(GroupDTO groupDTO);
         void DeleteGroup(int id);
         GroupDTO GetGroup(int id);
-        IEnumerable<Group> GetGroups();
+        List<Group> GetGroups();
         void Dispose();
     }
 }

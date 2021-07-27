@@ -17,6 +17,7 @@ namespace TrainingCenterCRM.Controllers
         private readonly IGroupService groupService;
 
         private readonly IMapper mapper;
+        
         public GroupsController(IMapper mapper, IGroupService groupService)
         {
             this.mapper = mapper;
@@ -42,11 +43,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult AddGroup(GroupModel group)
         {
-            groupService.AddGroup(new GroupDTO()
-            {
-                Name = group.Name,
-                StartDate = group.StartDate
-            });
+            groupService.AddGroup(mapper.Map<GroupDTO>(group));
 
             return RedirectToAction("Index", "Groups");
         }
@@ -56,25 +53,13 @@ namespace TrainingCenterCRM.Controllers
         {
             var groupDto = groupService.GetGroup(id);
 
-            var group = new GroupModel()
-            {
-                Id = groupDto.Id,
-                Name = groupDto.Name,
-                StartDate = groupDto.StartDate
-            };
-
-            return View(group);
+            return View(mapper.Map<GroupModel>(groupDto));
         }
 
         [HttpPost]
         public IActionResult EditGroup(GroupModel group)
         {
-            groupService.EditGroup(new GroupDTO()
-            {
-                Id = group.Id,
-                Name = group.Name,
-                StartDate = group.StartDate
-            });
+            groupService.EditGroup(mapper.Map<GroupDTO>(group));
 
             return RedirectToAction("Index", "Groups");
         }

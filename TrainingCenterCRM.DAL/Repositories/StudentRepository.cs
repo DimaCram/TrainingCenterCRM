@@ -17,7 +17,7 @@ namespace TrainingCenterCRM.DAL.Repositories
         {
             this.db = db;
         }
-        public IEnumerable<Student> GetAll()
+        public List<Student> GetAll()
         {
             return db.Students.Include(p => p.Group).ToList();
         }

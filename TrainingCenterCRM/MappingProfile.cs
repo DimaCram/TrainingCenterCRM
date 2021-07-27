@@ -16,8 +16,14 @@ namespace TrainingCenterCRM
             CreateMap<GroupDTO, Group>();
             CreateMap<Group, GroupDTO>();
 
+            CreateMap<GroupDTO, GroupModel>();
+            CreateMap<GroupModel, GroupDTO>();
+
             CreateMap<StudentDTO, Student>().ForMember(destination => destination.Group, opts => opts.MapFrom(source => source.Group));
             CreateMap<Student, StudentDTO>().ForMember(destination => destination.Group, opts => opts.MapFrom(source => source.Group));
+
+            CreateMap<StudentDTO, StudentModel>();
+            CreateMap<StudentModel, StudentDTO>();
         }
     }
 }

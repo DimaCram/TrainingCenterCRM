@@ -13,24 +13,19 @@ namespace TrainingCenterCRM.BLL.Services
     public class StudentService : IStudentService
     {
         private readonly IUnitOfWork db;
+        private readonly IMapper mapper;
 
-        public StudentService(IUnitOfWork db)
+        public StudentService(IUnitOfWork db, IMapper mapper)
         {
             this.db = db;
+            this.mapper = mapper;
         }
         public void AddStudent(StudentDTO studentDTO)
         {
             if (studentDTO == null)
                 throw new ArgumentException();
 
-            var student = new Student()
-            {
-                Id = studentDTO.Id,
-                Name = studentDTO.Name,
-                Surname = studentDTO.Surname,
-                Age = studentDTO.Age,
-                GroupId = studentDTO.GroupId
-            };
+            var student = mapper.Map<Student>(studentDTO);
 
             db.Students.Create(student);
             db.Save();
@@ -40,13 +35,7 @@ namespace TrainingCenterCRM.BLL.Services
             if (studentDTO == null)
                 throw new ArgumentException();
 
-            var student = new Student()
-            {
-                Id = studentDTO.Id,
-                Name = studentDTO.Name,
-                Surname = studentDTO.Surname,
-                Age = studentDTO.Age
-            };
+            var student = mapper.Map<Student>(studentDTO);
 
             db.Students.Update(student);
             db.Save();
@@ -59,17 +48,12 @@ namespace TrainingCenterCRM.BLL.Services
         public StudentDTO GetStudent(int id)
         {
             var student = db.Students.Get(id);
-            return new StudentDTO()
-            {
-                Id = student.Id,
-                Name = student.Name,
-                Surname = student.Surname,
-                Age = student.Age
-            };
+
+            return mapper.Map<StudentDTO>(student);
         }
         public List<Student> GetStudents()
         {
-            return (List<Student>)db.Students.GetAll();
+            return db.Students.GetAll();
         }
         public void Dispose()
         {

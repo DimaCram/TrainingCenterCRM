@@ -39,7 +39,7 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult AddStudent()
         {
             var groups = groupService.GetGroups();
-            ViewData["Groups"] = mapper.Map<IEnumerable<Group>, List<GroupDTO>>(groups);
+            ViewData["Groups"] = mapper.Map<List<Group>, List<GroupDTO>>(groups);
 
             return View();
         }
@@ -47,13 +47,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult AddStudent(StudentModel student)
         {
-            studentService.AddStudent(new StudentDTO()
-            {
-                Name = student.Name,
-                Surname = student.Surname,
-                Age = student.Age,
-                GroupId = student.GroupId
-            });
+            studentService.AddStudent(mapper.Map<StudentDTO>(student));
 
             return RedirectToAction("Index", "Students");
         }
@@ -63,27 +57,13 @@ namespace TrainingCenterCRM.Controllers
         {
             var studentDto = studentService.GetStudent(id);
 
-            var student = new StudentModel()
-            {
-                Id = studentDto.Id,
-                Name = studentDto.Name,
-                Surname = studentDto.Surname,
-                Age = studentDto.Age
-            };
-
-            return View(student);
+            return View(mapper.Map<StudentModel>(studentDto));
         }
 
         [HttpPost]
         public IActionResult EditStudent(StudentModel student)
         {
-            studentService.EditStudent(new StudentDTO()
-            {
-                Id = student.Id,
-                Name = student.Name,
-                Surname = student.Surname,
-                Age = student.Age
-            });
+            studentService.EditStudent(mapper.Map<StudentDTO>(student));
 
             return RedirectToAction("Index", "Students");
         }
