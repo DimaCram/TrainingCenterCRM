@@ -9,6 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.BLL.Services;
+using TrainingCenterCRM.DAL;
+using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.DAL.Interfaces;
+using TrainingCenterCRM.DAL.Repositories;
 
 namespace TrainingCenterCRM
 {
@@ -32,6 +38,9 @@ namespace TrainingCenterCRM
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IGroupService, GroupService>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }

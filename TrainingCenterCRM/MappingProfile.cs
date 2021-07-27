@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.DTO;
+using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM
@@ -12,8 +13,8 @@ namespace TrainingCenterCRM
     {
         public MappingProfile()
         {
-            CreateMap<GroupModel, GroupDTO>();
-            CreateMap<GroupDTO, GroupModel>();
+            CreateMap<GroupDTO, Group>();
+            CreateMap<Group, GroupDTO>();
         }
     }
 }

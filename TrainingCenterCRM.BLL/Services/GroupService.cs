@@ -15,10 +15,11 @@ namespace TrainingCenterCRM.BLL.Services
         private readonly IUnitOfWork db;
         private readonly IStudentService studentService;
 
-        public GroupService()
+        public GroupService(IUnitOfWork db, IStudentService studentService)
         {
-            db = new UnitOfWork();
-            studentService = new StudentService();
+            this.db = db;
+
+            this.studentService = studentService;
         }
         public void AddGroup(GroupDTO groupDTO)
         {
@@ -75,10 +76,9 @@ namespace TrainingCenterCRM.BLL.Services
             };
         }
 
-        public IEnumerable<GroupDTO> GetGroups()
+        public IEnumerable<Group> GetGroups()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Group, GroupDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Group>, List<GroupDTO>>(db.Groups.GetAll());
+            return db.Groups.GetAll();
         }
     }
 }

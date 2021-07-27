@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TrainingCenterCRM.BLL.DTO;
+using TrainingCenterCRM.DAL.Enttities;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
@@ -11,7 +12,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         void EditGroup(GroupDTO groupDTO);
         void DeleteGroup(int id);
         GroupDTO GetGroup(int id);
-        IEnumerable<GroupDTO> GetGroups();
+        IEnumerable<Group> GetGroups();
         void Dispose();
     }
 }

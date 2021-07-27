@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Services;
+using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
@@ -18,12 +19,12 @@ namespace TrainingCenterCRM.Controllers
         private readonly IGroupService groupService;
 
         private readonly IMapper mapper;
-        public StudentsController(IMapper mapper)
+        public StudentsController(IMapper mapper, IGroupService groupService, IStudentService studentService)
         {
-            studentService = new StudentService();
-            groupService = new GroupService();
-
             this.mapper = mapper;
+
+            this.studentService = studentService;
+            this.groupService = groupService;
         }
 
         public IActionResult Index()
@@ -51,9 +52,8 @@ namespace TrainingCenterCRM.Controllers
         [HttpGet]
         public IActionResult AddStudent()
         {
-            var groupsDto = groupService.GetGroups();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupDTO, GroupModel>()).CreateMapper();
-            ViewData["Groups"] = mapper.Map<IEnumerable<GroupDTO>, List<GroupModel>>(groupsDto);
+            var groups = groupService.GetGroups();
+            ViewData["Groups"] = mapper.Map<IEnumerable<Group>, List<GroupDTO>>(groups);
 
             return View();
         }

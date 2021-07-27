@@ -14,9 +14,9 @@ namespace TrainingCenterCRM.BLL.Services
     {
         private readonly IUnitOfWork db;
 
-        public StudentService()
+        public StudentService(IUnitOfWork db)
         {
-            db = new UnitOfWork();
+            this.db = db;
         }
         public void AddStudent(StudentDTO studentDTO)
         {

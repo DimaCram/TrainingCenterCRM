@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Services;
+using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
@@ -16,20 +17,20 @@ namespace TrainingCenterCRM.Controllers
         private readonly IGroupService groupService;
 
         private readonly IMapper mapper;
-        public GroupsController(IMapper mapper)
+        public GroupsController(IMapper mapper, IGroupService groupService)
         {
-            groupService = new GroupService();
-
             this.mapper = mapper;
+
+            this.groupService = groupService;
         }
 
         public IActionResult Index()
         {
-            var groupsDto = groupService.GetGroups();
+            var groups = groupService.GetGroups();
 
-            var groups = mapper.Map<IEnumerable<GroupDTO>, List<GroupModel>>(groupsDto);
+            var groupsDto = mapper.Map<IEnumerable<Group>, List<GroupDTO>>(groups);
 
-            return View(groups);
+            return View(groupsDto);
         }
 
         [HttpGet]
