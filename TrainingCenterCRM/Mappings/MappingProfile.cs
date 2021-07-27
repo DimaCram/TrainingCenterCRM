@@ -7,7 +7,7 @@ using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.Models;
 
-namespace TrainingCenterCRM
+namespace TrainingCenterCRM.Mappings
 {
     public class MappingProfile : Profile
     {
