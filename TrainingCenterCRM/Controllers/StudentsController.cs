@@ -15,16 +15,31 @@ namespace TrainingCenterCRM.Controllers
     public class StudentsController : Controller
     {
         private readonly IStudentService studentService;
+        private readonly IGroupService groupService;
         public StudentsController()
         {
             studentService = new StudentService();
+            groupService = new GroupService();
         }
 
         public IActionResult Index()
         {
-            var studentsDto = studentService.GetStudents();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentModel>()).CreateMapper();
-            var students = mapper.Map<IEnumerable<StudentDTO>, List<StudentModel>>(studentsDto);
+            var students = new List<StudentModel>();
+            foreach (var studentsDTO in studentService.GetStudents())
+            {
+                students.Add(new StudentModel()
+                {
+                    Id = studentsDTO.Id,
+                    Name = studentsDTO.Name,
+                    Surname = studentsDTO.Surname,
+                    Age = studentsDTO.Age,
+                    Group = new GroupModel()
+                    {
+                        Name = studentsDTO.Group.Name,
+                        StartDate = studentsDTO.Group.StartDate
+                    },
+                });
+            }
 
             return View(students);
         }
@@ -32,6 +47,10 @@ namespace TrainingCenterCRM.Controllers
         [HttpGet]
         public IActionResult AddStudent()
         {
+            var groupsDto = groupService.GetGroups();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupDTO, GroupModel>()).CreateMapper();
+            ViewData["Groups"] = mapper.Map<IEnumerable<GroupDTO>, List<GroupModel>>(groupsDto);
+
             return View();
         }
 
@@ -42,7 +61,8 @@ namespace TrainingCenterCRM.Controllers
             {
                 Name = student.Name,
                 Surname = student.Surname,
-                Age = student.Age
+                Age = student.Age,
+                GroupId = student.GroupId
             });
 
             return RedirectToAction("Index", "Students");

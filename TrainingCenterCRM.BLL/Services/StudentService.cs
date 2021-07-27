@@ -28,7 +28,8 @@ namespace TrainingCenterCRM.BLL.Services
                 Id = studentDTO.Id,
                 Name = studentDTO.Name,
                 Surname = studentDTO.Surname,
-                Age = studentDTO.Age
+                Age = studentDTO.Age,
+                GroupId = studentDTO.GroupId
             };
 
             db.Students.Create(student);
@@ -68,8 +69,23 @@ namespace TrainingCenterCRM.BLL.Services
         }
         public List<StudentDTO> GetStudents()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Student, StudentDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Student>, List<StudentDTO>>(db.Students.GetAll());
+            var studentsDTO = new List<StudentDTO>();
+            foreach(var student in db.Students.GetAll())
+            {
+                studentsDTO.Add(new StudentDTO()
+                {
+                    Id = student.Id,
+                    Name = student.Name,
+                    Surname = student.Surname,
+                    Age = student.Age,
+                    Group = new GroupDTO()
+                    {
+                        Name = student.Group.Name,
+                        StartDate = student.Group.StartDate
+                    },
+                });
+            }
+            return studentsDTO;
         }
         public void Dispose()
         {
