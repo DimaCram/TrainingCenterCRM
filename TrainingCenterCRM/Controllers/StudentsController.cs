@@ -16,10 +16,14 @@ namespace TrainingCenterCRM.Controllers
     {
         private readonly IStudentService studentService;
         private readonly IGroupService groupService;
-        public StudentsController()
+
+        private readonly IMapper mapper;
+        public StudentsController(IMapper mapper)
         {
             studentService = new StudentService();
             groupService = new GroupService();
+
+            this.mapper = mapper;
         }
 
         public IActionResult Index()

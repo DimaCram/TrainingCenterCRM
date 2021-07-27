@@ -14,15 +14,19 @@ namespace TrainingCenterCRM.Controllers
     public class GroupsController : Controller
     {
         private readonly IGroupService groupService;
-        public GroupsController()
+
+        private readonly IMapper mapper;
+        public GroupsController(IMapper mapper)
         {
             groupService = new GroupService();
+
+            this.mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var groupsDto = groupService.GetGroups();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupDTO, GroupModel>()).CreateMapper();
+
             var groups = mapper.Map<IEnumerable<GroupDTO>, List<GroupModel>>(groupsDto);
 
             return View(groups);
