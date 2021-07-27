@@ -24,7 +24,7 @@
                 <input class="form-control" type="number" asp-for="Age" required />
             </div>
             <div class="form-group">
-                <label asp-for="Age"></label><br />
+                <label asp-for="GroupId"></label><br />
                 <select class="form-control" asp-for="GroupId" required>
                     @foreach (var group in (List<GroupDTO>)ViewData["Groups"])
                     {
