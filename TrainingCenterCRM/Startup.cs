@@ -15,6 +15,7 @@ using TrainingCenterCRM.DAL;
 using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.DAL.Interfaces;
 using TrainingCenterCRM.DAL.Repositories;
+using TrainingCenterCRM.Mappings;
 
 namespace TrainingCenterCRM
 {
