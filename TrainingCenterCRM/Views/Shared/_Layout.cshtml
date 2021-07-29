@@ -6,40 +6,70 @@
     <title>@ViewData["Title"] - Training Center</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Students" asp-action="Index">Training Center</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="Index">Students list</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Index">Groups list</a>
-                        </li>
-                    </ul>
-                </div>
+        <nav class="navbar">
+            <button class="btn btn-link navbar-button" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <a class="navbar-brand ms-3" href="index.html"><span>Training</span> Center</a>
+            <div class="d-none d-md-inline-block ms-auto">
+                <p class="user-name mb-0 me-2">Name Surname</p>
+            </div>
+            <div class="dropdown ms-auto ms-md-0 me-4">
+                <a class="nav-link dropdown-toggle" id="dropdownMenuButton1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <main>
+        <div class="wrapper">
+            <div class="sidebar" id="sidebar-wrapper">
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item sidebar-item" href="index.html">
+                        <i class="fas fa-ambulance"></i>
+                        Dashboard
+                    </a>
+                    <a class="list-group-item sidebar-item sidebar-item-collapse collapsed" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="fas fa-times me-2"></i>
+                        Errors
+                        <div class="sidenav-collapse-arrow d-md-inline-block ms-auto"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <ul class="collapse-list">
+                            <li>
+                                <a class="collapse-link" href="401.html">401</a>
+                            </li>
+                            <li>
+                                <a class="collapse-link" href="404.html">404</a>
+                            </li>
+                            <li>
+                                <a class="collapse-link" href="500.html">500</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="list-group-item sidebar-item" href="login.html">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </a>
+                    <a class="list-group-item sidebar-item" href="register.html">
+                        <i class="fas fa-registered"></i>
+                        Register
+                    </a>
+                </div>
+            </div>
             @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - TrainingCenterCRM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </main>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
