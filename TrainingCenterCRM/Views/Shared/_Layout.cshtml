@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Training Center</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="shortcut icon" href="~/assets/img/logo.ico" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +32,11 @@
         </nav>
     </header>
     <main>
-        @RenderBody()
+        <div class="wrapper">
+            @await Html.PartialAsync("../Partials/_Sidebar")
+
+            @RenderBody()
+        </div>
     </main>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,24 +1,50 @@
-﻿<div class="main">
-    <div class="pannel">
-        <h1 class="pannel-header">Sign in to Training Center</h1>
-        <a class="pannel-link block-link" href="register.html">New to Training Center? Sign up!</a>
-        <form class="mt-4">
-            <div class="form-group row mb-3">
-                <label for="staticEmail" class="col-sm-2 col-form-label pannel-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control pannel-input" id="staticEmail" placeholder="Email">
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Training Center</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="~/assets/img/logo.ico" type="image/x-icon">
+</head>
+<body>
+    <main class="main">
+        <div class="pannel">
+            <h1 class="pannel-header">Sign in to Training Center</h1>
+            <a class="pannel-link block-link" href="register.html">New to Training Center? Sign up!</a>
+            <form class="mt-4">
+                <div class="form-group row mb-3">
+                    <label for="staticEmail" class="col-sm-2 col-form-label pannel-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pannel-input" id="staticEmail" placeholder="Email">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label pannel-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control pannel-input" id="inputPassword" placeholder="Password">
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label pannel-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control pannel-input" id="inputPassword" placeholder="Password">
+                    </div>
                 </div>
-            </div>
-            <div class="pannel-group mt-4 mb-4">
-                <button type="submit" class="pannel-btn">Sign in</button>
-                <a class="pannel-link block-link" href="password.html">Forgot password?</a>
-            </div>
-        </form>
-    </div>
-</div>
+                <div class="pannel-group mt-4 mb-4">
+                    <button type="submit" class="pannel-btn">Sign in</button>
+                    <a class="pannel-link block-link" href="password.html">Forgot password?</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
