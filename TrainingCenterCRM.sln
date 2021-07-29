@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingCenterCRM", "TrainingCenterCRM\TrainingCenterCRM.csproj", "{D78578C7-B7AB-4BA2-B124-03A448A35C83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingCenterCRM", "TrainingCenterCRM\TrainingCenterCRM.csproj", "{D78578C7-B7AB-4BA2-B124-03A448A35C83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingCenterCRM.BLL", "TrainingCenterCRM.BLL\TrainingCenterCRM.BLL.csproj", "{BA94B089-692F-4C1C-B020-02547B360A31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingCenterCRM.BLL", "TrainingCenterCRM.BLL\TrainingCenterCRM.BLL.csproj", "{BA94B089-692F-4C1C-B020-02547B360A31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingCenterCRM.DAL", "TrainingCenterCRM.DAL\TrainingCenterCRM.DAL.csproj", "{A5C560D0-191F-4750-8A44-C397B6637E4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingCenterCRM.DAL", "TrainingCenterCRM.DAL\TrainingCenterCRM.DAL.csproj", "{A5C560D0-191F-4750-8A44-C397B6637E4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

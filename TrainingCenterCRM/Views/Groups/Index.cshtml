@@ -3,66 +3,30 @@
     ViewData["Title"] = "Groups";
 }
 
-<div class="wrapper">
-    <div class="sidebar" id="sidebar-wrapper">
-        <div class="list-group list-group-flush">
-            <a class="list-group-item sidebar-item" asp-controller="Students" asp-action="Index">
-                <i class="fas fa-ambulance"></i>
-                Students list
-            </a>
-            <a class="list-group-item sidebar-item" asp-controller="Groups" asp-action="Index">
-                <i class="fas fa-sign-in-alt"></i>
-                Groups list
-            </a>
-            <a class="list-group-item sidebar-item" asp-controller="Charts" asp-action="Index">
-                <i class="fas fa-sign-in-alt"></i>
-                Charts list
-            </a>
-            <a class="list-group-item sidebar-item sidebar-item-collapse collapsed" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <i class="fas fa-times me-2"></i>
-                Account
-                <div class="sidenav-collapse-arrow d-md-inline-block ms-auto"><i class="fas fa-angle-down"></i></div>
-            </a>
-            <div class="collapse" id="collapseExample">
-                <ul class="collapse-list">
-                    <li>
-                        <a class="collapse-link" href="401.html">401</a>
-                    </li>
-                    <li>
-                        <a class="collapse-link" href="404.html">404</a>
-                    </li>
-                    <li>
-                        <a class="collapse-link" href="500.html">500</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="content">
-        <h1 class="content__header">Groups</h1>
-        <table class="table text-center">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Start date</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var group in Model)
-                {
+<div class="content">
+    <h1 class="content__header">Groups</h1>
+    <table class="table text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Start date</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var group in Model)
+            {
 
-                    <tr>
-                        <th scope="col">@group.Name</th>
-                        <th scope="col">@group.StartDate.ToString("dd.MM.yyyy")</th>
-                        <th scope="col">
-                            <a class="btn btn-success" asp-controller="Groups" asp-action="EditGroup" asp-route-id="@group.Id">Edit</a>
-                            <a class="btn btn-danger" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id">Delete</a>
-                        </th>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <a class="btn btn-primary" asp-controller="Groups" asp-action="AddGroup">Add new group</a>
-    </div>
+                <tr>
+                    <th scope="col">@group.Name</th>
+                    <th scope="col">@group.StartDate.ToString("dd.MM.yyyy")</th>
+                    <th scope="col">
+                        <a class="btn btn-success" asp-controller="Groups" asp-action="EditGroup" asp-route-id="@group.Id">Edit</a>
+                        <a class="btn btn-danger" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id">Delete</a>
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" asp-controller="Groups" asp-action="AddGroup">Add new group</a>
 </div>
