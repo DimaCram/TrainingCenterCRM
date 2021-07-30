@@ -1,0 +1,48 @@
+﻿@using TrainingCenterCRM.BLL.DTO
+
+@model TeacherModel
+
+@{
+    ViewData["Title"] = "Edit teacher";
+}
+<div class="content">
+    <h1 class="content__header">Edit teacher</h1>
+    <div class="containt-fluid">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                @using (Html.BeginForm("EditTeacher", "Teachers", FormMethod.Post))
+                {
+                    @Html.HiddenFor(x => x.Id)
+
+                    <div class="mb-3 row">
+                        <label asp-for="Name" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" asp-for="Name" required />
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label asp-for="Surname" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" asp-for="Surname" required />
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label asp-for="Age" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" asp-for="Age" required />
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label asp-for="Bio" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" asp-for="Bio" required />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Edit teacher</button>
+                }
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+</div>

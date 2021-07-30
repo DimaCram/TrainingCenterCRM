@@ -42,6 +42,7 @@ namespace TrainingCenterCRM
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<ITeacherService, TeacherService>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
