@@ -9,6 +9,7 @@ namespace TrainingCenterCRM.DAL.Interfaces
     {
         IRepository<Student> Students { get; }
         IRepository<Group> Groups { get; }
+        IRepository<Teacher> Teachers { get; }
         void Save();
         void Dispose();
     }

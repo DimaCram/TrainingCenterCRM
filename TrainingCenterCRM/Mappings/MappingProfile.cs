@@ -13,17 +13,17 @@ namespace TrainingCenterCRM.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<GroupDTO, Group>();
-            CreateMap<Group, GroupDTO>();
+            CreateMap<GroupDTO, Group>().ReverseMap();
+            
+            CreateMap<GroupDTO, GroupModel>().ReverseMap();
 
-            CreateMap<GroupDTO, GroupModel>();
-            CreateMap<GroupModel, GroupDTO>();
+            CreateMap<StudentDTO, Student>().ForMember(destination => destination.Group, opts => opts.MapFrom(source => source.Group))
+                                            .ReverseMap();
 
-            CreateMap<StudentDTO, Student>().ForMember(destination => destination.Group, opts => opts.MapFrom(source => source.Group));
-            CreateMap<Student, StudentDTO>().ForMember(destination => destination.Group, opts => opts.MapFrom(source => source.Group));
+            CreateMap<StudentDTO, StudentModel>().ReverseMap();
 
-            CreateMap<StudentDTO, StudentModel>();
-            CreateMap<StudentModel, StudentDTO>();
+            CreateMap<TeacherDTO, Teacher>().ReverseMap();
+            CreateMap<TeacherDTO, TeacherModel>().ReverseMap();
         }
     }
 }
