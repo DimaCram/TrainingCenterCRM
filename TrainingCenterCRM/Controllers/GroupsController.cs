@@ -39,18 +39,17 @@ namespace TrainingCenterCRM.Controllers
         [HttpGet]
         public IActionResult AddGroup()
         {
-
             var teachers = teacherService.GetTeachers();
             ViewData["Teachers"] = mapper.Map<List<TeacherDTO>>(teachers);
+
             ViewData["Action"] = "Add";
 
             return View("EditGroup");
         }
 
         [HttpPost]
-        public IActionResult AddGroup([Bind("Name", "StartDate", "TeacherId")] GroupModel group)
+        public IActionResult AddGroup(GroupModel group)
         {
-
             groupService.AddGroup(mapper.Map<GroupDTO>(group));
 
             return RedirectToAction("Index", "Groups");

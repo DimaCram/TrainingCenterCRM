@@ -35,7 +35,9 @@ namespace TrainingCenterCRM.Controllers
         [HttpGet]
         public IActionResult AddTeacher()
         {
-            return View();
+            ViewData["Action"] = "Add";
+
+            return View("EditTeacher");
         }
 
         [HttpPost]
@@ -50,6 +52,8 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult EditTeacher(int id)
         {
             var teacherDto = teacherService.GetTeacher(id);
+
+            ViewData["Action"] = "Edit";
 
             return View(mapper.Map<TeacherModel>(teacherDto));
         }

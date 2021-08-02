@@ -3,15 +3,16 @@
 @model TeacherModel
 
 @{
-    ViewData["Title"] = "Edit teacher";
+    var action = ViewData["Action"];
+    ViewData["Title"] = $"{action} teacher";
 }
 <div class="content">
-    <h1 class="content__header">Edit teacher</h1>
+    <h1 class="content__header">@action teacher</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                @using (Html.BeginForm("EditTeacher", "Teachers", FormMethod.Post))
+                @using (Html.BeginForm($"{action}Teacher", "Teachers", FormMethod.Post))
                 {
                     @Html.HiddenFor(x => x.Id)
 
@@ -39,7 +40,7 @@
                             <input class="form-control" type="text" asp-for="Bio" required />
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Edit teacher</button>
+                    <button type="submit" class="btn btn-success">@action teacher</button>
                 }
             </div>
             <div class="col-sm-4"></div>

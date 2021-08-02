@@ -3,15 +3,16 @@
 @model StudentModel
 
 @{
-    ViewData["Title"] = "Edit student";
+    var action = ViewData["Action"];
+    ViewData["Title"] = $"{action} student";
 }
 <div class="content">
-    <h1 class="content__header">Edit student</h1>
+    <h1 class="content__header">@action student</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                @using (Html.BeginForm("EditStudent", "Students", FormMethod.Post))
+                @using (Html.BeginForm($"{action}Student", "Students", FormMethod.Post))
                 {
                     @Html.HiddenFor(x => x.Id)
 
@@ -39,7 +40,7 @@
                             <select class="form-control" asp-for="GroupId" required>
                                 @foreach (var group in (List<GroupDTO>)ViewData["Groups"])
                                 {
-                                    if (group.Id == Model.GroupId)
+                                    if (Model != null && group.Id == Model.GroupId)
                                     {
                                         <option value="@group.Id" selected>@group.Name</option>
                                     }
@@ -51,7 +52,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Edit student</button>
+                    <button type="submit" class="btn btn-success">@action student</button>
                 }
             </div>
             <div class="col-sm-4"></div>

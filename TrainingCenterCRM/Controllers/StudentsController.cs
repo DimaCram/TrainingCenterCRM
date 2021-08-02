@@ -41,7 +41,9 @@ namespace TrainingCenterCRM.Controllers
             var groups = groupService.GetGroups();
             ViewData["Groups"] = mapper.Map<List<Group>, List<GroupDTO>>(groups);
 
-            return View();
+            ViewData["Action"] = "Add";
+
+            return View("EditStudent");
         }
 
         [HttpPost]
@@ -59,6 +61,8 @@ namespace TrainingCenterCRM.Controllers
 
             var groups = groupService.GetGroups();
             ViewData["Groups"] = mapper.Map<List<Group>, List<GroupDTO>>(groups);
+
+            ViewData["Action"] = "Edit";
 
             return View(mapper.Map<StudentModel>(studentDto));
         }
