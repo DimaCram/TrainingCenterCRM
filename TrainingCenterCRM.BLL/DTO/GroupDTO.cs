@@ -11,5 +11,6 @@ namespace TrainingCenterCRM.BLL.DTO
         public DateTime StartDate { get; set; }
 
         public List<StudentDTO> Students { get; set; } = new List<StudentDTO>();
+        public int TeacherId { get; set; }
     }
 }

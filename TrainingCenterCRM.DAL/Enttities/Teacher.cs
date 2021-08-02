@@ -13,6 +13,5 @@ namespace TrainingCenterCRM.DAL.Enttities
         public string Bio { get; set; }
 
         public Group Group { get; set; }
-        public int GroupId { get; set; }
     }
 }

@@ -13,6 +13,5 @@ namespace TrainingCenterCRM.BLL.DTO
         public string Bio { get; set; }
 
         public GroupDTO Group { get; set; }
-        public int GroupId { get; set; }
     }
 }

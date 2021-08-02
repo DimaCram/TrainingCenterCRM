@@ -14,6 +14,5 @@ namespace TrainingCenterCRM.Models
         public string Bio { get; set; }
 
         public GroupModel Group { get; set; }
-        public int GroupId { get; set; }
     }
 }

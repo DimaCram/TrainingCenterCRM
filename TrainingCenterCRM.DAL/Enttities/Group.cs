@@ -12,5 +12,6 @@ namespace TrainingCenterCRM.DAL.Enttities
 
         public List<Student> Students { get; set; } = new List<Student>();
         public Teacher Teacher { get; set; }
+        public int TeacherId { get; set; }
     }
 }

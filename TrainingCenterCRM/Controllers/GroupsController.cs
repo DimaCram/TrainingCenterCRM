@@ -15,14 +15,16 @@ namespace TrainingCenterCRM.Controllers
     public class GroupsController : Controller
     {
         private readonly IGroupService groupService;
+        private readonly ITeacherService teacherService;
 
         private readonly IMapper mapper;
         
-        public GroupsController(IMapper mapper, IGroupService groupService)
+        public GroupsController(IMapper mapper, IGroupService groupService, ITeacherService teacherService)
         {
             this.mapper = mapper;
 
             this.groupService = groupService;
+            this.teacherService = teacherService;
         }
 
         public IActionResult Index()
@@ -37,12 +39,17 @@ namespace TrainingCenterCRM.Controllers
         [HttpGet]
         public IActionResult AddGroup()
         {
+
+            var teachers = teacherService.GetTeachers();
+            ViewData["Teachers"] = mapper.Map<List<TeacherDTO>>(teachers);
+
             return View();
         }
 
         [HttpPost]
         public IActionResult AddGroup(GroupModel group)
         {
+
             groupService.AddGroup(mapper.Map<GroupDTO>(group));
 
             return RedirectToAction("Index", "Groups");
