@@ -15,6 +15,7 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Start date</th>
+                                <th scope="col">Teacher</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -25,6 +26,7 @@
                                 <tr>
                                     <th scope="col">@group.Name</th>
                                     <th scope="col">@group.StartDate.ToString("dd.MM.yyyy")</th>
+                                    <th scope="col">@group.Teacher.Name @group.Teacher.Surname</th>
                                     <th scope="col">
                                         <a class="btn btn-success m-1" asp-controller="Groups" asp-action="EditGroup" asp-route-id="@group.Id">Edit</a>
                                         <a class="btn btn-danger m-1" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id">Delete</a>

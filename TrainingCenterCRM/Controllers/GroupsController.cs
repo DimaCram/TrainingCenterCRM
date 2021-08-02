@@ -60,6 +60,9 @@ namespace TrainingCenterCRM.Controllers
         {
             var groupDto = groupService.GetGroup(id);
 
+            var teachers = teacherService.GetTeachers();
+            ViewData["Teachers"] = mapper.Map<List<TeacherDTO>>(teachers);
+
             return View(mapper.Map<GroupModel>(groupDto));
         }
 

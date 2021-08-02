@@ -18,7 +18,7 @@ namespace TrainingCenterCRM.DAL.Repositories
         }
         public List<Group> GetAll()
         {
-            return db.Groups.ToList();
+            return db.Groups.Include(g => g.Teacher).ToList();
         }
 
         public Group Get(int id)
