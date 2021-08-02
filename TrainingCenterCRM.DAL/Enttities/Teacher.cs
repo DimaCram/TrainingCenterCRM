@@ -12,6 +12,6 @@ namespace TrainingCenterCRM.DAL.Enttities
         public int Age { get; set; }
         public string Bio { get; set; }
 
-        public Group Group { get; set; }
+        public List<Group> Groups = new List<Group>();
     }
 }

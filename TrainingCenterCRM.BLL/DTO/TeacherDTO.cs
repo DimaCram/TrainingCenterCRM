@@ -12,6 +12,6 @@ namespace TrainingCenterCRM.BLL.DTO
         public int Age { get; set; }
         public string Bio { get; set; }
 
-        public GroupDTO Group { get; set; }
+        public List<GroupDTO> Groups = new List<GroupDTO>();
     }
 }
