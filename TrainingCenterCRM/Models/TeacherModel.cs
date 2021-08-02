@@ -13,6 +13,6 @@ namespace TrainingCenterCRM.Models
         public int Age { get; set; }
         public string Bio { get; set; }
 
-        public GroupModel Group { get; set; }
+        public List<GroupModel> Groups = new List<GroupModel>();
     }
 }
