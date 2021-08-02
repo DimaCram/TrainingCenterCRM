@@ -1,15 +1,16 @@
 ﻿@using TrainingCenterCRM.BLL.DTO
 @model GroupModel
 @{
-    ViewData["Title"] = "Edit group";
+    var action = ViewData["Action"];
+    ViewData["Title"] = $"{action} group";
 }
 <div class="content">
-    <h1 class="content__header">Edit group</h1>
+    <h1 class="content__header">@action group</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                @using (Html.BeginForm("EditGroup", "Groups", FormMethod.Post))
+                @using (Html.BeginForm($"{action}Group", "Groups", FormMethod.Post))
                 {
                     @Html.HiddenFor(x => x.Id)
 
@@ -32,7 +33,7 @@
                                 @foreach (var teacher in (List<TeacherDTO>)ViewData["Teachers"])
                                 {
 
-                                    if (teacher.Id == Model.TeacherId)
+                                    if (Model != null && teacher.Id == Model.TeacherId)
                                     {
                                         <option value="@teacher.Id" selected>@teacher.Name @teacher.Surname</option>
                                     }
@@ -44,7 +45,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Edit group</button>
+                    <button type="submit" class="btn btn-success">@action group</button>
                 }
             </div>
             <div class="col-sm-4"></div>

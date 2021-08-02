@@ -42,12 +42,13 @@ namespace TrainingCenterCRM.Controllers
 
             var teachers = teacherService.GetTeachers();
             ViewData["Teachers"] = mapper.Map<List<TeacherDTO>>(teachers);
+            ViewData["Action"] = "Add";
 
-            return View();
+            return View("EditGroup");
         }
 
         [HttpPost]
-        public IActionResult AddGroup(GroupModel group)
+        public IActionResult AddGroup([Bind("Name", "StartDate", "TeacherId")] GroupModel group)
         {
 
             groupService.AddGroup(mapper.Map<GroupDTO>(group));
@@ -61,7 +62,9 @@ namespace TrainingCenterCRM.Controllers
             var groupDto = groupService.GetGroup(id);
 
             var teachers = teacherService.GetTeachers();
+
             ViewData["Teachers"] = mapper.Map<List<TeacherDTO>>(teachers);
+            ViewData["Action"] = "Edit";
 
             return View(mapper.Map<GroupModel>(groupDto));
         }
