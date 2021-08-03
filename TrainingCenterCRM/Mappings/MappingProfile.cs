@@ -17,8 +17,8 @@ namespace TrainingCenterCRM.Mappings
             
             CreateMap<GroupDTO, GroupModel>().ReverseMap();
 
-            CreateMap<StudentDTO, Student>().ForMember(destination => destination.Group, opts => opts.MapFrom(source => source.Group))
-                                            .ReverseMap();
+            CreateMap<StudentDTO, Student>().ForMember(dest => dest.BirthDate, opt => opt.MapFrom((source, dest) => dest.BirthDate = new DateTime(DateTime.Now.Year - source.Age, 1, 1)));
+            CreateMap<Student, StudentDTO>().ForMember(dest => dest.Age, opt => opt.MapFrom((source, dest) => dest.Age = DateTime.Now.Year - source.BirthDate.Year ));
 
             CreateMap<StudentDTO, StudentModel>().ReverseMap();
 

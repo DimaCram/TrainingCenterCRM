@@ -55,7 +55,7 @@ namespace TrainingCenterCRM.DAL.Context
                     Id = 1,
                     Name = "Darya",
                     Surname = "Fedorova",
-                    Age = 21,
+                    BirthDate = DateTime.Parse("1994"),
                     GroupId = group1.Id
                 },
                 new Student()
@@ -63,7 +63,7 @@ namespace TrainingCenterCRM.DAL.Context
                     Id = 2,
                     Name = "Andrey",
                     Surname = "Popov",
-                    Age = 22,
+                    BirthDate = DateTime.Parse("1996"),
                     GroupId = group1.Id
                 }
             );

@@ -18,7 +18,7 @@ namespace TrainingCenterCRM.DAL.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Seed();
+            //modelBuilder.Seed();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
