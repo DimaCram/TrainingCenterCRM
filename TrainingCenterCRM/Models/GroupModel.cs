@@ -9,11 +9,18 @@ namespace TrainingCenterCRM.Models
     public class GroupModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime StartDate { get; set; }
-
-        public List<StudentModel> Students { get; set; } = new List<StudentModel>();
         
+        [Required]
+        [StringLength(maximumLength: 100, MinimumLength = 3, ErrorMessage = "Length must be 3-100")]
+        public string Name { get; set; }
+        
+        [Required]
+        [Display(Name = "Start date")]
+        public DateTime StartDate { get; set; }
+        
+        public List<StudentModel> Students { get; set; } = new List<StudentModel>();
+
+        [Required]
         [Display(Name = "Teacher")]
         public int TeacherId { get; set; }
     }
