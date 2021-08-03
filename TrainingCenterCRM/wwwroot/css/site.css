@@ -264,3 +264,9 @@ input:-webkit-autofill {
 .table-fix {
     overflow-x: auto;
 }
+
+
+
+.input-validation-error {
+    border: 1px solid #f75160;
+}

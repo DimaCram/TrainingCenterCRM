@@ -19,25 +19,28 @@
                     <div class="mb-3 row">
                         <label asp-for="Name" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" asp-for="Name" required />
+                            <input class="form-control" type="text" asp-for="Name" />
+                            <span asp-validation-for="Name" class="alert-danger"></span>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label asp-for="Surname" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" asp-for="Surname" required />
+                            <input class="form-control" type="text" asp-for="Surname" />
+                            <span asp-validation-for="Surname" class="alert-danger"></span>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label asp-for="Age" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="number" asp-for="Age" required />
+                            <input class="form-control" type="number" asp-for="Age" />
+                            <span asp-validation-for="Age" class="alert-danger"></span>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label asp-for="GroupId" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <select class="form-control" asp-for="GroupId" required>
+                            <select class="form-control" asp-for="GroupId">
                                 @foreach (var group in (List<GroupDTO>)ViewData["Groups"])
                                 {
                                     if (Model != null && group.Id == Model.GroupId)
@@ -50,6 +53,7 @@
                                     }
                                 }
                             </select>
+                            <span asp-validation-for="GroupId" class="alert-danger"></span>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success">@action student</button>
@@ -59,3 +63,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
+}
