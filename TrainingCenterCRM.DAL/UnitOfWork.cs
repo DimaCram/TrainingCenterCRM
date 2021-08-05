@@ -15,6 +15,8 @@ namespace TrainingCenterCRM.DAL
         private StudentRepository studentRepository;
         private GroupRepository groupRepository;
         private TeacherRepository teacherRepository;
+        private TopicRepository topicRepository;
+        private CourseRepository courseRepository;
 
         public UnitOfWork()
         {
@@ -51,6 +53,28 @@ namespace TrainingCenterCRM.DAL
                     teacherRepository = new TeacherRepository(db);
 
                 return teacherRepository;
+            }
+        }
+
+        public IRepository<Course> Courses 
+        {
+            get
+            {
+                if (courseRepository == null)
+                    courseRepository = new CourseRepository(db);
+
+                return courseRepository;
+            }   
+        }
+
+        public IRepository<Topic> Topics
+        {
+            get
+            {
+                if (topicRepository == null)
+                    topicRepository = new TopicRepository(db);
+
+                return topicRepository;
             }
         }
 
