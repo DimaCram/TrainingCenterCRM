@@ -9,7 +9,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
     public interface ITopicService
     {
         void AddTopic(TopicDTO topicDTO);
-        void EditGroup(TopicDTO topicDTO);
+        void EditTopic(TopicDTO topicDTO);
         void DeleteTopic(int id);
         TopicDTO GetTopic(int id);
         List<Topic> GetTopics();

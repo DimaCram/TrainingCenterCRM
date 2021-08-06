@@ -41,7 +41,7 @@ namespace TrainingCenterCRM.BLL.Services
             db.Dispose();
         }
 
-        public void EditGroup(TopicDTO topicDTO)
+        public void EditTopic(TopicDTO topicDTO)
         {
             if (topicDTO == null)
                 throw new ArgumentException();
