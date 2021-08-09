@@ -9,7 +9,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
     public interface ICourseService
     {
         void AddCourse(CourseDTO courseDTO);
-        void EditGroup(CourseDTO courseDTO);
+        void EditCourse(CourseDTO courseDTO);
         void DeleteCourse(int id);
         CourseDTO GetCourse(int id);
         List<Course> GetCourses();

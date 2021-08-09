@@ -41,7 +41,7 @@ namespace TrainingCenterCRM.BLL.Services
             db.Dispose();
         }
 
-        public void EditGroup(CourseDTO courseDTO)
+        public void EditCourse(CourseDTO courseDTO)
         {
             if (courseDTO == null)
                 throw new ArgumentException();

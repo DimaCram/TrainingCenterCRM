@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace TrainingCenterCRM.Models
         public string Title { get; set; }
         public string Description { get; set; }
 
+        [Display(Name="Topic")]
         public int TopicId { get; set; }
         public TopicModel Topic { get; set; }
 
