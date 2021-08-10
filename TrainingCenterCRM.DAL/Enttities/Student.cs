@@ -13,5 +13,7 @@ namespace TrainingCenterCRM.DAL.Enttities
 
         public int GroupId { get; set; }
         public Group Group { get; set; }
+
+        public List<StudentToGroupAssignment> StudentToGroupAssignments { get; set; } = new List<StudentToGroupAssignment>();
     }
 }

@@ -24,6 +24,12 @@ namespace TrainingCenterCRM.Mappings
 
             CreateMap<TeacherDTO, Teacher>().ReverseMap();
             CreateMap<TeacherDTO, TeacherModel>().ReverseMap();
+
+            CreateMap<CourseDTO, CourseModel>().ReverseMap();
+            CreateMap<CourseDTO, Course>().ReverseMap();
+
+            CreateMap<TopicDTO, TopicModel>().ReverseMap();
+            CreateMap<TopicDTO, Topic>().ReverseMap();
         }
     }
 }
