@@ -2,66 +2,49 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class TopicService : ITopicService
     {
-        private readonly IUnitOfWork db;
-        private readonly IMapper mapper;
+        private readonly IRepository<Topic> repository;
 
-        public TopicService(IUnitOfWork db, IMapper mapper)
+        public TopicService(IRepository<Topic> repository)
         {
-            this.db = db;
-            this.mapper = mapper;
+            this.repository = repository;
         }
-        public void AddTopic(TopicDTO topicDTO)
+        public void AddTopic(Topic topic)
         {
-            if (topicDTO == null)
+            if (topic == null)
                 throw new ArgumentException();
 
-            var topic = mapper.Map<Topic>(topicDTO);
-
-            db.Topics.Create(topic);
-            db.Save();
+            repository.Create(topic);
         }
 
         public void DeleteTopic(int id)
         {
-            db.Topics.Delete(id);
-            db.Save();
+            repository.Delete(id);
         }
 
-        public void Dispose()
+        public void EditTopic(Topic topic)
         {
-            db.Dispose();
-        }
-
-        public void EditTopic(TopicDTO topicDTO)
-        {
-            if (topicDTO == null)
+            if (topic == null)
                 throw new ArgumentException();
 
-            var topic = mapper.Map<Topic>(topicDTO);
-
-            db.Topics.Update(topic);
-            db.Save();
+            repository.Update(topic);
         }
 
-        public TopicDTO GetTopic(int id)
+        public Topic GetTopic(int id)
         {
-            var topic = db.Topics.Get(id);
-
-            return mapper.Map<TopicDTO>(topic);
+            return repository.Get(id);
         }
 
         public List<Topic> GetTopics()
         {
-            return db.Topics.GetAll();
+            return repository.GetAll();
         }
     }
 }

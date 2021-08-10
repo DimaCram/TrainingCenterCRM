@@ -2,66 +2,49 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class StudentToGroupAssignmentService : IStudentToGroupAssignmentService
     {
-        private readonly IUnitOfWork db;
-        private readonly IMapper mapper;
+        private readonly IRepository<StudentToGroupAssignment> repository;
 
-        public StudentToGroupAssignmentService(IUnitOfWork db, IMapper mapper)
+        public StudentToGroupAssignmentService(IRepository<StudentToGroupAssignment> repository)
         {
-            this.db = db;
-            this.mapper = mapper;
+            this.repository = repository;
         }
-        public void AddAssignment(StudentToGroupAssignmentDTO dto)
+        public void AddAssignment(StudentToGroupAssignment assignment)
         {
-            if (dto == null)
+            if (assignment == null)
                 throw new ArgumentException();
 
-            var assignment = mapper.Map<StudentToGroupAssignment>(dto);
-
-            db.StudentToGroupAssignments.Create(assignment);
-            db.Save();
+            repository.Create(assignment);
         }
 
         public void DeleteAssignment(int id)
         {
-            db.StudentToGroupAssignments.Delete(id);
-            db.Save();
+            repository.Delete(id);
         }
 
-        public void Dispose()
+        public void EditAssignment(StudentToGroupAssignment assignment)
         {
-            db.Dispose();
-        }
-
-        public void EditAssignment(StudentToGroupAssignmentDTO dto)
-        {
-            if (dto == null)
+            if (assignment == null)
                 throw new ArgumentException();
 
-            var assignment = mapper.Map<StudentToGroupAssignment>(dto);
-
-            db.StudentToGroupAssignments.Update(assignment);
-            db.Save();
+            repository.Update(assignment);
         }
 
-        public StudentToGroupAssignmentDTO GetAssignment(int id)
+        public StudentToGroupAssignment GetAssignment(int id)
         {
-            var assignment = db.StudentToGroupAssignments.Get(id);
-
-            return mapper.Map<StudentToGroupAssignmentDTO>(assignment);
+            return repository.Get(id);
         }
 
         public List<StudentToGroupAssignment> GetAssignments()
         {
-            return db.StudentToGroupAssignments.GetAll();
+            return repository.GetAll();
         }
     }
 }

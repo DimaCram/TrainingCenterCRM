@@ -2,62 +2,45 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly IUnitOfWork db;
-        private readonly IMapper mapper;
+        private readonly IRepository<Student> repository;
 
-        public StudentService(IUnitOfWork db, IMapper mapper)
+        public StudentService(IRepository<Student> repository)
         {
-            this.db = db;
-            this.mapper = mapper;
+            this.repository = repository;
         }
-        public void AddStudent(StudentDTO studentDTO)
+        public void AddStudent(Student student)
         {
-            if (studentDTO == null)
+            if (student == null)
                 throw new ArgumentException();
 
-            var student = mapper.Map<Student>(studentDTO);
-
-            db.Students.Create(student);
-            db.Save();
+            repository.Create(student);
         }
-        public void EditStudent(StudentDTO studentDTO)
+        public void EditStudent(Student student)
         {
-            if (studentDTO == null)
+            if (student == null)
                 throw new ArgumentException();
 
-            var student = mapper.Map<Student>(studentDTO);
-
-            db.Students.Update(student);
-            db.Save();
+            repository.Update(student);
         }
         public void DeleteStudent(int id)
         {
-            db.Students.Delete(id);
-            db.Save();
+            repository.Delete(id);
         }
-        public StudentDTO GetStudent(int id)
+        public Student GetStudent(int id)
         {
-            var student = db.Students.Get(id);
-
-            return mapper.Map<StudentDTO>(student);
+            return repository.Get(id);
         }
         public List<Student> GetStudents()
         {
-            return db.Students.GetAll();
-        }
-        public void Dispose()
-        {
-            db.Dispose();
+            return repository.GetAll();
         }
     }
 }

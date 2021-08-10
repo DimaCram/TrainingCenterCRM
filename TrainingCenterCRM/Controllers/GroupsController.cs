@@ -4,10 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
-using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
@@ -31,7 +30,7 @@ namespace TrainingCenterCRM.Controllers
         {
             var groups = groupService.GetGroups();
 
-            var groupsDto = mapper.Map<IEnumerable<Group>, List<GroupDTO>>(groups);
+            var groupsDto = mapper.Map<IEnumerable<Group>, List<Group>>(groups);
 
             return View(groupsDto);
         }
@@ -40,7 +39,7 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult AddGroup()
         {
             var teachers = teacherService.GetTeachers();
-            ViewData["Teachers"] = mapper.Map<List<TeacherDTO>>(teachers);
+            ViewData["Teachers"] = mapper.Map<List<Teacher>>(teachers);
 
             ViewData["Action"] = "Add";
 
@@ -50,7 +49,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult AddGroup(GroupModel group)
         {
-            groupService.AddGroup(mapper.Map<GroupDTO>(group));
+            groupService.AddGroup(mapper.Map<Group>(group));
 
             return RedirectToAction("Index", "Groups");
         }
@@ -62,7 +61,7 @@ namespace TrainingCenterCRM.Controllers
 
             var teachers = teacherService.GetTeachers();
 
-            ViewData["Teachers"] = mapper.Map<List<TeacherDTO>>(teachers);
+            ViewData["Teachers"] = mapper.Map<List<Teacher>>(teachers);
             ViewData["Action"] = "Edit";
 
             return View(mapper.Map<GroupModel>(groupDto));
@@ -71,7 +70,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult EditGroup(GroupModel group)
         {
-            groupService.EditGroup(mapper.Map<GroupDTO>(group));
+            groupService.EditGroup(mapper.Map<Group>(group));
 
             return RedirectToAction("Index", "Groups");
         }

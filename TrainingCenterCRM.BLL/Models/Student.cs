@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TrainingCenterCRM.BLL.DTO
+namespace TrainingCenterCRM.BLL.Models
 {
-    public class TeacherDTO
+    public class Student
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
-        public string Bio { get; set; }
 
-        public List<GroupDTO> Groups = new List<GroupDTO>();
+        public int GroupId { get; set; }
+        public Group Group { get; set; }
     }
 }

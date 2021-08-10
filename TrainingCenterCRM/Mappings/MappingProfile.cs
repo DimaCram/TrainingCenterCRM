@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.DTO;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Mappings
@@ -13,23 +12,15 @@ namespace TrainingCenterCRM.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<GroupDTO, Group>().ReverseMap();
-            
-            CreateMap<GroupDTO, GroupModel>().ReverseMap();
+            CreateMap<Group, GroupModel>().ReverseMap();
 
-            CreateMap<StudentDTO, Student>().ForMember(dest => dest.BirthDate, opt => opt.MapFrom((source, dest) => dest.BirthDate = new DateTime(DateTime.Now.Year - source.Age, 1, 1)));
-            CreateMap<Student, StudentDTO>().ForMember(dest => dest.Age, opt => opt.MapFrom((source, dest) => dest.Age = DateTime.Now.Year - source.BirthDate.Year ));
+            CreateMap<Student, StudentModel>().ReverseMap();
 
-            CreateMap<StudentDTO, StudentModel>().ReverseMap();
+            CreateMap<Teacher, TeacherModel>().ReverseMap();
 
-            CreateMap<TeacherDTO, Teacher>().ReverseMap();
-            CreateMap<TeacherDTO, TeacherModel>().ReverseMap();
+            CreateMap<Course, CourseModel>().ReverseMap();
 
-            CreateMap<CourseDTO, CourseModel>().ReverseMap();
-            CreateMap<CourseDTO, Course>().ReverseMap();
-
-            CreateMap<TopicDTO, TopicModel>().ReverseMap();
-            CreateMap<TopicDTO, Topic>().ReverseMap();
+            CreateMap<Topic, TopicModel>().ReverseMap();
         }
     }
 }

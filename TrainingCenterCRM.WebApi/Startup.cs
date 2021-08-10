@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,10 +14,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
-using TrainingCenterCRM.DAL;
+using TrainingCenterCRM.DAL.Context;
 using TrainingCenterCRM.DAL.Interfaces;
-using TrainingCenterCRM.WebApi.Mappings;
+using TrainingCenterCRM.DAL.Repositories;
 
 namespace TrainingCenterCRM.WebApi
 {
@@ -38,15 +40,11 @@ namespace TrainingCenterCRM.WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApplication1", Version = "v1" });
             });
 
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
+            services.AddDbContext<TrainingCenterContext>(options =>
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
 
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddScoped<IRepository<Teacher>, TeacherRepository>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITeacherService, TeacherService>();
         }
 

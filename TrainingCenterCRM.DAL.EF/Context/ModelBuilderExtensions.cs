@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.DAL.Context
 {
@@ -55,7 +55,6 @@ namespace TrainingCenterCRM.DAL.Context
                     Id = 1,
                     Name = "Darya",
                     Surname = "Fedorova",
-                    BirthDate = DateTime.Parse("1994"),
                     GroupId = group1.Id
                 },
                 new Student()
@@ -63,7 +62,6 @@ namespace TrainingCenterCRM.DAL.Context
                     Id = 2,
                     Name = "Andrey",
                     Surname = "Popov",
-                    BirthDate = DateTime.Parse("1996"),
                     GroupId = group1.Id
                 }
             );

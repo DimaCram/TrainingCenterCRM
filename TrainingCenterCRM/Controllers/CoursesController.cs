@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
@@ -29,7 +28,7 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult Index()
         {
             var courses = courseService.GetCourses();
-            var coursesDto = mapper.Map<List<CourseDTO>>(courses);
+            var coursesDto = mapper.Map<List<Course>>(courses);
 
             return View(coursesDto);
         }
@@ -38,7 +37,7 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult AddCourse()
         {
             var topics = topicService.GetTopics();
-            ViewData["Topics"] = mapper.Map<List<Topic>, List<TopicDTO>>(topics);
+            ViewData["Topics"] = mapper.Map<List<Topic>, List<Topic>>(topics);
 
             ViewData["Action"] = "Add";
 
@@ -48,7 +47,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult AddCourse(CourseModel course)
         {
-            courseService.AddCourse(mapper.Map<CourseDTO>(course));
+            courseService.AddCourse(mapper.Map<Course>(course));
 
             return RedirectToAction("Index");
         }
@@ -58,7 +57,7 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult EditCourse(int id)
         {
             var topics = topicService.GetTopics();
-            ViewData["Topics"] = mapper.Map<List<Topic>, List<TopicDTO>>(topics);
+            ViewData["Topics"] = mapper.Map<List<Topic>, List<Topic>>(topics);
 
             var courseDto = courseService.GetCourse(id);
             ViewData["Action"] = "Edit";
@@ -69,7 +68,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult EditCourse(CourseModel course)
         {
-            courseService.EditCourse(mapper.Map<CourseDTO>(course));
+            courseService.EditCourse(mapper.Map<Course>(course));
 
             return RedirectToAction("Index");
         }

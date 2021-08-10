@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TrainingCenterCRM.DAL.Enttities
+namespace TrainingCenterCRM.BLL.Models
 {
     public class StudentToGroupAssignment
     {
-        public int Id { get; set; }
+        public int StudentToGroupAssignmentId { get; set; }
         public int? StudentId { get; set; }
         public Student Student { get; set; }
         public int? GroupId { get; set; }

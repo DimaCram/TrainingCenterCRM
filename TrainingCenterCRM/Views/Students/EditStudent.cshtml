@@ -1,4 +1,4 @@
-﻿@using TrainingCenterCRM.BLL.DTO
+﻿@using TrainingCenterCRM.BLL.Models
 
 @model StudentModel
 
@@ -41,7 +41,7 @@
                         <label asp-for="GroupId" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
                             <select class="form-control" asp-for="GroupId">
-                                @foreach (var group in (List<GroupDTO>)ViewData["Groups"])
+                                @foreach (var group in (List<Group>)ViewData["Groups"])
                                 {
                                     if (Model != null && group.Id == Model.GroupId)
                                     {

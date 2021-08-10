@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface IStudentService
     {
-        void AddStudent(StudentDTO studentDTO);
-        void EditStudent(StudentDTO studentDTO);
+        void AddStudent(Student studentDTO);
+        void EditStudent(Student studentDTO);
         void DeleteStudent(int id);
-        StudentDTO GetStudent(int id);
+        Student GetStudent(int id);
         List<Student> GetStudents();
-        void Dispose();
     }
 }

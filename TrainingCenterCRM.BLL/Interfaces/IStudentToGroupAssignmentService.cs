@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface IStudentToGroupAssignmentService
     {
-        void AddAssignment(StudentToGroupAssignmentDTO dto);
-        void EditAssignment(StudentToGroupAssignmentDTO dto);
+        void AddAssignment(StudentToGroupAssignment dto);
+        void EditAssignment(StudentToGroupAssignment dto);
         void DeleteAssignment(int id);
-        StudentToGroupAssignmentDTO GetAssignment(int id);
+        StudentToGroupAssignment GetAssignment(int id);
         List<StudentToGroupAssignment> GetAssignments();
-        void Dispose();
     }
 }

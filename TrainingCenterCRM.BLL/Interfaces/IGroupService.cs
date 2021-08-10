@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface IGroupService
     {
-        void AddGroup(GroupDTO groupDTO);
-        void EditGroup(GroupDTO groupDTO);
+        void AddGroup(Group groupDTO);
+        void EditGroup(Group groupDTO);
         void DeleteGroup(int id);
-        GroupDTO GetGroup(int id);
+        Group GetGroup(int id);
         List<Group> GetGroups();
-        void Dispose();
     }
 }

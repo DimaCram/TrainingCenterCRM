@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Context;
-using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.DAL.Repositories
@@ -20,15 +20,17 @@ namespace TrainingCenterCRM.DAL.Repositories
         public void Create(Topic item)
         {
             db.Add(item);
+            db.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var topic = db.Topics.Find(id);
-            if (topic != null)
-                db.Topics.Remove(topic);
-            else
+            if (topic == null)
                 throw new ArgumentException("Topic not found");
+
+            db.Topics.Remove(topic);
+            db.SaveChanges();
         }
 
         public IEnumerable<Topic> Find(Func<Topic, bool> predicate)
@@ -49,6 +51,7 @@ namespace TrainingCenterCRM.DAL.Repositories
         public void Update(Topic item)
         {
             db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

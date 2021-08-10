@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TrainingCenterCRM.DAL.Enttities
+namespace TrainingCenterCRM.BLL.Models
 {
     public class Group
     {
@@ -13,7 +13,5 @@ namespace TrainingCenterCRM.DAL.Enttities
         public List<Student> Students { get; set; } = new List<Student>();
         public Teacher Teacher { get; set; }
         public int TeacherId { get; set; }
-
-        public List<StudentToGroupAssignment> StudentToGroupAssignments { get; set; } = new List<StudentToGroupAssignment>();
     }
 }

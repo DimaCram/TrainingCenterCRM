@@ -2,70 +2,48 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class GroupService : IGroupService
     {
-        private readonly IUnitOfWork db;
-        private readonly IMapper mapper;
-
-        private readonly IStudentService studentService;
-        public GroupService(IUnitOfWork db, IStudentService studentService, IMapper mapper)
+        private readonly IRepository<Group> repository;
+        public GroupService(IRepository<Group> repository)
         {
-            this.db = db;
-            this.mapper = mapper;
-
-            this.studentService = studentService;
+            this.repository = repository;
         }
-        public void AddGroup(GroupDTO groupDTO)
+        public void AddGroup(Group group)
         {
-            if (groupDTO == null)
+            if (group == null)
                 throw new ArgumentException();
 
-            var group = mapper.Map<Group>(groupDTO);
-
-            db.Groups.Create(group);
-            db.Save();
+            repository.Create(group);
         }
 
         public void DeleteGroup(int id)
         {
-            db.Groups.Delete(id);
-            db.Save();
+            repository.Delete(id);
         }
 
-        public void Dispose()
+        public void EditGroup(Group group)
         {
-            db.Dispose();
-        }
-
-        public void EditGroup(GroupDTO groupDTO)
-        {
-            if (groupDTO == null)
+            if (group == null)
                 throw new ArgumentException();
 
-            var group = mapper.Map<Group>(groupDTO);
-
-            db.Groups.Update(group);
-            db.Save();
+            repository.Update(group);
         }
 
-        public GroupDTO GetGroup(int id)
+        public Group GetGroup(int id)
         {
-            var group = db.Groups.Get(id);
-
-            return mapper.Map<GroupDTO>(group);
+            return repository.Get(id);
         }
 
         public List<Group> GetGroups()
         {
-            return db.Groups.GetAll();
+            return repository.GetAll();
         }
     }
 }
