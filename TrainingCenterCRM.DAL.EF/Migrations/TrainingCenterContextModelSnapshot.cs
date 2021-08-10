@@ -19,7 +19,7 @@ namespace TrainingCenterCRM.DAL.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Course", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Group", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,15 +70,15 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Student", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
@@ -96,9 +96,9 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.StudentToGroupAssignment", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentToGroupAssignment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("StudentToGroupAssignmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -106,16 +106,16 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Property<DateTime>("AssignmentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<int>("Result")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("StudentToGroupAssignmentId");
 
                     b.HasIndex("GroupId");
 
@@ -124,7 +124,7 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.ToTable("StudentToGroupAssignments");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Teacher", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Teacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,7 +148,7 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Topic", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Topic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,9 +166,9 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Course", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Course", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.DAL.Enttities.Topic", "Topic")
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Topic", "Topic")
                         .WithMany("Courses")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -177,13 +177,13 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Group", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.DAL.Enttities.Course", null)
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", null)
                         .WithMany("Groups")
                         .HasForeignKey("CourseId");
 
-                    b.HasOne("TrainingCenterCRM.DAL.Enttities.Teacher", "Teacher")
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Teacher", "Teacher")
                         .WithMany()
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -192,9 +192,9 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Student", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.DAL.Enttities.Group", "Group")
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
                         .WithMany("Students")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -203,43 +203,32 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.StudentToGroupAssignment", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentToGroupAssignment", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.DAL.Enttities.Group", "Group")
-                        .WithMany("StudentToGroupAssignments")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
 
-                    b.HasOne("TrainingCenterCRM.DAL.Enttities.Student", "Student")
-                        .WithMany("StudentToGroupAssignments")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Group");
 
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Course", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Course", b =>
                 {
                     b.Navigation("Groups");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Group", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
                 {
                     b.Navigation("Students");
-
-                    b.Navigation("StudentToGroupAssignments");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Student", b =>
-                {
-                    b.Navigation("StudentToGroupAssignments");
-                });
-
-            modelBuilder.Entity("TrainingCenterCRM.DAL.Enttities.Topic", b =>
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Topic", b =>
                 {
                     b.Navigation("Courses");
                 });
