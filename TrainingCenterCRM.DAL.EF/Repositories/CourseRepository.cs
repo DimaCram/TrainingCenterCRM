@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Context;
-using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.DAL.Repositories
@@ -20,15 +20,17 @@ namespace TrainingCenterCRM.DAL.Repositories
         public void Create(Course item)
         {
             db.Courses.Add(item);
+            db.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var course = db.Courses.Find(id);
-            if (course != null)
-                db.Courses.Remove(course);
-            else
+            if (course == null)
                 throw new ArgumentException("Course not found");
+
+            db.Courses.Remove(course);
+            db.SaveChanges();
         }
 
         public IEnumerable<Course> Find(Func<Course, bool> predicate)
@@ -49,6 +51,7 @@ namespace TrainingCenterCRM.DAL.Repositories
         public void Update(Course item)
         {
             db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

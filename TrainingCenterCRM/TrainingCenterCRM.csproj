@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TrainingCenterCRM.BLL\TrainingCenterCRM.BLL.csproj" />
+    <ProjectReference Include="..\TrainingCenterCRM.DAL.EF\TrainingCenterCRM.DAL.EF.csproj" />
   </ItemGroup>
 
 </Project>

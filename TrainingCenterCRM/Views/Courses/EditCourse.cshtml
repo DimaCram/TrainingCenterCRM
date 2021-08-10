@@ -1,4 +1,4 @@
-﻿@using TrainingCenterCRM.BLL.DTO
+﻿@using TrainingCenterCRM.BLL.Models
 @model CourseModel
 @{
     var action = ViewData["Action"];
@@ -32,7 +32,7 @@
                         <label asp-for="TopicId" class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
                             <select class="form-control" asp-for="TopicId">
-                                @foreach (var topic in (List<TopicDTO>)ViewData["Topics"])
+                                @foreach (var topic in (List<Topic>)ViewData["Topics"])
                                 {
                                     if (Model != null && topic.Id == Model.TopicId)
                                     {

@@ -5,10 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
-using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
@@ -30,7 +29,7 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult Index()
         {
             var students = studentService.GetStudents();
-            var studentsDto = mapper.Map<IEnumerable<Student>, List<StudentDTO>>(students);
+            var studentsDto = mapper.Map<IEnumerable<Student>, List<Student>>(students);
 
             return View(studentsDto);
         }
@@ -39,7 +38,7 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult AddStudent()
         {
             var groups = groupService.GetGroups();
-            ViewData["Groups"] = mapper.Map<List<Group>, List<GroupDTO>>(groups);
+            ViewData["Groups"] = mapper.Map<List<Group>, List<Group>>(groups);
 
             ViewData["Action"] = "Add";
 
@@ -49,7 +48,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult AddStudent(StudentModel student)
         {
-            studentService.AddStudent(mapper.Map<StudentDTO>(student));
+            studentService.AddStudent(mapper.Map<Student>(student));
 
             return RedirectToAction("Index", "Students");
         }
@@ -60,7 +59,7 @@ namespace TrainingCenterCRM.Controllers
             var studentDto = studentService.GetStudent(id);
 
             var groups = groupService.GetGroups();
-            ViewData["Groups"] = mapper.Map<List<Group>, List<GroupDTO>>(groups);
+            ViewData["Groups"] = mapper.Map<List<Group>, List<Group>>(groups);
 
             ViewData["Action"] = "Edit";
 
@@ -70,7 +69,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult EditStudent(StudentModel student)
         {
-            studentService.EditStudent(mapper.Map<StudentDTO>(student));
+            studentService.EditStudent(mapper.Map<Student>(student));
 
             return RedirectToAction("Index", "Students");
         }

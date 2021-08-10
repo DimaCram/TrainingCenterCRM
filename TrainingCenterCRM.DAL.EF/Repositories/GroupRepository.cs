@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Context;
-using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.DAL.Repositories
@@ -34,20 +34,23 @@ namespace TrainingCenterCRM.DAL.Repositories
         public void Create(Group item)
         {
             db.Groups.Add(item);
+            db.SaveChanges();
         }
 
         public void Update(Group item)
         {
             db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var group = db.Groups.Find(id);
-            if (group != null)
-                db.Groups.Remove(group);
-            else
+            if (group == null)
                 throw new ArgumentException("Group not found");
+
+            db.Groups.Remove(group);
+            db.SaveChanges();
         }
     }
 }

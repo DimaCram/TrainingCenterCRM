@@ -2,66 +2,49 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class CourseService : ICourseService
     {
-        private readonly IUnitOfWork db;
-        private readonly IMapper mapper;
+        private readonly IRepository<Course> repository;
 
-        public CourseService(IUnitOfWork db, IMapper mapper)
+        public CourseService(IRepository<Course> repository)
         {
-            this.db = db;
-            this.mapper = mapper;
+            this.repository = repository;
         }
-        public void AddCourse(CourseDTO courseDTO)
+        public void AddCourse(Course course)
         {
-            if (courseDTO == null)
+            if (course == null)
                 throw new ArgumentException();
-
-            var course = mapper.Map<Course>(courseDTO);
             
-            db.Courses.Create(course);
-            db.Save();
+            repository.Create(course);
         }
 
         public void DeleteCourse(int id)
         {
-            db.Courses.Delete(id);
-            db.Save();
+            repository.Delete(id);
         }
 
-        public void Dispose()
+        public void EditCourse(Course course)
         {
-            db.Dispose();
-        }
-
-        public void EditCourse(CourseDTO courseDTO)
-        {
-            if (courseDTO == null)
+            if (course == null)
                 throw new ArgumentException();
 
-            var course = mapper.Map<Course>(courseDTO);
-
-            db.Courses.Update(course);
-            db.Save();
+            repository.Update(course);
         }
 
-        public CourseDTO GetCourse(int id)
+        public Course GetCourse(int id)
         {
-            var course = db.Courses.Get(id);
-
-            return mapper.Map<CourseDTO>(course);
+            return repository.Get(id);
         }
 
         public List<Course> GetCourses()
         {
-            return db.Courses.GetAll();
+            return repository.GetAll();
         }
     }
 }

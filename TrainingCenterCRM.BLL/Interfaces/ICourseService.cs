@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface ICourseService
     {
-        void AddCourse(CourseDTO courseDTO);
-        void EditCourse(CourseDTO courseDTO);
+        void AddCourse(Course courseDTO);
+        void EditCourse(Course courseDTO);
         void DeleteCourse(int id);
-        CourseDTO GetCourse(int id);
+        Course GetCourse(int id);
         List<Course> GetCourses();
-        void Dispose();
     }
 }

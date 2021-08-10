@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,9 +11,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
 using TrainingCenterCRM.DAL;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.DAL.Context;
 using TrainingCenterCRM.DAL.Interfaces;
 using TrainingCenterCRM.DAL.Repositories;
 using TrainingCenterCRM.Mappings;
@@ -39,7 +41,15 @@ namespace TrainingCenterCRM
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddDbContext<TrainingCenterContext>(options =>
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
+
+            services.AddScoped<IRepository<Student>, StudentRepository>();
+            services.AddScoped<IRepository<Group>, GroupRepository>();
+            services.AddScoped<IRepository<Teacher>, TeacherRepository>();
+            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<IRepository<Topic>, TopicRepository>();
+
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<ITeacherService, TeacherService>();

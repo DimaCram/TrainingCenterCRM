@@ -2,66 +2,49 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class TeacherService : ITeacherService
     {
-        private readonly IUnitOfWork db;
-        private readonly IMapper mapper;
+        private readonly IRepository<Teacher> repository;
 
-        public TeacherService(IUnitOfWork db, IMapper mapper)
+        public TeacherService(IRepository<Teacher> repository)
         {
-            this.db = db;
-            this.mapper = mapper;
+            this.repository = repository;
         }
-        public void AddTeacher(TeacherDTO teacherDTO)
+        public void AddTeacher(Teacher teacher)
         {
-            if (teacherDTO == null)
+            if (teacher == null)
                 throw new ArgumentException();
 
-            var teacher = mapper.Map<Teacher>(teacherDTO);
-
-            db.Teachers.Create(teacher);
-            db.Save();
+            repository.Create(teacher);
         }
 
         public void DeleteTeacher(int id)
         {
-            db.Teachers.Delete(id);
-            db.Save();
+            repository.Delete(id);
         }
 
-        public void Dispose()
+        public void EditTeacher(Teacher teacher)
         {
-            db.Dispose();
-        }
-
-        public void EditTeacher(TeacherDTO teacherDTO)
-        {
-            if (teacherDTO == null)
+            if (teacher == null)
                 throw new ArgumentException();
 
-            var teacher = mapper.Map<Teacher>(teacherDTO);
-
-            db.Teachers.Update(teacher);
-            db.Save();
+            repository.Update(teacher);
         }
 
-        public TeacherDTO GetTeacher(int id)
+        public Teacher GetTeacher(int id)
         {
-            var teacher = db.Teachers.Get(id);
-
-            return mapper.Map<TeacherDTO>(teacher);
+            return repository.Get(id);
         }
 
         public List<Teacher> GetTeachers()
         {
-            return db.Teachers.GetAll();
+            return repository.GetAll();
         }
     }
 }

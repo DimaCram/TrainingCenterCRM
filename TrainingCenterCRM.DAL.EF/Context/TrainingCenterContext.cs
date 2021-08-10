@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.DAL.Context
 {
@@ -20,6 +20,11 @@ namespace TrainingCenterCRM.DAL.Context
         {
             Database.EnsureCreated();
         }
+
+        public TrainingCenterContext(DbContextOptions<TrainingCenterContext> options) : base(options) {
+            Database.EnsureCreated();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Seed();
@@ -27,6 +32,6 @@ namespace TrainingCenterCRM.DAL.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;");
-        }
+        }                                
     }
 }

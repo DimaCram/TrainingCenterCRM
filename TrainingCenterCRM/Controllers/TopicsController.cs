@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
@@ -27,7 +26,7 @@ namespace TrainingCenterCRM.Controllers
         public IActionResult Index()
         {
             var topics = topicService.GetTopics();
-            var topicsDto = mapper.Map<IEnumerable<Topic>, List<TopicDTO>>(topics);
+            var topicsDto = mapper.Map<IEnumerable<Topic>, List<Topic>>(topics);
 
             return View(topicsDto);
         }
@@ -43,7 +42,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult AddTopic(TopicModel topic)
         {
-            topicService.AddTopic(mapper.Map<TopicDTO>(topic));
+            topicService.AddTopic(mapper.Map<Topic>(topic));
 
             return RedirectToAction("Index", "Topics");
         }
@@ -60,7 +59,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult EditTopic(TopicModel topic)
         {
-            topicService.EditTopic(mapper.Map<TopicDTO>(topic));
+            topicService.EditTopic(mapper.Map<Topic>(topic));
 
             return RedirectToAction("Index", "Topics");
         }

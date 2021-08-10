@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
@@ -27,7 +26,7 @@ namespace TrainingCenterCRM.Controllers
         {
             var teachers = teacherService.GetTeachers();
 
-            var teachersDto = mapper.Map<List<TeacherDTO>>(teachers);
+            var teachersDto = mapper.Map<List<Teacher>>(teachers);
 
             return View(teachersDto);
         }
@@ -43,7 +42,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult AddTeacher(TeacherModel teacher)
         {
-            teacherService.AddTeacher(mapper.Map<TeacherDTO>(teacher));
+            teacherService.AddTeacher(mapper.Map<Teacher>(teacher));
 
             return RedirectToAction("Index", "Teachers");
         }
@@ -61,7 +60,7 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult EditTeacher(TeacherModel teacher)
         {
-            teacherService.EditTeacher(mapper.Map<TeacherDTO>(teacher));
+            teacherService.EditTeacher(mapper.Map<Teacher>(teacher));
 
             return RedirectToAction("Index", "Teachers");
         }

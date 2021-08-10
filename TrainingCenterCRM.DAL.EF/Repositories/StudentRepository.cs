@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Context;
-using TrainingCenterCRM.DAL.Enttities;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.DAL.Repositories
@@ -19,7 +19,7 @@ namespace TrainingCenterCRM.DAL.Repositories
         }
         public List<Student> GetAll()
         {
-            return db.Students.Include(p => p.Group).ToList();
+            return db.Students.Include(x => x.Group).ToList();
         }
 
         public Student Get(int id)
@@ -35,20 +35,23 @@ namespace TrainingCenterCRM.DAL.Repositories
         public void Create(Student item)
         {
             db.Students.Add(item);
+            db.SaveChanges();
         }
 
         public void Update(Student item)
         {
             db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var student = db.Students.Find(id);
-            if (student != null)
-                db.Students.Remove(student);
-            else
+            if (student == null)
                 throw new ArgumentException("Student not found");
+
+            db.Students.Remove(student);
+            db.SaveChanges();
         }
     }
 }
