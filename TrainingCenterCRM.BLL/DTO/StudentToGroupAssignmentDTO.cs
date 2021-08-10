@@ -7,10 +7,10 @@ namespace TrainingCenterCRM.BLL.DTO
     public class StudentToGroupAssignmentDTO
     {
         public int StudentId { get; set; }
-        public Student Student { get; set; }
+        public StudentDTO Student { get; set; }
         public int GroupId { get; set; }
-        public Group Group { get; set; }
+        public GroupDTO Group { get; set; }
         public DateTime AssignmentDate { get; set; }
-        public ResultType Result { get; set; }
+        public ResultTypeDTO Result { get; set; }
     }
 }
