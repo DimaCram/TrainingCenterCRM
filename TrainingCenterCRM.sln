@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingCenterCRM.BLL", "Tr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingCenterCRM.DAL", "TrainingCenterCRM.DAL\TrainingCenterCRM.DAL.csproj", "{A5C560D0-191F-4750-8A44-C397B6637E4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingCenterCRM.WebApi", "TrainingCenterCRM.WebApi\TrainingCenterCRM.WebApi.csproj", "{357D3C2C-61FD-4641-AF89-1DBB98656D45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A5C560D0-191F-4750-8A44-C397B6637E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5C560D0-191F-4750-8A44-C397B6637E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5C560D0-191F-4750-8A44-C397B6637E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{357D3C2C-61FD-4641-AF89-1DBB98656D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{357D3C2C-61FD-4641-AF89-1DBB98656D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{357D3C2C-61FD-4641-AF89-1DBB98656D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{357D3C2C-61FD-4641-AF89-1DBB98656D45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
