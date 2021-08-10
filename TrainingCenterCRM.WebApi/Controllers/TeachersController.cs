@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.DTO;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.DAL.Enttities;
+using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.WebApi.Controllers
 {
@@ -27,13 +26,13 @@ namespace TrainingCenterCRM.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public TeacherDTO GetTeacher(int id)
+        public Teacher GetTeacher(int id)
         {
             return teacherService.GetTeacher(id);
         }
 
         [HttpPost]
-        public IActionResult AddTeacher(TeacherDTO teacher)
+        public IActionResult AddTeacher(Teacher teacher)
         {
             if(teacher.Id != 0)
                 return BadRequest();
@@ -44,7 +43,7 @@ namespace TrainingCenterCRM.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditTeacher(int id, TeacherDTO teacher)
+        public IActionResult EditTeacher(int id, Teacher teacher)
         {
             if (id != teacher.Id)
                 return BadRequest();
