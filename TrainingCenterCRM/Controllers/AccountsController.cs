@@ -12,12 +12,14 @@ namespace TrainingCenterCRM.Controllers
     {
 
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
         [HttpGet]
         public IActionResult Register()
@@ -34,6 +36,9 @@ namespace TrainingCenterCRM.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (await _roleManager.RoleExistsAsync("user"))
+                        await _userManager.AddToRoleAsync(user, "user");
+
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Students");
                 }
