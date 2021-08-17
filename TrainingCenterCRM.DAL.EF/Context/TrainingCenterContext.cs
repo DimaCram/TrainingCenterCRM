@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,10 @@ namespace TrainingCenterCRM.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Name = "user" },
+                new IdentityRole { Name = "admin" }
+            );
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Seed();
         }
