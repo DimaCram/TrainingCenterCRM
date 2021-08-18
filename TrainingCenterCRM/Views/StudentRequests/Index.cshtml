@@ -30,8 +30,8 @@
                                     <th scope="col">@request.ReadyToStartDate.ToString("dd.MM.yyyy")</th>
                                     <th scope="col">@request.Comments</th>
                                     <th scope="col">
-                                        <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@request.StudentId" asp-route-id="@request.Id">Edit</a>
-                                        <a class="btn btn-danger m-1" asp-controller="StudentRequests" asp-action="DeleteRequest" asp-route-id="@request.Id">Delete</a>
+                                        <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@request.StudentId" asp-route-id="@request.Id"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger m-1" asp-controller="StudentRequests" asp-action="DeleteRequest" asp-route-id="@request.Id"><i class="fas fa-trash"></i></a>
                                     </th>
                                 </tr>
                             }

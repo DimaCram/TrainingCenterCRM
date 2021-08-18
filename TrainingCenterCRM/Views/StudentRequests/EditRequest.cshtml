@@ -10,11 +10,10 @@
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <form method="post" asp-controller="StudentRequests" asp-action="EditRequest"
-                      asp-route-StudentId="@Model.Student.Id">
+                <form method="post" asp-controller="StudentRequests" asp-action="EditRequest" 
+                                    asp-route-StudentId="@Model.Student.Id" asp-route-id="@Model.Id">
 
                     <div asp-validation-summary="ModelOnly"></div>
-                    @Html.HiddenFor(x => x.Id)
                     <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label">Student</label>
                         <div class="col-sm-9">
@@ -54,7 +53,7 @@
                             <span asp-validation-for="CourseId" class="alert-danger"></span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">ok</button>
+                    <button type="submit" class="btn btn-success">Ok</button>
                 </form>
             </div>
             <div class="col-sm-4"></div>
