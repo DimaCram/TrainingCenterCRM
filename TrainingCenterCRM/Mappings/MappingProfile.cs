@@ -21,6 +21,8 @@ namespace TrainingCenterCRM.Mappings
             CreateMap<Course, CourseModel>().ReverseMap();
 
             CreateMap<Topic, TopicModel>().ReverseMap();
+
+            CreateMap<StudentRequest, StudentRequestModel>().ReverseMap();
         }
     }
 }

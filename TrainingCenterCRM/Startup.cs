@@ -16,6 +16,7 @@ using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
 using TrainingCenterCRM.DAL;
 using TrainingCenterCRM.DAL.Context;
+using TrainingCenterCRM.DAL.EF.Repositories;
 using TrainingCenterCRM.DAL.Interfaces;
 using TrainingCenterCRM.DAL.Repositories;
 using TrainingCenterCRM.Mappings;
@@ -50,12 +51,14 @@ namespace TrainingCenterCRM
             services.AddScoped<IRepository<Teacher>, TeacherRepository>();
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<Topic>, TopicRepository>();
+            services.AddScoped<IRepository<StudentRequest>, StudentRequestRepository>();
 
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<IStudentRequestService, StudentRequestService>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<TrainingCenterContext>();

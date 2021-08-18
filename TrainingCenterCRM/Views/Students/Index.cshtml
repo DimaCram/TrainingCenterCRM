@@ -16,7 +16,6 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Surname</th>
                                 <th scope="col">Age</th>
-                                <th scope="col">Group name</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -28,10 +27,10 @@
                                     <th scope="col">@student.Name</th>
                                     <th scope="col">@student.Surname</th>
                                     <th scope="col">@student.Age</th>
-                                    <th scope="col">@student.Group.Name</th>
                                     <th scope="col">
-                                        <a class="btn btn-success m-1" asp-controller="Students" asp-action="EditStudent" asp-route-id="@student.Id">Edit</a>
-                                        <a class="btn btn-danger m-1" asp-controller="Students" asp-action="DeleteStudent" asp-route-id="@student.Id">Delete</a>
+                                        <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@student.Id">Add request</a>
+                                        <a class="btn btn-success m-1" asp-controller="Students" asp-action="EditStudent" asp-route-id="@student.Id"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger m-1" asp-controller="Students" asp-action="DeleteStudent" asp-route-id="@student.Id"><i class="fas fa-trash"></i></a>
                                     </th>
                                 </tr>
                             }

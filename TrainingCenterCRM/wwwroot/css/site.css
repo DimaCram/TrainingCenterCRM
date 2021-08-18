@@ -16,6 +16,10 @@ html, body {
     background-color: var(--color-light-dark) !important;
 }
 
+textarea {
+    resize: none;
+}
+
 .main {
     display: flex;
     justify-content: center;
