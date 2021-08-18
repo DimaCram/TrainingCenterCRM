@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TrainingCenterCRM.Models.Account.LoginModel
+@{
     Layout = null;
 }
 
@@ -7,7 +8,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Training Center</title>
+    <title>Login - Training Center</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -21,23 +22,26 @@
     <main class="main">
         <div class="pannel">
             <h1 class="pannel-header">Sign in to Training Center</h1>
-            <a class="pannel-link block-link" href="register.html">New to Training Center? Sign up!</a>
-            <form class="mt-4">
+            <a asp-controller="Accounts" asp-action="Register" class="pannel-link block-link">New to Training Center? Sign up!</a>
+            <form asp-controller="Accounts" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" class="mt-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group row mb-3">
-                    <label for="staticEmail" class="col-sm-2 col-form-label pannel-label">Email</label>
+                    <label asp-for="Email" class="col-sm-2 col-form-label pannel-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pannel-input" id="staticEmail" placeholder="Email">
+                        <input asp-for="Email" class="form-control pannel-input" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label pannel-label">Password</label>
+                <div class="form-group row mb-3">
+                    <label asp-for="Password" class="col-sm-2 col-form-label pannel-label">Password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control pannel-input" id="inputPassword" placeholder="Password">
+                        <input asp-for="Password" class="form-control pannel-input" placeholder="Password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="pannel-group mt-4 mb-4">
                     <button type="submit" class="pannel-btn">Sign in</button>
-                    <a class="pannel-link block-link" href="password.html">Forgot password?</a>
+                    <a asp-controller="Accounts" asp-action="RecoveryPassword" class="pannel-link block-link">Forgot password?</a>
                 </div>
             </form>
         </div>
@@ -46,5 +50,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial">
 </body>
 </html>
