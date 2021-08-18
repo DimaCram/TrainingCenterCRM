@@ -16,7 +16,7 @@ namespace TrainingCenterCRM.DAL.Context
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentToGroupAssignment> StudentToGroupAssignments { get; set; }
-
+        public DbSet<StudentRequest> StudentRequests { get; set; }
 
         public TrainingCenterContext()
         {
