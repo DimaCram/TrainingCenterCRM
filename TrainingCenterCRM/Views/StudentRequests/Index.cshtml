@@ -13,7 +13,8 @@
                     <table class="table table-striped table-hover text-center">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Student</th> 
+                                <th scope="col">Student</th>
+                                <th scope="col">Course</th>
                                 <th scope="col">Ready to start date</th>
                                 <th scope="col">Comments</th>
                                 <th scope="col"></th>
@@ -25,6 +26,7 @@
 
                                 <tr>
                                     <th scope="col">@request.Student.Name @request.Student.Surname</th>
+                                    <th scope="col">@request.Course.Title</th>
                                     <th scope="col">@request.ReadyToStartDate.ToString("dd.MM.yyyy")</th>
                                     <th scope="col">@request.Comments</th>
                                     <th scope="col">
