@@ -49,14 +49,20 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public IActionResult EditRequest(StudentRequestModel model)
         {
-            var request = mapper.Map<StudentRequest>(model);
+            if (ModelState.IsValid)
+            {
+                var request = mapper.Map<StudentRequest>(model);
 
-            if (model.Id == 0)
-                studentRequestService.AddRequest(request);
-            else
-                studentRequestService.EditRequest(request);
+                if (model.Id == 0)
+                    studentRequestService.AddRequest(request);
+                else
+                    studentRequestService.EditRequest(request);
 
-            return RedirectToAction("Index", "Students");
+                return RedirectToAction("Index", "Students");
+            }
+            model.Student = mapper.Map<StudentModel>(studentService.GetStudent(model.StudentId));
+            ViewBag.Courses = courseService.GetCourses();
+            return View(model);
         }
     }
 }
