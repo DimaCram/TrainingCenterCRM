@@ -46,7 +46,7 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public List<StudentRequest> GetAll()
         {
-            return db.StudentRequests.ToList();
+            return db.StudentRequests.Include(s => s.Student).ToList();
         }
 
         public void Update(StudentRequest item)
