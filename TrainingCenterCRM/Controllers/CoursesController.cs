@@ -36,43 +36,34 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddCourse()
+        public IActionResult EditCourse(int? id)
         {
-            var topics = topicService.GetTopics();
-            ViewData["Topics"] = mapper.Map<List<Topic>, List<Topic>>(topics);
+            ViewData["Topics"] = topicService.GetTopics();
 
-            ViewData["Action"] = "Add";
+            var course = id.HasValue ?
+                mapper.Map<CourseModel>(courseService.GetCourse(id.Value)) :
+                new CourseModel();
 
-            return View("EditCourse");
+            return View(course);
         }
 
         [HttpPost]
-        public IActionResult AddCourse(CourseModel course)
+        public IActionResult EditCourse(CourseModel courseModel)
         {
-            courseService.AddCourse(mapper.Map<Course>(course));
+            if (ModelState.IsValid)
+            {
+                var course = mapper.Map<Course>(courseModel);
 
-            return RedirectToAction("Index");
-        }
+                if(course.Id == 0)
+                    courseService.AddCourse(course);
+                else
+                    courseService.EditCourse(course);
+                
+                return RedirectToAction("Index");
+            }
 
-
-        [HttpGet]
-        public IActionResult EditCourse(int id)
-        {
-            var topics = topicService.GetTopics();
-            ViewData["Topics"] = mapper.Map<List<Topic>, List<Topic>>(topics);
-
-            var courseDto = courseService.GetCourse(id);
-            ViewData["Action"] = "Edit";
-
-            return View(mapper.Map<CourseModel>(courseDto));
-        }
-
-        [HttpPost]
-        public IActionResult EditCourse(CourseModel course)
-        {
-            courseService.EditCourse(mapper.Map<Course>(course));
-
-            return RedirectToAction("Index");
+            ViewData["Topics"] = topicService.GetTopics();
+            return View(courseModel);
         }
 
         [HttpGet]
