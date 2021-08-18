@@ -1,19 +1,15 @@
 ﻿@using TrainingCenterCRM.BLL.Models
 @model GroupModel
 @{
-    var action = ViewData["Action"];
-    ViewData["Title"] = $"{action} group";
+    ViewData["Title"] = "Group";
 }
 <div class="content">
-    <h1 class="content__header">@action group</h1>
+    <h1 class="content__header">Work with group</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                @using (Html.BeginForm($"{action}Group", "Groups", FormMethod.Post))
-                {
-                    @Html.HiddenFor(x => x.Id)
-
+                <form method="post" asp-controller="Groups" asp-action="EditGroup" asp-route-id="@Model.Id">
                     <div class="mb-3 row">
                         <label asp-for="Name" class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
@@ -32,7 +28,7 @@
                         <label asp-for="TeacherId" class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
                             <select class="form-control" asp-for="TeacherId">
-                                @foreach (var teacher in (List<Teacher>)ViewData["Teachers"])
+                                @foreach (var teacher in (List<Teacher>)ViewBag.Teachers)
                                 {
 
                                     if (Model != null && teacher.Id == Model.TeacherId)
@@ -48,8 +44,8 @@
                             <span asp-validation-for="TeacherId" class="alert-danger"></span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">@action group</button>
-                }
+                    <button type="submit" class="btn btn-success">Ok</button>
+                </form>
             </div>
             <div class="col-sm-4"></div>
         </div>
