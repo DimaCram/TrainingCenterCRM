@@ -34,37 +34,30 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddTeacher()
+        public IActionResult EditTeacher(int? id)
         {
-            ViewData["Action"] = "Add";
+            var teacherModel = id.HasValue ?
+                mapper.Map<TeacherModel>(teacherService.GetTeacher(id.Value)) :
+                new TeacherModel();
 
-            return View("EditTeacher");
+            return View(teacherModel);
         }
 
         [HttpPost]
-        public IActionResult AddTeacher(TeacherModel teacher)
+        public IActionResult EditTeacher(TeacherModel teacherModel)
         {
-            teacherService.AddTeacher(mapper.Map<Teacher>(teacher));
+            if (ModelState.IsValid)
+            {
+                var teacher = mapper.Map<Teacher>(teacherModel);
 
-            return RedirectToAction("Index", "Teachers");
-        }
-
-        [HttpGet]
-        public IActionResult EditTeacher(int id)
-        {
-            var teacherDto = teacherService.GetTeacher(id);
-
-            ViewData["Action"] = "Edit";
-
-            return View(mapper.Map<TeacherModel>(teacherDto));
-        }
-
-        [HttpPost]
-        public IActionResult EditTeacher(TeacherModel teacher)
-        {
-            teacherService.EditTeacher(mapper.Map<Teacher>(teacher));
-
-            return RedirectToAction("Index", "Teachers");
+                if (teacherModel.Id == 0)
+                    teacherService.AddTeacher(teacher);
+                else
+                    teacherService.EditTeacher(teacher);
+    
+                return RedirectToAction("Index", "Teachers");
+            }
+            return View(teacherModel);
         }
 
         [HttpGet]

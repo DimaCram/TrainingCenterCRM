@@ -30,15 +30,15 @@
                                     <th scope="col">@teacher.Age</th>
                                     <th scope="col">@teacher.Bio</th>
                                     <th scope="col">
-                                        <a class="btn btn-success m-1" asp-controller="Teachers" asp-action="EditTeacher" asp-route-id="@teacher.Id">Edit</a>
-                                        <a class="btn btn-danger m-1" asp-controller="Teachers" asp-action="DeleteTeacher" asp-route-id="@teacher.Id">Delete</a>
+                                        <a class="btn btn-success m-1" asp-controller="Teachers" asp-action="EditTeacher" asp-route-id="@teacher.Id"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger m-1" asp-controller="Teachers" asp-action="DeleteTeacher" asp-route-id="@teacher.Id"><i class="fas fa-trash"></i></a>
                                     </th>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
-                <a class="btn btn-primary" asp-controller="Teachers" asp-action="AddTeacher">Add new teacher</a>
+                <a class="btn btn-primary" asp-controller="Teachers" asp-action="EditTeacher">Add new teacher</a>
             </div>
         </div>
         <div class="col-sm-3"></div>

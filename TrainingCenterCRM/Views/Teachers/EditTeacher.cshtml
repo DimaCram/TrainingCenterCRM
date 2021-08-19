@@ -3,19 +3,15 @@
 @model TeacherModel
 
 @{
-    var action = ViewData["Action"];
-    ViewData["Title"] = $"{action} teacher";
+    ViewData["Title"] = $"Teacher";
 }
 <div class="content">
-    <h1 class="content__header">@action teacher</h1>
+    <h1 class="content__header">Work with teacher</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                @using (Html.BeginForm($"{action}Teacher", "Teachers", FormMethod.Post))
-                {
-                    @Html.HiddenFor(x => x.Id)
-
+                <form method="post" asp-controller="Teachers" asp-action="EditTeacher" asp-route-id="@Model.Id">
                     <div class="mb-3 row">
                         <label asp-for="Name" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
@@ -44,8 +40,8 @@
                             <span asp-validation-for="Bio" class="alert-danger"></span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">@action teacher</button>
-                }
+                    <button type="submit" class="btn btn-success">Ok</button>
+                </form>
             </div>
             <div class="col-sm-4"></div>
         </div>
