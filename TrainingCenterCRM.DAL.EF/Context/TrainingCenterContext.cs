@@ -35,10 +35,6 @@ namespace TrainingCenterCRM.DAL.Context
             );
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Seed();
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;");
-        }                                
+        }                              
     }
 }
