@@ -1,35 +1,31 @@
 ﻿@using TrainingCenterCRM.BLL.Models
 @model TopicModel
 @{
-    var action = ViewData["Action"];
-    ViewData["Title"] = $"{action} topic";
+    ViewData["Title"] = $"Topic";
 }
 <div class="content">
-    <h1 class="content__header">@action topic</h1>
+    <h1 class="content__header">Work with topic</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                @using (Html.BeginForm($"{action}Topic", "Topics", FormMethod.Post))
-                {
-                    @Html.HiddenFor(x => x.Id)
-
+                <form method="post" asp-controller="Topics" asp-action="EditTopic" asp-route-id="@Model.Id">
                     <div class="mb-3 row">
-                        <label asp-for="Title" class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-10">
+                        <label asp-for="Title" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" asp-for="Title" />
                             <span asp-validation-for="Title" class="alert-danger"></span>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label asp-for="Description" class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-10">
+                        <label asp-for="Description" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" asp-for="Description" />
                             <span asp-validation-for="Description" class="alert-danger"></span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">@action topic</button>
-                }
+                    <button type="submit" class="btn btn-success">Ok</button>
+                </form>
             </div>
             <div class="col-sm-4"></div>
         </div>
