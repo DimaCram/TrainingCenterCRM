@@ -28,15 +28,15 @@
                                     <th scope="col">@group.StartDate.ToString("dd.MM.yyyy")</th>
                                     <th scope="col">@group.Teacher.Name @group.Teacher.Surname</th>
                                     <th scope="col">
-                                        <a class="btn btn-success m-1" asp-controller="Groups" asp-action="EditGroup" asp-route-id="@group.Id">Edit</a>
-                                        <a class="btn btn-danger m-1" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id">Delete</a>
+                                        <a class="btn btn-success m-1" asp-controller="Groups" asp-action="EditGroup" asp-route-id="@group.Id"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger m-1" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id"><i class="fas fa-trash"></i></a>
                                     </th>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
-                <a class="btn btn-primary" asp-controller="Groups" asp-action="AddGroup">Add new group</a>
+                <a class="btn btn-primary" asp-controller="Groups" asp-action="EditGroup">Add new group</a>
             </div>
         </div>
         <div class="col-sm-3"></div>

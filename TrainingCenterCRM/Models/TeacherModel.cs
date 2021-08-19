@@ -17,7 +17,7 @@ namespace TrainingCenterCRM.Models
         public string Surname { get; set; }
 
         [Required]
-        public int Age { get; set; }
+        public int? Age { get; set; }
         
         public string Bio { get; set; }
 

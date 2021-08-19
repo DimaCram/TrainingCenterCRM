@@ -58,11 +58,18 @@ namespace TrainingCenterCRM.Controllers
                 else
                     studentRequestService.EditRequest(request);
 
-                return RedirectToAction("Index", "Students");
+                return RedirectToAction("Index", "StudentRequests");
             }
             model.Student = mapper.Map<StudentModel>(studentService.GetStudent(model.StudentId));
             ViewBag.Courses = courseService.GetCourses();
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteRequest(int id)
+        {
+            studentRequestService.DeleteRequest(id);
+            return RedirectToAction("Index", "StudentRequests");
         }
     }
 }

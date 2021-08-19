@@ -16,9 +16,9 @@ using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
-using TrainingCenterCRM.DAL.Context;
+using TrainingCenterCRM.DAL.EF.Context;
+using TrainingCenterCRM.DAL.EF.Repositories;
 using TrainingCenterCRM.DAL.Interfaces;
-using TrainingCenterCRM.DAL.Repositories;
 
 namespace TrainingCenterCRM.WebApi
 {

@@ -34,36 +34,30 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddTopic()
+        public IActionResult EditTopic(int? id)
         {
-            ViewData["Action"] = "Add";
+            var topicModel = id.HasValue ?
+                mapper.Map<TopicModel>(topicService.GetTopic(id.Value)) :
+                new TopicModel();
 
-            return View("EditTopic");
+            return View(topicModel);
         }
 
         [HttpPost]
-        public IActionResult AddTopic(TopicModel topic)
+        public IActionResult EditTopic(TopicModel topicModel)
         {
-            topicService.AddTopic(mapper.Map<Topic>(topic));
+            if (ModelState.IsValid)
+            {
+                var topic = mapper.Map<Topic>(topicModel);
+                if (topic.Id == 0)
+                    topicService.AddTopic(topic);
+                else
+                    topicService.EditTopic(topic);
+    
+                return RedirectToAction("Index", "Topics");
+            }
 
-            return RedirectToAction("Index", "Topics");
-        }
-
-        [HttpGet]
-        public IActionResult EditTopic(int id)
-        {
-            var topicDto = topicService.GetTopic(id);
-            ViewData["Action"] = "Edit";
-
-            return View(mapper.Map<TopicModel>(topicDto));
-        }
-
-        [HttpPost]
-        public IActionResult EditTopic(TopicModel topic)
-        {
-            topicService.EditTopic(mapper.Map<Topic>(topic));
-
-            return RedirectToAction("Index", "Topics");
+            return View(topicModel);
         }
 
         [HttpGet]

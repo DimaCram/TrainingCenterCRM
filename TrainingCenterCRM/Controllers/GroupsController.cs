@@ -38,43 +38,34 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddGroup()
+        public IActionResult EditGroup(int? id)
         {
-            var teachers = teacherService.GetTeachers();
-            ViewData["Teachers"] = mapper.Map<List<Teacher>>(teachers);
+            var groupModel = id.HasValue ?
+                mapper.Map<GroupModel>(groupService.GetGroup(id.Value)) :
+                new GroupModel() { StartDate = DateTime.Today };
 
-            ViewData["Action"] = "Add";
+            ViewBag.Teachers = teacherService.GetTeachers();
 
-            return View("EditGroup");
+            return View(groupModel);
         }
 
         [HttpPost]
-        public IActionResult AddGroup(GroupModel group)
+        public IActionResult EditGroup(GroupModel groupModel)
         {
-            groupService.AddGroup(mapper.Map<Group>(group));
+            if (ModelState.IsValid)
+            {
+                var group = mapper.Map<Group>(groupModel);
+                
+                if (group.Id == 0)
+                    groupService.AddGroup(group);
+                else
+                    groupService.EditGroup(group);
 
-            return RedirectToAction("Index", "Groups");
-        }
+                return RedirectToAction("Index", "Groups");
+            }
 
-        [HttpGet]
-        public IActionResult EditGroup(int id)
-        {
-            var groupDto = groupService.GetGroup(id);
-
-            var teachers = teacherService.GetTeachers();
-
-            ViewData["Teachers"] = mapper.Map<List<Teacher>>(teachers);
-            ViewData["Action"] = "Edit";
-
-            return View(mapper.Map<GroupModel>(groupDto));
-        }
-
-        [HttpPost]
-        public IActionResult EditGroup(GroupModel group)
-        {
-            groupService.EditGroup(mapper.Map<Group>(group));
-
-            return RedirectToAction("Index", "Groups");
+            ViewBag.Teachers = teacherService.GetTeachers();
+            return View(groupModel);
         }
 
         [HttpGet]

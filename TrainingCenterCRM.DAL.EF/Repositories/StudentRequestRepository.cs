@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TrainingCenterCRM.BLL.Models;
-using TrainingCenterCRM.DAL.Context;
+using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories

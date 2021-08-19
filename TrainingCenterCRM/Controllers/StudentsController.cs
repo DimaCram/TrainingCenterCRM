@@ -37,43 +37,34 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddStudent()
+        public IActionResult EditStudent(int? id)
         {
-            var groups = groupService.GetGroups();
-            ViewData["Groups"] = mapper.Map<List<Group>, List<Group>>(groups);
+            var studentModel = id.HasValue ?
+                mapper.Map<StudentModel>(studentService.GetStudent(id.Value)) :
+                new StudentModel();
 
-            ViewData["Action"] = "Add";
+            ViewBag.Groups = groupService.GetGroups();
 
-            return View("EditStudent");
+            return View(studentModel);
         }
 
         [HttpPost]
-        public IActionResult AddStudent(StudentModel student)
+        public IActionResult EditStudent(StudentModel studentModel)
         {
-            studentService.AddStudent(mapper.Map<Student>(student));
+            if (ModelState.IsValid)
+            {
+                var student = mapper.Map<Student>(studentModel);
 
-            return RedirectToAction("Index", "Students");
-        }
+                if (student.Id == 0)
+                    studentService.AddStudent(student);
+                else
+                    studentService.EditStudent(student);
 
-        [HttpGet]
-        public IActionResult EditStudent(int id)
-        {
-            var studentDto = studentService.GetStudent(id);
+                return RedirectToAction("Index", "Students");
+            }
 
-            var groups = groupService.GetGroups();
-            ViewData["Groups"] = mapper.Map<List<Group>, List<Group>>(groups);
-
-            ViewData["Action"] = "Edit";
-
-            return View(mapper.Map<StudentModel>(studentDto));
-        }
-
-        [HttpPost]
-        public IActionResult EditStudent(StudentModel student)
-        {
-            studentService.EditStudent(mapper.Map<Student>(student));
-
-            return RedirectToAction("Index", "Students");
+            ViewBag.Groups = groupService.GetGroups();
+            return View(studentModel);
         }
 
         [HttpGet]
