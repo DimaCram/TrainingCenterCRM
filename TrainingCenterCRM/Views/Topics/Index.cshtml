@@ -10,7 +10,7 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover text-center">
+                    <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Title</th>
@@ -25,7 +25,7 @@
                                 <tr>
                                     <th scope="col">@topic.Title</th>
                                     <th scope="col">@topic.Description</th>
-                                    <th scope="col">
+                                    <th scope="col" class="text-center">
                                         <a class="btn btn-success m-1" asp-controller="Topics" asp-action="EditTopic" asp-route-id="@topic.Id"><i class="fas fa-edit"></i></a>
                                         <a class="btn btn-danger m-1" asp-controller="Topics" asp-action="DeleteTopic" asp-route-id="@topic.Id"><i class="fas fa-trash"></i></a>
                                     </th>
