@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Text;
 using TrainingCenterCRM.BLL.Models;
 
-namespace TrainingCenterCRM.DAL.Context
+namespace TrainingCenterCRM.DAL.EF.Context
 {
-    public class TrainingCenterContext : IdentityDbContext 
+    public class TrainingCenterContext : IdentityDbContext
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Group> Groups { get; set; }
@@ -23,7 +23,8 @@ namespace TrainingCenterCRM.DAL.Context
             Database.EnsureCreated();
         }
 
-        public TrainingCenterContext(DbContextOptions<TrainingCenterContext> options) : base(options) {
+        public TrainingCenterContext(DbContextOptions<TrainingCenterContext> options) : base(options)
+        {
             Database.EnsureCreated();
         }
 
@@ -35,6 +36,6 @@ namespace TrainingCenterCRM.DAL.Context
             );
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Seed();
-        }                              
+        }
     }
 }

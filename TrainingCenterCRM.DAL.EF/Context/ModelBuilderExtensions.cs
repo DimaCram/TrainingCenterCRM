@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using TrainingCenterCRM.BLL.Models;
 
-namespace TrainingCenterCRM.DAL.Context
+namespace TrainingCenterCRM.DAL.EF.Context
 {
     public static class ModelBuilderExtensions
     {
