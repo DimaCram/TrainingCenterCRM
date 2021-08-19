@@ -71,5 +71,11 @@ namespace TrainingCenterCRM.Controllers
             studentRequestService.DeleteRequest(id);
             return RedirectToAction("Index", "StudentRequests");
         }
+
+        public JsonResult GetStudentsByCourse(int courseId)
+        {
+            var students = studentRequestService.GetStudentsByCourse(courseId);
+            return Json(students);
+        }
     }
 }

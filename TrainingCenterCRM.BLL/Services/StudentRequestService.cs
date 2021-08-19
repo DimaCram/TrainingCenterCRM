@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
@@ -45,6 +46,10 @@ namespace TrainingCenterCRM.BLL.Services
         public List<StudentRequest> GetRequests()
         {
             return studentRequestRepository.GetAll();
+        }
+        public IEnumerable<Student> GetStudentsByCourse(int courseId)
+        {
+            return studentRequestRepository.GetAll().Where(sr => sr.CourseId == courseId).Select(s => s.Student).Distinct();
         }
     }
 }

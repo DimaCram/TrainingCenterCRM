@@ -12,5 +12,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         void DeleteRequest(int id);
         StudentRequest GetRequest(int id);
         List<StudentRequest> GetRequests();
+        IEnumerable<Student> GetStudentsByCourse(int courseId);
     }
 }

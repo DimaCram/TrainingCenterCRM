@@ -274,3 +274,9 @@ input:-webkit-autofill {
 .input-validation-error {
     border: 1px solid #f75160;
 }
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
