@@ -7,8 +7,8 @@ namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface IGroupService
     {
-        void AddGroup(Group groupDTO);
-        void EditGroup(Group groupDTO);
+        void AddGroup(Group group, List<int> studentsId);
+        void EditGroup(Group group);
         void DeleteGroup(int id);
         Group GetGroup(int id);
         List<Group> GetGroups();

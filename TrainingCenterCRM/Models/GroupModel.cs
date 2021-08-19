@@ -20,8 +20,12 @@ namespace TrainingCenterCRM.Models
         
         public List<StudentModel> Students { get; set; } = new List<StudentModel>();
 
-        [Required]
         [Display(Name = "Teacher")]
         public int TeacherId { get; set; }
+
+
+        [Required]
+        public int CourseId { get; set; }
+        public CourseModel Course { get; set; }
     }
 }

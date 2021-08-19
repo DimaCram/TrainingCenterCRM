@@ -50,6 +50,7 @@ namespace TrainingCenterCRM
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<Topic>, TopicRepository>();
             services.AddScoped<IRepository<StudentRequest>, StudentRequestRepository>();
+            services.AddScoped<IRepository<StudentToGroupAssignment>, StudentToGroupAssignmentRepository>();
 
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IGroupService, GroupService>();
@@ -57,6 +58,7 @@ namespace TrainingCenterCRM
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<IStudentRequestService, StudentRequestService>();
+            services.AddScoped<IStudentToGroupAssignmentService, StudentToGroupAssignmentService>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<TrainingCenterContext>();
