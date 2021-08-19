@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainingCenterCRM.DAL.EF.Context;
 
 namespace TrainingCenterCRM.DAL.Migrations
 {
     [DbContext(typeof(TrainingCenterContext))]
-    partial class TrainingCenterContextModelSnapshot : ModelSnapshot
+    [Migration("20210819100126_TeacherIdNullInGroup")]
+    partial class TeacherIdNullInGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,14 +50,14 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8480ea85-c39a-4f36-ab00-7269a8fd5bfb",
-                            ConcurrencyStamp = "0fca399c-5619-4dca-8f0f-36348b95d922",
+                            Id = "d7cd42b6-d746-478a-a346-f36a4a152955",
+                            ConcurrencyStamp = "43c87a60-4c13-423b-94a1-bf1643b7fba9",
                             Name = "user"
                         },
                         new
                         {
-                            Id = "2aba9b23-3e8a-4819-8d99-f12e1d51ffb1",
-                            ConcurrencyStamp = "41bfb663-e345-4e67-a930-83edcbd56c9d",
+                            Id = "381651c5-6afb-40d4-9022-043c0155d40c",
+                            ConcurrencyStamp = "b0ec7213-35a4-48a8-bb42-3d3e44d31a12",
                             Name = "admin"
                         });
                 });
@@ -259,7 +261,7 @@ namespace TrainingCenterCRM.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CourseId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -268,7 +270,7 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int?>("TeacherId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -290,7 +292,7 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -468,15 +470,17 @@ namespace TrainingCenterCRM.DAL.Migrations
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", null)
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
                         .WithMany("Groups")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TrainingCenterCRM.BLL.Models.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Course");
 
                     b.Navigation("Teacher");
                 });
@@ -485,9 +489,7 @@ namespace TrainingCenterCRM.DAL.Migrations
                 {
                     b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
                         .WithMany("Students")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GroupId");
 
                     b.Navigation("Group");
                 });
