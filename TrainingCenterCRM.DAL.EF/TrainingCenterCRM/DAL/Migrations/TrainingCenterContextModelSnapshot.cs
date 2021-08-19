@@ -48,14 +48,14 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "835e9974-869d-4af9-b4a6-06b8e3ed88cc",
-                            ConcurrencyStamp = "dc18fd7f-0fb6-47eb-94c5-d109689a711d",
+                            Id = "c5ed9eba-b8a5-4e44-a1fd-e7bed61a0336",
+                            ConcurrencyStamp = "deb285db-3c22-4760-898f-939219d428da",
                             Name = "user"
                         },
                         new
                         {
-                            Id = "61394e62-744c-4a3a-83b1-9be0eb028f98",
-                            ConcurrencyStamp = "66ef8ccc-1d92-4e56-8839-deb47c14e6a3",
+                            Id = "6a0089be-9086-489a-8715-7a5aef0de79f",
+                            ConcurrencyStamp = "f6b48a83-2644-4eb2-a0eb-eb404c0b84b1",
                             Name = "admin"
                         });
                 });
@@ -250,6 +250,29 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasIndex("TopicId");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Базовый курс",
+                            Title = "Программирование на C#",
+                            TopicId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Профессиональный курс",
+                            Title = "Промышленное программирование на ASP.NET",
+                            TopicId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Базовый курс",
+                            Title = "Программирование на Java",
+                            TopicId = 1
+                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
@@ -296,9 +319,6 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudentRequesrId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
@@ -307,6 +327,36 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 22,
+                            Name = "Darya",
+                            Surname = "Fedorova"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 22,
+                            Name = "Andrey",
+                            Surname = "Popov"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Age = 24,
+                            Name = "Dima",
+                            Surname = "Karasev"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Age = 28,
+                            Name = "Denis",
+                            Surname = "Polonikov"
+                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentRequest", b =>
@@ -332,10 +382,43 @@ namespace TrainingCenterCRM.DAL.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("StudentId")
-                        .IsUnique();
+                    b.HasIndex("StudentId");
 
                     b.ToTable("StudentRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comments = "Хочу быть программистом!!!",
+                            CourseId = 1,
+                            ReadyToStartDate = new DateTime(2021, 8, 19, 20, 47, 32, 164, DateTimeKind.Local).AddTicks(3243),
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comments = "",
+                            CourseId = 2,
+                            ReadyToStartDate = new DateTime(2021, 8, 19, 20, 47, 32, 166, DateTimeKind.Local).AddTicks(9064),
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comments = "",
+                            CourseId = 2,
+                            ReadyToStartDate = new DateTime(2021, 8, 19, 20, 47, 32, 166, DateTimeKind.Local).AddTicks(9152),
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Comments = "",
+                            CourseId = 2,
+                            ReadyToStartDate = new DateTime(2021, 8, 19, 20, 47, 32, 166, DateTimeKind.Local).AddTicks(9156),
+                            StudentId = 4
+                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentToGroupAssignment", b =>
@@ -388,6 +471,24 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 25,
+                            Bio = "Sphere of interests: web and mobile application testing,IoT, AR, API testing; creation and establishment of a teststrategy and a policy of the QA department; review of testingprocesses within projects; team management (interviews, hiring,tech. reviews, employee development).",
+                            Name = "Elena ",
+                            Surname = "Rukavichnikova"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 26,
+                            Bio = "Area of ​​interest: Front-end development, modern frameworks (Angular, Vue),cloud technologies (Google Firebase, Amazon Web Services).",
+                            Name = "Dmitry",
+                            Surname = "Astreiko"
+                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Topic", b =>
@@ -406,6 +507,20 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Topics");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Платформа ASP.NET от компании Microsoft применяется для создания как простых web - сайтов,так и масштабных проектов – высоконадежных сетевых порталов,которые рассчитаны на многотысячную аудиторию.Благодаря безопасности и гибкости активно используется крупными компаниями: популярные сайты Microsoft, Lego, Volvo, Toyota, L'Oreal разработаны именно на ASP.NET.",
+                            Title = "ASP.NET"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Язык программирования Java находится в числе лидеров во многих рейтингах: TIOBE – на основе подсчёта результатов поисковых запросов, PYPL – по анализу популярности в поисковике Google, IEEE – по комплексу показателей, таких как упоминание в проектах, статьях, вакансиях и других.Такая популярность обусловлена практически безграничными его возможностями и областями применения.Java не зависит от определённой платформы, его называют безопасным, портативным, высокопроизводительным и динамичным языком.",
+                            Title = "Java"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -505,8 +620,8 @@ namespace TrainingCenterCRM.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("TrainingCenterCRM.BLL.Models.Student", "Student")
-                        .WithOne("StudentRequest")
-                        .HasForeignKey("TrainingCenterCRM.BLL.Models.StudentRequest", "StudentId")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -538,11 +653,6 @@ namespace TrainingCenterCRM.DAL.Migrations
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
                 {
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>
-                {
-                    b.Navigation("StudentRequest");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Topic", b =>
