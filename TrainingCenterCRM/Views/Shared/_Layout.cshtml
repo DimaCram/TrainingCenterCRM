@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar">
             <button class="btn btn-link navbar-button" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <a class="navbar-brand ms-3" href="index.html"><span>Training</span> Center</a>
+            <a class="navbar-brand ms-3" asp-controller="Students" asp-action="Index"><span>Training</span> Center</a>
             <div class="d-none d-md-inline-block ms-auto">
                 <p class="user-name mb-0 me-2">@Context.User.Identity.Name</p>
             </div>
