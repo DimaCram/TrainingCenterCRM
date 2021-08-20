@@ -1,11 +1,22 @@
-﻿$('select').on('change', function () {
+﻿$(document).ready(function () {
+    getStudentsByCourse();
+});
 
+$('select#CourseId').on('change', function () {
+    getStudentsByCourse();
+});
+
+function getStudentsByCourse() {
     let courseId = $("select#CourseId option:checked").val();
-
+    let groupId = $("#Id").val();
+        
     $.ajax({
         type: "POST",
         url: "/StudentRequests/GetStudentsByCourse",
-        data: { "courseId": courseId },
+        data: {
+            "courseId": courseId,
+            "groupId": groupId
+        },
         success: function (students) {
 
             $("#students").empty();
@@ -22,7 +33,7 @@
             alert(response.responseText);
         }
     });
-});
+}
 
 function showStudents(students) {
 
@@ -36,12 +47,24 @@ function showStudents(students) {
     `);
 
     students.forEach((student) => {
-        $(".list-students").append(`
-            <li class="list-group-item">
-                <label class="list-item">${student.name} ${student.surname}
-                    <input type="checkbox" name="studentsId" value="${student.id}">
-                </label>
-            </li> 
-        `);
+        if (student.hasGroup) {
+            $(".list-students").append(`
+                <li class="list-group-item">
+                    <label class="list-item">${student.name} ${student.surname}
+                        <input type="checkbox" name="studentsId" value="${student.id}" checked>
+                    </label>
+                </li> 
+            `);
+        }
+        else
+        {
+            $(".list-students").append(`
+                <li class="list-group-item">
+                    <label class="list-item">${student.name} ${student.surname}
+                        <input type="checkbox" name="studentsId" value="${student.id}">
+                    </label>
+                </li> 
+            `);
+        }
     });
 }
