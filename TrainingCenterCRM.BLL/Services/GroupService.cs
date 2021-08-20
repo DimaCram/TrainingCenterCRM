@@ -67,13 +67,13 @@ namespace TrainingCenterCRM.BLL.Services
             if (group == null)
                 throw new ArgumentException();
 
-            var assignmentsForDelete = studentToGroupRepository.Find(stg => stg.GroupId == group.Id).Where(stg => !studentsId.Contains(stg.StudentId.Value)).ToList();
+            var assignmentsForDelete = studentToGroupRepository.Find(stg => stg.GroupId == group.Id).Where(stg => !studentsId.Contains(stg.StudentId)).ToList();
 
             foreach(var assigment in assignmentsForDelete)
             {
                 studentToGroupRepository.Delete(assigment.StudentToGroupAssignmentId);
 
-                var student = studentRepository.Get(assigment.StudentId.Value);
+                var student = studentRepository.Get(assigment.StudentId);
                 student.GroupId = null;
                 studentRepository.Update(student);
 
@@ -81,7 +81,7 @@ namespace TrainingCenterCRM.BLL.Services
                 {
                     ReadyToStartDate = DateTime.Today,
                     CourseId = group.CourseId,
-                    StudentId = assigment.StudentId.Value,
+                    StudentId = assigment.StudentId,
                     Comments = ""
                 };
                 studentRequestRepository.Create(studentRequests);
@@ -90,7 +90,7 @@ namespace TrainingCenterCRM.BLL.Services
 
             foreach (var studentId in studentsId)
             {
-                var assignment = studentToGroupRepository.Find(stg => stg.StudentId.Value == studentId).FirstOrDefault();
+                var assignment = studentToGroupRepository.Find(stg => stg.StudentId == studentId).FirstOrDefault();
                 
                 if (assignment == null)
                 {
