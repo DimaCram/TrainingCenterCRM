@@ -19,6 +19,8 @@ namespace TrainingCenterCRM.Models
         [Required]
         public int Age { get; set; }
 
+        public bool HasGroup { get; set; }
+
         [Display(Name = "Group name")]
         public int? GroupId { get; set; }
         

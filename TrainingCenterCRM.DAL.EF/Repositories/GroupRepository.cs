@@ -18,12 +18,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         }
         public List<Group> GetAll()
         {
-            return db.Groups.Include(g => g.Teacher).ToList();
+            return db.Groups.Include(g => g.Teacher)
+                            .ToList();
         }
 
         public Group Get(int id)
         {
-            return db.Groups.Find(id);
+            return db.Groups.Include(s => s.Students).FirstOrDefault(g => g.Id == id);
         }
 
         public IEnumerable<Group> Find(Func<Group, bool> predicate)

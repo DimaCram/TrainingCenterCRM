@@ -16,12 +16,12 @@ namespace TrainingCenterCRM.BLL.Services
         private readonly IRepository<Student> studentRepository;
         private readonly IRepository<StudentRequest> studentRequestRepository;
 
-        public GroupService(IRepository<Group> repository,
+        public GroupService(IRepository<Group> groupRepository,
                             IRepository<StudentToGroupAssignment> studentToGroupRepository,
                             IRepository<Student> studentRepository, 
                             IRepository<StudentRequest> studentRequestRepository)
         {
-            this.groupRepository = repository;
+            this.groupRepository = groupRepository;
             this.studentToGroupRepository = studentToGroupRepository;
             this.studentRepository = studentRepository;
             this.studentRequestRepository = studentRequestRepository;
@@ -62,11 +62,60 @@ namespace TrainingCenterCRM.BLL.Services
             groupRepository.Delete(id);
         }
 
-        public void EditGroup(Group group)
+        public void EditGroup(Group group, List<int> studentsId)
         {
             if (group == null)
                 throw new ArgumentException();
 
+            var assignmentsForDelete = studentToGroupRepository.Find(stg => stg.GroupId == group.Id).Where(stg => !studentsId.Contains(stg.StudentId.Value)).ToList();
+
+            foreach(var assigment in assignmentsForDelete)
+            {
+                studentToGroupRepository.Delete(assigment.StudentToGroupAssignmentId);
+
+                var student = studentRepository.Get(assigment.StudentId.Value);
+                student.GroupId = null;
+                studentRepository.Update(student);
+
+                var studentRequests = new StudentRequest
+                {
+                    ReadyToStartDate = DateTime.Today,
+                    CourseId = group.CourseId,
+                    StudentId = assigment.StudentId.Value,
+                    Comments = ""
+                };
+                studentRequestRepository.Create(studentRequests);
+            }
+
+
+            foreach (var studentId in studentsId)
+            {
+                var assignment = studentToGroupRepository.Find(stg => stg.StudentId.Value == studentId).FirstOrDefault();
+                
+                if (assignment == null)
+                {
+                    assignment = new StudentToGroupAssignment
+                    {
+                        GroupId = group.Id,
+                        StudentId = studentId,
+                        AssignmentDate = DateTime.Now,
+                        Result = ResultType.Graduated
+                    };
+                    studentToGroupRepository.Create(assignment);
+
+                    var student = studentRepository.Get(studentId);
+                    student.GroupId = group.Id;
+                    studentRepository.Update(student);
+                }
+            }
+
+            var requestsId = studentRequestRepository.Find(r => studentsId.Contains(r.StudentId) && r.CourseId == group.CourseId)
+                                                     .Select(r => r.Id);
+
+            foreach (var requestId in requestsId)
+            {
+                studentRequestRepository.Delete(requestId);
+            }
             groupRepository.Update(group);
         }
 
@@ -78,6 +127,11 @@ namespace TrainingCenterCRM.BLL.Services
         public List<Group> GetGroups()
         {
             return groupRepository.GetAll();
+        }
+        public IEnumerable<Student> GetStudentsWithGroup(int groupId, int courseId)
+        {
+            var group = groupRepository.Get(groupId);
+            return group.CourseId == courseId ? group.Students : new List<Student>();
         }
     }
 }

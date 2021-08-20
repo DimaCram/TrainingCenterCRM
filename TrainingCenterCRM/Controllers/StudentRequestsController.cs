@@ -17,16 +17,19 @@ namespace TrainingCenterCRM.Controllers
         private readonly IStudentRequestService studentRequestService;
         private readonly IStudentService studentService;
         private readonly ICourseService courseService;
+        private readonly IGroupService groupService;
 
-        public StudentRequestsController(IMapper mapper, 
+        public StudentRequestsController(IMapper mapper,
                                          IStudentRequestService studentRequestService,
                                          IStudentService studentService,
-                                         ICourseService courseService)
+                                         ICourseService courseService, 
+                                         IGroupService groupService)
         {
             this.mapper = mapper;
             this.studentRequestService = studentRequestService;
             this.studentService = studentService;
             this.courseService = courseService;
+            this.groupService = groupService;
         }
 
         public IActionResult Index()
@@ -72,10 +75,23 @@ namespace TrainingCenterCRM.Controllers
             return RedirectToAction("Index", "StudentRequests");
         }
 
-        public JsonResult GetStudentsByCourse(int courseId)
+        public JsonResult GetStudentsByCourse(int courseId, int groupId)
         {
-            var students = studentRequestService.GetStudentsByCourse(courseId);
-            return Json(students);
+            var students = mapper.Map<List<StudentModel>>(studentRequestService.GetStudentsByCourse(courseId));
+            
+            if (groupId != 0)
+            {
+                var studentsWithGroup = mapper.Map<List<StudentModel>>(groupService.GetStudentsWithGroup(groupId, courseId));
+                foreach (var studentWithGroup in studentsWithGroup)
+                {
+                    studentWithGroup.HasGroup = true;
+                    studentWithGroup.Group = null;
+                }
+
+                students.AddRange(studentsWithGroup);
+            }
+
+            return Json(students.OrderBy(s => s.Name));
         }
     }
 }

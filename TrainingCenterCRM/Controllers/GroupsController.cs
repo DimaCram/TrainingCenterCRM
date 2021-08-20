@@ -52,7 +52,18 @@ namespace TrainingCenterCRM.Controllers
 
             return View(groupModel);
         }
+        [HttpGet]
+        public IActionResult AddGroup(int? id)
+        {
+            var groupModel = id.HasValue ?
+                mapper.Map<GroupModel>(groupService.GetGroup(id.Value)) :
+                new GroupModel() { StartDate = DateTime.Today };
 
+            ViewBag.Teachers = teacherService.GetTeachers();
+            ViewBag.Courses = courseService.GetCourses();
+
+            return View("EditGroup", groupModel);
+        }
         [HttpPost]
         public IActionResult EditGroup(GroupModel groupModel, List<int> studentsId)
         {
@@ -63,7 +74,7 @@ namespace TrainingCenterCRM.Controllers
                 if (group.Id == 0)
                     groupService.AddGroup(group, studentsId);
                 else
-                    groupService.EditGroup(group);
+                    groupService.EditGroup(group, studentsId);
 
                 return RedirectToAction("Index", "Groups");
             }
