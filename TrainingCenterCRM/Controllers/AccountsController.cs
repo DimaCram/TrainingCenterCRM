@@ -18,7 +18,10 @@ namespace TrainingCenterCRM.Controllers
 
         private readonly ILogger logger;
 
-        public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ILogger logger)
+        public AccountsController(UserManager<IdentityUser> userManager,
+                                  SignInManager<IdentityUser> signInManager,
+                                  RoleManager<IdentityRole> roleManager,
+                                  ILogger<AccountsController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;

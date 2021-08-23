@@ -27,7 +27,7 @@ namespace TrainingCenterCRM.Controllers
                                 IGroupService groupService,
                                 ITeacherService teacherService,
                                 ICourseService courseService,
-                                ILogger logger)
+                                ILogger<GroupsController> logger)
         {
             this.mapper = mapper;
             this.logger = logger;

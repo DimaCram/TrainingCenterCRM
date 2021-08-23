@@ -19,7 +19,9 @@ namespace TrainingCenterCRM.Controllers
 
         private readonly IMapper mapper;
         private readonly ILogger logger;
-        public TeachersController(IMapper mapper, ITeacherService teacherService, ILogger logger)
+        public TeachersController(IMapper mapper,
+                                  ITeacherService teacherService,
+                                  ILogger<TeachersController> logger)
         {
             this.mapper = mapper;
             this.logger = logger;
