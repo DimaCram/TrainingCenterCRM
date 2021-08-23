@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace TrainingCenterCRM.Controllers
     public class StudentRequestsController : Controller
     {
         private readonly IMapper mapper;
+        private readonly ILogger logger;
 
         private readonly IStudentRequestService studentRequestService;
         private readonly IStudentService studentService;
@@ -22,10 +24,13 @@ namespace TrainingCenterCRM.Controllers
         public StudentRequestsController(IMapper mapper,
                                          IStudentRequestService studentRequestService,
                                          IStudentService studentService,
-                                         ICourseService courseService, 
-                                         IGroupService groupService)
+                                         ICourseService courseService,
+                                         IGroupService groupService,
+                                         ILogger logger)
         {
             this.mapper = mapper;
+            this.logger = logger;
+
             this.studentRequestService = studentRequestService;
             this.studentService = studentService;
             this.courseService = courseService;
@@ -34,64 +39,104 @@ namespace TrainingCenterCRM.Controllers
 
         public IActionResult Index()
         {
-            var requests = studentRequestService.GetRequests();
-            return View(requests);
+            try
+            {
+                var requests = studentRequestService.GetRequests();
+                return View(requests);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
         [HttpGet]
         public IActionResult EditRequest(int? id, int studentId)
         {
-            var request = id.HasValue ? 
-                mapper.Map<StudentRequestModel>(studentRequestService.GetRequest(id.Value)) : 
-                new StudentRequestModel() { ReadyToStartDate = DateTime.Today };
+            try
+            {
+                var request = id.HasValue ?
+                    mapper.Map<StudentRequestModel>(studentRequestService.GetRequest(id.Value)) :
+                    new StudentRequestModel() { ReadyToStartDate = DateTime.Today };
 
-            request.Student = mapper.Map<StudentModel>(studentService.GetStudent(studentId));
-            ViewBag.Courses = courseService.GetCourses();
-            
-            return View(request);
+                request.Student = mapper.Map<StudentModel>(studentService.GetStudent(studentId));
+                ViewBag.Courses = courseService.GetCourses();
+
+                return View(request);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
         [HttpPost]
         public IActionResult EditRequest(StudentRequestModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var request = mapper.Map<StudentRequest>(model);
+                if (ModelState.IsValid)
+                {
+                    var request = mapper.Map<StudentRequest>(model);
 
-                if (model.Id == 0)
-                    studentRequestService.AddRequest(request);
-                else
-                    studentRequestService.EditRequest(request);
+                    if (model.Id == 0)
+                        studentRequestService.AddRequest(request);
+                    else
+                        studentRequestService.EditRequest(request);
 
-                return RedirectToAction("Index", "StudentRequests");
+                    return RedirectToAction("Index", "StudentRequests");
+                }
+                model.Student = mapper.Map<StudentModel>(studentService.GetStudent(model.StudentId));
+                ViewBag.Courses = courseService.GetCourses();
+                return View(model);
             }
-            model.Student = mapper.Map<StudentModel>(studentService.GetStudent(model.StudentId));
-            ViewBag.Courses = courseService.GetCourses();
-            return View(model);
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
         public IActionResult DeleteRequest(int id)
         {
-            studentRequestService.DeleteRequest(id);
-            return RedirectToAction("Index", "StudentRequests");
+            try
+            {
+                studentRequestService.DeleteRequest(id);
+                return RedirectToAction("Index", "StudentRequests");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         public JsonResult GetStudentsByCourse(int courseId, int groupId)
         {
-            var students = mapper.Map<List<StudentModel>>(studentRequestService.GetStudentsByCourse(courseId));
-            
-            if (groupId != 0)
+            try
             {
-                var studentsWithGroup = mapper.Map<List<StudentModel>>(groupService.GetStudentsWithGroup(groupId, courseId));
-                foreach (var studentWithGroup in studentsWithGroup)
+                var students = mapper.Map<List<StudentModel>>(studentRequestService.GetStudentsByCourse(courseId));
+
+                if (groupId != 0)
                 {
-                    studentWithGroup.HasGroup = true;
-                    studentWithGroup.Group = null;
+                    var studentsWithGroup = mapper.Map<List<StudentModel>>(groupService.GetStudentsWithGroup(groupId, courseId));
+                    foreach (var studentWithGroup in studentsWithGroup)
+                    {
+                        studentWithGroup.HasGroup = true;
+                        studentWithGroup.Group = null;
+                    }
+
+                    students.AddRange(studentsWithGroup);
                 }
 
-                students.AddRange(studentsWithGroup);
+                return Json(students.OrderBy(s => s.Name));
             }
-
-            return Json(students.OrderBy(s => s.Name));
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return null;
+            }
         }
     }
 }

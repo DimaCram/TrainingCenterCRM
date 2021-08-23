@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,14 @@ namespace TrainingCenterCRM.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        private readonly ILogger logger;
+
+        public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            this.logger = logger;
         }
         [HttpGet]
         public IActionResult Register()
@@ -29,28 +33,36 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = new IdentityUser { Email = model.Email, UserName = model.Email };
-               
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    if (await _roleManager.RoleExistsAsync("user"))
-                        await _userManager.AddToRoleAsync(user, "user");
+                    var user = new IdentityUser { Email = model.Email, UserName = model.Email };
 
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Students");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        if (await _roleManager.RoleExistsAsync("user"))
+                            await _userManager.AddToRoleAsync(user, "user");
+
+                        await _signInManager.SignInAsync(user, false);
+                        return RedirectToAction("Index", "Students");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
                     }
                 }
+                return View(model);
             }
-            return View(model);
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
@@ -61,34 +73,49 @@ namespace TrainingCenterCRM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
-        {
-            if (ModelState.IsValid)
+        {   
+            try
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
+                    if (result.Succeeded)
                     {
-                        return Redirect(model.ReturnUrl);
+                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                        {
+                            return Redirect(model.ReturnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Students");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Students");
+                        ModelState.AddModelError("", "Incorrect email or password");
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Incorrect email or password");
-                }
+                return View(model);
             }
-            return View(model);
+            catch (Exception ex) 
+            { 
+                logger.LogError(ex.ToString()); 
+                return StatusCode(500); 
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Students");
+        {   try
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Students");
+            }
+            catch (Exception ex) 
+            { 
+                logger.LogError(ex.ToString()); 
+                return StatusCode(500);
+            }
         }
         public IActionResult RecoveryPassword()
         {
