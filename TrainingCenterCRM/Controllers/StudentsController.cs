@@ -73,5 +73,13 @@ namespace TrainingCenterCRM.Controllers
             studentService.DeleteStudent(id);
             return RedirectToAction("Index", "Students");
         }
+
+        [HttpGet]
+        public JsonResult GetStudent(int id)
+        {
+            var studentModel = mapper.Map<StudentModel>(studentService.GetStudentWithGroup(id));
+
+            return Json(studentModel);
+        }
     }
 }

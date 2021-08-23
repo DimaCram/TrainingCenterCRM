@@ -11,6 +11,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         void EditStudent(Student studentDTO);
         void DeleteStudent(int id);
         Student GetStudent(int id);
+        Student GetStudentWithGroup(int id);
         List<Student> GetStudents();
     }
 }
