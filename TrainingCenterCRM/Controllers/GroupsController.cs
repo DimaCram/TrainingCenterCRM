@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,16 @@ namespace TrainingCenterCRM.Controllers
         private readonly ICourseService courseService;
 
         private readonly IMapper mapper;
+        private readonly ILogger logger;
 
-        public GroupsController(IMapper mapper, 
+        public GroupsController(IMapper mapper,
                                 IGroupService groupService,
                                 ITeacherService teacherService,
-                                ICourseService courseService)
+                                ICourseService courseService,
+                                ILogger<GroupsController> logger)
         {
             this.mapper = mapper;
+            this.logger = logger;
 
             this.groupService = groupService;
             this.teacherService = teacherService;
@@ -35,60 +39,100 @@ namespace TrainingCenterCRM.Controllers
 
         public IActionResult Index()
         {
-            var groups = groupService.GetGroups();
+            try
+            {
+                var groups = groupService.GetGroups();
 
-            return View(groups);
+                return View(groups);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
         public IActionResult EditGroup(int? id)
         {
-            var groupModel = id.HasValue ?
-                mapper.Map<GroupModel>(groupService.GetGroup(id.Value)) :
-                new GroupModel() { StartDate = DateTime.Today };
+            try
+            {
+                var groupModel = id.HasValue ?
+                    mapper.Map<GroupModel>(groupService.GetGroup(id.Value)) :
+                    new GroupModel() { StartDate = DateTime.Today };
 
-            ViewBag.Teachers = teacherService.GetTeachers();
-            ViewBag.Courses = courseService.GetCourses();
+                ViewBag.Teachers = teacherService.GetTeachers();
+                ViewBag.Courses = courseService.GetCourses();
 
-            return View(groupModel);
+                return View(groupModel);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
         [HttpGet]
         public IActionResult AddGroup(int? id)
         {
-            var groupModel = id.HasValue ?
-                mapper.Map<GroupModel>(groupService.GetGroup(id.Value)) :
-                new GroupModel() { StartDate = DateTime.Today };
+            try
+            {
+                var groupModel = id.HasValue ?
+                    mapper.Map<GroupModel>(groupService.GetGroup(id.Value)) :
+                    new GroupModel() { StartDate = DateTime.Today };
 
-            ViewBag.Teachers = teacherService.GetTeachers();
-            ViewBag.Courses = courseService.GetCourses();
+                ViewBag.Teachers = teacherService.GetTeachers();
+                ViewBag.Courses = courseService.GetCourses();
 
-            return View("EditGroup", groupModel);
+                return View("EditGroup", groupModel);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
         [HttpPost]
         public IActionResult EditGroup(GroupModel groupModel, List<int> studentsId)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var group = mapper.Map<Group>(groupModel);
-                
-                if (group.Id == 0)
-                    groupService.AddGroup(group, studentsId);
-                else
-                    groupService.EditGroup(group, studentsId);
+                if (ModelState.IsValid)
+                {
+                    var group = mapper.Map<Group>(groupModel);
 
-                return RedirectToAction("Index", "Groups");
+                    if (group.Id == 0)
+                        groupService.AddGroup(group, studentsId);
+                    else
+                        groupService.EditGroup(group, studentsId);
+
+                    return RedirectToAction("Index", "Groups");
+                }
+
+                ViewBag.Courses = courseService.GetCourses();
+                ViewBag.Teachers = teacherService.GetTeachers();
+                return View(groupModel);
             }
-
-            ViewBag.Courses = courseService.GetCourses();
-            ViewBag.Teachers = teacherService.GetTeachers();
-            return View(groupModel);
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
         public IActionResult DeleteGroup(int id)
         {
-            groupService.DeleteGroup(id);
-            return RedirectToAction("Index", "Groups");
+            try
+            {
+                groupService.DeleteGroup(id);
+                return RedirectToAction("Index", "Groups");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
     }
 }
