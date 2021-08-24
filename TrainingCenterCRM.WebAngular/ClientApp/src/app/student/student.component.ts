@@ -3,7 +3,8 @@ import { Component, Inject } from "@angular/core";
 
 @Component({
     selector: 'app-student',
-    templateUrl: './student.component.html'
+    templateUrl: './student.component.html',
+    styleUrls: ['./student.compomemt.css']
   })
   export class StudentComponent {
     public students: Student[];
@@ -14,6 +15,17 @@ import { Component, Inject } from "@angular/core";
         this.students = result;
         console.log(result);
       }, error => console.error(error));
+    }
+
+    sort(prop: string, isUp : boolean){
+      this.students = this.students.sort(function (a, b) {
+        if(isUp){
+          return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+        }
+        else{
+          return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+        }
+      });
     }
   }
 
