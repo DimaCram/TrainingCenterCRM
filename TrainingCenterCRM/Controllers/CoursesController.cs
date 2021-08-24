@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,59 +19,91 @@ namespace TrainingCenterCRM.Controllers
         private readonly ITopicService topicService;
 
         private readonly IMapper mapper;
+        private readonly ILogger logger;
 
-        public CoursesController(IMapper mapper, ICourseService courseService, ITopicService topicService)
+        public CoursesController(IMapper mapper,
+                                 ICourseService courseService,
+                                 ITopicService topicService,
+                                 ILogger<CoursesController> logger)
         {
             this.mapper = mapper;
+            this.logger = logger;
 
-            this.courseService = courseService; 
-            this.topicService = topicService; 
+            this.courseService = courseService;
+            this.topicService = topicService;
         }
 
         public IActionResult Index()
         {
-            var courses = courseService.GetCourses();
-            var coursesDto = mapper.Map<List<Course>>(courses);
+            try
+            {
+                var courses = courseService.GetCourses();
+                var coursesDto = mapper.Map<List<Course>>(courses);
 
-            return View(coursesDto);
+                return View(coursesDto);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
         public IActionResult EditCourse(int? id)
-        {
-            ViewData["Topics"] = topicService.GetTopics();
-
-            var course = id.HasValue ?
-                mapper.Map<CourseModel>(courseService.GetCourse(id.Value)) :
-                new CourseModel();
-
-            return View(course);
+        {   
+            try
+            {
+                ViewData["Topics"] = topicService.GetTopics();
+                var course = id.HasValue ? mapper.Map<CourseModel>(courseService.GetCourse(id.Value)) : new CourseModel();
+                return View(course);
+            }
+            catch (Exception ex) {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
         public IActionResult EditCourse(CourseModel courseModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var course = mapper.Map<Course>(courseModel);
+                if (ModelState.IsValid)
+                {
+                    var course = mapper.Map<Course>(courseModel);
 
-                if(course.Id == 0)
-                    courseService.AddCourse(course);
-                else
-                    courseService.EditCourse(course);
-                
-                return RedirectToAction("Index");
+                    if (course.Id == 0)
+                        courseService.AddCourse(course);
+                    else
+                        courseService.EditCourse(course);
+
+                    return RedirectToAction("Index");
+                }
+
+                ViewData["Topics"] = topicService.GetTopics();
+                return View(courseModel);
             }
-
-            ViewData["Topics"] = topicService.GetTopics();
-            return View(courseModel);
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
         public IActionResult DeleteCourse(int id)
         {
-            courseService.DeleteCourse(id);
-            return RedirectToAction("Index");
+            try
+            {
+                courseService.DeleteCourse(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
     }
 }

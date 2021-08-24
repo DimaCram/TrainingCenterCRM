@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,14 @@ namespace TrainingCenterCRM.Controllers
         private readonly IGroupService groupService;
 
         private readonly IMapper mapper;
-        public StudentsController(IMapper mapper, IGroupService groupService, IStudentService studentService)
+        private readonly ILogger logger;
+        public StudentsController(IMapper mapper,
+                                  IGroupService groupService,
+                                  IStudentService studentService,
+                                  ILogger<StudentsController> logger)
         {
             this.mapper = mapper;
+            this.logger = logger;
 
             this.studentService = studentService;
             this.groupService = groupService;
@@ -30,56 +36,95 @@ namespace TrainingCenterCRM.Controllers
 
         public IActionResult Index()
         {
-            var students = studentService.GetStudents();
-            var studentsDto = mapper.Map<IEnumerable<Student>, List<Student>>(students);
-
-            return View(studentsDto);
+            try
+            {
+                var students = studentService.GetStudents();
+                var studentsDto = mapper.Map<IEnumerable<Student>, List<Student>>(students);
+                return View(studentsDto);
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
         public IActionResult EditStudent(int? id)
         {
-            var studentModel = id.HasValue ?
-                mapper.Map<StudentModel>(studentService.GetStudent(id.Value)) :
-                new StudentModel();
+            try
+            {
+                var studentModel = id.HasValue ?
+                    mapper.Map<StudentModel>(studentService.GetStudent(id.Value)) :
+                    new StudentModel();
 
-            ViewBag.Groups = groupService.GetGroups();
+                ViewBag.Groups = groupService.GetGroups();
 
-            return View(studentModel);
+                return View(studentModel);
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
         public IActionResult EditStudent(StudentModel studentModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var student = mapper.Map<Student>(studentModel);
+                if (ModelState.IsValid)
+                {
+                    var student = mapper.Map<Student>(studentModel);
 
-                if (student.Id == 0)
-                    studentService.AddStudent(student);
-                else
-                    studentService.EditStudent(student);
+                    if (student.Id == 0)
+                        studentService.AddStudent(student);
+                    else
+                        studentService.EditStudent(student);
 
-                return RedirectToAction("Index", "Students");
+                    return RedirectToAction("Index", "Students");
+                }
+
+                ViewBag.Groups = groupService.GetGroups();
+                return View(studentModel);
             }
-
-            ViewBag.Groups = groupService.GetGroups();
-            return View(studentModel);
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
         public IActionResult DeleteStudent(int id)
         {
-            studentService.DeleteStudent(id);
-            return RedirectToAction("Index", "Students");
+            try
+            {
+                studentService.DeleteStudent(id);
+                return RedirectToAction("Index", "Students");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
         public JsonResult GetStudent(int id)
         {
-            var studentModel = mapper.Map<StudentModel>(studentService.GetStudentWithGroup(id));
+            try
+            {
+                var studentModel = mapper.Map<StudentModel>(studentService.GetStudentWithGroup(id));
 
-            return Json(studentModel);
+                return Json(studentModel);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return null;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace TrainingCenterCRM
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -42,8 +44,8 @@ namespace TrainingCenterCRM
             services.AddSingleton(mapper);
 
             services.AddDbContext<TrainingCenterContext>(options =>
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
-
+                options.UseSqlServer(Configuration["ConnectionString"]));
+            
             services.AddScoped<IRepository<Student>, StudentRepository>();
             services.AddScoped<IRepository<Group>, GroupRepository>();
             services.AddScoped<IRepository<Teacher>, TeacherRepository>();
@@ -68,10 +70,11 @@ namespace TrainingCenterCRM
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             ).AddRazorRuntimeCompilation();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -79,10 +82,13 @@ namespace TrainingCenterCRM
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            loggerFactory.AddFile($"Logs/log.txt");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
