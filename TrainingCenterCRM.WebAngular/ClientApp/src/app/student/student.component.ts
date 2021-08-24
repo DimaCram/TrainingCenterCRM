@@ -1,20 +1,24 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject } from "@angular/core";
+import { StudentService } from "./student.service";
 
 @Component({
     selector: 'app-student',
     templateUrl: './student.component.html',
-    styleUrls: ['./student.compomemt.css']
+    styleUrls: ['./student.compomemt.css'],
+    providers: [StudentService]
   })
   export class StudentComponent {
     public students: Student[];
     studentName = '';
 
-    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-      http.get<Student[]>(baseUrl + 'students').subscribe(result => {
+    constructor(private studentService : StudentService){}
+
+    ngOnInit(): void {
+      this.studentService.getStudents().subscribe(result => {
         this.students = result;
-        console.log(result);
-      }, error => console.error(error));
+      },
+      error => {console.error(error);});
     }
 
     sort(prop: string, isUp : boolean){

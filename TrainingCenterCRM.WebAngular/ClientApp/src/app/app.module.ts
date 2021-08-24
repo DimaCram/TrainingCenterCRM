@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { StudentComponent } from './student/student.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { StudentService } from './student/student.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { FilterPipe } from './pipes/filter.pipe';
       { path: 'students', component: StudentComponent },
     ])
   ],
-  providers: [],
+  providers: [StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
