@@ -7,6 +7,7 @@ import { Component, Inject } from "@angular/core";
   })
   export class StudentComponent {
     public students: Student[];
+    studentName = '';
 
     constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
       http.get<Student[]>(baseUrl + 'students').subscribe(result => {
@@ -16,7 +17,7 @@ import { Component, Inject } from "@angular/core";
     }
   }
 
-  interface Student {
+  export interface Student {
     id: number;
     name: string;
     surname: string;

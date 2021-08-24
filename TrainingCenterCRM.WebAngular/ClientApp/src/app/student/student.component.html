@@ -1,7 +1,14 @@
 <h1 id="tableLabel">Students</h1>
 
-<p *ngIf="!students"><em>Loading...</em></p>
 
+<div class="form-group row">
+    <label for="inputName" class="col-sm-1 col-form-label">Name</label>
+    <div class="col-sm-3">
+      <input class="form-control" id="inputName" [(ngModel)] = "studentName" placeholder="Search">
+    </div>
+ </div>
+
+<p *ngIf="!students"><em>Loading...</em></p>
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="students">
   <thead>
     <tr>
@@ -12,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let student of students">
+    <tr *ngFor="let student of students| filter: studentName">
       <td>{{ student.id }}</td>
       <td>{{ student.name }}</td>
       <td>{{ student.surname }}</td>
