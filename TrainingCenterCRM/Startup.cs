@@ -44,8 +44,8 @@ namespace TrainingCenterCRM
             services.AddSingleton(mapper);
 
             services.AddDbContext<TrainingCenterContext>(options =>
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
-
+                options.UseSqlServer(Configuration["ConnectionString"]));
+            
             services.AddScoped<IRepository<Student>, StudentRepository>();
             services.AddScoped<IRepository<Group>, GroupRepository>();
             services.AddScoped<IRepository<Teacher>, TeacherRepository>();
