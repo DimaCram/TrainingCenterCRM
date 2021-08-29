@@ -12,6 +12,10 @@ namespace TrainingCenterCRM.BLL.Interfaces
         void DeleteRequest(int id);
         StudentRequest GetRequest(int id);
         List<StudentRequest> GetRequests();
-        IEnumerable<Student> GetStudentsByCourse(int courseId);
+        List<StudentRequest> GetOpenRequests();
+        List<StudentRequest> GetOpenRequestsByCourse(int courseId);
+        IEnumerable<Student> GetStudentsRequestedForCourse(int courseId);
+        void ReOpenRequest(int studentId, int courseId);
+        void CloseRequests(List<int> studentsId, int courseId);
     }
 }

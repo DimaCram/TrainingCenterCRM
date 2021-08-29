@@ -47,9 +47,47 @@ namespace TrainingCenterCRM.BLL.Services
         {
             return studentRequestRepository.GetAll();
         }
-        public IEnumerable<Student> GetStudentsByCourse(int courseId)
+        public List<StudentRequest> GetOpenRequests()
         {
-            return studentRequestRepository.GetAll().Where(sr => sr.CourseId == courseId).Select(s => s.Student).Distinct();
+            return studentRequestRepository.GetAll().Where(sr => sr.RequestStatus == RequestStatus.Open).ToList();
+        }
+        public List<StudentRequest> GetOpenRequestsByCourse(int courseId)
+        {
+            return studentRequestRepository.GetAll()
+                .Where(sr => sr.RequestStatus == RequestStatus.Open && sr.CourseId == courseId)
+                .Distinct()
+                .ToList();
+        }
+        public IEnumerable<Student> GetStudentsRequestedForCourse(int courseId)
+        {
+            return studentRequestRepository.GetAll()
+                .Where(sr => sr.CourseId == courseId && sr.RequestStatus == RequestStatus.Open)
+                .Select(s => s.Student)
+                .Distinct();
+        }
+
+        public void ReOpenRequest(int studentId, int courseId)
+        {
+            var request = studentRequestRepository.Find(sr => sr.StudentId == studentId &&
+                                                        sr.CourseId == courseId &&
+                                                        sr.RequestStatus == RequestStatus.Closed).LastOrDefault();
+
+            if(request != null)
+            {
+                request.RequestStatus = RequestStatus.Open;
+                studentRequestRepository.Update(request);
+            }
+        }
+
+        public void CloseRequests(List<int> studentsId, int courseId)
+        {
+            var requests = GetOpenRequestsByCourse(courseId).Where(r => studentsId.Contains(r.StudentId));
+
+            foreach (var request in requests)
+            {
+                request.RequestStatus = RequestStatus.Closed;
+                EditRequest(request);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ namespace TrainingCenterCRM.BLL.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
+        public GroupStatus GroupStatus { get; set; }
 
         public List<Student> Students { get; set; } = new List<Student>();
         

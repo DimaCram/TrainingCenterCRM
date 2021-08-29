@@ -17,6 +17,8 @@ namespace TrainingCenterCRM.Models
         [Display(Name = "Comment")]
         public string Comments { get; set; }
 
+        public string Status { get; set; }
+
         [Required]
         [Display(Name = "Course")]
         public int CourseId { get; set; }
