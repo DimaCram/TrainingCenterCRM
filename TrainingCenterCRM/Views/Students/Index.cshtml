@@ -7,36 +7,41 @@
     <h1 class="content__header">Students</h1>
     <div class="containt-fluid">
         <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Student</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var student in Model)
-                            {
+            <div class="col-xxl-3"></div>
+            <div class="col-xxl-6">
+                <div class="card">
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var student in Model)
+                                    {
 
-                                <tr>
-                                    <th scope="col"><a href="#" class="modal-link js-studentModal" data-modal="@student.Id">@student.Name @student.Surname</a></th>
-                                    <th scope="col" class="text-center">
-                                        <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@student.Id">Add request</a>
-                                        <a class="btn btn-success m-1" asp-controller="Students" asp-action="EditStudent" asp-route-id="@student.Id"><i class="fas fa-edit"></i></a>
-                                        <a class="btn btn-danger m-1" asp-controller="Students" asp-action="DeleteStudent" asp-route-id="@student.Id"><i class="fas fa-trash"></i></a>
-                                    </th>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                        <tr>
+                                            <th scope="col"><a href="#" class="modal-link js-studentModal" data-modal="@student.Id">@student.Name @student.Surname</a></th>
+                                            <th scope="col" class="text-center">
+                                                <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@student.Id">Add request</a>
+                                                <a class="btn btn-success m-1" asp-controller="Students" asp-action="EditStudent" asp-route-id="@student.Id"><i class="fas fa-edit"></i></a>
+                                                <a class="btn btn-danger m-1" asp-controller="Students" asp-action="DeleteStudent" asp-route-id="@student.Id"><i class="fas fa-trash"></i></a>
+                                            </th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <a class="btn btn-head" asp-controller="Students" asp-action="EditStudent">Add new student</a>
+                    </div>
                 </div>
-                <a class="btn btn-primary" asp-controller="Students" asp-action="EditStudent">Add new student</a>
             </div>
+            <div class="col-xxl-3"></div>
         </div>
-        <div class="col-sm-3"></div>
     </div>
 </div>
 <partial name="../Partials/_ModalStudent">

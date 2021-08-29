@@ -7,39 +7,42 @@
     <h1 class="content__header">Student request</h1>
     <div class="containt-fluid">
         <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Student</th>
-                                <th scope="col">Course</th>
-                                <th scope="col">Ready to start date</th>
-                                <th scope="col">Comments</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var request in Model)
-                            {
+            <div class="col-xxl-3"></div>
+            <div class="col-xxl-6">
+                <div class="card">
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Student</th>
+                                        <th scope="col">Course</th>
+                                        <th scope="col">Ready to start date</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var request in Model)
+                                    {
 
-                                <tr>
-                                    <th scope="col">@request.Student.Name @request.Student.Surname</th>
-                                    <th scope="col">@request.Course.Title</th>
-                                    <th scope="col">@request.ReadyToStartDate.ToString("dd.MM.yyyy")</th>
-                                    <th scope="col">@request.Comments</th>
-                                    <th scope="col" class="text-center">
-                                        <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@request.StudentId" asp-route-id="@request.Id"><i class="fas fa-edit"></i></a>
-                                        <a class="btn btn-danger m-1" asp-controller="StudentRequests" asp-action="DeleteRequest" asp-route-id="@request.Id"><i class="fas fa-trash"></i></a>
-                                    </th>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                        <tr>
+                                            <th scope="col">@request.Student.Name @request.Student.Surname</th>
+                                            <th scope="col">@request.Course.Title</th>
+                                            <th scope="col">@request.ReadyToStartDate.ToString("dd.MM.yyyy")</th>
+                                            <th scope="col" class="text-center">
+                                                <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@request.StudentId" asp-route-id="@request.Id"><i class="fas fa-edit"></i></a>
+                                                <a class="btn btn-danger m-1" asp-controller="StudentRequests" asp-action="DeleteRequest" asp-route-id="@request.Id"><i class="fas fa-trash"></i></a>
+                                            </th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-xxl-3"></div>
         </div>
-        <div class="col-sm-3"></div>
     </div>
 </div>

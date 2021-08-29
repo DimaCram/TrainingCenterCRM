@@ -7,40 +7,41 @@
     <h1 class="content__header">Teachers</h1>
     <div class="containt-fluid">
         <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Surname</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Biography</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var teacher in Model)
-                            {
+            <div class="col-xxl-3"></div>
+            <div class="col-xxl-6">
+                <div class="card">
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Teacher</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var teacher in Model)
+                                    {
 
-                                <tr>
-                                    <th scope="col">@teacher.Name</th>
-                                    <th scope="col">@teacher.Surname</th>
-                                    <th scope="col">@teacher.Age</th>
-                                    <th scope="col">@teacher.Bio</th>
-                                    <th scope="col" class="text-center">
-                                        <a class="btn btn-success m-1" asp-controller="Teachers" asp-action="EditTeacher" asp-route-id="@teacher.Id"><i class="fas fa-edit"></i></a>
-                                        <a class="btn btn-danger m-1" asp-controller="Teachers" asp-action="DeleteTeacher" asp-route-id="@teacher.Id"><i class="fas fa-trash"></i></a>
-                                    </th>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                        <tr>
+                                            <th scope="col">@teacher.Name @teacher.Surname</th>
+                                            <th scope="col">@teacher.Age</th>
+                                            <th scope="col" class="text-center">
+                                                <a class="btn btn-success m-1" asp-controller="Teachers" asp-action="EditTeacher" asp-route-id="@teacher.Id"><i class="fas fa-edit"></i></a>
+                                                <a class="btn btn-danger m-1" asp-controller="Teachers" asp-action="DeleteTeacher" asp-route-id="@teacher.Id"><i class="fas fa-trash"></i></a>
+                                            </th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <a class="btn btn-head" asp-controller="Teachers" asp-action="EditTeacher">Add new teacher</a>
+                    </div>
                 </div>
-                <a class="btn btn-primary" asp-controller="Teachers" asp-action="EditTeacher">Add new teacher</a>
             </div>
+            <div class="col-xxl-3"></div>
         </div>
-        <div class="col-sm-3"></div>
     </div>
 </div>
