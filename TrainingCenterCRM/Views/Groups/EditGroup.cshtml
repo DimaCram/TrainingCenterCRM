@@ -26,6 +26,15 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
+                        <label asp-for="GroupStatus" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <select class="form-control" asp-for="GroupStatus" asp-items="Html.GetEnumSelectList<GroupStatus>()">
+                                <option value="">Select status</option>
+                            </select>
+                            <span asp-validation-for="GroupStatus" class="alert-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
                         <label asp-for="TeacherId" class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
                             <select class="form-control" asp-for="TeacherId">

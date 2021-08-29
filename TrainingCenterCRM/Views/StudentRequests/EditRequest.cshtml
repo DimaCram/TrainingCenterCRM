@@ -11,7 +11,8 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                 <form method="post" asp-controller="StudentRequests" asp-action="EditRequest" 
-                                    asp-route-StudentId="@Model.Student.Id" asp-route-id="@Model.Id">
+                                    asp-route-StudentId="@Model.Student.Id" asp-route-id="@Model.Id"
+                                    asp-route-Status="@Model.Status">
 
                     <div asp-validation-summary="ModelOnly"></div>
                     <div class="mb-3 row">

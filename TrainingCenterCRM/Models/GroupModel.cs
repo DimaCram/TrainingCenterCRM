@@ -17,7 +17,11 @@ namespace TrainingCenterCRM.Models
         [Required]
         [Display(Name = "Start date")]
         public DateTime StartDate { get; set; }
-        
+
+        [Required]
+        [Display(Name = "Status")]
+        public int? GroupStatus { get; set; }
+
         public List<StudentModel> Students { get; set; } = new List<StudentModel>();
 
         [Display(Name = "Teacher")]

@@ -41,7 +41,7 @@ namespace TrainingCenterCRM.Controllers
         {
             try
             {
-                var requests = studentRequestService.GetRequests();
+                var requests = studentRequestService.GetOpenRequests();
                 return View(requests);
             }
             catch (Exception ex)
@@ -116,7 +116,7 @@ namespace TrainingCenterCRM.Controllers
         {
             try
             {
-                var students = mapper.Map<List<StudentModel>>(studentRequestService.GetStudentsByCourse(courseId));
+                var students = mapper.Map<List<StudentModel>>(studentRequestService.GetStudentsRequestedForCourse(courseId));
 
                 if (groupId != 0)
                 {
@@ -124,7 +124,6 @@ namespace TrainingCenterCRM.Controllers
                     foreach (var studentWithGroup in studentsWithGroup)
                     {
                         studentWithGroup.HasGroup = true;
-                        studentWithGroup.Group = null;
                     }
 
                     students.AddRange(studentsWithGroup);
