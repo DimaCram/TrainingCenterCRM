@@ -122,7 +122,8 @@ namespace TrainingCenterCRM.DAL.EF.Context
                     CourseId = course1.Id,
                     ReadyToStartDate = DateTime.Now,
                     StudentId = student1.Id,
-                    Comments = "Хочу быть программистом!!!"
+                    Comments = "Хочу быть программистом!!!",
+                    RequestStatus = RequestStatus.Open
                 },
                 new StudentRequest
                 {
@@ -130,21 +131,24 @@ namespace TrainingCenterCRM.DAL.EF.Context
                     CourseId = course2.Id,
                     ReadyToStartDate = DateTime.Now,
                     StudentId = student2.Id,
-                    Comments = ""
+                    Comments = "",
+                    RequestStatus = RequestStatus.Open
                 }, new StudentRequest
                 {
                     Id = 3,
                     CourseId = course2.Id,
                     ReadyToStartDate = DateTime.Now,
                     StudentId = student3.Id,
-                    Comments = ""
+                    Comments = "",
+                    RequestStatus = RequestStatus.Open
                 }, new StudentRequest
                 {
                     Id = 4,
                     CourseId = course2.Id,
                     ReadyToStartDate = DateTime.Now,
                     StudentId = student4.Id,
-                    Comments = ""
+                    Comments = "",
+                    RequestStatus = RequestStatus.Open
                 }
             );
             modelBuilder.Entity<IdentityRole>().HasData(

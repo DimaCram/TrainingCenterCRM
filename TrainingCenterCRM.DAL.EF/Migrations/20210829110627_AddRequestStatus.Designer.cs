@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainingCenterCRM.DAL.EF.Context;
 
-namespace TrainingCenterCRM.DAL.Migrations
+namespace TrainingCenterCRM.DAL.EF.Migrations
 {
     [DbContext(typeof(TrainingCenterContext))]
-    [Migration("20210819100126_TeacherIdNullInGroup")]
-    partial class TeacherIdNullInGroup
+    [Migration("20210829110627_AddRequestStatus")]
+    partial class AddRequestStatus
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,14 +50,14 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d7cd42b6-d746-478a-a346-f36a4a152955",
-                            ConcurrencyStamp = "43c87a60-4c13-423b-94a1-bf1643b7fba9",
+                            Id = "31098333-d1d3-49e0-9276-406ae8ac6f4e",
+                            ConcurrencyStamp = "5ea2a7ae-8f58-436a-b6d4-78167ddd4763",
                             Name = "user"
                         },
                         new
                         {
-                            Id = "381651c5-6afb-40d4-9022-043c0155d40c",
-                            ConcurrencyStamp = "b0ec7213-35a4-48a8-bb42-3d3e44d31a12",
+                            Id = "d0829c95-2b4f-46a2-bc71-b0cf35ebc51b",
+                            ConcurrencyStamp = "ccf78208-faf4-4f1a-8b5f-dfef6afbdf3b",
                             Name = "admin"
                         });
                 });
@@ -252,6 +252,29 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasIndex("TopicId");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Базовый курс",
+                            Title = "Программирование на C#",
+                            TopicId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Профессиональный курс",
+                            Title = "Промышленное программирование на ASP.NET",
+                            TopicId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Базовый курс",
+                            Title = "Программирование на Java",
+                            TopicId = 1
+                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
@@ -262,6 +285,9 @@ namespace TrainingCenterCRM.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupStatus")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -306,6 +332,36 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 22,
+                            Name = "Darya",
+                            Surname = "Fedorova"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 22,
+                            Name = "Andrey",
+                            Surname = "Popov"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Age = 24,
+                            Name = "Dima",
+                            Surname = "Karasev"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Age = 28,
+                            Name = "Denis",
+                            Surname = "Polonikov"
+                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentRequest", b =>
@@ -324,6 +380,9 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Property<DateTime>("ReadyToStartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("RequestStatus")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
@@ -334,6 +393,44 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("StudentRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comments = "Хочу быть программистом!!!",
+                            CourseId = 1,
+                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 6, 24, 847, DateTimeKind.Local).AddTicks(5545),
+                            RequestStatus = 0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comments = "",
+                            CourseId = 2,
+                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8699),
+                            RequestStatus = 0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comments = "",
+                            CourseId = 2,
+                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8766),
+                            RequestStatus = 0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Comments = "",
+                            CourseId = 2,
+                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8769),
+                            RequestStatus = 0,
+                            StudentId = 4
+                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentToGroupAssignment", b =>
@@ -346,13 +443,13 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Property<DateTime>("AssignmentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("GroupId")
+                    b.Property<int>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<int>("Result")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("StudentToGroupAssignmentId");
@@ -386,6 +483,24 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 25,
+                            Bio = "Sphere of interests: web and mobile application testing,IoT, AR, API testing; creation and establishment of a teststrategy and a policy of the QA department; review of testingprocesses within projects; team management (interviews, hiring,tech. reviews, employee development).",
+                            Name = "Elena ",
+                            Surname = "Rukavichnikova"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 26,
+                            Bio = "Area of ​​interest: Front-end development, modern frameworks (Angular, Vue),cloud technologies (Google Firebase, Amazon Web Services).",
+                            Name = "Dmitry",
+                            Surname = "Astreiko"
+                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Topic", b =>
@@ -404,6 +519,20 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Topics");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Платформа ASP.NET от компании Microsoft применяется для создания как простых web - сайтов,так и масштабных проектов – высоконадежных сетевых порталов,которые рассчитаны на многотысячную аудиторию.Благодаря безопасности и гибкости активно используется крупными компаниями: популярные сайты Microsoft, Lego, Volvo, Toyota, L'Oreal разработаны именно на ASP.NET.",
+                            Title = "ASP.NET"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Язык программирования Java находится в числе лидеров во многих рейтингах: TIOBE – на основе подсчёта результатов поисковых запросов, PYPL – по анализу популярности в поисковике Google, IEEE – по комплексу показателей, таких как упоминание в проектах, статьях, вакансиях и других.Такая популярность обусловлена практически безграничными его возможностями и областями применения.Java не зависит от определённой платформы, его называют безопасным, портативным, высокопроизводительным и динамичным языком.",
+                            Title = "Java"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -517,11 +646,15 @@ namespace TrainingCenterCRM.DAL.Migrations
                 {
                     b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
                         .WithMany()
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TrainingCenterCRM.BLL.Models.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Group");
 

@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainingCenterCRM.DAL.EF.Context;
 
 namespace TrainingCenterCRM.DAL.Migrations
 {
     [DbContext(typeof(TrainingCenterContext))]
-    [Migration("20210820142754_ChangeFieldInStudentToGroupAssignment")]
-    partial class ChangeFieldInStudentToGroupAssignment
+    partial class TrainingCenterContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,14 +48,14 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b51c9e03-ebb6-4350-8942-fea22083019f",
-                            ConcurrencyStamp = "cebc7f61-8630-473e-81d9-a9dc1e91ee61",
+                            Id = "31098333-d1d3-49e0-9276-406ae8ac6f4e",
+                            ConcurrencyStamp = "5ea2a7ae-8f58-436a-b6d4-78167ddd4763",
                             Name = "user"
                         },
                         new
                         {
-                            Id = "27e4e434-6c1a-4192-81dd-877d3dd12a70",
-                            ConcurrencyStamp = "61206317-a7e0-483b-9d7a-d5443526684f",
+                            Id = "d0829c95-2b4f-46a2-bc71-b0cf35ebc51b",
+                            ConcurrencyStamp = "ccf78208-faf4-4f1a-8b5f-dfef6afbdf3b",
                             Name = "admin"
                         });
                 });
@@ -287,6 +285,9 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
+                    b.Property<int>("GroupStatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -377,6 +378,9 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Property<DateTime>("ReadyToStartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("RequestStatus")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
@@ -394,7 +398,8 @@ namespace TrainingCenterCRM.DAL.Migrations
                             Id = 1,
                             Comments = "Хочу быть программистом!!!",
                             CourseId = 1,
-                            ReadyToStartDate = new DateTime(2021, 8, 20, 17, 27, 50, 954, DateTimeKind.Local).AddTicks(5380),
+                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 6, 24, 847, DateTimeKind.Local).AddTicks(5545),
+                            RequestStatus = 0,
                             StudentId = 1
                         },
                         new
@@ -402,7 +407,8 @@ namespace TrainingCenterCRM.DAL.Migrations
                             Id = 2,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 8, 20, 17, 27, 50, 955, DateTimeKind.Local).AddTicks(6851),
+                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8699),
+                            RequestStatus = 0,
                             StudentId = 2
                         },
                         new
@@ -410,7 +416,8 @@ namespace TrainingCenterCRM.DAL.Migrations
                             Id = 3,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 8, 20, 17, 27, 50, 955, DateTimeKind.Local).AddTicks(6896),
+                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8766),
+                            RequestStatus = 0,
                             StudentId = 3
                         },
                         new
@@ -418,7 +425,8 @@ namespace TrainingCenterCRM.DAL.Migrations
                             Id = 4,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 8, 20, 17, 27, 50, 955, DateTimeKind.Local).AddTicks(6898),
+                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8769),
+                            RequestStatus = 0,
                             StudentId = 4
                         });
                 });
