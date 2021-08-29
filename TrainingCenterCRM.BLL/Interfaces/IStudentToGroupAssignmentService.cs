@@ -11,6 +11,9 @@ namespace TrainingCenterCRM.BLL.Interfaces
         void EditAssignment(StudentToGroupAssignment dto);
         void DeleteAssignment(int id);
         StudentToGroupAssignment GetAssignment(int id);
+        StudentToGroupAssignment GetAssignmentByStudent(int studentId);
         List<StudentToGroupAssignment> GetAssignments();
+        IEnumerable<StudentToGroupAssignment> GetAssignmentsByGroup(int groupId);
+
     }
 }

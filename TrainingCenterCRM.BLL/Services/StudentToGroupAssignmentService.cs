@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
@@ -42,9 +43,19 @@ namespace TrainingCenterCRM.BLL.Services
             return repository.Get(id);
         }
 
+        public StudentToGroupAssignment GetAssignmentByStudent(int studentId)
+        {
+            return repository.Find(a => a.StudentId == studentId).FirstOrDefault();
+        }
+
         public List<StudentToGroupAssignment> GetAssignments()
         {
             return repository.GetAll();
+        }
+
+        public IEnumerable<StudentToGroupAssignment> GetAssignmentsByGroup(int groupId)
+        {
+            return repository.Find(stg => stg.GroupId == groupId);
         }
     }
 }

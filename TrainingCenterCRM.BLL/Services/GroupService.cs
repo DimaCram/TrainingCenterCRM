@@ -12,19 +12,20 @@ namespace TrainingCenterCRM.BLL.Services
     public class GroupService : IGroupService
     {
         private readonly IRepository<Group> groupRepository;
-        private readonly IRepository<StudentToGroupAssignment> studentToGroupRepository;
-        private readonly IRepository<Student> studentRepository;
-        private readonly IRepository<StudentRequest> studentRequestRepository;
+
+        private readonly IStudentRequestService studentRequestService;
+        private readonly IStudentToGroupAssignmentService assignmentService;
+        private readonly IStudentService studentService;
 
         public GroupService(IRepository<Group> groupRepository,
-                            IRepository<StudentToGroupAssignment> studentToGroupRepository,
-                            IRepository<Student> studentRepository, 
-                            IRepository<StudentRequest> studentRequestRepository)
+                            IStudentRequestService studentRequestService,
+                            IStudentService studentService, 
+                            IStudentToGroupAssignmentService assignmentService)
         {
             this.groupRepository = groupRepository;
-            this.studentToGroupRepository = studentToGroupRepository;
-            this.studentRepository = studentRepository;
-            this.studentRequestRepository = studentRequestRepository;
+            this.studentRequestService = studentRequestService;
+            this.studentService = studentService;
+            this.assignmentService = assignmentService;
         }
         public void AddGroup(Group group, List<int> studentsId)
         {
@@ -35,26 +36,20 @@ namespace TrainingCenterCRM.BLL.Services
 
             foreach(var studentId in studentsId)
             {
-                var assignment = new StudentToGroupAssignment {
+                assignmentService.AddAssignment(new StudentToGroupAssignment
+                {
                     GroupId = group.Id,
                     StudentId = studentId,
                     AssignmentDate = DateTime.Now,
                     Result = ResultType.Graduated
-                };
-                studentToGroupRepository.Create(assignment);
+                });
 
-                var student = studentRepository.Get(studentId);
+                var student = studentService.GetStudent(studentId);
                 student.GroupId = group.Id;
-                studentRepository.Update(student);
+                studentService.EditStudent(student);
             }
 
-            var requestsId = studentRequestRepository.Find(r => studentsId.Contains(r.StudentId) && r.CourseId == group.CourseId)
-                                                     .Select(r => r.Id);
-
-            foreach(var requestId in requestsId)
-            {
-                studentRequestRepository.Delete(requestId);
-            }
+            studentRequestService.CloseRequests(studentsId, group.CourseId);
         }
 
         public void DeleteGroup(int id)
@@ -67,55 +62,43 @@ namespace TrainingCenterCRM.BLL.Services
             if (group == null)
                 throw new ArgumentException();
 
-            var assignmentsForDelete = studentToGroupRepository.Find(stg => stg.GroupId == group.Id).Where(stg => !studentsId.Contains(stg.StudentId)).ToList();
+            var assignmentsForDelete = assignmentService.GetAssignmentsByGroup(group.Id)
+                                                        .Where(stg => !studentsId.Contains(stg.StudentId)).ToList();
 
             foreach(var assigment in assignmentsForDelete)
             {
-                studentToGroupRepository.Delete(assigment.StudentToGroupAssignmentId);
+                assignmentService.DeleteAssignment(assigment.StudentToGroupAssignmentId);
 
-                var student = studentRepository.Get(assigment.StudentId);
+                var student = studentService.GetStudent(assigment.StudentId);
                 student.GroupId = null;
-                studentRepository.Update(student);
+                studentService.EditStudent(student);
 
-                var studentRequests = new StudentRequest
-                {
-                    ReadyToStartDate = DateTime.Today,
-                    CourseId = group.CourseId,
-                    StudentId = assigment.StudentId,
-                    Comments = ""
-                };
-                studentRequestRepository.Create(studentRequests);
+                studentRequestService.ReOpenRequest(assigment.StudentId, group.CourseId);
             }
-
 
             foreach (var studentId in studentsId)
             {
-                var assignment = studentToGroupRepository.Find(stg => stg.StudentId == studentId).FirstOrDefault();
+                var assignment = assignmentService.GetAssignmentByStudent(studentId);
                 
                 if (assignment == null)
                 {
-                    assignment = new StudentToGroupAssignment
+
+                    assignmentService.AddAssignment(new StudentToGroupAssignment
                     {
                         GroupId = group.Id,
                         StudentId = studentId,
                         AssignmentDate = DateTime.Now,
                         Result = ResultType.Graduated
-                    };
-                    studentToGroupRepository.Create(assignment);
+                    });
 
-                    var student = studentRepository.Get(studentId);
+                    var student = studentService.GetStudent(studentId);
                     student.GroupId = group.Id;
-                    studentRepository.Update(student);
+                    studentService.EditStudent(student);
                 }
             }
 
-            var requestsId = studentRequestRepository.Find(r => studentsId.Contains(r.StudentId) && r.CourseId == group.CourseId)
-                                                     .Select(r => r.Id);
+            studentRequestService.CloseRequests(studentsId, group.CourseId);
 
-            foreach (var requestId in requestsId)
-            {
-                studentRequestRepository.Delete(requestId);
-            }
             groupRepository.Update(group);
         }
 
