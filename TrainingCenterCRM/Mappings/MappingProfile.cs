@@ -22,7 +22,9 @@ namespace TrainingCenterCRM.Mappings
 
             CreateMap<Topic, TopicModel>().ReverseMap();
 
-            CreateMap<StudentRequest, StudentRequestModel>().ReverseMap();
+            CreateMap<StudentRequest, StudentRequestModel>()
+                .ForMember(sr => sr.Status, map => map.MapFrom(sr => sr.RequestStatus))
+                .ReverseMap();
         }
     }
 }
