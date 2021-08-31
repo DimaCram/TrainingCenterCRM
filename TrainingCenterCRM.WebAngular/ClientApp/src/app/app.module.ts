@@ -13,6 +13,7 @@ import { StudentComponent } from './student/student.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { StudentService } from './student/student.service';
 import { FooterComponent } from './footer/footer.component';
+import { CoursesComponent } from './courses/courses.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FooterComponent } from './footer/footer.component';
     FetchDataComponent,
     StudentComponent,
     FooterComponent,
+    CoursesComponent,
     FilterPipe
   ],
   imports: [
@@ -31,7 +33,7 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
+      { path: 'courses', component: CoursesComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'students', component: StudentComponent },
     ])
