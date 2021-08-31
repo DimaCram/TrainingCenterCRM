@@ -14,6 +14,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { StudentService } from './student/student.service';
 import { FooterComponent } from './footer/footer.component';
 import { CoursesComponent } from './courses/courses.component';
+import { TeachersComponent } from './teachers/teachers.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CoursesComponent } from './courses/courses.component';
     StudentComponent,
     FooterComponent,
     CoursesComponent,
+    TeachersComponent,
     FilterPipe
   ],
   imports: [
@@ -34,8 +36,7 @@ import { CoursesComponent } from './courses/courses.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'courses', component: CoursesComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'students', component: StudentComponent },
+      { path: 'teachers', component: TeachersComponent }
     ])
   ],
   providers: [StudentService],
