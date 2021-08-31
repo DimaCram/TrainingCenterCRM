@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { StudentComponent } from './student/student.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { StudentService } from './student/student.service';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { StudentService } from './student/student.service';
     CounterComponent,
     FetchDataComponent,
     StudentComponent,
+    FooterComponent,
     FilterPipe
   ],
   imports: [
