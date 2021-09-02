@@ -29,14 +29,13 @@ namespace TrainingCenterCRM.Controllers
             this.topicService = topicService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             try
             {
-                var topics = topicService.GetTopics();
-                var topicsDto = mapper.Map<IEnumerable<Topic>, List<Topic>>(topics);
+                var topics = await topicService.GetTopicsAsync();
 
-                return View(topicsDto);
+                return View(topics);
             }
             catch (Exception ex)
             {
@@ -46,12 +45,12 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditTopic(int? id)
+        public async Task<IActionResult> EditTopicAsync(int? id)
         {
             try
             {
                 var topicModel = id.HasValue ?
-                    mapper.Map<TopicModel>(topicService.GetTopic(id.Value)) :
+                    mapper.Map<TopicModel>(await topicService.GetTopicAsync(id.Value)) :
                     new TopicModel();
 
                 return View(topicModel);
@@ -64,7 +63,7 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditTopic(TopicModel topicModel)
+        public async Task<IActionResult> EditTopicAsync(TopicModel topicModel)
         {
             try
             {
@@ -72,9 +71,9 @@ namespace TrainingCenterCRM.Controllers
                 {
                     var topic = mapper.Map<Topic>(topicModel);
                     if (topic.Id == 0)
-                        topicService.AddTopic(topic);
+                        await topicService.AddTopicAsync(topic);
                     else
-                        topicService.EditTopic(topic);
+                        await topicService.EditTopicAsync(topic);
 
                     return RedirectToAction("Index", "Topics");
                 }
@@ -89,11 +88,11 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteTopic(int id)
+        public async Task<IActionResult> DeleteTopicAsync(int id)
         {
             try
             {
-                topicService.DeleteTopic(id);
+                await topicService.DeleteTopicAsync(id);
                 return RedirectToAction("Index", "Topics");
             }
             catch (Exception ex)

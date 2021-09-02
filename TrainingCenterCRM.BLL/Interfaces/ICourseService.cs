@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface ICourseService
     {
-        void AddCourse(Course courseDTO);
-        void EditCourse(Course courseDTO);
-        void DeleteCourse(int id);
-        Course GetCourse(int id);
-        List<Course> GetCourses();
+        Task AddCourseAsync(Course courseDTO);
+        Task EditCourseAsync(Course courseDTO);
+        Task DeleteCourseAsync(int id);
+        Task<Course> GetCourseAsync(int id);
+        Task<List<Course>> GetCoursesAsync();
     }
 }

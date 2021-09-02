@@ -29,15 +29,13 @@ namespace TrainingCenterCRM.Controllers
             this.teacherService = teacherService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             try
             {
-                var teachers = teacherService.GetTeachers();
+                var teachers = await teacherService.GetTeachersAsync();
 
-                var teachersDto = mapper.Map<List<Teacher>>(teachers);
-
-                return View(teachersDto);
+                return View(teachers);
             }
             catch (Exception ex)
             {
@@ -47,12 +45,12 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditTeacher(int? id)
+        public async Task<IActionResult> EditTeacherAsync(int? id)
         {
             try
             {
                 var teacherModel = id.HasValue ?
-                    mapper.Map<TeacherModel>(teacherService.GetTeacher(id.Value)) :
+                    mapper.Map<TeacherModel>(await teacherService.GetTeacherAsync(id.Value)) :
                     new TeacherModel();
 
                 return View(teacherModel);
@@ -65,7 +63,7 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditTeacher(TeacherModel teacherModel)
+        public async Task<IActionResult> EditTeacherAsync(TeacherModel teacherModel)
         {
             try
             {
@@ -74,9 +72,9 @@ namespace TrainingCenterCRM.Controllers
                     var teacher = mapper.Map<Teacher>(teacherModel);
 
                     if (teacherModel.Id == 0)
-                        teacherService.AddTeacher(teacher);
+                        await teacherService.AddTeacherAsync(teacher);
                     else
-                        teacherService.EditTeacher(teacher);
+                        await teacherService.EditTeacherAsync(teacher);
 
                     return RedirectToAction("Index", "Teachers");
                 }
@@ -90,11 +88,11 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteTeacher(int id)
+        public async Task<IActionResult> DeleteTeacherAsync(int id)
         {
             try
             {
-                teacherService.DeleteTeacher(id);
+                await teacherService.DeleteTeacherAsync(id);
                 return RedirectToAction("Index", "Teachers");
             }
             catch (Exception ex)

@@ -34,13 +34,13 @@ namespace TrainingCenterCRM.Controllers
             this.groupService = groupService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             try
             {
-                var students = studentService.GetStudents();
-                var studentsDto = mapper.Map<IEnumerable<Student>, List<Student>>(students);
-                return View(studentsDto);
+                var students = await studentService.GetStudentsAsync();
+
+                return View(students);
             }
             catch(Exception ex)
             {
@@ -50,15 +50,15 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditStudent(int? id)
+        public async Task<IActionResult> EditStudentAsync(int? id)
         {
             try
             {
                 var studentModel = id.HasValue ?
-                    mapper.Map<StudentModel>(studentService.GetStudent(id.Value)) :
+                    mapper.Map<StudentModel>(await studentService.GetStudentAsync(id.Value)) :
                     new StudentModel();
 
-                ViewBag.Groups = groupService.GetGroups();
+                ViewBag.Groups = await groupService.GetGroupsAsync();
 
                 return View(studentModel);
             }
@@ -70,7 +70,7 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditStudent(StudentModel studentModel)
+        public async Task<IActionResult> EditStudentAsync(StudentModel studentModel)
         {
             try
             {
@@ -79,14 +79,14 @@ namespace TrainingCenterCRM.Controllers
                     var student = mapper.Map<Student>(studentModel);
 
                     if (student.Id == 0)
-                        studentService.AddStudent(student);
+                        await studentService.AddStudentAsync(student);
                     else
-                        studentService.EditStudent(student);
+                        await studentService.EditStudentAsync(student);
 
                     return RedirectToAction("Index", "Students");
                 }
 
-                ViewBag.Groups = groupService.GetGroups();
+                ViewBag.Groups = await groupService.GetGroupsAsync();
                 return View(studentModel);
             }
             catch (Exception ex)
@@ -97,11 +97,11 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteStudent(int id)
+        public async Task<IActionResult> DeleteStudentAsync(int id)
         {
             try
             {
-                studentService.DeleteStudent(id);
+                await studentService.DeleteStudentAsync(id);
                 return RedirectToAction("Index", "Students");
             }
             catch (Exception ex)
@@ -112,11 +112,11 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetStudent(int id)
+        public async Task<JsonResult> GetStudentAsync(int id)
         {
             try
             {
-                var studentModel = mapper.Map<StudentModel>(studentService.GetStudentWithGroup(id));
+                var studentModel = mapper.Map<StudentModel>(await studentService.GetStudentWithGroupAsync(id));
 
                 return Json(studentModel);
             }

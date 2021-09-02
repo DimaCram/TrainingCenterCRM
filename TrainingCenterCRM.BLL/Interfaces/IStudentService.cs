@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface IStudentService
     {
-        void AddStudent(Student studentDTO);
-        void EditStudent(Student studentDTO);
-        void DeleteStudent(int id);
-        Student GetStudent(int id);
-        Student GetStudentWithGroup(int id);
-        List<Student> GetStudents();
+        Task AddStudentAsync(Student studentDTO);
+        Task EditStudentAsync(Student studentDTO);
+        Task DeleteStudentAsync(int id);
+        Task<Student> GetStudentAsync(int id);
+        Task<Student> GetStudentWithGroupAsync(int id);
+        Task<List<Student>> GetStudentsAsync();
     }
 }

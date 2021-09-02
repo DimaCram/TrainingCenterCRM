@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
@@ -8,10 +9,10 @@ namespace TrainingCenterCRM.BLL.Interfaces
     public interface ITeacherService
     {
 
-        void AddTeacher(Teacher teacherDTO);
-        void EditTeacher(Teacher teacherDTO);
-        void DeleteTeacher(int id);
-        Teacher GetTeacher(int id);
-        List<Teacher> GetTeachers();
+        Task AddTeacherAsync(Teacher teacherDTO);
+        Task EditTeacherAsync(Teacher teacherDTO);
+        Task DeleteTeacherAsync(int id);
+        Task<Teacher> GetTeacherAsync(int id);
+        Task<List<Teacher>> GetTeachersAsync();
     }
 }

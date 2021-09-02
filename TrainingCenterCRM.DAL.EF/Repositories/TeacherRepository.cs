@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -17,20 +18,19 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public void Create(Teacher item)
+        public async Task CreateAsync(Teacher item)
         {
-            db.Add(item);
-            db.SaveChanges();
+            await db.AddAsync(item);
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var teacher = db.Teachers.Find(id);
+            var teacher = await db.Teachers.FindAsync(id);
             if (teacher == null)
                 throw new ArgumentException("Teacher not found");
-
             db.Teachers.Remove(teacher);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         public IEnumerable<Teacher> Find(Func<Teacher, bool> predicate)
@@ -38,20 +38,20 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             return db.Teachers.Where(predicate).ToList();
         }
 
-        public Teacher Get(int id)
+        public Task<Teacher> GetAsync(int id)
         {
-            return db.Teachers.Find(id);
+            return db.Teachers.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public List<Teacher> GetAll()
+        public Task<List<Teacher>> GetAllAsync()
         {
-            return db.Teachers.ToList();
+            return db.Teachers.ToListAsync();
         }
 
-        public void Update(Teacher item)
+        public async Task UpdateAsync(Teacher item)
         {
             db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }

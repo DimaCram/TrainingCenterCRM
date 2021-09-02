@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -17,41 +18,41 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public void Create(Course item)
+        public async Task CreateAsync(Course item)
         {
-            db.Courses.Add(item);
-            db.SaveChanges();
+            await db.Courses.AddAsync(item);
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var course = db.Courses.Find(id);
+            var course = await db.Courses.FindAsync(id);
             if (course == null)
                 throw new ArgumentException("Course not found");
 
             db.Courses.Remove(course);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         public IEnumerable<Course> Find(Func<Course, bool> predicate)
         {
-            return db.Courses.Where(predicate).ToList();
+            return db.Courses.Where(predicate);
         }
 
-        public Course Get(int id)
+        public Task<Course> GetAsync(int id)
         {
-            return db.Courses.Find(id);
+            return db.Courses.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public List<Course> GetAll()
+        public Task<List<Course>> GetAllAsync()
         {
-            return db.Courses.ToList();
+            return db.Courses.ToListAsync();
         }
 
-        public void Update(Course item)
+        public async Task UpdateAsync(Course item)
         {
             db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }

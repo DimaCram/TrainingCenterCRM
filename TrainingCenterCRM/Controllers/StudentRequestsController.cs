@@ -37,11 +37,11 @@ namespace TrainingCenterCRM.Controllers
             this.groupService = groupService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             try
             {
-                var requests = studentRequestService.GetOpenRequests();
+                var requests = await studentRequestService.GetOpenRequestsAsync();
                 return View(requests);
             }
             catch (Exception ex)
@@ -51,16 +51,16 @@ namespace TrainingCenterCRM.Controllers
             }
         }
         [HttpGet]
-        public IActionResult EditRequest(int? id, int studentId)
+        public async Task<IActionResult> EditRequestAsync(int? id, int studentId)
         {
             try
             {
                 var request = id.HasValue ?
-                    mapper.Map<StudentRequestModel>(studentRequestService.GetRequest(id.Value)) :
+                    mapper.Map<StudentRequestModel>(await studentRequestService.GetRequestAsync(id.Value)) :
                     new StudentRequestModel() { ReadyToStartDate = DateTime.Today };
 
-                request.Student = mapper.Map<StudentModel>(studentService.GetStudent(studentId));
-                ViewBag.Courses = courseService.GetCourses();
+                request.Student = mapper.Map<StudentModel>(await studentService.GetStudentAsync(studentId));
+                ViewBag.Courses = await courseService.GetCoursesAsync();
 
                 return View(request);
             }
@@ -71,7 +71,7 @@ namespace TrainingCenterCRM.Controllers
             }
         }
         [HttpPost]
-        public IActionResult EditRequest(StudentRequestModel model)
+        public async Task<IActionResult> EditRequestAsync(StudentRequestModel model)
         {
             try
             {
@@ -80,14 +80,14 @@ namespace TrainingCenterCRM.Controllers
                     var request = mapper.Map<StudentRequest>(model);
 
                     if (model.Id == 0)
-                        studentRequestService.AddRequest(request);
+                        await studentRequestService.AddRequestAsync(request);
                     else
-                        studentRequestService.EditRequest(request);
+                        await studentRequestService.EditRequestAsync(request);
 
                     return RedirectToAction("Index", "StudentRequests");
                 }
-                model.Student = mapper.Map<StudentModel>(studentService.GetStudent(model.StudentId));
-                ViewBag.Courses = courseService.GetCourses();
+                model.Student = mapper.Map<StudentModel>(await studentService.GetStudentAsync(model.StudentId));
+                ViewBag.Courses = await courseService.GetCoursesAsync();
                 return View(model);
             }
             catch (Exception ex)
@@ -98,11 +98,11 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteRequest(int id)
+        public async Task<IActionResult> DeleteRequestAsync(int id)
         {
             try
             {
-                studentRequestService.DeleteRequest(id);
+                await studentRequestService.DeleteRequestAsync(id);
                 return RedirectToAction("Index", "StudentRequests");
             }
             catch (Exception ex)
@@ -112,15 +112,15 @@ namespace TrainingCenterCRM.Controllers
             }
         }
 
-        public JsonResult GetStudentsByCourse(int courseId, int groupId)
+        public async Task<JsonResult> GetStudentsByCourseAsync(int courseId, int groupId)
         {
             try
             {
-                var students = mapper.Map<List<StudentModel>>(studentRequestService.GetStudentsRequestedForCourse(courseId));
+                var students = mapper.Map<List<StudentModel>>(await studentRequestService.GetStudentsRequestedForCourseAsync(courseId));
 
                 if (groupId != 0)
                 {
-                    var studentsWithGroup = mapper.Map<List<StudentModel>>(groupService.GetStudentsWithGroup(groupId, courseId));
+                    var studentsWithGroup = mapper.Map<List<StudentModel>>(await groupService.GetStudentsWithGroupAsync(groupId, courseId));
                     foreach (var studentWithGroup in studentsWithGroup)
                     {
                         studentWithGroup.HasGroup = true;

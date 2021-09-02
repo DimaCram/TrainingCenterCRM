@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -18,20 +19,19 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             this.db = db;
         }
 
-        public void Create(StudentRequest item)
+        public async Task CreateAsync(StudentRequest item)
         {
-            db.StudentRequests.Add(item);
-            db.SaveChanges();
+            await db.StudentRequests.AddAsync(item);
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var request = db.StudentRequests.Find(id);
+            var request = await db.StudentRequests.FindAsync(id);
             if (request == null)
                 throw new ArgumentException("Student request not found");
-            
             db.StudentRequests.Remove(request);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         public IEnumerable<StudentRequest> Find(Func<StudentRequest, bool> predicate)
@@ -39,22 +39,22 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             return db.StudentRequests.Where(predicate).ToList();
         }
 
-        public StudentRequest Get(int id)
+        public Task<StudentRequest> GetAsync(int id)
         {
-            return db.StudentRequests.Find(id);
+            return db.StudentRequests.FirstOrDefaultAsync(sr => sr.Id == id);
         }
 
-        public List<StudentRequest> GetAll()
+        public Task<List<StudentRequest>> GetAllAsync()
         {
             return db.StudentRequests.Include(s => s.Student)
                                      .Include(c => c.Course)
-                                     .ToList();
+                                     .ToListAsync();
         }
 
-        public void Update(StudentRequest item)
+        public async Task UpdateAsync(StudentRequest item)
         {
             db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }

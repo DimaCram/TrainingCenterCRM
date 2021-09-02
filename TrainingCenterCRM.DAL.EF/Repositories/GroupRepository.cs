@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -16,15 +17,10 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public List<Group> GetAll()
-        {
-            return db.Groups.Include(g => g.Teacher)
-                            .ToList();
-        }
 
-        public Group Get(int id)
+        public Task<Group> GetAsync(int id)
         {
-            return db.Groups.Include(s => s.Students).FirstOrDefault(g => g.Id == id);
+            return db.Groups.Include(s => s.Students).FirstOrDefaultAsync(g => g.Id == id);
         }
 
         public IEnumerable<Group> Find(Func<Group, bool> predicate)
@@ -32,26 +28,32 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             return db.Groups.Where(predicate).ToList();
         }
 
-        public void Create(Group item)
+        public async Task CreateAsync(Group item)
         {
-            db.Groups.Add(item);
-            db.SaveChanges();
+            await db.Groups.AddAsync(item);
+            await db.SaveChangesAsync();
         }
 
-        public void Update(Group item)
+        public async Task UpdateAsync(Group item)
         {
             db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var group = db.Groups.Find(id);
+            var group = await db.Groups.FindAsync(id);
             if (group == null)
                 throw new ArgumentException("Group not found");
 
             db.Groups.Remove(group);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
+        }
+
+        public Task<List<Group>> GetAllAsync()
+        {
+            return db.Groups.Include(g => g.Teacher)
+                            .ToListAsync();
         }
     }
 }

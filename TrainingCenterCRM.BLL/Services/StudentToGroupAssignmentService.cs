@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -17,45 +18,47 @@ namespace TrainingCenterCRM.BLL.Services
         {
             this.repository = repository;
         }
-        public void AddAssignment(StudentToGroupAssignment assignment)
+        public async Task AddAssignmentAsync(StudentToGroupAssignment assignment)
         {
             if (assignment == null)
                 throw new ArgumentException();
 
-            repository.Create(assignment);
+            await repository.CreateAsync(assignment);
         }
 
-        public void DeleteAssignment(int id)
+        public async Task DeleteAssignmentAsync(int id)
         {
-            repository.Delete(id);
+            await repository.DeleteAsync(id);
         }
 
-        public void EditAssignment(StudentToGroupAssignment assignment)
+        public async Task EditAssignmentAsync(StudentToGroupAssignment assignment)
         {
             if (assignment == null)
                 throw new ArgumentException();
 
-            repository.Update(assignment);
+            await repository.UpdateAsync(assignment);
         }
 
-        public StudentToGroupAssignment GetAssignment(int id)
+        public Task<StudentToGroupAssignment> GetAssignmentAsync(int id)
         {
-            return repository.Get(id);
+            return repository.GetAsync(id);
         }
 
-        public StudentToGroupAssignment GetAssignmentByStudent(int studentId)
+        public async Task<StudentToGroupAssignment> GetAssignmentByStudentAsync(int studentId)
         {
-            return repository.Find(a => a.StudentId == studentId).FirstOrDefault();
+            var assignments = await repository.GetAllAsync();
+            return assignments.FirstOrDefault(a => a.StudentId == studentId);
         }
 
-        public List<StudentToGroupAssignment> GetAssignments()
+        public Task<List<StudentToGroupAssignment>> GetAssignmentsAsync()
         {
-            return repository.GetAll();
+            return repository.GetAllAsync();
         }
 
-        public IEnumerable<StudentToGroupAssignment> GetAssignmentsByGroup(int groupId)
+        public async Task<IEnumerable<StudentToGroupAssignment>> GetAssignmentsByGroupAsync(int groupId)
         {
-            return repository.Find(stg => stg.GroupId == groupId);
+            var assignments = await repository.GetAllAsync();
+            return assignments.Where(stg => stg.GroupId == groupId);
         }
     }
 }

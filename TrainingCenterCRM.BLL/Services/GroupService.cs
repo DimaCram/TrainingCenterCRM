@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -27,16 +28,16 @@ namespace TrainingCenterCRM.BLL.Services
             this.studentService = studentService;
             this.assignmentService = assignmentService;
         }
-        public void AddGroup(Group group, List<int> studentsId)
+        public async Task AddGroupAsync(Group group, List<int> studentsId)
         {
             if (group == null)
                 throw new ArgumentException();
 
-            groupRepository.Create(group);
+            await groupRepository.CreateAsync(group);
 
             foreach(var studentId in studentsId)
             {
-                assignmentService.AddAssignment(new StudentToGroupAssignment
+                await assignmentService.AddAssignmentAsync(new StudentToGroupAssignment
                 {
                     GroupId = group.Id,
                     StudentId = studentId,
@@ -44,46 +45,47 @@ namespace TrainingCenterCRM.BLL.Services
                     Result = ResultType.Graduated
                 });
 
-                var student = studentService.GetStudent(studentId);
+                var student = await studentService.GetStudentAsync(studentId);
                 student.GroupId = group.Id;
-                studentService.EditStudent(student);
+                await studentService.EditStudentAsync(student);
             }
 
-            studentRequestService.CloseRequests(studentsId, group.CourseId);
+            await studentRequestService.CloseRequestsAsync(studentsId, group.CourseId);
         }
 
-        public void DeleteGroup(int id)
+        public async Task DeleteGroupAsync(int id)
         {
-            groupRepository.Delete(id);
+            await groupRepository.DeleteAsync(id);
         }
 
-        public void EditGroup(Group group, List<int> studentsId)
+        public async Task EditGroupAsync(Group group, List<int> studentsId)
         {
             if (group == null)
                 throw new ArgumentException();
 
-            var assignmentsForDelete = assignmentService.GetAssignmentsByGroup(group.Id)
-                                                        .Where(stg => !studentsId.Contains(stg.StudentId)).ToList();
+            var assignmentsByGroup = await assignmentService.GetAssignmentsByGroupAsync(group.Id);
+                                                        
+            var assignmentsForDelete = assignmentsByGroup.Where(stg => !studentsId.Contains(stg.StudentId)).ToList();
 
-            foreach(var assigment in assignmentsForDelete)
+            foreach (var assigment in assignmentsForDelete)
             {
-                assignmentService.DeleteAssignment(assigment.StudentToGroupAssignmentId);
+                await assignmentService.DeleteAssignmentAsync(assigment.StudentToGroupAssignmentId);
 
-                var student = studentService.GetStudent(assigment.StudentId);
+                var student = await studentService.GetStudentAsync(assigment.StudentId);
                 student.GroupId = null;
-                studentService.EditStudent(student);
+                await studentService.EditStudentAsync(student);
 
-                studentRequestService.ReOpenRequest(assigment.StudentId, group.CourseId);
+                await studentRequestService.ReOpenRequestAsync(assigment.StudentId, group.CourseId);
             }
 
             foreach (var studentId in studentsId)
             {
-                var assignment = assignmentService.GetAssignmentByStudent(studentId);
+                var assignment = await assignmentService.GetAssignmentByStudentAsync(studentId);
                 
                 if (assignment == null)
                 {
 
-                    assignmentService.AddAssignment(new StudentToGroupAssignment
+                    await assignmentService.AddAssignmentAsync(new StudentToGroupAssignment
                     {
                         GroupId = group.Id,
                         StudentId = studentId,
@@ -91,29 +93,29 @@ namespace TrainingCenterCRM.BLL.Services
                         Result = ResultType.Graduated
                     });
 
-                    var student = studentService.GetStudent(studentId);
+                    var student = await studentService.GetStudentAsync(studentId);
                     student.GroupId = group.Id;
-                    studentService.EditStudent(student);
+                    await studentService.EditStudentAsync(student);
                 }
             }
 
-            studentRequestService.CloseRequests(studentsId, group.CourseId);
+            await studentRequestService.CloseRequestsAsync(studentsId, group.CourseId);
 
-            groupRepository.Update(group);
+            await groupRepository.UpdateAsync(group);
         }
 
-        public Group GetGroup(int id)
+        public Task<Group> GetGroupAsync(int id)
         {
-            return groupRepository.Get(id);
+            return groupRepository.GetAsync(id);
         }
 
-        public List<Group> GetGroups()
+        public Task<List<Group>> GetGroupsAsync()
         {
-            return groupRepository.GetAll();
+            return groupRepository.GetAllAsync();
         }
-        public IEnumerable<Student> GetStudentsWithGroup(int groupId, int courseId)
+        public async Task<IEnumerable<Student>> GetStudentsWithGroupAsync(int groupId, int courseId)
         {
-            var group = groupRepository.Get(groupId);
+            var group = await groupRepository.GetAsync(groupId);
             return group.CourseId == courseId ? group.Students : new List<Student>();
         }
     }

@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface IGroupService
     {
-        void AddGroup(Group group, List<int> studentsId);
-        void EditGroup(Group group, List<int> studentsId);
-        void DeleteGroup(int id);
-        Group GetGroup(int id);
-        List<Group> GetGroups();
-        IEnumerable<Student> GetStudentsWithGroup(int groupId, int courseId);
+        Task AddGroupAsync(Group group, List<int> studentsId);
+        Task EditGroupAsync(Group group, List<int> studentsId);
+        Task DeleteGroupAsync(int id);
+        Task<Group> GetGroupAsync(int id);
+        Task<List<Group>> GetGroupsAsync();
+        Task<IEnumerable<Student>> GetStudentsWithGroupAsync(int groupId, int courseId);
     }
 }

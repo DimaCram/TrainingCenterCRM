@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -16,35 +17,35 @@ namespace TrainingCenterCRM.BLL.Services
         {
             this.repository = repository;
         }
-        public void AddTeacher(Teacher teacher)
+        public async Task AddTeacherAsync(Teacher teacher)
         {
             if (teacher == null)
                 throw new ArgumentException();
 
-            repository.Create(teacher);
+            await repository.CreateAsync(teacher);
         }
 
-        public void DeleteTeacher(int id)
+        public async Task DeleteTeacherAsync(int id)
         {
-            repository.Delete(id);
+            await repository.DeleteAsync(id);
         }
 
-        public void EditTeacher(Teacher teacher)
+        public async Task EditTeacherAsync(Teacher teacher)
         {
             if (teacher == null)
                 throw new ArgumentException();
 
-            repository.Update(teacher);
+            await repository.UpdateAsync(teacher);
         }
 
-        public Teacher GetTeacher(int id)
+        public Task<Teacher> GetTeacherAsync(int id)
         {
-            return repository.Get(id);
+            return repository.GetAsync(id);
         }
 
-        public List<Teacher> GetTeachers()
+        public Task<List<Teacher>> GetTeachersAsync()
         {
-            return repository.GetAll();
+            return repository.GetAllAsync();
         }
     }
 }

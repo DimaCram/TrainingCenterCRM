@@ -29,7 +29,7 @@ namespace TrainingCenterCRM.WebAngular.Controllers
         [HttpGet]
         public List<StudentDto> GetStudents()
         {
-            return mapper.Map<List<StudentDto>>(studentService.GetStudents());
+            return mapper.Map<List<StudentDto>>(studentService.GetStudentsAsync());
         }
     }
 }
