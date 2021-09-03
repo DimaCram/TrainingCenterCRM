@@ -1,0 +1,66 @@
+﻿@using TrainingCenterCRM.BLL.Models
+
+@model MaterialModel
+
+@{
+    ViewData["Title"] = $"Material";
+}
+<div class="content">
+    <h1 class="content__header">Work with material</h1>
+    <div class="containt-fluid">
+        <div class="row">
+            <div class="col-xl-3"></div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">Material</div>
+                    <div class="card-body">
+                        <form method="post" asp-controller="Teachers" asp-action="EditMaterial" asp-route-id="@Model.Id">
+                            <div class="mb-3 row">
+                                <label asp-for="Name" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" asp-for="Name" />
+                                    <span asp-validation-for="Name" class="alert-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label asp-for="MaterialType" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" asp-for="MaterialType" asp-items="Html.GetEnumSelectList<WorkingType>()">
+                                        <option value="">Select status</option>
+                                    </select>
+                                    <span asp-validation-for="MaterialType" class="alert-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label asp-for="GroupId" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" asp-for="GroupId">
+                                        @foreach (var material in (List<Group>)ViewBag.Groups)
+                                        {
+
+                                            if (Model != null && material.Id == Model.GroupId)
+                                            {
+                                                <option value="@material.Id" selected>@material.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@material.Id">@material.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="GroupId" class="alert-danger"></span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">Ok</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
+}

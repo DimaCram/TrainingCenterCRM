@@ -25,6 +25,10 @@ namespace TrainingCenterCRM.Mappings
             CreateMap<StudentRequest, StudentRequestModel>()
                 .ForMember(sr => sr.Status, map => map.MapFrom(sr => sr.RequestStatus))
                 .ReverseMap();
+
+            CreateMap<File, FileModel>().ReverseMap();
+
+            CreateMap<Material, MaterialModel>().ReverseMap();
         }
     }
 }
