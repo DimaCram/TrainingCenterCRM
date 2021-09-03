@@ -20,15 +20,15 @@ namespace TrainingCenterCRM.WebApi.Controllers
             this.teacherService = teacherService;
         }
         [HttpGet]
-        public IEnumerable<Teacher> GetTeachers()
+        public async Task<IEnumerable<Teacher>> GetTeachersAsync()
         {
-            return teacherService.GetTeachersAsync();
+            return await teacherService.GetTeachersAsync();
         }
 
         [HttpGet("{id}")]
-        public Teacher GetTeacher(int id)
+        public async Task<Teacher> GetTeacherAsync(int id)
         {
-            return teacherService.GetTeacherAsync(id);
+            return await teacherService.GetTeacherAsync(id);
         }
 
         [HttpPost]
