@@ -12,6 +12,9 @@ namespace TrainingCenterCRM.BLL.Models
         public byte[] Data { get; set; }
         public DateTime CreateDate { get; set; }
 
+        public int? CourseId { get; set; }
+        public Course Course { get; set; }
+
         public List<Material> Materials { get; set; }
     }
 }

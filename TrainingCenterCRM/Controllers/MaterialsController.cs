@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
@@ -18,18 +17,24 @@ namespace TrainingCenterCRM.Controllers
 
         private readonly IMaterialService materialService;
         private readonly IGroupService groupService;
+        private readonly ITopicService topicService;
+        private readonly IFileService fileService;
 
         private readonly IMapper mapper;
         private readonly ILogger logger;
         public MaterialsController(IMapper mapper,
                                    ILogger<MaterialsController> logger,
                                    IMaterialService materialService,
-                                   IGroupService groupService)
+                                   IGroupService groupService,
+                                   ITopicService topicService,
+                                   IFileService fileService)
         {
             this.materialService = materialService;
             this.groupService = groupService;
             this.mapper = mapper;
             this.logger = logger;
+            this.topicService = topicService;
+            this.fileService = fileService;
         }
 
 
@@ -73,16 +78,45 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddFile()
+        public async Task<ActionResult> AddFileAsync()
         {
+            ViewBag.Topics = await topicService.GetTopicsAsync();
             return View();
         }
         
         [HttpPost]
-        public async Task<IActionResult> AddFile(List<IFormFile> files)
+        public async Task<IActionResult> AddFile(FileModel model)
         {
-            long size = files.Sum(f => f.Length);
+            ViewBag.Topics = await topicService.GetTopicsAsync();
+            
+            if (ModelState.IsValid)
+            {
+                var files = new List<File>();
+                foreach(var fileModel in model.Files)
+                {
+                    var file = new File
+                    {
+                        Name = fileModel.FileName,
+                        FileType = fileModel.ContentType,
+                        CreateDate = DateTime.Now,
+                        CourseId = model.CourseId,
+                    };
 
+                    using (var target = new System.IO.MemoryStream())
+                    {
+                        fileModel.CopyTo(target);
+                        file.Data = target.ToArray();
+                    }
+
+                    files.Add(file);
+                }
+                await fileService.AddFilesAsync(files);
+
+            }
+
+
+            return View(model);
+            /*long size = files.Sum(f => f.Length);
             foreach (var formFile in files)
             {
                 if (formFile.Length > 0)
@@ -99,7 +133,7 @@ namespace TrainingCenterCRM.Controllers
             // Process uploaded files
             // Don't rely on or trust the FileName property without validation.
 
-            return Ok(new { count = files.Count, size });
+            return Ok(new { count = files.Count, size });*/
         }
     }
 }

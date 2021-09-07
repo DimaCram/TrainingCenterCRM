@@ -1,44 +1,61 @@
 ﻿@using TrainingCenterCRM.BLL.Models
 @using Microsoft.AspNetCore.Http;
-@model IFormFile
+@model FileModel
 
 @{
-    ViewData["Title"] = $"Material";
+    ViewData["Title"] = $"Materials";
 }
 <div class="content">
-    <h1 class="content__header">Work with material</h1>
+    <h1 class="content__header">Work with files</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-xl-3"></div>
             <div class="col-xl-6">
                 <div class="card">
-                    <div class="card-header">Material</div>
+                    <div class="card-header">Files</div>
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data" asp-controller="Materials" asp-action="AddFile" onsubmit="AJAXSubmit(this);return false;">
-                            <dl>
-                                <dt>
-                                    <label></label>
-                                </dt>
-                                <dd>
-                                    <input name="files" type="file">
-                                </dd>
-                            </dl>
-                            <input asp-page-handler="Upload" class="btn" type="submit" value="Upload" />
-                            <div style="margin-top:15px">
-                                <output name="result"></output>
+                        <form enctype="multipart/form-data" asp-controller="Materials" asp-action="AddFile">
+                            <p>
+                                Upload multiple files <span class="alert-danger">(only Word, PowerPoint or Pdf)</span>
+                                with the file dialog or by dragging and dropping onto the dashed region.
+                                <span class="alert-danger">Max size 5 mb.</span>
+                            </p>
+
+                            <div id="drop-area">
+                                <input type="file" id="fileElem" accept=".doc, .docx , .ppt, .pptx, application/pdf" multiple>
+                                <label class="btn btn-head" for="fileElem">
+                                    Select some files
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </label>
                             </div>
+                            <div class="mb-3 row">
+                                <label asp-for="CourseId" class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="CourseId" required>
+                                        <option value="">Select one</option>
+                                        @foreach (var topic in (List<Topic>)ViewBag.Topics)
+                                        {
+
+                                            if (Model != null && topic.Id == Model.CourseId)
+                                            {
+                                                <option value="@topic.Id" selected>@topic.Title</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@topic.Id">@topic.Title</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="CourseId" class="alert-danger"></span>
+                                </div>
+                            </div>
+                            <p>Selected files</p>
+                            <span asp-validation-for="Files" class="alert-danger"></span>
+                            <ul class="files-group list-group scroll-div mb-3">
+                            </ul>
+                            <button id="submit" type="submit" class="btn btn-head">Загрузить</button>
+
                         </form>
-                        <div id="drop-area">
-                            <form class="my-form" enctype="multipart/form-data" asp-controller="Materials" asp-action="AddFile">
-                                <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-                                <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" name="files">
-                                <label class="button" for="fileElem">Select some files</label>
-                                <input type="submit"/>
-                            </form>
-                            <progress id="progress-bar" max=100 value=0></progress>
-                            <div id="gallery">
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -48,12 +65,11 @@
 </div>
 
 <style>
-    body {
-        font-family: sans-serif;
-    }
-
-    a {
-        color: #369;
+    .scroll-div {
+        max-height: 200px;
+        overflow-x: auto;
+        padding: 10px;
+        border: 1px solid rgba(0,0,0,.125);
     }
 
     .note {
@@ -65,24 +81,25 @@
     }
 
     #drop-area {
-        border: 2px dashed #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 100%;
+        height: 200px;
+        border: 2px dashed #a9a9a9;
         border-radius: 20px;
-        width: 480px;
-        margin: 50px auto;
+        margin: 20px auto;
         padding: 20px;
     }
 
         #drop-area.highlight {
-            border-color: purple;
+            border-color: #1c2b36;
         }
 
     p {
         margin-top: 0;
     }
 
-    .my-form {
-        margin-bottom: 10px;
-    }
 
     #gallery {
         margin-top: 10px;
@@ -111,115 +128,9 @@
     #fileElem {
         display: none;
     }
-
 </style>
-<script>
-    let dropArea = document.getElementById("drop-area")
-
-        // Prevent default drag behaviors
-        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false)
-            document.body.addEventListener(eventName, preventDefaults, false)
-        })
-
-        // Highlight drop area when item is dragged over it
-        ;['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, highlight, false)
-        })
-
-        ;['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, unhighlight, false)
-        })
-
-    // Handle dropped files
-    dropArea.addEventListener('drop', handleDrop, false)
-
-    function preventDefaults(e) {
-        e.preventDefault()
-        e.stopPropagation()
-    }
-
-    function highlight(e) {
-        dropArea.classList.add('highlight')
-    }
-
-    function unhighlight(e) {
-        dropArea.classList.remove('active')
-    }
-
-    function handleDrop(e) {
-        var dt = e.dataTransfer
-        var files = dt.files
-
-        handleFiles(files)
-    }
-
-    let uploadProgress = []
-    let progressBar = document.getElementById('progress-bar')
-
-    function initializeProgress(numFiles) {
-        progressBar.value = 0
-        uploadProgress = []
-
-        for (let i = numFiles; i > 0; i--) {
-            uploadProgress.push(0)
-        }
-    }
-
-    function updateProgress(fileNumber, percent) {
-        uploadProgress[fileNumber] = percent
-        let total = uploadProgress.reduce((tot, curr) => tot + curr, 0) / uploadProgress.length
-        console.debug('update', fileNumber, percent, total)
-        progressBar.value = total
-    }
-
-    function handleFiles(files) {
-        files = [...files]
-        console.log(files)
-        initializeProgress(files.length)
-        files.forEach(uploadFile)
-        files.forEach(previewFile)
-    }
-
-    function previewFile(file) {
-        let reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onloadend = function () {
-            let img = document.createElement('img')
-            img.src = reader.result
-            document.getElementById('gallery').appendChild(img)
-        }
-    }
-
-    function uploadFile(file, i) {
-
-        /*
-        var url = 'https://localhost:44310/Materials/AddFile'
-        var xhr = new XMLHttpRequest()
-        var formData = new FormData()
-        xhr.open('POST', url, true)
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-
-        // Update progress (can be used to show progress indicator)
-        xhr.upload.addEventListener("progress", function (e) {
-            updateProgress(i, (e.loaded * 100.0 / e.total) || 100)
-        })
-
-        xhr.addEventListener('readystatechange', function (e) {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                updateProgress(i, 100) // <- Add this
-            }
-            else if (xhr.readyState == 4 && xhr.status != 200) {
-                // Error. Inform the user
-            }
-        })
-
-        formData.append('upload_preset', 'ujpu6gyk')
-        formData.append('files', file)
-        xhr.send(formData)*/
-    }
-</script>
 
 @section Scripts {
+    <script src="~/js/files.js"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
 }

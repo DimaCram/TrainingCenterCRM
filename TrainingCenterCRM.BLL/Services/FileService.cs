@@ -25,6 +25,15 @@ namespace TrainingCenterCRM.BLL.Services
             await repository.CreateAsync(file);
         }
 
+        public async Task AddFilesAsync(List<File> files)
+        {
+            if(files == null || files.Count == 0)
+                throw new ArgumentException();
+
+            foreach (var file in files)
+                await repository.CreateAsync(file);
+        }
+
         public async Task DeleteFileAsync(int id)
         {
             await repository.DeleteAsync(id);

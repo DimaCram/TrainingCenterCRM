@@ -8,6 +8,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface IFileService
     {
+        Task AddFilesAsync(List<File> files);
         Task AddFileAsync(File file);
         Task EditFileAsync(File file);
         Task DeleteFileAsync(int id);
