@@ -36,25 +36,6 @@
                                     <span asp-validation-for="Age" class="alert-danger"></span>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label asp-for="GroupId" class="col-sm-3 col-form-label"></label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" asp-for="GroupId">
-                                        @foreach (var group in (List<Group>)ViewBag.Groups)
-                                        {
-                                            if (Model != null && group.Id == Model.GroupId)
-                                            {
-                                                <option value="@group.Id" selected>@group.Name</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@group.Id">@group.Name</option>
-                                            }
-                                        }
-                                    </select>
-                                    <span asp-validation-for="GroupId" class="alert-danger"></span>
-                                </div>
-                            </div>
                             <button type="submit" class="btn btn-success">Ok</button>
                         </form>
                     </div>

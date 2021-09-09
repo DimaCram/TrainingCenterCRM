@@ -33,6 +33,7 @@
                                 <label asp-for="TopicId" class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-9">
                                     <select class="form-control" asp-for="TopicId">
+                                        <option value="">Select topic</option>
                                         @foreach (var topic in (List<Topic>)ViewData["Topics"])
                                         {
                                             if (Model != null && topic.Id == Model.TopicId)

@@ -41,6 +41,7 @@
                                 <label asp-for="TeacherId" class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <select class="form-control" asp-for="TeacherId">
+                                        <option value="">Select teacher</option>
                                         @foreach (var teacher in (List<Teacher>)ViewBag.Teachers)
                                         {
 
@@ -75,7 +76,7 @@
                                             }
                                         }
                                     </select>
-                                    <span asp-validation-for="TeacherId" class="alert-danger"></span>
+                                    <span asp-validation-for="CourseId" class="alert-danger"></span>
                                 </div>
                             </div>
                             <div class="mb-3 row" id="students">

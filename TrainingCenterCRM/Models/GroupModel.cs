@@ -29,6 +29,7 @@ namespace TrainingCenterCRM.Models
 
 
         [Required]
+        [Display(Name = "Course")]
         public int CourseId { get; set; }
         public CourseModel Course { get; set; }
     }
