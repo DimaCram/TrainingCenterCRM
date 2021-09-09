@@ -71,7 +71,7 @@ namespace TrainingCenterCRM.Controllers
                     else
                         await materialService.EditMaterialAsync(material, fileIds);
 
-                    return RedirectToAction("Materials");
+                    return RedirectToAction("Index");
                 }
                 return View(model);
             }
@@ -81,6 +81,12 @@ namespace TrainingCenterCRM.Controllers
                 return StatusCode(500);
             }
         }
+        public async Task<IActionResult> DeleteMaterial(int id)
+        {
+            await materialService.DeleteMaterialAsync(id);
+            return RedirectToAction("Index");
+        }
+
 
         [HttpGet]
         public async Task<ActionResult> AddFileAsync()
