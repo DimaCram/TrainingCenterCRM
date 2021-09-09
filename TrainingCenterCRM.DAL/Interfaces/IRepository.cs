@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace TrainingCenterCRM.DAL.Interfaces
 {
     public interface IRepository<T> where T: class
     {
-        List<T> GetAll();
-        T Get(int id);
+        Task<List<T>> GetAllAsync();
+        Task<T> GetAsync(int id);
         IEnumerable<T> Find(Func<T, Boolean> predicate);
-        void Create(T item);
-        void Update(T item);
-        void Delete(int id);
+        Task CreateAsync(T item);
+        Task UpdateAsync(T item);
+        Task DeleteAsync(int id);
     }
 }

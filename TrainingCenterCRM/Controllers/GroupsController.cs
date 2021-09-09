@@ -37,11 +37,11 @@ namespace TrainingCenterCRM.Controllers
             this.courseService = courseService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             try
             {
-                var groups = groupService.GetGroups();
+                var groups = await groupService.GetGroupsAsync();
 
                 return View(groups);
             }
@@ -53,16 +53,16 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditGroup(int? id)
+        public async Task<IActionResult> EditGroupAsync(int? id)
         {
             try
             {
                 var groupModel = id.HasValue ?
-                    mapper.Map<GroupModel>(groupService.GetGroup(id.Value)) :
+                    mapper.Map<GroupModel>(await groupService.GetGroupAsync(id.Value)) :
                     new GroupModel() { StartDate = DateTime.Today };
 
-                ViewBag.Teachers = teacherService.GetTeachers();
-                ViewBag.Courses = courseService.GetCourses();
+                ViewBag.Teachers = await teacherService.GetTeachersAsync();
+                ViewBag.Courses = await courseService.GetCoursesAsync();
 
                 return View(groupModel);
             }
@@ -73,16 +73,16 @@ namespace TrainingCenterCRM.Controllers
             }
         }
         [HttpGet]
-        public IActionResult AddGroup(int? id)
+        public async Task<IActionResult> AddGroupAsync(int? id)
         {
             try
             {
                 var groupModel = id.HasValue ?
-                    mapper.Map<GroupModel>(groupService.GetGroup(id.Value)) :
+                    mapper.Map<GroupModel>(await groupService.GetGroupAsync(id.Value)) :
                     new GroupModel() { StartDate = DateTime.Today };
 
-                ViewBag.Teachers = teacherService.GetTeachers();
-                ViewBag.Courses = courseService.GetCourses();
+                ViewBag.Teachers = await teacherService.GetTeachersAsync();
+                ViewBag.Courses = await courseService.GetCoursesAsync();
 
                 return View("EditGroup", groupModel);
             }
@@ -93,7 +93,7 @@ namespace TrainingCenterCRM.Controllers
             }
         }
         [HttpPost]
-        public IActionResult EditGroup(GroupModel groupModel, List<int> studentsId)
+        public async Task<IActionResult> EditGroupAsync(GroupModel groupModel, List<int> studentsId)
         {
             try
             {
@@ -102,15 +102,15 @@ namespace TrainingCenterCRM.Controllers
                     var group = mapper.Map<Group>(groupModel);
 
                     if (group.Id == 0)
-                        groupService.AddGroup(group, studentsId);
+                        await groupService.AddGroupAsync(group, studentsId);
                     else
-                        groupService.EditGroup(group, studentsId);
+                        await groupService.EditGroupAsync(group, studentsId);
 
                     return RedirectToAction("Index", "Groups");
                 }
 
-                ViewBag.Courses = courseService.GetCourses();
-                ViewBag.Teachers = teacherService.GetTeachers();
+                ViewBag.Courses = await courseService.GetCoursesAsync();
+                ViewBag.Teachers = await teacherService.GetTeachersAsync();
                 return View(groupModel);
             }
             catch (Exception ex)
@@ -121,11 +121,11 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteGroup(int id)
+        public async Task<IActionResult> DeleteGroupAsync(int id)
         {
             try
             {
-                groupService.DeleteGroup(id);
+                await groupService.DeleteGroupAsync(id);
                 return RedirectToAction("Index", "Groups");
             }
             catch (Exception ex)

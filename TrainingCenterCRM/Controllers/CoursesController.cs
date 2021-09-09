@@ -33,14 +33,13 @@ namespace TrainingCenterCRM.Controllers
             this.topicService = topicService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             try
             {
-                var courses = courseService.GetCourses();
-                var coursesDto = mapper.Map<List<Course>>(courses);
+                var courses = await courseService.GetCoursesAsync();
 
-                return View(coursesDto);
+                return View(courses);
             }
             catch (Exception ex)
             {
@@ -50,12 +49,12 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditCourse(int? id)
+        public async Task<IActionResult> EditCourseAsync(int? id)
         {   
             try
             {
-                ViewData["Topics"] = topicService.GetTopics();
-                var course = id.HasValue ? mapper.Map<CourseModel>(courseService.GetCourse(id.Value)) : new CourseModel();
+                ViewData["Topics"] = await topicService.GetTopicsAsync();
+                var course = id.HasValue ? mapper.Map<CourseModel>(await courseService.GetCourseAsync(id.Value)) : new CourseModel();
                 return View(course);
             }
             catch (Exception ex) {
@@ -65,7 +64,7 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditCourse(CourseModel courseModel)
+        public async Task<IActionResult> EditCourseAsync(CourseModel courseModel)
         {
             try
             {
@@ -74,14 +73,14 @@ namespace TrainingCenterCRM.Controllers
                     var course = mapper.Map<Course>(courseModel);
 
                     if (course.Id == 0)
-                        courseService.AddCourse(course);
+                        await courseService.AddCourseAsync(course);
                     else
-                        courseService.EditCourse(course);
+                        await courseService.EditCourseAsync(course);
 
                     return RedirectToAction("Index");
                 }
 
-                ViewData["Topics"] = topicService.GetTopics();
+                ViewData["Topics"] = await topicService.GetTopicsAsync();
                 return View(courseModel);
             }
             catch (Exception ex)
@@ -92,11 +91,11 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteCourse(int id)
+        public async Task<IActionResult> DeleteCourseAsync(int id)
         {
             try
             {
-                courseService.DeleteCourse(id);
+                await courseService.DeleteCourseAsync(id);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

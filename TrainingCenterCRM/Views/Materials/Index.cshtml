@@ -1,10 +1,10 @@
-﻿@model List<TrainingCenterCRM.BLL.Models.Teacher>
+﻿@model List<TrainingCenterCRM.BLL.Models.Material>
 @{
-    ViewData["Title"] = "Students";
+    ViewData["Title"] = "Materials";
 }
 
 <div class="content">
-    <h1 class="content__header">Teachers</h1>
+    <h1 class="content__header">Materials</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-xxl-3"></div>
@@ -22,23 +22,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var teacher in Model)
+                                    @foreach (var material in Model)
                                     {
 
                                         <tr>
-                                            <th scope="col">@teacher.Name @teacher.Surname</th>
-                                            <th scope="col">@teacher.Age</th>
+                                            <th scope="col">@material.Name</th>
+                                            <th scope="col">@material.MaterialType</th>
                                             <th scope="col" class="text-center">
-                                                <a class="btn btn-success m-1" asp-controller="Teachers" asp-action="EditTeacher" asp-route-id="@teacher.Id"><i class="fas fa-edit"></i></a>
-                                                <a class="btn btn-danger m-1" asp-controller="Teachers" asp-action="DeleteTeacher" asp-route-id="@teacher.Id"><i class="fas fa-trash"></i></a>
+                                                <a class="btn btn-danger m-1" asp-controller="Materials" asp-action="DeleteMaterial" asp-route-id="@material.Id"><i class="fas fa-trash"></i></a>
                                             </th>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
                         </div>
-                        <a class="btn btn-head" asp-controller="Teachers" asp-action="EditTeacher">Add new teacher</a>
-                        <a class="btn btn-head" asp-controller="Materials" asp-action="Index">Materials</a>
+                        <a class="btn btn-head" asp-controller="Materials" asp-action="EditMaterial">Add new material</a>
+                        <a class="btn btn-head" asp-controller="Materials" asp-action="AddFile">Add file</a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,136 @@
+﻿@using TrainingCenterCRM.BLL.Models
+@using Microsoft.AspNetCore.Http;
+@model FileModel
+
+@{
+    ViewData["Title"] = $"Materials";
+}
+<div class="content">
+    <h1 class="content__header">Work with files</h1>
+    <div class="containt-fluid">
+        <div class="row">
+            <div class="col-xl-3"></div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">Files</div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" asp-controller="Materials" asp-action="AddFile">
+                            <p>
+                                Upload multiple files <span class="alert-danger">(only Word, PowerPoint or Pdf)</span>
+                                with the file dialog or by dragging and dropping onto the dashed region.
+                                <span class="alert-danger">Max size 5 mb.</span>
+                            </p>
+
+                            <div id="drop-area">
+                                <input type="file" id="fileElem" accept=".doc, .docx , .ppt, .pptx, application/pdf" multiple>
+                                <label class="btn btn-head" for="fileElem">
+                                    Select some files
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </label>
+                            </div>
+                            <div class="mb-3 row">
+                                <label asp-for="CourseId" class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="CourseId" required>
+                                        <option value="">Select one</option>
+                                        @foreach (var course in (List<Course>)ViewBag.Courses)
+                                        {
+
+                                            if (Model != null && course.Id == Model.CourseId)
+                                            {
+                                                <option value="@course.Id" selected>@course.Title</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@course.Id">@course.Title</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="CourseId" class="alert-danger"></span>
+                                </div>
+                            </div>
+                            <p>Selected files</p>
+                            <span asp-validation-for="Files" class="alert-danger"></span>
+                            <ul class="files-group list-group scroll-div mb-3">
+                            </ul>
+                            <button id="submit" type="submit" class="btn btn-head">Загрузить</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .scroll-div {
+        max-height: 200px;
+        overflow-x: auto;
+        padding: 10px;
+        border: 1px solid rgba(0,0,0,.125);
+    }
+
+    .note {
+        width: 500px;
+        margin: 50px auto;
+        font-size: 1.1em;
+        color: #333;
+        text-align: justify;
+    }
+
+    #drop-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 100%;
+        height: 200px;
+        border: 2px dashed #a9a9a9;
+        border-radius: 20px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+        #drop-area.highlight {
+            border-color: #1c2b36;
+        }
+
+    p {
+        margin-top: 0;
+    }
+
+
+    #gallery {
+        margin-top: 10px;
+    }
+
+        #gallery img {
+            width: 150px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+    .button {
+        display: inline-block;
+        padding: 10px;
+        background: #ccc;
+        cursor: pointer;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+        .button:hover {
+            background: #ddd;
+        }
+
+    #fileElem {
+        display: none;
+    }
+</style>
+
+@section Scripts {
+    <script src="~/js/files.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
+}

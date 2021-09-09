@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -18,20 +19,20 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public void Create(StudentToGroupAssignment item)
+        public async Task CreateAsync(StudentToGroupAssignment item)
         {
-            db.StudentToGroupAssignments.Add(item);
-            db.SaveChanges();
+            await db.StudentToGroupAssignments.AddAsync(item);
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var studentToGroupAssignment = db.StudentToGroupAssignments.Find(id);
+            var studentToGroupAssignment = await db.StudentToGroupAssignments.FindAsync(id);
             if (studentToGroupAssignment == null)
                 throw new ArgumentException("Student to group assignment not found");
 
             db.StudentToGroupAssignments.Remove(studentToGroupAssignment);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         public IEnumerable<StudentToGroupAssignment> Find(Func<StudentToGroupAssignment, bool> predicate)
@@ -39,20 +40,20 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             return db.StudentToGroupAssignments.Where(predicate).ToList();
         }
 
-        public StudentToGroupAssignment Get(int id)
+        public Task<StudentToGroupAssignment> GetAsync(int id)
         {
-            return db.StudentToGroupAssignments.Find(id);
+            return db.StudentToGroupAssignments.FirstOrDefaultAsync(a => a.StudentToGroupAssignmentId == id);
         }
 
-        public List<StudentToGroupAssignment> GetAll()
+        public Task<List<StudentToGroupAssignment>> GetAllAsync()
         {
-            return db.StudentToGroupAssignments.ToList();
+            return db.StudentToGroupAssignments.ToListAsync();
         }
 
-        public void Update(StudentToGroupAssignment item)
+        public async Task UpdateAsync(StudentToGroupAssignment item)
         {
             db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }

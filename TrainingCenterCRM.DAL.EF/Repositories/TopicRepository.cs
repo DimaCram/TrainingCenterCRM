@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -17,20 +18,20 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             this.db = db;
         }
 
-        public void Create(Topic item)
+        public async Task CreateAsync(Topic item)
         {
-            db.Add(item);
-            db.SaveChanges();
+            await db.AddAsync(item);
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var topic = db.Topics.Find(id);
+            var topic = await db.Topics.FindAsync(id);
             if (topic == null)
                 throw new ArgumentException("Topic not found");
 
             db.Topics.Remove(topic);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         public IEnumerable<Topic> Find(Func<Topic, bool> predicate)
@@ -38,20 +39,20 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             return db.Topics.Where(predicate).ToList();
         }
 
-        public Topic Get(int id)
+        public Task<Topic> GetAsync(int id)
         {
-            return db.Topics.Find(id);
+            return db.Topics.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public List<Topic> GetAll()
+        public Task<List<Topic>> GetAllAsync()
         {
-            return db.Topics.ToList();
+            return db.Topics.ToListAsync();
         }
 
-        public void Update(Topic item)
+        public async Task UpdateAsync(Topic item)
         {
             db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }

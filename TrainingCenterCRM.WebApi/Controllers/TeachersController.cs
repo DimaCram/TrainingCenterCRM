@@ -20,15 +20,15 @@ namespace TrainingCenterCRM.WebApi.Controllers
             this.teacherService = teacherService;
         }
         [HttpGet]
-        public IEnumerable<Teacher> GetTeachers()
+        public async Task<IEnumerable<Teacher>> GetTeachersAsync()
         {
-            return teacherService.GetTeachers();
+            return await teacherService.GetTeachersAsync();
         }
 
         [HttpGet("{id}")]
-        public Teacher GetTeacher(int id)
+        public async Task<Teacher> GetTeacherAsync(int id)
         {
-            return teacherService.GetTeacher(id);
+            return await teacherService.GetTeacherAsync(id);
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace TrainingCenterCRM.WebApi.Controllers
             if(teacher.Id != 0)
                 return BadRequest();
 
-            teacherService.AddTeacher(teacher);
+            teacherService.AddTeacherAsync(teacher);
 
             return NoContent();
         }
@@ -48,7 +48,7 @@ namespace TrainingCenterCRM.WebApi.Controllers
             if (id != teacher.Id)
                 return BadRequest();
 
-            teacherService.EditTeacher(teacher);
+            teacherService.EditTeacherAsync(teacher);
 
             return NoContent();
         }
@@ -56,7 +56,7 @@ namespace TrainingCenterCRM.WebApi.Controllers
         [HttpDelete("{id}")]
         public void DeleteTeacher(int id)
         {
-            teacherService.DeleteTeacher(id);
+            teacherService.DeleteTeacherAsync(id);
         }
     }
 }

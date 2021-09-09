@@ -10,46 +10,47 @@ using TrainingCenterCRM.DAL.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories
 {
-    public class CourseRepository : IRepository<Course>
+    public class MaterialRepository : IRepository<Material>
     {
         private readonly TrainingCenterContext db;
 
-        public CourseRepository(TrainingCenterContext db)
+        public MaterialRepository(TrainingCenterContext db)
         {
             this.db = db;
         }
-        public async Task CreateAsync(Course item)
+
+        public async Task CreateAsync(Material item)
         {
-            await db.Courses.AddAsync(item);
+            await db.Materials.AddAsync(item);
             await db.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var course = await db.Courses.FindAsync(id);
-            if (course == null)
+            var material = await db.Materials.FindAsync(id);
+            if (material == null)
                 throw new ArgumentException("Course not found");
 
-            db.Courses.Remove(course);
+            db.Materials.Remove(material);
             await db.SaveChangesAsync();
         }
 
-        public IEnumerable<Course> Find(Func<Course, bool> predicate)
+        public IEnumerable<Material> Find(Func<Material, bool> predicate)
         {
-            return db.Courses.Where(predicate);
+            return db.Materials.Where(predicate);
         }
 
-        public Task<Course> GetAsync(int id)
+        public Task<List<Material>> GetAllAsync()
         {
-            return db.Courses.FirstOrDefaultAsync(c => c.Id == id);
+            return db.Materials.Include(m => m.Files).ToListAsync();
         }
 
-        public Task<List<Course>> GetAllAsync()
+        public Task<Material> GetAsync(int id)
         {
-            return db.Courses.ToListAsync();
+            return db.Materials.Include(m => m.Files).FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task UpdateAsync(Course item)
+        public async Task UpdateAsync(Material item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -17,56 +18,57 @@ namespace TrainingCenterCRM.BLL.Services
             this.studentRequestRepository = studentRequestRepository;
         }
 
-        public void AddRequest(StudentRequest model)
+        public async Task AddRequestAsync(StudentRequest model)
         {
             if (model == null)
                 throw new ArgumentException();
 
-            studentRequestRepository.Create(model);
+            await studentRequestRepository.CreateAsync(model);
         }
 
-        public void DeleteRequest(int id)
+        public async Task DeleteRequestAsync(int id)
         {
-            studentRequestRepository.Delete(id);
+            await studentRequestRepository.DeleteAsync(id);
         }
 
-        public void EditRequest(StudentRequest model)
+        public async Task EditRequestAsync(StudentRequest model)
         {
             if (model == null)
                 throw new ArgumentException();
 
-            studentRequestRepository.Update(model);
+            await studentRequestRepository.UpdateAsync(model);
         }
 
-        public StudentRequest GetRequest(int id)
+        public Task<StudentRequest> GetRequestAsync(int id)
         {
-            return studentRequestRepository.Get(id);
+            return studentRequestRepository.GetAsync(id);
         }
 
-        public List<StudentRequest> GetRequests()
+        public Task<List<StudentRequest>> GetRequestsAsync()
         {
-            return studentRequestRepository.GetAll();
+            return studentRequestRepository.GetAllAsync();
         }
-        public List<StudentRequest> GetOpenRequests()
+        public async Task<List<StudentRequest>> GetOpenRequestsAsync()
         {
-            return studentRequestRepository.GetAll().Where(sr => sr.RequestStatus == RequestStatus.Open).ToList();
+            var requests = await studentRequestRepository.GetAllAsync();
+            return requests.Where(sr => sr.RequestStatus == RequestStatus.Open).ToList();
         }
-        public List<StudentRequest> GetOpenRequestsByCourse(int courseId)
+        public async Task<List<StudentRequest>> GetOpenRequestsByCourseAsync(int courseId)
         {
-            return studentRequestRepository.GetAll()
-                .Where(sr => sr.RequestStatus == RequestStatus.Open && sr.CourseId == courseId)
-                .Distinct()
-                .ToList();
+            var requests = await studentRequestRepository.GetAllAsync();
+            return requests.Where(sr => sr.RequestStatus == RequestStatus.Open && sr.CourseId == courseId)
+                           .Distinct()
+                           .ToList();
         }
-        public IEnumerable<Student> GetStudentsRequestedForCourse(int courseId)
+        public async Task<IEnumerable<Student>> GetStudentsRequestedForCourseAsync(int courseId)
         {
-            return studentRequestRepository.GetAll()
-                .Where(sr => sr.CourseId == courseId && sr.RequestStatus == RequestStatus.Open)
-                .Select(s => s.Student)
-                .Distinct();
+            var requests = await studentRequestRepository.GetAllAsync();
+            return requests.Where(sr => sr.CourseId == courseId && sr.RequestStatus == RequestStatus.Open)
+                           .Select(s => s.Student)
+                           .Distinct();
         }
 
-        public void ReOpenRequest(int studentId, int courseId)
+        public async Task ReOpenRequestAsync(int studentId, int courseId)
         {
             var request = studentRequestRepository.Find(sr => sr.StudentId == studentId &&
                                                         sr.CourseId == courseId &&
@@ -75,18 +77,19 @@ namespace TrainingCenterCRM.BLL.Services
             if(request != null)
             {
                 request.RequestStatus = RequestStatus.Open;
-                studentRequestRepository.Update(request);
+                await studentRequestRepository.UpdateAsync(request);
             }
         }
 
-        public void CloseRequests(List<int> studentsId, int courseId)
+        public async Task CloseRequestsAsync(List<int> studentsId, int courseId)
         {
-            var requests = GetOpenRequestsByCourse(courseId).Where(r => studentsId.Contains(r.StudentId));
+            var openRequests = await GetOpenRequestsByCourseAsync(courseId);
+            var openRequestsForStudents = openRequests.Where(r => studentsId.Contains(r.StudentId));
 
-            foreach (var request in requests)
+            foreach (var request in openRequestsForStudents)
             {
                 request.RequestStatus = RequestStatus.Closed;
-                EditRequest(request);
+                await EditRequestAsync(request);
             }
         }
     }

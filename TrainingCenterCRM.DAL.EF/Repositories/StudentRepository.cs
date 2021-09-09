@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.Interfaces;
@@ -17,14 +18,14 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public List<Student> GetAll()
+        public Task<List<Student>> GetAllAsync()
         {
-            return db.Students.Include(x => x.Group).ToList();
+            return db.Students.Include(x => x.Group).ToListAsync();
         }
 
-        public Student Get(int id)
+        public Task<Student> GetAsync(int id)
         {
-            return db.Students.Find(id);
+            return db.Students.FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public IEnumerable<Student> Find(Func<Student, bool> predicate)
@@ -32,26 +33,26 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             return db.Students.Where(predicate).ToList();
         }
 
-        public void Create(Student item)
+        public async Task CreateAsync(Student item)
         {
-            db.Students.Add(item);
-            db.SaveChanges();
+            await db.Students.AddAsync(item);
+            await db.SaveChangesAsync();
         }
 
-        public void Update(Student item)
+        public async Task UpdateAsync(Student item)
         {
             db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var student = db.Students.Find(id);
+            var student = await db.Students.FindAsync(id);
             if (student == null)
                 throw new ArgumentException("Student not found");
 
             db.Students.Remove(student);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }
