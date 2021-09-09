@@ -1,0 +1,29 @@
+<main>
+    <section class="short-preview">
+      <div class="preview-content wrapper">
+        <div class="short-preview-box" data-aos="fade-up">
+          <h1 class="preview__header">Teachers</h1>
+        </div>
+      </div>
+    </section>
+    <section class="teachers">
+      <div class="wrapper">
+        <div class="teachers-content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-3 mb-4" data-aos="flip-left" *ngFor="let teacher of teachers" data-aos-delay="100" data-aos-duration="1000">
+                <div class="teacher-card">
+                  <img class="img-fluid" [src]="teacher.pathToIcon"  *ngIf="teacher.pathToIcon; else elseTemplate" alt="">
+                  <ng-template #elseTemplate>
+                    <img class="img-fluid" src="assets/icons/default-teacher.png" alt="">
+                  </ng-template>
+                  <h3 class="teacher-card__header">{{teacher.name}} {{teacher.surname}}</h3>
+                  <p class="teacher-card__text">{{teacher.bio}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>

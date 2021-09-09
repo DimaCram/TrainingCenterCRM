@@ -6,30 +6,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.WebAngular.Dto;
 
 namespace TrainingCenterCRM.WebAngular.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class TeachersController : ControllerBase
     {
-        private readonly IStudentService studentService;
+        private readonly ITeacherService teacherService;
 
         private readonly IMapper mapper;
 
-        public StudentsController(IStudentService studentService, IMapper mapper)
+        public TeachersController(ITeacherService teacherService, IMapper mapper)
         {
-            this.studentService = studentService;
-
+            this.teacherService = teacherService;
             this.mapper = mapper;
         }
 
         [HttpGet]
-        public List<StudentDto> GetStudents()
+        public async Task<List<TeacherDto>> GetCoursesAsync()
         {
-            return mapper.Map<List<StudentDto>>(studentService.GetStudentsAsync());
+            return mapper.Map<List<TeacherDto>>(await teacherService.GetTeachersAsync());
         }
     }
 }

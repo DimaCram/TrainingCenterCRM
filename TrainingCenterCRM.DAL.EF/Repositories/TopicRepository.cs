@@ -46,7 +46,7 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public Task<List<Topic>> GetAllAsync()
         {
-            return db.Topics.ToListAsync();
+            return db.Topics.Include(t => t.Courses).ToListAsync();
         }
 
         public async Task UpdateAsync(Topic item)

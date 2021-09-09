@@ -12,7 +12,11 @@ namespace TrainingCenterCRM.WebAngular.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<Student, StudentDto>().ReverseMap();
+            CreateMap<Topic, TopicDto>().ReverseMap();
+
+            CreateMap<Course, CourseDto>().ReverseMap();
+
+            CreateMap<Teacher, TeacherDto>().ReverseMap();
         }
-    }
+    }   
 }

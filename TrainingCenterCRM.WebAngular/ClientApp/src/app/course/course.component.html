@@ -1,0 +1,37 @@
+<main>
+    <section class="short-preview">
+      <div class="preview-content wrapper">
+        <div class="short-preview-box" data-aos="fade-up">
+          <h1 class="preview__header">Explore Courses</h1>
+        </div>
+      </div>
+    </section>
+    <section class="courses">
+      <div class="wrapper">
+        <div class="course-content">
+          <div class="container-fluid">
+            <div class="row">
+
+              <div class="col-lg-4 mb-4" *ngFor="let course of courses" data-aos="flip-left" data-aos-delay="100" data-aos-duration="1000">
+                <div class="course-card">
+                  <div class="course-card-body">
+                      <div class="card-body__icon">
+                          <img class="img-fluid" [src]="course.pathToIcon" alt="" *ngIf="course.pathToIcon; else elseTemplate">
+                          <ng-template #elseTemplate>
+                            <img class="img-fluid" src="assets/icons/default-course.png" alt="">
+                          </ng-template>
+                      </div>
+                      <div class="card-body__text">
+                          <h3>{{course.title}}</h3>
+                          <p>{{course.description}}</p>
+                      </div>
+                  </div>
+                  <a href="#" class="card-btn">Enroll Now!</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>

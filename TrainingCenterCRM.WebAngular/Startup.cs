@@ -40,9 +40,13 @@ namespace TrainingCenterCRM.WebAngular
             services.AddDbContext<TrainingCenterContext>(options =>
                 options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
 
-            services.AddScoped<IRepository<Student>, StudentRepository>();
+            services.AddScoped<IRepository<Topic>, TopicRepository>();
+            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<IRepository<Teacher>, TeacherRepository>();
 
-            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ITeacherService, TeacherService>();
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -98,7 +102,8 @@ namespace TrainingCenterCRM.WebAngular
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }
