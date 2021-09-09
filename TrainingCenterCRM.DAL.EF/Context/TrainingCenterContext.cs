@@ -20,14 +20,8 @@ namespace TrainingCenterCRM.DAL.EF.Context
         public DbSet<Material> Materials { get; set; }
         public DbSet<File> Files { get; set; }
 
-        public TrainingCenterContext()
-        {
-            Database.EnsureCreated();
-        }
-
         public TrainingCenterContext(DbContextOptions<TrainingCenterContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

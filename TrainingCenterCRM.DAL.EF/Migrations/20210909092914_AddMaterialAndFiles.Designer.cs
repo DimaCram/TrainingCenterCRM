@@ -10,8 +10,8 @@ using TrainingCenterCRM.DAL.EF.Context;
 namespace TrainingCenterCRM.DAL.EF.Migrations
 {
     [DbContext(typeof(TrainingCenterContext))]
-    [Migration("20210903092550_AddMaterials")]
-    partial class AddMaterials
+    [Migration("20210909092914_AddMaterialAndFiles")]
+    partial class AddMaterialAndFiles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,14 +65,14 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c1eb5cfd-1ac9-437d-9e5a-0de3ef57a421",
-                            ConcurrencyStamp = "4920aa46-5128-4264-ac42-0ed31dbc9fcd",
+                            Id = "ef40fd2e-d6f4-401a-98ea-93276c945d24",
+                            ConcurrencyStamp = "99044470-de2b-4d70-95c4-96e9aa6fdeb8",
                             Name = "user"
                         },
                         new
                         {
-                            Id = "94e550b8-e394-4fb8-938e-5fb6fd33139d",
-                            ConcurrencyStamp = "ab1bea25-d1e0-493a-bb99-57318b20a6e4",
+                            Id = "e5753878-35d1-4134-833c-657827b41d14",
+                            ConcurrencyStamp = "ab2dd183-0eff-4322-91c8-96ab8116ea3b",
                             Name = "admin"
                         });
                 });
@@ -299,6 +299,9 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -312,6 +315,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Files");
                 });
@@ -462,7 +467,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Id = 1,
                             Comments = "Хочу быть программистом!!!",
                             CourseId = 1,
-                            ReadyToStartDate = new DateTime(2021, 9, 3, 12, 25, 49, 139, DateTimeKind.Local).AddTicks(3035),
+                            ReadyToStartDate = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RequestStatus = 0,
                             StudentId = 1
                         },
@@ -471,7 +476,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Id = 2,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 9, 3, 12, 25, 49, 140, DateTimeKind.Local).AddTicks(3905),
+                            ReadyToStartDate = new DateTime(2021, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RequestStatus = 0,
                             StudentId = 2
                         },
@@ -480,7 +485,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Id = 3,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 9, 3, 12, 25, 49, 140, DateTimeKind.Local).AddTicks(3954),
+                            ReadyToStartDate = new DateTime(2021, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RequestStatus = 0,
                             StudentId = 3
                         },
@@ -489,7 +494,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Id = 4,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 9, 3, 12, 25, 49, 140, DateTimeKind.Local).AddTicks(3957),
+                            ReadyToStartDate = new DateTime(2021, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RequestStatus = 0,
                             StudentId = 4
                         });
@@ -672,6 +677,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         .IsRequired();
 
                     b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.File", b =>
+                {
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId");
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>

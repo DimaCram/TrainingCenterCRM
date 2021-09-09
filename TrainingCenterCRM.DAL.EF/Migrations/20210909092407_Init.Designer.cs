@@ -3,36 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainingCenterCRM.DAL.EF.Context;
 
-namespace TrainingCenterCRM.DAL.Migrations
+namespace TrainingCenterCRM.DAL.EF.Migrations
 {
     [DbContext(typeof(TrainingCenterContext))]
-    partial class TrainingCenterContextModelSnapshot : ModelSnapshot
+    [Migration("20210909092407_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("FileMaterial", b =>
-                {
-                    b.Property<int>("FilesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaterialsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FilesId", "MaterialsId");
-
-                    b.HasIndex("MaterialsId");
-
-                    b.ToTable("FileMaterial");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -63,14 +50,14 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "46464004-d096-4f56-a4f2-42444c0502cf",
-                            ConcurrencyStamp = "7bf31bb8-39a0-4016-b24c-90fb914f9784",
+                            Id = "619eb7b5-463d-4466-b7ed-785830e22aec",
+                            ConcurrencyStamp = "2a9988bb-94f6-4db5-ac63-93e35c4d2ab0",
                             Name = "user"
                         },
                         new
                         {
-                            Id = "a62dcd21-f8d1-4f2b-befa-71520eb1d48e",
-                            ConcurrencyStamp = "7e9f849b-0ed5-44a2-ae3e-643fc79b1f85",
+                            Id = "1f030192-8ac7-4a60-942c-b8996d92fe3f",
+                            ConcurrencyStamp = "36e44561-4f5d-45f4-a003-15b426470ed6",
                             Name = "admin"
                         });
                 });
@@ -290,35 +277,6 @@ namespace TrainingCenterCRM.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.File", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("Data")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FileType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Files");
-                });
-
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
                 {
                     b.Property<int>("Id")
@@ -348,29 +306,6 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Material", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaterialType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("Materials");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>
@@ -426,75 +361,6 @@ namespace TrainingCenterCRM.DAL.Migrations
                             Age = 28,
                             Name = "Denis",
                             Surname = "Polonikov"
-                        });
-                });
-
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReadyToStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RequestStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("StudentRequests");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Comments = "Хочу быть программистом!!!",
-                            CourseId = 1,
-                            ReadyToStartDate = new DateTime(2021, 9, 7, 15, 37, 3, 958, DateTimeKind.Local).AddTicks(8504),
-                            RequestStatus = 0,
-                            StudentId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Comments = "",
-                            CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 9, 7, 15, 37, 3, 959, DateTimeKind.Local).AddTicks(9379),
-                            RequestStatus = 0,
-                            StudentId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Comments = "",
-                            CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 9, 7, 15, 37, 3, 959, DateTimeKind.Local).AddTicks(9435),
-                            RequestStatus = 0,
-                            StudentId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Comments = "",
-                            CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 9, 7, 15, 37, 3, 959, DateTimeKind.Local).AddTicks(9437),
-                            RequestStatus = 0,
-                            StudentId = 4
                         });
                 });
 
@@ -600,21 +466,6 @@ namespace TrainingCenterCRM.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("FileMaterial", b =>
-                {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.File", null)
-                        .WithMany()
-                        .HasForeignKey("FilesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Material", null)
-                        .WithMany()
-                        .HasForeignKey("MaterialsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -677,15 +528,6 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.File", b =>
-                {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId");
-
-                    b.Navigation("Course");
-                });
-
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
                 {
                     b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
@@ -703,17 +545,6 @@ namespace TrainingCenterCRM.DAL.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Material", b =>
-                {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>
                 {
                     b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
@@ -721,25 +552,6 @@ namespace TrainingCenterCRM.DAL.Migrations
                         .HasForeignKey("GroupId");
 
                     b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentRequest", b =>
-                {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentToGroupAssignment", b =>

@@ -3,23 +3,36 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainingCenterCRM.DAL.EF.Context;
 
 namespace TrainingCenterCRM.DAL.EF.Migrations
 {
     [DbContext(typeof(TrainingCenterContext))]
-    [Migration("20210829110326_Init")]
-    partial class Init
+    partial class TrainingCenterContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("FileMaterial", b =>
+                {
+                    b.Property<int>("FilesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaterialsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FilesId", "MaterialsId");
+
+                    b.HasIndex("MaterialsId");
+
+                    b.ToTable("FileMaterial");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -50,14 +63,14 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c8757ad3-0237-4717-991d-92bdcd43420d",
-                            ConcurrencyStamp = "5cc90029-5a13-46bb-9111-2ab2f220340f",
+                            Id = "4ae1ce9d-9ca6-4cb9-a169-75078aafcca6",
+                            ConcurrencyStamp = "d7e66810-fdf2-408e-bc1a-3eee90bc99c3",
                             Name = "user"
                         },
                         new
                         {
-                            Id = "b2673a85-6975-4c17-b61a-9e2fd9f1b9ef",
-                            ConcurrencyStamp = "bdf26d82-cfcc-48a4-9468-936e80b27142",
+                            Id = "697e2b8b-4207-4cc6-9aed-67c1fdff5a7d",
+                            ConcurrencyStamp = "0937abea-deae-4b73-ba98-ad8c88f7f36d",
                             Name = "admin"
                         });
                 });
@@ -257,24 +270,109 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Базовый курс",
-                            Title = "Программирование на C#",
+                            Description = "Basic course",
+                            Title = "C# Programming",
                             TopicId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Профессиональный курс",
-                            Title = "Промышленное программирование на ASP.NET",
+                            Description = "Professional course",
+                            Title = "Industrial programming with ASP.NET",
                             TopicId = 1
                         },
                         new
                         {
                             Id = 3,
-                            Description = "Базовый курс",
-                            Title = "Программирование на Java",
+                            Description = "Professional course",
+                            Title = "Development of mobile games on the Unity engine",
                             TopicId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Basic course",
+                            Title = "Java programming",
+                            TopicId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Professional course",
+                            Title = "Development of mobile applications for Android",
+                            TopicId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Professional course",
+                            Title = "Java Web Development",
+                            TopicId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Basic course",
+                            Title = "HTML, CSS and JavaScript",
+                            TopicId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Professional course",
+                            Title = "JavaScript Web Application Development",
+                            TopicId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Professional course",
+                            Title = "React and Angular for web development",
+                            TopicId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Basic course",
+                            Title = "C and C++ Programming",
+                            TopicId = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Professional course",
+                            Title = "Professional game development in C++",
+                            TopicId = 4
                         });
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.File", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Data")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
@@ -306,6 +404,29 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Material", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaterialType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("Materials");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>
@@ -361,6 +482,118 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 28,
                             Name = "Denis",
                             Surname = "Polonikov"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Age = 20,
+                            Name = "Anna",
+                            Surname = "Bykova"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Age = 28,
+                            Name = "Vladimir",
+                            Surname = "Chernyaev"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Age = 30,
+                            Name = "Ivan",
+                            Surname = "Kochergin"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Age = 19,
+                            Name = "Eva",
+                            Surname = "Demina"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Age = 19,
+                            Name = "Alexey",
+                            Surname = "Bazhenov"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Age = 21,
+                            Name = "Bogdan",
+                            Surname = "Kuznetsov"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Age = 26,
+                            Name = "Nikolay",
+                            Surname = "Savin"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Age = 23,
+                            Name = "Elizaveta",
+                            Surname = "Petrova"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Age = 22,
+                            Name = "Irina",
+                            Surname = "Fedorova"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Age = 22,
+                            Name = "Mila",
+                            Surname = "Vinogradova"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Age = 30,
+                            Name = "Ekaterina",
+                            Surname = "Ignatieva"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Age = 20,
+                            Name = "Veronika",
+                            Surname = "Petrova"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Age = 22,
+                            Name = "Maxim",
+                            Surname = "Tkachev"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Age = 25,
+                            Name = "Alisa",
+                            Surname = "Marselyevna"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Age = 28,
+                            Name = "Vasilisa",
+                            Surname = "Knyazeva"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Age = 18,
+                            Name = "Andrey",
+                            Surname = "Vereshchagin"
                         });
                 });
 
@@ -398,9 +631,9 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         new
                         {
                             Id = 1,
-                            Comments = "Хочу быть программистом!!!",
+                            Comments = "",
                             CourseId = 1,
-                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 3, 23, 854, DateTimeKind.Local).AddTicks(8509),
+                            ReadyToStartDate = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RequestStatus = 0,
                             StudentId = 1
                         },
@@ -409,7 +642,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Id = 2,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 3, 23, 856, DateTimeKind.Local).AddTicks(1066),
+                            ReadyToStartDate = new DateTime(2021, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RequestStatus = 0,
                             StudentId = 2
                         },
@@ -418,7 +651,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Id = 3,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 3, 23, 856, DateTimeKind.Local).AddTicks(1126),
+                            ReadyToStartDate = new DateTime(2021, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RequestStatus = 0,
                             StudentId = 3
                         },
@@ -427,9 +660,63 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Id = 4,
                             Comments = "",
                             CourseId = 2,
-                            ReadyToStartDate = new DateTime(2021, 8, 29, 14, 3, 23, 856, DateTimeKind.Local).AddTicks(1128),
+                            ReadyToStartDate = new DateTime(2021, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RequestStatus = 0,
                             StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Comments = "",
+                            CourseId = 3,
+                            ReadyToStartDate = new DateTime(2021, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RequestStatus = 0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Comments = "",
+                            CourseId = 3,
+                            ReadyToStartDate = new DateTime(2021, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RequestStatus = 0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Comments = "",
+                            CourseId = 4,
+                            ReadyToStartDate = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RequestStatus = 0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Comments = "",
+                            CourseId = 4,
+                            ReadyToStartDate = new DateTime(2021, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RequestStatus = 0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Comments = "",
+                            CourseId = 5,
+                            ReadyToStartDate = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RequestStatus = 0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Comments = "",
+                            CourseId = 5,
+                            ReadyToStartDate = new DateTime(2021, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RequestStatus = 0,
+                            StudentId = 9
                         });
                 });
 
@@ -500,6 +787,70 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Bio = "Area of ​​interest: Front-end development, modern frameworks (Angular, Vue),cloud technologies (Google Firebase, Amazon Web Services).",
                             Name = "Dmitry",
                             Surname = "Astreiko"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Age = 28,
+                            Bio = "Designer, designer. Work experience: over 10 years. Teaching experience: over 7 years.",
+                            Name = "Julia",
+                            Surname = "Morgun"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Age = 44,
+                            Bio = "Java and Android Developer. Work experience: over 14 years. Teaching experience: over 8 years",
+                            Name = "Igor",
+                            Surname = "Pinyutin"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Age = 29,
+                            Bio = "Java developer, Qulix Systems company. Work experience: more than 4 years. Teaching experience: over 1 year",
+                            Name = "Dmitry",
+                            Surname = "Samsonov"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Age = 24,
+                            Bio = "WEB developer, .NET developer",
+                            Name = "Gleb",
+                            Surname = "Belkevich"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Age = 25,
+                            Bio = "Areas of interest: development of mobile games, studying new technologies in the gaming industry (from virtual reality to multiplayer gaming technologies), AAA games.",
+                            Name = "Artem ",
+                            Surname = "Mazgo "
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Age = 32,
+                            Bio = "Basics of web technologies, Website development using HTML, CSS and JavaScript Field of interest: HTML, CSS, JavaScript, nodeJS, reactJS and in general everything related to web development.",
+                            Name = "Evgeny",
+                            Surname = "Voitekhovich"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Age = 26,
+                            Bio = "Course: Java Programming Field of Interest: Java, Spring, Python, Machine Learning, Data Science, Flutter, Angular.",
+                            Name = "Maria",
+                            Surname = "Sokol"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Age = 26,
+                            Bio = "Area of ​​interest: C ++, Graphics, Game engines.",
+                            Name = "Andrey",
+                            Surname = "Martsinkevich"
                         });
                 });
 
@@ -524,15 +875,42 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Платформа ASP.NET от компании Microsoft применяется для создания как простых web - сайтов,так и масштабных проектов – высоконадежных сетевых порталов,которые рассчитаны на многотысячную аудиторию.Благодаря безопасности и гибкости активно используется крупными компаниями: популярные сайты Microsoft, Lego, Volvo, Toyota, L'Oreal разработаны именно на ASP.NET.",
-                            Title = "ASP.NET"
+                            Description = "Microsoft's ASP.NET platform is used to create simple web sites, and large-scale projects - highly reliable network portals, which are designed for an audience of thousands. Due to security and flexibility, it is actively used by large companies: popular Microsoft sites, Lego, Volvo, Toyota, L'Oreal are developed with ASP.NET.",
+                            Title = "C#"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Язык программирования Java находится в числе лидеров во многих рейтингах: TIOBE – на основе подсчёта результатов поисковых запросов, PYPL – по анализу популярности в поисковике Google, IEEE – по комплексу показателей, таких как упоминание в проектах, статьях, вакансиях и других.Такая популярность обусловлена практически безграничными его возможностями и областями применения.Java не зависит от определённой платформы, его называют безопасным, портативным, высокопроизводительным и динамичным языком.",
+                            Description = "The Java programming language is among the leaders in many ratings: TIOBE - based on calculating the results of search queries, PYPL - according to the analysis of popularity in the Google search engine, IEEE - according to a set of indicators, such as mention in projects, articles, vacancies and others. Such popularity due to its almost limitless possibilities and areas of application. Java does not depend on a certain platforms, it is called a secure, portable, high performance and dynamic language.",
                             Title = "Java"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "As the choice of devices and browsers expands, the need for flexible, responsive user interfaces increases (after all, no one wants to use a site that is only half displayed). This is exactly what the Front-end developer is working on: from adaptation and layout of design layouts to the implementation of complex logic of interaction with users during website development.",
+                            Title = "Front-end development"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "С++ widely used for software development, being one of the most popular programming languages. Its scope includes the creation of operating systems, a variety of application programs, device drivers, applications for embedded systems, high-performance servers, and games. There are many implementations of the C ++ language, both free and commercial and for various platforms. C ++ has had a huge impact on other  programming languages, most notably Java and C #.",
+                            Title = "С++"
                         });
+                });
+
+            modelBuilder.Entity("FileMaterial", b =>
+                {
+                    b.HasOne("TrainingCenterCRM.BLL.Models.File", null)
+                        .WithMany()
+                        .HasForeignKey("FilesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Material", null)
+                        .WithMany()
+                        .HasForeignKey("MaterialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -597,6 +975,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Navigation("Topic");
                 });
 
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.File", b =>
+                {
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId");
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
                 {
                     b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
@@ -612,6 +999,17 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Material", b =>
+                {
+                    b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>

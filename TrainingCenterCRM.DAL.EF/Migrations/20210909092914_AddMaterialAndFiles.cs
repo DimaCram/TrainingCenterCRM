@@ -3,19 +3,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrainingCenterCRM.DAL.EF.Migrations
 {
-    public partial class AddMaterials : Migration
+    public partial class AddMaterialAndFiles : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "31098333-d1d3-49e0-9276-406ae8ac6f4e");
+                keyValue: "06b0e429-bd54-4957-957a-83fc2f0fb70f");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "d0829c95-2b4f-46a2-bc71-b0cf35ebc51b");
+                keyValue: "331fe8a8-4d5f-4960-b737-f78e2c0841c9");
 
             migrationBuilder.CreateTable(
                 name: "Files",
@@ -26,11 +26,18 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FileType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Data = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Files", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Files_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,44 +88,22 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "c1eb5cfd-1ac9-437d-9e5a-0de3ef57a421", "4920aa46-5128-4264-ac42-0ed31dbc9fcd", "user", null },
-                    { "94e550b8-e394-4fb8-938e-5fb6fd33139d", "ab1bea25-d1e0-493a-bb99-57318b20a6e4", "admin", null }
-                });
+                values: new object[] { "ef40fd2e-d6f4-401a-98ea-93276c945d24", "99044470-de2b-4d70-95c4-96e9aa6fdeb8", "user", null });
 
-            migrationBuilder.UpdateData(
-                table: "StudentRequests",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "ReadyToStartDate",
-                value: new DateTime(2021, 9, 3, 12, 25, 49, 139, DateTimeKind.Local).AddTicks(3035));
-
-            migrationBuilder.UpdateData(
-                table: "StudentRequests",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "ReadyToStartDate",
-                value: new DateTime(2021, 9, 3, 12, 25, 49, 140, DateTimeKind.Local).AddTicks(3905));
-
-            migrationBuilder.UpdateData(
-                table: "StudentRequests",
-                keyColumn: "Id",
-                keyValue: 3,
-                column: "ReadyToStartDate",
-                value: new DateTime(2021, 9, 3, 12, 25, 49, 140, DateTimeKind.Local).AddTicks(3954));
-
-            migrationBuilder.UpdateData(
-                table: "StudentRequests",
-                keyColumn: "Id",
-                keyValue: 4,
-                column: "ReadyToStartDate",
-                value: new DateTime(2021, 9, 3, 12, 25, 49, 140, DateTimeKind.Local).AddTicks(3957));
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "e5753878-35d1-4134-833c-657827b41d14", "ab2dd183-0eff-4322-91c8-96ab8116ea3b", "admin", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_FileMaterial_MaterialsId",
                 table: "FileMaterial",
                 column: "MaterialsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Files_CourseId",
+                table: "Files",
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Materials_GroupId",
@@ -140,49 +125,22 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "94e550b8-e394-4fb8-938e-5fb6fd33139d");
+                keyValue: "e5753878-35d1-4134-833c-657827b41d14");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "c1eb5cfd-1ac9-437d-9e5a-0de3ef57a421");
+                keyValue: "ef40fd2e-d6f4-401a-98ea-93276c945d24");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "31098333-d1d3-49e0-9276-406ae8ac6f4e", "5ea2a7ae-8f58-436a-b6d4-78167ddd4763", "user", null },
-                    { "d0829c95-2b4f-46a2-bc71-b0cf35ebc51b", "ccf78208-faf4-4f1a-8b5f-dfef6afbdf3b", "admin", null }
-                });
+                values: new object[] { "06b0e429-bd54-4957-957a-83fc2f0fb70f", "c847d61f-5f08-42ab-a0da-e285b444567f", "user", null });
 
-            migrationBuilder.UpdateData(
-                table: "StudentRequests",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "ReadyToStartDate",
-                value: new DateTime(2021, 8, 29, 14, 6, 24, 847, DateTimeKind.Local).AddTicks(5545));
-
-            migrationBuilder.UpdateData(
-                table: "StudentRequests",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "ReadyToStartDate",
-                value: new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8699));
-
-            migrationBuilder.UpdateData(
-                table: "StudentRequests",
-                keyColumn: "Id",
-                keyValue: 3,
-                column: "ReadyToStartDate",
-                value: new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8766));
-
-            migrationBuilder.UpdateData(
-                table: "StudentRequests",
-                keyColumn: "Id",
-                keyValue: 4,
-                column: "ReadyToStartDate",
-                value: new DateTime(2021, 8, 29, 14, 6, 24, 848, DateTimeKind.Local).AddTicks(8769));
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "331fe8a8-4d5f-4960-b737-f78e2c0841c9", "aef96fac-3872-4e3a-b01a-54987c7aad73", "admin", null });
         }
     }
 }
