@@ -120,7 +120,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 {
                     Id = 1,
                     CourseId = course1.Id,
-                    ReadyToStartDate = DateTime.Now,
+                    ReadyToStartDate = new DateTime(2021, 8, 20),
                     StudentId = student1.Id,
                     Comments = "Хочу быть программистом!!!",
                     RequestStatus = RequestStatus.Open
@@ -129,7 +129,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 {
                     Id = 2,
                     CourseId = course2.Id,
-                    ReadyToStartDate = DateTime.Now,
+                    ReadyToStartDate = new DateTime(2021, 7, 11),
                     StudentId = student2.Id,
                     Comments = "",
                     RequestStatus = RequestStatus.Open
@@ -137,7 +137,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 {
                     Id = 3,
                     CourseId = course2.Id,
-                    ReadyToStartDate = DateTime.Now,
+                    ReadyToStartDate = new DateTime(2021, 7, 15),
                     StudentId = student3.Id,
                     Comments = "",
                     RequestStatus = RequestStatus.Open
@@ -145,7 +145,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 {
                     Id = 4,
                     CourseId = course2.Id,
-                    ReadyToStartDate = DateTime.Now,
+                    ReadyToStartDate = new DateTime(2021, 7, 11),
                     StudentId = student4.Id,
                     Comments = "",
                     RequestStatus = RequestStatus.Open
