@@ -37,12 +37,12 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public IEnumerable<File> Find(Func<File, bool> predicate)
         {
-            return db.Files.Where(predicate);
+            return db.Files.Include(f => f.Materials).Where(predicate);
         }
 
         public Task<List<File>> GetAllAsync()
         {
-            return db.Files.ToListAsync();
+            return db.Files.Include(f => f.Materials).ToListAsync();
         }
 
         public Task<File> GetAsync(int id)

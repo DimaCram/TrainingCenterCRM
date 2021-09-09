@@ -14,7 +14,8 @@
                 <div class="card">
                     <div class="card-header">Material</div>
                     <div class="card-body">
-                        <form method="post" asp-controller="Teachers" asp-action="EditMaterial" asp-route-id="@Model.Id">
+                        <form method="post" asp-controller="Materials" asp-action="EditMaterial" asp-route-id="@Model.Id">
+                            @Html.HiddenFor(g => g.Id)
                             <div class="mb-3 row">
                                 <label asp-for="Name" class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-9">
@@ -51,6 +52,9 @@
                                     <span asp-validation-for="GroupId" class="alert-danger"></span>
                                 </div>
                             </div>
+                            @Html.HiddenFor(g => g.Files)
+                            <div class="mb-3 row" id="files">
+                            </div>
                             <button type="submit" class="btn btn-success">Ok</button>
                         </form>
                     </div>
@@ -62,5 +66,6 @@
 </div>
 
 @section Scripts {
+    <script src="~/js/getFiles.js"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
 }

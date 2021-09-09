@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
@@ -11,10 +12,13 @@ namespace TrainingCenterCRM.BLL.Services
     public class FileService : IFileService
     {
         private readonly IRepository<File> repository;
+        private readonly IGroupService groupService;
 
-        public FileService(IRepository<File> repository)
+        public FileService(IRepository<File> repository,
+                           IGroupService groupService)
         {
             this.repository = repository;
+            this.groupService = groupService;
         }
 
         public async Task AddFileAsync(File file)
@@ -52,6 +56,16 @@ namespace TrainingCenterCRM.BLL.Services
         public Task<List<File>> GetFilesAsync()
         {
             return repository.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<File>> GetFilesByGroupAsync(int groupId)
+        {
+            var group = await groupService.GetGroupAsync(groupId);
+            return repository.Find(f => f.CourseId == group.CourseId);
+        }
+        public List<File> GetFilesByMaterialAsync(int materialId)
+        {
+            return repository.Find(f => f.Materials.Any(m => m.Id == materialId)).ToList();
         }
     }
 }

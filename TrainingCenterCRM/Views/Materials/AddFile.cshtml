@@ -33,16 +33,16 @@
                                 <div class="col-sm-10">
                                     <select class="form-control" asp-for="CourseId" required>
                                         <option value="">Select one</option>
-                                        @foreach (var topic in (List<Topic>)ViewBag.Topics)
+                                        @foreach (var course in (List<Course>)ViewBag.Courses)
                                         {
 
-                                            if (Model != null && topic.Id == Model.CourseId)
+                                            if (Model != null && course.Id == Model.CourseId)
                                             {
-                                                <option value="@topic.Id" selected>@topic.Title</option>
+                                                <option value="@course.Id" selected>@course.Title</option>
                                             }
                                             else
                                             {
-                                                <option value="@topic.Id">@topic.Title</option>
+                                                <option value="@course.Id">@course.Title</option>
                                             }
                                         }
                                     </select>

@@ -17,7 +17,7 @@ namespace TrainingCenterCRM.Controllers
 
         private readonly IMaterialService materialService;
         private readonly IGroupService groupService;
-        private readonly ITopicService topicService;
+        private readonly ICourseService courseService;
         private readonly IFileService fileService;
 
         private readonly IMapper mapper;
@@ -26,14 +26,14 @@ namespace TrainingCenterCRM.Controllers
                                    ILogger<MaterialsController> logger,
                                    IMaterialService materialService,
                                    IGroupService groupService,
-                                   ITopicService topicService,
+                                   ICourseService courseService,
                                    IFileService fileService)
         {
             this.materialService = materialService;
             this.groupService = groupService;
             this.mapper = mapper;
             this.logger = logger;
-            this.topicService = topicService;
+            this.courseService = courseService;
             this.fileService = fileService;
         }
 
@@ -46,14 +46,19 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditMaterialAsync()
+        public async Task<IActionResult> EditMaterialAsync(int? id)
         {
+
+            var materialModel = id.HasValue ?
+                mapper.Map<MaterialModel>(await materialService.GetMaterialAsync(id.Value)) :
+                new MaterialModel();
+
             ViewBag.Groups = await groupService.GetGroupsAsync();
-            return View(new MaterialModel());
+            return View(materialModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditMaterial(MaterialModel model)
+        public async Task<IActionResult> EditMaterial(MaterialModel model, List<int> fileIds)
         {
             try
             {
@@ -62,9 +67,9 @@ namespace TrainingCenterCRM.Controllers
                     var material = mapper.Map<Material>(model);
 
                     if (material.Id == 0)
-                        await materialService.AddMaterialAsync(material);
+                        await materialService.AddMaterialAsync(material, fileIds);
                     else
-                        await materialService.EditMaterialAsync(material);
+                        await materialService.EditMaterialAsync(material, fileIds);
 
                     return RedirectToAction("Materials");
                 }
@@ -80,15 +85,13 @@ namespace TrainingCenterCRM.Controllers
         [HttpGet]
         public async Task<ActionResult> AddFileAsync()
         {
-            ViewBag.Topics = await topicService.GetTopicsAsync();
+            ViewBag.Courses = await courseService.GetCoursesAsync();
             return View();
         }
         
         [HttpPost]
         public async Task<IActionResult> AddFile(FileModel model)
         {
-            ViewBag.Topics = await topicService.GetTopicsAsync();
-            
             if (ModelState.IsValid)
             {
                 var files = new List<File>();
@@ -111,29 +114,40 @@ namespace TrainingCenterCRM.Controllers
                     files.Add(file);
                 }
                 await fileService.AddFilesAsync(files);
-
             }
 
-
+            ViewBag.Courses = await courseService.GetCoursesAsync();
             return View(model);
-            /*long size = files.Sum(f => f.Length);
-            foreach (var formFile in files)
-            {
-                if (formFile.Length > 0)
-                {
-                    var filePath = Path.GetTempFileName();
+        }
 
-                    using (var stream = System.IO.File.Create(filePath))
+        public async Task<JsonResult> GetFilesByGroup(int groupId, int materialId)
+        {
+            try
+            {
+                var filesForGroup = mapper.Map<List<FileModel>>(await fileService.GetFilesByGroupAsync(groupId));
+                
+                if (materialId != 0)
+                {
+                    var material = await materialService.GetMaterialAsync(materialId);
+                    var selectedFiles = mapper.Map<List<FileModel>>(material.Files);
+
+                    foreach(var selectedFile in selectedFiles)
                     {
-                        await formFile.CopyToAsync(stream);
+                        var file = filesForGroup.FirstOrDefault(f => f.Id == selectedFile.Id);
+                        if (file == null)
+                            filesForGroup.Add(selectedFile);
+                        else
+                            filesForGroup.FirstOrDefault(grf => grf.Id == file.Id).HasMaterial = true;
                     }
                 }
+
+                return Json(filesForGroup);
             }
-
-            // Process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { count = files.Count, size });*/
+            catch(Exception ex)
+            {
+                logger.LogError(ex.ToString());
+                return null;
+            }
         }
     }
 }

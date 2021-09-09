@@ -14,6 +14,7 @@ namespace TrainingCenterCRM.Models
         public string FileType { get; set; }
         public byte[] Data { get; set; }
         public DateTime? CreateDate { get; set; }
+        public bool HasMaterial { get; set; }
 
         [Required(ErrorMessage = "Select minimum one file")]
         public List<IFormFile> Files { get; set; }
