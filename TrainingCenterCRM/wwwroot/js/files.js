@@ -71,10 +71,10 @@ function validateFile(file) {
     const fileExtension = file.name.split(".").pop();
 
     if (!allowedExtensions.includes(fileExtension)) {
-        alert(`"${file.name}" type not allowed. Allowed types ${allowedExtensions.join(", ")}.`);
+        showToast("Error message", `"${file.name}" type not allowed. Allowed types ${allowedExtensions.join(", ")}.`, "error");
         return false;
     } else if (file.size > sizeLimit) {
-        alert(`"${file.name}" size too large. Max size ${sizeLimit}`);
+        showToast("Error message", `"${file.name}" size too large. Max size ${Math.trunc(sizeLimit / 1000000)} MB`, "error");
         return false;
     }
     return true;

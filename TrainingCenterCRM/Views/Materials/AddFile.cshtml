@@ -6,6 +6,10 @@
     ViewData["Title"] = $"Materials";
 }
 <div class="content">
+    <div class="position-relative toast-box">
+        <div class="toast-container position-absolute top-0 end-0">
+        </div>
+    </div>
     <h1 class="content__header">Work with files</h1>
     <div class="containt-fluid">
         <div class="row">
@@ -64,11 +68,8 @@
     </div>
 </div>
 
-<style>
-    
-</style>
-
 @section Scripts {
     <script src="~/js/files.js"></script>
+    <script src="~/js/toasts.js"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
 }

@@ -397,3 +397,7 @@ input[type="color"]:focus,
     max-height: 500px !important;
     margin: 10px 0;
 }
+
+.toast-box{
+    z-index: 10;
+}
