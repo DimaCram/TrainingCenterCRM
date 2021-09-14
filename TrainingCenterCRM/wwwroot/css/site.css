@@ -378,11 +378,11 @@ input[type="color"]:focus,
     display: flex;
     justify-content: center;
     align-items: center;
-    max-height: 100%;
-    height: 200px;
+    min-height: 200px;
+    height: 100%;
     border: 2px dashed #a9a9a9;
     border-radius: 20px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
 }
 
