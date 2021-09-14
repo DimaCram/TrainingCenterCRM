@@ -21,6 +21,8 @@ namespace TrainingCenterCRM.Models
         
         public string Bio { get; set; }
 
+        public string PathToIcon { get; set; }
+
         public List<GroupModel> Groups = new List<GroupModel>();
     }
 }

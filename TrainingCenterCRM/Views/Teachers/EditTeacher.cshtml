@@ -14,7 +14,23 @@
                 <div class="card">
                     <div class="card-header">Teacher</div>
                     <div class="card-body">
-                        <form method="post" asp-controller="Teachers" asp-action="EditTeacher" asp-route-id="@Model.Id">
+                        <form enctype="multipart/form-data"  method="post" asp-controller="Teachers" asp-action="EditTeacher" asp-route-id="@Model.Id"
+                              asp-route-PathToIcon="@Model.PathToIcon">
+                            <p class="text-danger">@ViewBag.Eror</p>
+                            <div class="mb-3 row">
+                                <div class="col-sm-6">
+                                    <div id="drop-area">
+                                        <input type="file" id="fileElem" accept=".png, .jpg , .jpeg" name="icon">
+                                        <label class="btn btn-head" for="fileElem">
+                                            Select image
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <img id="img-icon" class="img-fluid" src="@Model.PathToIcon" />
+                                </div>
+                            </div>
                             <div class="mb-3 row">
                                 <label asp-for="Name" class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-9">
@@ -54,5 +70,6 @@
 </div>
 
 @section Scripts {
+<script src="~/js/imageUpload.js"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
 }

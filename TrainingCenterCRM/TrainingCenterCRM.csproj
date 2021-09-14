@@ -28,4 +28,8 @@
     <ProjectReference Include="..\TrainingCenterCRM.DAL.EF\TrainingCenterCRM.DAL.EF.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\files\teachers\" />
+  </ItemGroup>
+
 </Project>

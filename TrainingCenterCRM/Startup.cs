@@ -24,9 +24,12 @@ namespace TrainingCenterCRM
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            env = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -65,6 +68,7 @@ namespace TrainingCenterCRM
             services.AddScoped<IStudentToGroupAssignmentService, StudentToGroupAssignmentService>();
             services.AddScoped<IMaterialService, MaterialService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<ILocalFileService>(s => new LocalFileService(env.WebRootPath));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<TrainingCenterContext>();
@@ -78,7 +82,7 @@ namespace TrainingCenterCRM
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {

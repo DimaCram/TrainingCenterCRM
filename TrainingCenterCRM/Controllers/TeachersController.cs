@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.BLL.Services;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
@@ -16,16 +20,19 @@ namespace TrainingCenterCRM.Controllers
     public class TeachersController : Controller
     {
         private readonly ITeacherService teacherService;
+        private readonly ILocalFileService localFileService;
 
         private readonly IMapper mapper;
         private readonly ILogger logger;
         public TeachersController(IMapper mapper,
                                   ITeacherService teacherService,
-                                  ILogger<TeachersController> logger)
+                                  ILogger<TeachersController> logger,
+                                  ILocalFileService localFileService)
         {
             this.mapper = mapper;
             this.logger = logger;
 
+            this.localFileService = localFileService;
             this.teacherService = teacherService;
         }
 
@@ -63,12 +70,26 @@ namespace TrainingCenterCRM.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditTeacherAsync(TeacherModel teacherModel)
+        public async Task<IActionResult> EditTeacherAsync(TeacherModel teacherModel, IFormFile icon)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if(icon != null)
+                    {
+                        string pathToImg = @$"\assets\files\teachers\{icon.FileName}";
+
+                        if (localFileService.FileExists(pathToImg))
+                        {
+                            ViewBag.Eror = $"The file {icon.FileName} exists, please change the name or select a different file";
+                            return View(teacherModel);
+                        }
+                        await localFileService.AddFile(icon, pathToImg);
+                        
+                        teacherModel.PathToIcon = pathToImg;
+                    }
+
                     var teacher = mapper.Map<Teacher>(teacherModel);
 
                     if (teacherModel.Id == 0)

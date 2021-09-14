@@ -12,10 +12,13 @@ namespace TrainingCenterCRM.BLL.Services
     public class TeacherService : ITeacherService
     {
         private readonly IRepository<Teacher> repository;
+        private readonly ILocalFileService localFileService;
 
-        public TeacherService(IRepository<Teacher> repository)
+        public TeacherService(IRepository<Teacher> repository, ILocalFileService localFileService)
         {
             this.repository = repository;
+
+            this.localFileService = localFileService;
         }
         public async Task AddTeacherAsync(Teacher teacher)
         {
@@ -27,6 +30,10 @@ namespace TrainingCenterCRM.BLL.Services
 
         public async Task DeleteTeacherAsync(int id)
         {
+
+            var teacher = await repository.GetAsync(id);
+            localFileService.DeleteFile(teacher.PathToIcon);
+
             await repository.DeleteAsync(id);
         }
 
