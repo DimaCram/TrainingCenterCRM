@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\assets\files\teachers\" />
+    <Folder Include="wwwroot\assets\files\courses\" />
   </ItemGroup>
 
 </Project>

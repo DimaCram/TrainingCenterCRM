@@ -12,10 +12,14 @@ namespace TrainingCenterCRM.BLL.Services
     public class CourseService : ICourseService
     {
         private readonly IRepository<Course> repository;
+        private readonly ILocalFileService localFileService;
 
-        public CourseService(IRepository<Course> repository)
+        public CourseService(IRepository<Course> repository,
+                             ILocalFileService localFileService)
         {
             this.repository = repository;
+
+            this.localFileService = localFileService;
         }
         public async Task AddCourseAsync(Course course)
         {
@@ -27,6 +31,9 @@ namespace TrainingCenterCRM.BLL.Services
 
         public async Task DeleteCourseAsync(int id)
         {
+            var course = await repository.GetAsync(id);
+
+            localFileService.DeleteFile(course.PathToIcon);
             await repository.DeleteAsync(id);
         }
 
