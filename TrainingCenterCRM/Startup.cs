@@ -107,6 +107,11 @@ namespace TrainingCenterCRM
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                    name: "teacherPortal",
+                    areaName: "teacherPortal",
+                    pattern: "teacherPortal/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Students}/{action=Index}/{id?}");
