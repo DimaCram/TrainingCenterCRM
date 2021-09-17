@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.Models.Account;
 
 namespace TrainingCenterCRM.Controllers
@@ -12,14 +13,14 @@ namespace TrainingCenterCRM.Controllers
     public class AccountsController : Controller
     {
 
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
 
         private readonly ILogger logger;
 
-        public AccountsController(UserManager<IdentityUser> userManager,
-                                  SignInManager<IdentityUser> signInManager,
+        public AccountsController(UserManager<User> userManager,
+                                  SignInManager<User> signInManager,
                                   RoleManager<IdentityRole> roleManager,
                                   ILogger<AccountsController> logger)
         {
@@ -40,7 +41,7 @@ namespace TrainingCenterCRM.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new IdentityUser { Email = model.Email, UserName = model.Email };
+                    var user = new User { Email = model.Email, UserName = model.Email };
 
                     var result = await _userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
@@ -81,7 +82,9 @@ namespace TrainingCenterCRM.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    
                     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
+                    
                     if (result.Succeeded)
                     {
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))

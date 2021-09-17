@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainingCenterCRM.DAL.EF.Context;
 
 namespace TrainingCenterCRM.DAL.EF.Migrations
 {
     [DbContext(typeof(TrainingCenterContext))]
-    partial class TrainingCenterContextModelSnapshot : ModelSnapshot
+    [Migration("20210916131546_FixTeacherData")]
+    partial class FixTeacherData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,30 +66,20 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         new
                         {
                             Id = "021cb353-a049-404c-b2f6-b067a48a3b9a",
-                            ConcurrencyStamp = "86f6fb82-7fb8-467f-becc-c56a4aaff0f2",
-                            Name = "user",
-                            NormalizedName = "user"
+                            ConcurrencyStamp = "ae7934fd-7ae5-4a04-84c0-37dd6c66db62",
+                            Name = "user"
                         },
                         new
                         {
                             Id = "800ac90f-e24c-485a-8be4-5869972e12a7",
-                            ConcurrencyStamp = "6cfdac54-1e40-4146-b1aa-060a3f6e8c9d",
-                            Name = "admin",
-                            NormalizedName = "admin"
+                            ConcurrencyStamp = "9bd903a7-b8d3-4aa8-947e-a3ce8bffa451",
+                            Name = "admin"
                         },
                         new
                         {
                             Id = "dc580e4d-92ba-47a9-bb31-62b0afb85445",
-                            ConcurrencyStamp = "175333c8-44e0-469d-ad91-064955d1e7b6",
-                            Name = "teacher",
-                            NormalizedName = "teacher"
-                        },
-                        new
-                        {
-                            Id = "9d5aeb79-50ca-48db-91dc-3a72f06c978f",
-                            ConcurrencyStamp = "1dccd77f-5794-4308-88ab-7b4ff0c48ac3",
-                            Name = "manager",
-                            NormalizedName = "manager"
+                            ConcurrencyStamp = "00886498-12b1-4d26-9267-8469fc5516db",
+                            Name = "teacher"
                         });
                 });
 
@@ -365,40 +357,6 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Manager", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("Managers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Dima",
-                            Surname = "Kramkov",
-                            UserId = "9888c09b-2509-4cda-a82e-3dbea07d94eb"
-                        });
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Material", b =>
@@ -799,8 +757,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 26,
                             Bio = "Area of ​​interest: Front-end development, modern frameworks (Angular, Vue),cloud technologies (Google Firebase, Amazon Web Services).",
                             Name = "Dmitry",
-                            Surname = "Astreiko",
-                            UserId = "8594cfc3-4252-4502-80e9-5c9dc3341595"
+                            Surname = "Astreiko"
                         },
                         new
                         {
@@ -808,8 +765,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 28,
                             Bio = "Designer, designer. Work experience: over 10 years. Teaching experience: over 7 years.",
                             Name = "Julia",
-                            Surname = "Morgun",
-                            UserId = "da19a821-caca-4aa8-b544-45dc830b99d1"
+                            Surname = "Morgun"
                         },
                         new
                         {
@@ -817,8 +773,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 44,
                             Bio = "Java and Android Developer. Work experience: over 14 years. Teaching experience: over 8 years",
                             Name = "Igor",
-                            Surname = "Pinyutin",
-                            UserId = "4188500e-87e7-4375-937c-2a1670a84418"
+                            Surname = "Pinyutin"
                         },
                         new
                         {
@@ -826,8 +781,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 29,
                             Bio = "Java developer, Qulix Systems company. Work experience: more than 4 years. Teaching experience: over 1 year",
                             Name = "Dmitry",
-                            Surname = "Samsonov",
-                            UserId = "6eca67d1-8174-46d9-9916-ed620e57e00d"
+                            Surname = "Samsonov"
                         },
                         new
                         {
@@ -835,8 +789,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 24,
                             Bio = "WEB developer, .NET developer",
                             Name = "Gleb",
-                            Surname = "Belkevich",
-                            UserId = "c05565d8-eaa8-4411-9b72-4ad0decdd06d"
+                            Surname = "Belkevich"
                         },
                         new
                         {
@@ -844,8 +797,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 25,
                             Bio = "Areas of interest: development of mobile games, studying new technologies in the gaming industry (from virtual reality to multiplayer gaming technologies), AAA games.",
                             Name = "Artem ",
-                            Surname = "Mazgo ",
-                            UserId = "6743e8d1-bb94-48ca-83ce-cd14ba74d17b"
+                            Surname = "Mazgo "
                         },
                         new
                         {
@@ -853,8 +805,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 32,
                             Bio = "Basics of web technologies, Website development using HTML, CSS and JavaScript Field of interest: HTML, CSS, JavaScript, nodeJS, reactJS and in general everything related to web development.",
                             Name = "Evgeny",
-                            Surname = "Voitekhovich",
-                            UserId = "79301f3b-d0ed-4331-9af8-7c751bce2f9b"
+                            Surname = "Voitekhovich"
                         },
                         new
                         {
@@ -862,8 +813,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 26,
                             Bio = "Course: Java Programming Field of Interest: Java, Spring, Python, Machine Learning, Data Science, Flutter, Angular.",
                             Name = "Maria",
-                            Surname = "Sokol",
-                            UserId = "13309c41-4a79-402e-a5e4-63645c9ce8dd"
+                            Surname = "Sokol"
                         },
                         new
                         {
@@ -871,8 +821,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Age = 26,
                             Bio = "Area of ​​interest: C ++, Graphics, Game engines.",
                             Name = "Andrey",
-                            Surname = "Martsinkevich",
-                            UserId = "9eb23459-2eaa-40a0-ad80-2f3288665d19"
+                            Surname = "Martsinkevich"
                         });
                 });
 
@@ -987,179 +936,19 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9888c09b-2509-4cda-a82e-3dbea07d94eb",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b877c2e-1bcb-4674-9d22-dec280ad4257",
-                            Email = "manager@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "manager@gmail.com",
-                            NormalizedUserName = "manager@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMhRjo0Cn/pdlWQhBn1Mml3z+tmRHx9tEd6/0V5HwkLAZNSAUQBQUNCXs43UTxgIkQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2fc752c7-e39a-42e2-82ea-c3067e96e3fe",
-                            TwoFactorEnabled = false,
-                            UserName = "manager@gmail.com"
-                        },
-                        new
-                        {
                             Id = "8cccb2bc-95ed-4b5c-b72a-a2ee25bb6f94",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b32553d9-e780-4cce-a559-a3370062a95c",
+                            ConcurrencyStamp = "df7a980a-af26-4507-9431-e19fdc32cb14",
                             Email = "rukavichnikova@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "rukavichnikova@gmail.com",
                             NormalizedUserName = "rukavichnikova@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOtM8F6dX8R81stmecwthNc3q6oQyOLP5iLytZ2ePKd8YbBlxHPHZaYtOLdn523keA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBCSfce/DM5QBhYPDxrtefzHB+9yFbeWNY2r54HcEg0MDZJ01csld1EK/Fhba9NNmw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dd240c7f-9570-485b-9088-afaeaaaa0b9a",
+                            SecurityStamp = "7e009511-4a00-41aa-be37-e6cc508aa974",
                             TwoFactorEnabled = false,
                             UserName = "rukavichnikova@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "8594cfc3-4252-4502-80e9-5c9dc3341595",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "fb297cf5-0ec3-4fcc-8909-de4df7daa0af",
-                            Email = "astreiko@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "astreiko@gmail.com",
-                            NormalizedUserName = "astreiko@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBMNB9c/KMv+oIFQnhb1EvQnZBlDTUKJxU3yuDNxR2wr1IOtjAJ7SBR8etigHO+VBA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e323941e-70da-4390-8de0-ea0116e8ada3",
-                            TwoFactorEnabled = false,
-                            UserName = "astreiko@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "da19a821-caca-4aa8-b544-45dc830b99d1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "720bc843-6569-4e67-b310-919d12bac7d7",
-                            Email = "morgun@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "morgun@gmail.com",
-                            NormalizedUserName = "morgun@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMuTHcpPGf2YMzGbXOhxJd3cI+atLKczNNSgUx7j8pwYyZKMsgJ17HLHPNZ2jsQbgw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "661cf81d-5f10-483c-a666-0bf981a63ef0",
-                            TwoFactorEnabled = false,
-                            UserName = "morgun@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "4188500e-87e7-4375-937c-2a1670a84418",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3e99d1b7-7aeb-44ce-b0bd-46b01d87af6e",
-                            Email = "pinyutin@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "pinyutin@gmail.com",
-                            NormalizedUserName = "pinyutin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEtFX4c8u2HY8GOql+hiVkjYiGx1G4js35tGqBOmw2E3hA36m/F//fMloum4ST/seQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4cf38485-8bc9-48d4-a412-f628d7bbd7e0",
-                            TwoFactorEnabled = false,
-                            UserName = "pinyutin@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "6eca67d1-8174-46d9-9916-ed620e57e00d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7dbf0845-09d6-441f-b138-c0c55bffc0be",
-                            Email = "samsonov@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "samsonov@gmail.com",
-                            NormalizedUserName = "samsonov@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHXEbi8G4bjz9UPhRosZFQ3k/QgvKBEQW5Upuerxnb734C/g7Fr48HqbixbUo/O8hA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1c397160-d82d-4cf6-a1b0-59199a92bd0a",
-                            TwoFactorEnabled = false,
-                            UserName = "samsonov@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "c05565d8-eaa8-4411-9b72-4ad0decdd06d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "cd71ee78-5fe2-4164-9894-6f7a560138ba",
-                            Email = "belkevich@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "belkevich@gmail.com",
-                            NormalizedUserName = "belkevich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAKqTaxAoWdZOX3uWwqbmQZ2lsqczeMCZ4SzQmZYYrDdVjBq7a14PCNLLB4g+uN/YQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "3cd70434-f101-4890-a65b-3559e9c749b1",
-                            TwoFactorEnabled = false,
-                            UserName = "belkevich@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "6743e8d1-bb94-48ca-83ce-cd14ba74d17b",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d555fd4-a8c0-49b4-8a63-051b65a766bd",
-                            Email = "mazgo@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "mazgo@gmail.com",
-                            NormalizedUserName = "mazgo@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJB0DFKbKm97xU7noecB8G3uyQloDl1Umf0NivqCg1XnXY/X9M/8qjVT/jUnH1/I0g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e2fa139c-c044-40ad-8923-d0d757c21d36",
-                            TwoFactorEnabled = false,
-                            UserName = "mazgo@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "79301f3b-d0ed-4331-9af8-7c751bce2f9b",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "205367fa-5613-41dc-b9cc-ced34362c54c",
-                            Email = "voitekhovich.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "voitekhovich@gmail.com",
-                            NormalizedUserName = "voitekhovich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB4U4zuDQFioVa3nrL23qJGwWJZkVqLkGKUqeMLYw/q/M+rlHpnZdVth1lT4Okd82A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "682ce789-21c4-4d08-8b85-31da60b3f3f4",
-                            TwoFactorEnabled = false,
-                            UserName = "voitekhovich@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "13309c41-4a79-402e-a5e4-63645c9ce8dd",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f3e72d7-6413-4f03-b8cd-d4aace902460",
-                            Email = "sokol@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "sokol@gmail.com",
-                            NormalizedUserName = "sokol@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGi6JxFcY+kaI9qDRn1GnqZMYjfW27XMzMmih9LcF88UhtrjcwBBzvNH7TOHMkndAg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "50c240c3-9fa4-4b54-9600-36bcbbd46886",
-                            TwoFactorEnabled = false,
-                            UserName = "sokol@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "9eb23459-2eaa-40a0-ad80-2f3288665d19",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c66ddc39-9c39-49e1-9dc7-690bdc03495d",
-                            Email = "martsinkevich@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "martsinkevich@gmail.com",
-                            NormalizedUserName = "martsinkevich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENsn16NjlCykGd9v1R8kzfXYy1A03FIUfcdMj/IQhNoHNnSskd4tFWuoQoThu3kE0Q==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "62e8d153-1ad9-4ea1-9f6c-e5db5a9af251",
-                            TwoFactorEnabled = false,
-                            UserName = "martsinkevich@gmail.com"
                         });
                 });
 
@@ -1266,15 +1055,6 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Manager", b =>
-                {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.User", "User")
-                        .WithOne("Manager")
-                        .HasForeignKey("TrainingCenterCRM.BLL.Models.Manager", "UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Material", b =>
                 {
                     b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
@@ -1365,8 +1145,6 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.User", b =>
                 {
-                    b.Navigation("Manager");
-
                     b.Navigation("Student");
 
                     b.Navigation("Teacher");

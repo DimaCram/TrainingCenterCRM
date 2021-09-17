@@ -11,18 +11,80 @@ namespace TrainingCenterCRM.DAL.EF.Context
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            PasswordHasher<User> ph = new PasswordHasher<User>();
+            string passwordManager = "Manager*1";
+            string passwordTeacher = "Teacher*1";
+            string passwordStudent = "Student_1";
+
+
+            //roles
+            var roleTeacher = new IdentityRole { Id = "dc580e4d-92ba-47a9-bb31-62b0afb85445", Name = "teacher", NormalizedName = "teacher" };
+            var roleManager = new IdentityRole { Id = "9d5aeb79-50ca-48db-91dc-3a72f06c978f", Name = "manager", NormalizedName = "manager" };
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Id = "021cb353-a049-404c-b2f6-b067a48a3b9a", Name = "user", NormalizedName = "user" },
+                new IdentityRole { Id = "800ac90f-e24c-485a-8be4-5869972e12a7", Name = "admin", NormalizedName = "admin"},
+                roleTeacher,
+                roleManager
+            );
+
+            var managerUser = new User
+            {
+                Id = "9888c09b-2509-4cda-a82e-3dbea07d94eb",
+                UserName = "manager@gmail.com",
+                NormalizedEmail = "manager@gmail.com",
+                Email = "manager@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "manager@gmail.com"
+            };
+            managerUser.PasswordHash = ph.HashPassword(managerUser, passwordManager);
+            modelBuilder.Entity<User>().HasData(managerUser);
+
+            //managers
+            var manager = new Manager
+            {
+                Id = 1,
+                Name = "Dima",
+                Surname = "Kramkov",
+                UserId = managerUser.Id
+            };
+            modelBuilder.Entity<Manager>().HasData(manager);
+
+            //teachers
+            var teacherUser1 = new User
+            {
+                Id = "8cccb2bc-95ed-4b5c-b72a-a2ee25bb6f94",
+                UserName = "rukavichnikova@gmail.com",
+                NormalizedEmail = "rukavichnikova@gmail.com",
+                Email = "rukavichnikova@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "rukavichnikova@gmail.com",
+            };
+            teacherUser1.PasswordHash = ph.HashPassword(teacherUser1, passwordTeacher);
             var teacher1 = new Teacher()
             {
                 Id = 1,
-                Name = "Elena ",
+                Name = "Elena",
                 Surname = "Rukavichnikova",
                 Age = 25,
                 Bio = "Sphere of interests: web and mobile application testing," +
                       "IoT, AR, API testing; creation and establishment of a test" +
                       "strategy and a policy of the QA department; review of testing" +
                       "processes within projects; team management (interviews, hiring," +
-                      "tech. reviews, employee development)."
+                      "tech. reviews, employee development).",
+                UserId = teacherUser1.Id
             };
+
+            var teacherUser2 = new User
+            {
+                Id = "8594cfc3-4252-4502-80e9-5c9dc3341595",
+                UserName = "astreiko@gmail.com",
+                NormalizedEmail = "astreiko@gmail.com",
+                Email = "astreiko@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "astreiko@gmail.com",
+            };
+            teacherUser2.PasswordHash = ph.HashPassword(teacherUser2, passwordTeacher);
             var teacher2 = new Teacher()
             {
                 Id = 2,
@@ -30,40 +92,101 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Surname = "Astreiko",
                 Age = 26,
                 Bio = "Area of ​​interest: Front-end development, modern frameworks (Angular, Vue)," +
-                      "cloud technologies (Google Firebase, Amazon Web Services)."
+                      "cloud technologies (Google Firebase, Amazon Web Services).",
+                UserId = teacherUser2.Id
+
             };
+
+            var teacherUser3 = new User
+            {
+                Id = "da19a821-caca-4aa8-b544-45dc830b99d1",
+                UserName = "morgun@gmail.com",
+                NormalizedEmail = "morgun@gmail.com",
+                Email = "morgun@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "morgun@gmail.com",
+            };
+            teacherUser3.PasswordHash = ph.HashPassword(teacherUser3, passwordTeacher);
             var teacher3 = new Teacher()
             {
                 Id = 3,
                 Name = "Julia",
                 Surname = "Morgun",
                 Age = 28,
-                Bio = "Designer, designer. Work experience: over 10 years. Teaching experience: over 7 years."
+                Bio = "Designer, designer. Work experience: over 10 years. Teaching experience: over 7 years.",
+                UserId = teacherUser3.Id
             };
+
+            var teacherUser4 = new User
+            {
+                Id = "4188500e-87e7-4375-937c-2a1670a84418",
+                UserName = "pinyutin@gmail.com",
+                NormalizedEmail = "pinyutin@gmail.com",
+                Email = "pinyutin@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "pinyutin@gmail.com",
+            };
+            teacherUser4.PasswordHash = ph.HashPassword(teacherUser4, passwordTeacher);
             var teacher4 = new Teacher()
             {
                 Id = 4,
                 Name = "Igor",
                 Surname = "Pinyutin",
                 Age = 44,
-                Bio = "Java and Android Developer. Work experience: over 14 years. Teaching experience: over 8 years"
+                Bio = "Java and Android Developer. Work experience: over 14 years. Teaching experience: over 8 years",
+                UserId = teacherUser4.Id
             };
+
+            var teacherUser5 = new User
+            {
+                Id = "6eca67d1-8174-46d9-9916-ed620e57e00d",
+                UserName = "samsonov@gmail.com",
+                NormalizedEmail = "samsonov@gmail.com",
+                Email = "samsonov@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "samsonov@gmail.com",
+            };
+            teacherUser5.PasswordHash = ph.HashPassword(teacherUser5, passwordTeacher);
             var teacher5 = new Teacher()
             {
                 Id = 5,
                 Name = "Dmitry",
                 Surname = "Samsonov",
                 Age = 29,
-                Bio = "Java developer, Qulix Systems company. Work experience: more than 4 years. Teaching experience: over 1 year"
+                Bio = "Java developer, Qulix Systems company. Work experience: more than 4 years. Teaching experience: over 1 year",
+                UserId = teacherUser5.Id
             };
+
+            var teacherUser6 = new User
+            {
+                Id = "c05565d8-eaa8-4411-9b72-4ad0decdd06d",
+                UserName = "belkevich@gmail.com",
+                NormalizedEmail = "belkevich@gmail.com",
+                Email = "belkevich@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "belkevich@gmail.com",
+            };
+            teacherUser6.PasswordHash = ph.HashPassword(teacherUser6, passwordTeacher);
             var teacher6 = new Teacher()
             {
                 Id = 6,
                 Name = "Gleb",
                 Surname = "Belkevich",
                 Age = 24,
-                Bio = "WEB developer, .NET developer"
+                Bio = "WEB developer, .NET developer",
+                UserId = teacherUser6.Id
             };
+
+            var teacherUser7 = new User
+            {
+                Id = "6743e8d1-bb94-48ca-83ce-cd14ba74d17b",
+                UserName = "mazgo@gmail.com",
+                NormalizedEmail = "mazgo@gmail.com",
+                Email = "mazgo@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "mazgo@gmail.com",
+            };
+            teacherUser7.PasswordHash = ph.HashPassword(teacherUser7, passwordTeacher);
             var teacher7 = new Teacher()
             {
                 Id = 7,
@@ -71,8 +194,20 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Surname = "Mazgo ",
                 Age = 25,
                 Bio = "Areas of interest: development of mobile games, studying new technologies in the gaming industry " +
-                      "(from virtual reality to multiplayer gaming technologies), AAA games."
+                      "(from virtual reality to multiplayer gaming technologies), AAA games.",
+                UserId = teacherUser7.Id
             };
+
+            var teacherUser8 = new User
+            {
+                Id = "79301f3b-d0ed-4331-9af8-7c751bce2f9b",
+                UserName = "voitekhovich@gmail.com",
+                NormalizedEmail = "voitekhovich@gmail.com",
+                Email = "voitekhovich.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "voitekhovich@gmail.com",
+            };
+            teacherUser8.PasswordHash = ph.HashPassword(teacherUser8, passwordTeacher);
             var teacher8 = new Teacher()
             {
                 Id = 8,
@@ -80,26 +215,64 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Surname = "Voitekhovich",
                 Age = 32,
                 Bio = "Basics of web technologies, Website development using HTML, CSS and JavaScript Field of interest: HTML," +
-                      " CSS, JavaScript, nodeJS, reactJS and in general everything related to web development."
+                      " CSS, JavaScript, nodeJS, reactJS and in general everything related to web development.",
+                UserId = teacherUser8.Id
             };
+
+            var teacherUser9 = new User
+            {
+                Id = "13309c41-4a79-402e-a5e4-63645c9ce8dd",
+                UserName = "sokol@gmail.com",
+                NormalizedEmail = "sokol@gmail.com",
+                Email = "sokol@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "sokol@gmail.com",
+            };
+            teacherUser9.PasswordHash = ph.HashPassword(teacherUser9, passwordTeacher);
             var teacher9 = new Teacher()
             {
                 Id = 9,
                 Name = "Maria",
                 Surname = "Sokol",
                 Age = 26,
-                Bio = "Course: Java Programming Field of Interest: Java, Spring, Python, Machine Learning, Data Science, Flutter, Angular."
+                Bio = "Course: Java Programming Field of Interest: Java, Spring, Python, Machine Learning, Data Science, Flutter, Angular.",
+                UserId = teacherUser9.Id
             };
+
+            var teacherUser10 = new User
+            {
+                Id = "9eb23459-2eaa-40a0-ad80-2f3288665d19",
+                UserName = "martsinkevich@gmail.com",
+                NormalizedEmail = "martsinkevich@gmail.com",
+                Email = "martsinkevich@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "martsinkevich@gmail.com",
+            };
+            teacherUser10.PasswordHash = ph.HashPassword(teacherUser10, passwordTeacher);
             var teacher10 = new Teacher()
             {
                 Id = 10,
                 Name = "Andrey",
                 Surname = "Martsinkevich",
                 Age = 26,
-                Bio = "Area of ​​interest: C ++, Graphics, Game engines."
+                Bio = "Area of ​​interest: C ++, Graphics, Game engines.",
+                UserId = teacherUser10.Id
             };
-            modelBuilder.Entity<Teacher>().HasData(teacher1, teacher2, teacher3, teacher4, teacher5, teacher6, teacher7, teacher8, teacher9, teacher10);
+            modelBuilder.Entity<User>().HasData(teacherUser1, teacherUser2, teacherUser3,teacherUser4,
+                                                teacherUser5, teacherUser6,teacherUser7, teacherUser8,
+                                                teacherUser9, teacherUser10);
 
+            modelBuilder.Entity<Teacher>().HasData(teacher1, teacher2, teacher3, teacher4,
+                                                   teacher5, teacher6, teacher7, teacher8,
+                                                   teacher9, teacher10);
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser1.Id
+            });
+
+            //Students
             var student1 = new Student
             {
                 Id = 1,
@@ -458,10 +631,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                     RequestStatus = RequestStatus.Open
                 }
             );
-            modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole { Name = "user" },
-                new IdentityRole { Name = "admin" }
-            );
+            
         }
     }
 }

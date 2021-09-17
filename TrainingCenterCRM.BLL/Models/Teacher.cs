@@ -14,5 +14,8 @@ namespace TrainingCenterCRM.BLL.Models
         public string PathToIcon { get; set; }
 
         public List<Group> Groups = new List<Group>();
+
+        public User User { get; set; }
+        public string UserId { get; set; }
     }
 }
