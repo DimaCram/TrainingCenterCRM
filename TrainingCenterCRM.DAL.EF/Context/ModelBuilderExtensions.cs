@@ -270,7 +270,53 @@ namespace TrainingCenterCRM.DAL.EF.Context
             {
                 RoleId = roleTeacher.Id,
                 UserId = teacherUser1.Id
-            });
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser2.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser3.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser4.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser5.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser6.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser7.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser8.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser9.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser10.Id
+            }
+            );
 
             //Students
             var student1 = new Student
