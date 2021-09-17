@@ -1,0 +1,37 @@
+<div class="content">
+    <h1 class="content__header">Students</h1>
+    <div class="containt-fluid">
+        <div class="row">
+            <div class="col-xxl-3"></div>
+            <div class="col-xxl-6">
+                <div class="card">
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <div class="table-responsive scroll-div content-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let student of students">
+                                        <th scope="col"><a href="#" class="modal-link js-studentModal" data-modal="@student.Id">{{student.name}} {{student.surname}}</a></th>
+                                        <th scope="col" class="text-center">
+                                            <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@student.Id">Add request</a>
+                                            <a class="btn btn-success m-1" asp-controller="Students" asp-action="EditStudent" asp-route-id="@student.Id"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger m-1" asp-controller="Students" asp-action="DeleteStudent" asp-route-id="@student.Id"><i class="fas fa-trash"></i></a>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a class="btn btn-head" [routerLink]="['/manager/students/edit']">Add new student</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-3"></div>
+        </div>
+    </div>
+</div>

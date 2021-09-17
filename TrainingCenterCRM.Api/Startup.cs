@@ -1,10 +1,19 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.BLL.Services;
+using TrainingCenterCRM.DAL.EF.Context;
+using TrainingCenterCRM.DAL.EF.Repositories;
+using TrainingCenterCRM.DAL.Interfaces;
+using TrainingCenterCRM.WebAngular.Mapper;
 
 namespace TrainingCenterCRM.Api
 {
@@ -20,8 +29,23 @@ namespace TrainingCenterCRM.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddDbContext<TrainingCenterContext>(options =>
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
+
+            services.AddScoped<IRepository<Student>, StudentRepository>();
+
+            services.AddScoped<IStudentService, StudentService>();
+
             services.AddControllersWithViews();
-            // In production, the Angular files will be served from this directory
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -46,6 +70,7 @@ namespace TrainingCenterCRM.Api
                 app.UseHsts();
             }
 
+            app.UseCors(options => options.AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())

@@ -1,0 +1,18 @@
+﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TrainingCenterCRM.Api.Dto;
+using TrainingCenterCRM.BLL.Models;
+
+namespace TrainingCenterCRM.WebAngular.Mapper
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<Student, StudentDto>().ReverseMap();
+        }
+    }   
+}
