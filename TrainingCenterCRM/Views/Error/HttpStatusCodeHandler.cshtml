@@ -24,7 +24,14 @@
             <p class="pannel-text mb-1">
                 @Model.Message
             </p>
-            <a class="pannel-link" asp-controller="Students" asp-action="Index">Go to Home Page</a>
+            @if (Model.StatusCode == 401)
+            {
+                <a class="pannel-link" asp-controller="Accounts" asp-action="Login">Go to Login</a>
+            }
+            else
+            {
+                <a class="pannel-link" asp-controller="">Go to Home Page</a>
+            }
         </div>
     </main>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

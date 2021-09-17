@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +12,7 @@ using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
 {
+    [Authorize(Roles = "manager")]
     public class StudentRequestsController : Controller
     {
         private readonly IMapper mapper;

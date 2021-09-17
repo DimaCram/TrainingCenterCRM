@@ -16,7 +16,7 @@ using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "manager")]
     public class TeachersController : Controller
     {
         private readonly ITeacherService teacherService;

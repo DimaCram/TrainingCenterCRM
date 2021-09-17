@@ -87,14 +87,16 @@ namespace TrainingCenterCRM.Controllers
                     
                     if (result.Succeeded)
                     {
-                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                        {
-                            return Redirect(model.ReturnUrl);
-                        }
-                        else
-                        {
+                        var user = await _userManager.FindByEmailAsync(model.Email);
+
+                        if(await _userManager.IsInRoleAsync(user, "manager"))
                             return RedirectToAction("Index", "Students");
-                        }
+
+                        if (await _userManager.IsInRoleAsync(user, "teacher"))
+                            return RedirectToAction("Index", "Home", new { area = "TeacherPortal" });
+
+                        ModelState.AddModelError("", "You not found in system");
+                        return View(model);
                     }
                     else
                     {

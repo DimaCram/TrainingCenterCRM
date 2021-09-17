@@ -73,7 +73,12 @@ namespace TrainingCenterCRM
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<TrainingCenterContext>();
 
-            services.ConfigureApplicationCookie(options => options.LoginPath = "/Accounts/LogIn");
+            services.ConfigureApplicationCookie(
+                options =>
+                {
+                    options.LoginPath = "/Accounts/LogIn";
+                    options.AccessDeniedPath = "/error/401";
+                });
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
