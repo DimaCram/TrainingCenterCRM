@@ -48,7 +48,7 @@ namespace TrainingCenterCRM
 
             services.AddDbContext<TrainingCenterContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionString"]));
-            
+
             services.AddScoped<IRepository<Student>, StudentRepository>();
             services.AddScoped<IRepository<Group>, GroupRepository>();
             services.AddScoped<IRepository<Teacher>, TeacherRepository>();
@@ -70,7 +70,7 @@ namespace TrainingCenterCRM
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<ILocalFileService>(s => new LocalFileService(env.WebRootPath));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<TrainingCenterContext>();
 
             services.ConfigureApplicationCookie(options => options.LoginPath = "/Accounts/LogIn");
