@@ -38,11 +38,16 @@ namespace TrainingCenterCRM.Api
             services.AddSingleton(mapper);
 
             services.AddDbContext<TrainingCenterContext>(options =>
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
+                options.UseSqlServer(Configuration["ConnectionString"]));
 
             services.AddScoped<IRepository<Student>, StudentRepository>();
+            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<IRepository<Topic>, TopicRepository>();
 
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<ILocalFileService>(s => new LocalFileService(""));
 
             services.AddControllersWithViews();
 
@@ -70,7 +75,7 @@ namespace TrainingCenterCRM.Api
                 app.UseHsts();
             }
 
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())

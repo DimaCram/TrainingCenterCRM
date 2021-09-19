@@ -8,6 +8,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ManagerMainModule } from './manager-portal/manager-main/manager-main.module';
 import { StudentService } from './services/student.service';
+import { CourseService } from './services/courses.service';
+import { TopicService } from './services/topic.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import { StudentService } from './services/student.service';
     AppRoutingModule,
     ManagerMainModule
   ],
-  providers: [StudentService],
+  providers: [StudentService, CourseService, TopicService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

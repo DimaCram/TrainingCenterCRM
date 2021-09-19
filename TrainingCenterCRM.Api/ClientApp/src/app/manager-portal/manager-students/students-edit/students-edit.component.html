@@ -7,29 +7,29 @@
                 <div class="card">
                     <div class="card-header">Table</div>
                     <div class="card-body">
-                        <form method="post" asp-controller="Students" asp-action="EditStudent" asp-route-id="@Model.Id">
+                        <form method="post" [formGroup]="formModel" autocomplete="off" (submit)="onSubmit()">
                             <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" />
-                                    <span asp-validation-for="Name" class="alert-danger"></span>
+                                    <input class="form-control" formControlName="Name" />
+                                    <span class="alert-danger" *ngIf="formModel.get('Name').touched && formModel.get('Name').errors">This field is invalid</span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label asp-for="Surname" class="col-sm-3 col-form-label"></label>
+                                <label asp-for="Surname" class="col-sm-3 col-form-label">Surname</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" asp-for="Surname" />
-                                    <span asp-validation-for="Surname" class="alert-danger"></span>
+                                    <input class="form-control" formControlName="Surname" />
+                                    <span class="alert-danger" *ngIf="formModel.get('Surname').touched && formModel.get('Surname').errors">This field is invalid</span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label asp-for="Age" class="col-sm-3 col-form-label"></label>
+                                <label asp-for="Age" class="col-sm-3 col-form-label">Age</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="number" asp-for="Age" />
-                                    <span asp-validation-for="Age" class="alert-danger"></span>
+                                    <input class="form-control" formControlName="Age" type="number" />
+                                    <span class="alert-danger" *ngIf="formModel.get('Age').touched && formModel.get('Age').errors">This field is invalid</span>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success">Ok</button>
+                            <button type="submit" class="btn btn-success" [disabled]="formModel.invalid">Ok</button>
                         </form>
                     </div>
                 </div>
