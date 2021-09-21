@@ -6,7 +6,7 @@ import { environment } from './environments/environment';
 
 export function getBaseUrl() {
   //return document.getElementsByTagName('base')[0].href;
-  return "https://localhost:44378/";
+  return "https://localhost:5001/";
 }
 
 const providers = [

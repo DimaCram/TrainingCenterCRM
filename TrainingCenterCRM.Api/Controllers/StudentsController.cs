@@ -41,9 +41,10 @@ namespace TrainingCenterCRM.Api.Controllers
         public async Task EditStudentAsync(StudentDto studentDto)
         {
             var student = _mapper.Map<Student>(studentDto);
+            var user = new User { Email = studentDto.Email, UserName = studentDto.Email };
 
             if (student.Id == 0)
-                await _studentService.AddStudentAsync(student);
+                await _studentService.AddStudentAsync(student, user, studentDto.Password);
             else
                 await _studentService.EditStudentAsync(student);
         }

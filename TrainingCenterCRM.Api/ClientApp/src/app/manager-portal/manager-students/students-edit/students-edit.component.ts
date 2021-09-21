@@ -9,7 +9,7 @@ import { StudentService } from 'src/app/services/student.service';
   templateUrl: './students-edit.component.html',
 })
 export class StudentsEditComponent {
-  
+
   constructor(private fb: FormBuilder,
               private studentSevice: StudentService,
               private route: ActivatedRoute){}
@@ -17,7 +17,15 @@ export class StudentsEditComponent {
   formModel = this.fb.group({
     Name: ['', Validators.required],
     Surname: ['', Validators.required],
-    Age: ['', [Validators.required]]
+    Age: ['', [Validators.required]],
+    Email: ['', Validators.compose([
+                  Validators.email,
+                  Validators.required])
+    ],
+    Password: ['', Validators.compose([
+      Validators.required,
+      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&.])[A-Za-z\d$@$!%*?&].{8,}')])
+   ]
   })
 
 
@@ -29,7 +37,11 @@ export class StudentsEditComponent {
   editStudent(): void{
     let id = this.route.snapshot.params['id'];
     let student : Student = new Student(id, this.formModel.value.Name, this.formModel.value.Surname, this.formModel.value.Age);
-    
+    student.email = this.formModel.value.Email;
+    student.password = this.formModel.value.Password;
+
+    console.log(student);
+
     this.studentSevice.egitStudent(student).subscribe(result => {
       console.log(result);
     },

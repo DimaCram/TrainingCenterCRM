@@ -29,6 +29,23 @@
                                     <span class="alert-danger" *ngIf="formModel.get('Age').touched && formModel.get('Age').errors">This field is invalid</span>
                                 </div>
                             </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" formControlName="Email" />
+                                    <span class="alert-danger" *ngIf="formModel.get('Email').touched && formModel.get('Email').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" formControlName="Password" />
+                                    <span class="alert-danger" *ngIf="formModel.get('Password').touched && formModel.get('Password').errors?.required">This field is required</span>
+                                    <span class="alert-danger" *ngIf="formModel.get('Password').touched && formModel.get('Password').errors?.pattern">
+                                        This field can has 8 characters length, lowercase letter, uppercase letter, Numbers, special character
+                                    </span>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-success" [disabled]="formModel.invalid">Ok</button>
                         </form>
                     </div>

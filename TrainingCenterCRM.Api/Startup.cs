@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,6 +51,9 @@ namespace TrainingCenterCRM.Api
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<ILocalFileService>(s => new LocalFileService(_env.WebRootPath));
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<TrainingCenterContext>();
 
             services.AddControllersWithViews();
 
