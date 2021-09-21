@@ -19,9 +19,11 @@ namespace TrainingCenterCRM.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            _env = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -47,7 +49,7 @@ namespace TrainingCenterCRM.Api
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITopicService, TopicService>();
-            services.AddScoped<ILocalFileService>(s => new LocalFileService(""));
+            services.AddScoped<ILocalFileService>(s => new LocalFileService(_env.WebRootPath));
 
             services.AddControllersWithViews();
 
@@ -62,9 +64,9 @@ namespace TrainingCenterCRM.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -78,7 +80,7 @@ namespace TrainingCenterCRM.Api
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            if (!env.IsDevelopment())
+            if (!_env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
@@ -99,7 +101,7 @@ namespace TrainingCenterCRM.Api
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                if (_env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }

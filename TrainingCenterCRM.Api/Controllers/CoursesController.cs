@@ -38,14 +38,14 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpPost]
-        public async Task EditCourseAsync(CourseDto courseDto)
+        public async Task EditCourseAsync([FromForm] CourseDto courseDto)
         {
             var course = _mapper.Map<Course>(courseDto);
 
             if (course.Id == 0)
-                await _courseService.AddCourseAsync(course);
+                await _courseService.AddCourseAsync(course, courseDto.File);
             else
-                await _courseService.EditCourseAsync(course);
+                await _courseService.EditCourseAsync(course, courseDto.File);
         }
 
         [HttpDelete("{id}")]

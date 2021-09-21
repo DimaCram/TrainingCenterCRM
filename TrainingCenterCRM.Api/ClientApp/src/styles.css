@@ -387,11 +387,11 @@ input[type="color"]:focus,
   padding: 20px;
 }
 
-  #drop-area.highlight {
+  #drop-area.fileover {
       border-color: #1c2b36;
   }
 
-#fileElem {
+#fileDropRef {
   display: none;
 }
 .content-table{

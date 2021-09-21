@@ -4,5 +4,6 @@ export class Course{
     public description: string;
     public pathToIcon: string;
     public topicId: number;
+    public file: any;
     constructor(){}
 }

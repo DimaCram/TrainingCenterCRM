@@ -10,6 +10,7 @@ import { ManagerMainModule } from './manager-portal/manager-main/manager-main.mo
 import { StudentService } from './services/student.service';
 import { CourseService } from './services/courses.service';
 import { TopicService } from './services/topic.service';
+import { DndDirective } from './directives/drag-and-drop.directive';
 
 @NgModule({
   declarations: [

@@ -13,7 +13,7 @@ namespace TrainingCenterCRM.BLL.Services
         private readonly string pathToAssets;
         public LocalFileService(string pathToAssets)
         {
-            this.pathToAssets = pathToAssets;
+            this.pathToAssets = $@"{pathToAssets}\..\ClientApp\src\";
         }
         public async Task AddFile(IFormFile file, string path)
         {

@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Course } from "../models/course.model";
 
@@ -19,9 +19,16 @@ export class CourseService{
     }
 
     egitCourse(course : Course){
-        return this.http.post(this.baseUrl + 'api/courses', course)
+
+        const formData = new FormData();
+        for (const prop in course) {
+            if (!course.hasOwnProperty(prop)) { continue; }
+            formData.append(prop , course[prop]);
+        }
+
+        return this.http.post(this.baseUrl + 'api/courses', formData)
     }
-    
+
     deleteCourse(id : number){
         return this.http.delete(`${this.baseUrl}api/courses/${id}`)
     }

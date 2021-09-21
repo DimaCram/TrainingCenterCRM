@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Course } from "src/app/models/course.model";
@@ -15,12 +16,17 @@ export class CourseEditComponent{
     topics : Topic[];
     form: FormGroup;
     id: number;
+    filePath : string = "";
+
+    @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
+    files: any[] = [];
 
     constructor(private fb: FormBuilder,
                 private courseSevice: CourseService,
                 private topicService: TopicService,
                 private route: ActivatedRoute,
-                private router: Router){}
+                private router: Router,
+                private httpClient: HttpClient){}
 
 
     ngOnInit(): void {
@@ -28,7 +34,11 @@ export class CourseEditComponent{
 
         if (this.id) {
             this.courseSevice.getCourse(this.id)
-                             .subscribe(res => {this.form.patchValue(res)});
+                             .subscribe(res => {
+                               this.form.patchValue(res);
+                               if(res.pathToIcon)
+                                this.filePath = res.pathToIcon;
+                              });
         }
 
         this.topicService.getTopics().subscribe(res => this.topics = res);
@@ -45,19 +55,16 @@ export class CourseEditComponent{
         this.editCourse();
     }
 
-
     editCourse(): void{
         let course : Course = new Course();
-        
+
         if(this.id)
             course.id = +this.id;
-        
+
         course.title = this.form.value.title;
         course.description = this.form.value.description;
         course.topicId = +this.form.value.topicId
-
-        console.log(course);
-
+        course.file = this.files[0];
 
         this.courseSevice.egitCourse(course).subscribe(result => {
             if(this.id)
@@ -65,5 +72,40 @@ export class CourseEditComponent{
             else
                 this.router.navigate(['../'], { relativeTo: this.route });
         },
-        error => {console.error(error);});}
+        error => {console.error(error);});
     }
+
+  /**
+   * on file drop handler
+   */
+  onFileDropped($event) {
+    this.prepareFilesList($event);
+    this.imagePreview($event);
+  }
+
+  /**
+   * handle file from browsing
+   */
+  fileBrowseHandler(files) {
+    this.prepareFilesList(files);
+    this.imagePreview(this.files);
+  }
+
+  prepareFilesList(files: Array<any>) {
+    for (const item of files) {
+      this.files.push(item);
+    }
+    this.fileDropEl.nativeElement.value = "";
+  }
+
+  imagePreview(files) {
+    const file = files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.filePath = reader.result as string;
+    }
+    reader.readAsDataURL(file)
+  }
+
+}

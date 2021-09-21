@@ -91,7 +91,7 @@ namespace TrainingCenterCRM.Controllers
                     var course = mapper.Map<Course>(courseModel);
 
                     if (course.Id == 0)
-                        await courseService.AddCourseAsync(course);
+                        await courseService.AddCourseAsync(course, icon);
                     else
                         await courseService.EditCourseAsync(course);
 
