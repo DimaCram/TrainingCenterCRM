@@ -44,12 +44,24 @@ namespace TrainingCenterCRM.Api
                 options.UseSqlServer(Configuration["ConnectionString"]));
 
             services.AddScoped<IRepository<Student>, StudentRepository>();
+            services.AddScoped<IRepository<Group>, GroupRepository>();
+            services.AddScoped<IRepository<Teacher>, TeacherRepository>();
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<Topic>, TopicRepository>();
+            services.AddScoped<IRepository<StudentRequest>, StudentRequestRepository>();
+            services.AddScoped<IRepository<StudentToGroupAssignment>, StudentToGroupAssignmentRepository>();
+            services.AddScoped<IRepository<Material>, MaterialRepository>();
+            services.AddScoped<IRepository<File>, FileRepository>();
 
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<IStudentRequestService, StudentRequestService>();
+            services.AddScoped<IStudentToGroupAssignmentService, StudentToGroupAssignmentService>();
+            services.AddScoped<IMaterialService, MaterialService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<ILocalFileService>(s => new LocalFileService(_env.WebRootPath));
 
             services.AddIdentity<User, IdentityRole>()

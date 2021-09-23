@@ -1,5 +1,6 @@
+
 <div class="content">
-    <h1 class="content__header">Students</h1>
+    <h1 class="content__header">Student request</h1>
     <div class="containt-fluid">
         <div class="row">
             <div class="col-xxl-3"></div>
@@ -9,25 +10,27 @@
                     <div class="card-body">
                         <div class="table-responsive scroll-div content-table">
                             <table class="table">
-                                <thead>
+                                <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Student</th>
+                                        <th scope="col">Course</th>
+                                        <th scope="col">Ready to start date</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let student of students">
-                                        <th scope="col"><a href="#" class="modal-link js-studentModal" data-modal="@student.Id">{{student.name}} {{student.surname}}</a></th>
+                                    <tr *ngFor="let request of requests">
+                                        <th scope="col">{{request.student.name}} {{request.student.surname}}</th>
+                                        <th scope="col">{{request.course.title}}</th>
+                                        <th scope="col">{{request.readyToStartDate | date:'longDate'}}</th>
                                         <th scope="col" class="text-center">
-                                            <a class="btn btn-success m-1" [routerLink]="['/manager/requests/edit']" [queryParams]="{studentId: student.id}">Add request</a>
-                                            <a class="btn btn-success m-1" [routerLink]="['/manager/students/edit', student.id]"><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-danger m-1" (click)="deleteStudent(student.id)"><i class="fas fa-trash"></i></a>
+                                            <a class="btn btn-success m-1" asp-controller="StudentRequests" asp-action="EditRequest" asp-route-studentId="@request.StudentId" asp-route-id="@request.Id"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger m-1" asp-controller="StudentRequests" asp-action="DeleteRequest" asp-route-id="@request.Id"><i class="fas fa-trash"></i></a>
                                         </th>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <a class="btn btn-head" [routerLink]="['/manager/students/edit']">Add new student</a>
                     </div>
                 </div>
             </div>

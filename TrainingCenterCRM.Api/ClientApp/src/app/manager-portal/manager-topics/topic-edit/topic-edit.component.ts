@@ -7,8 +7,8 @@ import { TopicService } from "src/app/services/topic.service";
 @Component({
     selector: 'app-manager-main',
     templateUrl: './topic-edit.component.html',
-  })
-  export class TopicEditComponent {
+})
+export class TopicEditComponent {
     id: number;
     form: FormGroup;
 
@@ -16,8 +16,8 @@ import { TopicService } from "src/app/services/topic.service";
                 private topicSevice: TopicService,
                 private route: ActivatedRoute,
                 private router: Router){}
-  
-                
+
+
     ngOnInit(): void {
         this.id = this.route.snapshot.params['id'];
 
@@ -31,12 +31,12 @@ import { TopicService } from "src/app/services/topic.service";
                             .subscribe(res => {this.form.patchValue(res)});
         }
     }
-  
+
     onSubmit(){
       this.editTopic();
     }
-  
-  
+
+
     editTopic(): void{
       let topic : Topic = new Topic();
 

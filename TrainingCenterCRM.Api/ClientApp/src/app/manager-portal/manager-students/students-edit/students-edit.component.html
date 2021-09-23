@@ -7,46 +7,47 @@
                 <div class="card">
                     <div class="card-header">Table</div>
                     <div class="card-body">
-                        <form method="post" [formGroup]="formModel" autocomplete="off" (submit)="onSubmit()">
+                        <form method="post" [formGroup]="form" autocomplete="off" (submit)="onSubmit()">
                             <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" formControlName="Name" />
-                                    <span class="alert-danger" *ngIf="formModel.get('Name').touched && formModel.get('Name').errors">This field is invalid</span>
+                                    <input class="form-control" formControlName="name" />
+                                    <span class="alert-danger" *ngIf="form.get('name').touched && form.get('name').errors">This field is invalid</span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label asp-for="Surname" class="col-sm-3 col-form-label">Surname</label>
+                                <label class="col-sm-3 col-form-label">Surname</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" formControlName="Surname" />
-                                    <span class="alert-danger" *ngIf="formModel.get('Surname').touched && formModel.get('Surname').errors">This field is invalid</span>
+                                    <input class="form-control" formControlName="surname" />
+                                    <span class="alert-danger" *ngIf="form.get('surname').touched && form.get('surname').errors">This field is invalid</span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label asp-for="Age" class="col-sm-3 col-form-label">Age</label>
+                                <label class="col-sm-3 col-form-label">Age</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" formControlName="Age" type="number" />
-                                    <span class="alert-danger" *ngIf="formModel.get('Age').touched && formModel.get('Age').errors">This field is invalid</span>
+                                    <input class="form-control" formControlName="age" type="number" />
+                                    <span class="alert-danger" *ngIf="form.get('age').touched && form.get('age').errors">This field is invalid</span>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
+                            <div class="mb-3 row" *ngIf="!id">
                                 <label class="col-sm-3 col-form-label">Email</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" formControlName="Email" />
-                                    <span class="alert-danger" *ngIf="formModel.get('Email').touched && formModel.get('Email').errors">This field is invalid</span>
+                                    <input class="form-control" formControlName="email" />
+                                    <span class="alert-danger" *ngIf="form.get('email').touched && form.get('email').errors">This field is invalid</span>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
+                            <div class="mb-3 row" *ngIf="!id">
                                 <label class="col-sm-3 col-form-label">Password</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" formControlName="Password" />
-                                    <span class="alert-danger" *ngIf="formModel.get('Password').touched && formModel.get('Password').errors?.required">This field is required</span>
-                                    <span class="alert-danger" *ngIf="formModel.get('Password').touched && formModel.get('Password').errors?.pattern">
+                                    <input class="form-control" type="password" formControlName="password" />
+                                    <span class="alert-danger" *ngIf="form.get('password').touched && form.get('password').errors?.required">This field is required</span>
+                                    <span class="alert-danger" *ngIf="form.get('password').touched && form.get('password').errors?.pattern">
                                         This field can has 8 characters length, lowercase letter, uppercase letter, Numbers, special character
                                     </span>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success" [disabled]="formModel.invalid">Ok</button>
+                            <input formControlName="userId" type="number" hidden/>
+                            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ok</button>
                         </form>
                     </div>
                 </div>

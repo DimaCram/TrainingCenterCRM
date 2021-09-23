@@ -25,7 +25,7 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public Task<Student> GetAsync(int id)
         {
-            return db.Students.FirstOrDefaultAsync(s => s.Id == id);
+            return db.Students.Include(s => s.User).FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public IEnumerable<Student> Find(Func<Student, bool> predicate)
@@ -47,9 +47,12 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var student = await db.Students.FindAsync(id);
+            var student = await db.Students.Include(s => s.User).SingleAsync(s => s.Id == id);
             if (student == null)
                 throw new ArgumentException("Student not found");
+
+            if(student.User != null)
+                db.Users.Remove(student.User);
 
             db.Students.Remove(student);
             await db.SaveChangesAsync();

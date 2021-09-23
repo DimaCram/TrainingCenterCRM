@@ -13,5 +13,6 @@ namespace TrainingCenterCRM.Api.Dto
         public int Age { get; set; }
         public bool HasGroup { get; set; }
         public int? GroupId { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -9,11 +9,19 @@ import { StudentService } from 'src/app/services/student.service';
 export class StudentsAllComponent {
     public students: Student[];
 
-    constructor(private teacherService : StudentService){}
+    constructor(private studentService : StudentService){}
 
     ngOnInit(): void {
-      this.teacherService.getStudents().subscribe(result => {
+      this.studentService.getStudents().subscribe(result => {
         this.students = result;
+      },
+      error => {console.error(error);});
+    }
+
+    deleteStudent(id): void{
+      this.studentService.deleteStudent(id).subscribe(result => {
+        const removeIndex = this.students.findIndex( item => item.id === id );
+        this.students.splice( removeIndex, 1 );
       },
       error => {console.error(error);});
     }

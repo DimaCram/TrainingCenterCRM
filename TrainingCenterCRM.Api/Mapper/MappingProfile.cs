@@ -17,6 +17,8 @@ namespace TrainingCenterCRM.WebAngular.Mapper
             CreateMap<Course, CourseDto>().ReverseMap();
 
             CreateMap<Topic, TopicDto>().ReverseMap();
+
+            CreateMap<StudentRequest, StudentRequestDto>().ReverseMap();
         }
     }   
 }

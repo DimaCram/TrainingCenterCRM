@@ -93,7 +93,7 @@ namespace TrainingCenterCRM.Controllers
                     if (course.Id == 0)
                         await courseService.AddCourseAsync(course, icon);
                     else
-                        await courseService.EditCourseAsync(course);
+                        await courseService.EditCourseAsync(course, null);
 
                     return RedirectToAction("Index");
                 }

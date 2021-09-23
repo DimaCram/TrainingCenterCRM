@@ -48,5 +48,11 @@ namespace TrainingCenterCRM.Api.Controllers
             else
                 await _studentService.EditStudentAsync(student);
         }
+
+        [HttpDelete("{id}")]
+        public async Task DeleteStudentAsync(int id)
+        {
+            await _studentService.DeleteStudentAsync(id);
+        }
     }
 }

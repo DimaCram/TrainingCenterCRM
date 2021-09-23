@@ -33,17 +33,21 @@ namespace TrainingCenterCRM.DAL.EF.Context
             modelBuilder.Entity<User>()
                         .HasOne(a => a.Student)
                         .WithOne(a => a.User)
-                        .HasForeignKey<Student>(c => c.UserId);
+                        .HasForeignKey<Student>(c => c.UserId)
+                        .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                         .HasOne(a => a.Teacher)
                         .WithOne(a => a.User)
-                        .HasForeignKey<Teacher>(c => c.UserId);
+                        .HasForeignKey<Teacher>(c => c.UserId)
+                        .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                         .HasOne(a => a.Manager)
                         .WithOne(a => a.User)
-                        .HasForeignKey<Manager>(c => c.UserId);
+                        .HasForeignKey<Manager>(c => c.UserId)
+                        .OnDelete(DeleteBehavior.Cascade);
+            
         }
     }
 }

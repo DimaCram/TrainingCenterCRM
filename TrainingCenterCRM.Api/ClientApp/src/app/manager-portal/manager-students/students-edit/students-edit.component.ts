@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { StudentService } from 'src/app/services/student.service';
 
@@ -10,24 +10,49 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class StudentsEditComponent {
 
+  form: FormGroup;
+  id: number;
+
   constructor(private fb: FormBuilder,
               private studentSevice: StudentService,
-              private route: ActivatedRoute){}
+              private route: ActivatedRoute,
+              private router: Router){
 
-  formModel = this.fb.group({
-    Name: ['', Validators.required],
-    Surname: ['', Validators.required],
-    Age: ['', [Validators.required]],
-    Email: ['', Validators.compose([
-                  Validators.email,
-                  Validators.required])
-    ],
-    Password: ['', Validators.compose([
-      Validators.required,
-      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&.])[A-Za-z\d$@$!%*?&].{8,}')])
-   ]
-  })
+                this.id = this.route.snapshot.params['id'];
+              }
 
+  ngOnInit(): void {
+    if (this.id) {
+      this.studentSevice.getStudent(this.id)
+      .subscribe(res => {
+        console.log(res);
+        this.form.patchValue(res);
+      });
+
+      this.form = this.fb.group({
+       name: ['', Validators.required],
+       surname: ['', Validators.required],
+       age: ['', [Validators.required]],
+       userId: ['']
+      });
+
+    }else{
+      this.form = this.fb.group({
+        name: ['', Validators.required],
+        surname: ['', Validators.required],
+        age: ['', [Validators.required]],
+        email: ['', Validators.compose([
+                      Validators.email,
+                      Validators.required])
+        ],
+        password: ['', Validators.compose([
+          Validators.required,
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&.])[A-Za-z\d$@$!%*?&].{8,}')])
+        ],
+        userId: ['']
+      });
+    }
+  }
 
   onSubmit(){
     this.editStudent();
@@ -35,15 +60,23 @@ export class StudentsEditComponent {
 
 
   editStudent(): void{
-    let id = this.route.snapshot.params['id'];
-    let student : Student = new Student(id, this.formModel.value.Name, this.formModel.value.Surname, this.formModel.value.Age);
-    student.email = this.formModel.value.Email;
-    student.password = this.formModel.value.Password;
-
+    let student : Student = new Student(this.form.value.name, this.form.value.surname, this.form.value.age);
+    if(!this.id){
+      student.email = this.form.value.email;
+      student.password = this.form.value.password;
+    }
+    else{
+      student.id = +this.id;
+      student.userId = this.form.value.userId;
+    }
     console.log(student);
 
     this.studentSevice.egitStudent(student).subscribe(result => {
-      console.log(result);
+
+      if(this.id)
+        this.router.navigate(['../../'], { relativeTo: this.route });
+       else
+        this.router.navigate(['../'], { relativeTo: this.route });
     },
     error => {console.error(error);});
   }
