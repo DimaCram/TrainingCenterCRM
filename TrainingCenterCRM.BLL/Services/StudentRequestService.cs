@@ -81,7 +81,7 @@ namespace TrainingCenterCRM.BLL.Services
             }
         }
 
-        public async Task CloseRequestsAsync(List<int> studentsId, int courseId)
+        public async Task CloseRequestsAsync(IEnumerable<int> studentsId, int courseId)
         {
             var openRequests = await GetOpenRequestsByCourseAsync(courseId);
             var openRequestsForStudents = openRequests.Where(r => studentsId.Contains(r.StudentId));

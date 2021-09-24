@@ -28,7 +28,7 @@ namespace TrainingCenterCRM.BLL.Services
             this.studentService = studentService;
             this.assignmentService = assignmentService;
         }
-        public async Task AddGroupAsync(Group group, List<int> studentsId)
+        public async Task AddGroupAsync(Group group, IEnumerable<int> studentsId)
         {
             if (group == null)
                 throw new ArgumentException();
@@ -58,7 +58,7 @@ namespace TrainingCenterCRM.BLL.Services
             await groupRepository.DeleteAsync(id);
         }
 
-        public async Task EditGroupAsync(Group group, List<int> studentsId)
+        public async Task EditGroupAsync(Group group, IEnumerable<int> studentsId)
         {
             if (group == null)
                 throw new ArgumentException();

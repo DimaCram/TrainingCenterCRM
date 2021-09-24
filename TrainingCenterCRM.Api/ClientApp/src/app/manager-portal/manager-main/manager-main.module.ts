@@ -5,6 +5,8 @@ import { RouterModule } from "@angular/router";
 import { DndDirective } from "src/app/directives/drag-and-drop.directive";
 import { CourseAllComponent } from "../manager-courses/course-all/course-all.component";
 import { CourseEditComponent } from "../manager-courses/course-edit/course-edit.component";
+import { GroupAllComponent } from "../manager-groups/group-all/group-all.component";
+import { GroupEditComponent } from "../manager-groups/group-edit/group-edit.component";
 import { RequestAllComponent } from "../manager-requests/request-all/request-all.component";
 import { RequestEditComponent } from "../manager-requests/request-edit/request-edit.component";
 import { StudentsAllComponent } from "../manager-students/students-all/students-all.component";
@@ -30,6 +32,8 @@ import { ManagerMainComponent } from "./manager-main.component";
         RequestEditComponent,
         TeacherAllComponent,
         TeacherEditComponent,
+        GroupAllComponent,
+        GroupEditComponent,
         DndDirective
     ],
     exports: [ ManagerMainComponent]

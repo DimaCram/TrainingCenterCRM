@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CourseAllComponent } from "./manager-portal/manager-courses/course-all/course-all.component";
 import { CourseEditComponent } from "./manager-portal/manager-courses/course-edit/course-edit.component";
+import { GroupAllComponent } from "./manager-portal/manager-groups/group-all/group-all.component";
+import { GroupEditComponent } from "./manager-portal/manager-groups/group-edit/group-edit.component";
 import { ManagerMainComponent } from "./manager-portal/manager-main/manager-main.component";
 import { RequestAllComponent } from "./manager-portal/manager-requests/request-all/request-all.component";
 import { RequestEditComponent } from "./manager-portal/manager-requests/request-edit/request-edit.component";
@@ -32,6 +34,10 @@ const routes: Routes = [
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers', component: TeacherAllComponent }]},
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers/edit/:id', component: TeacherEditComponent }]},
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers/edit', component: TeacherEditComponent }]},
+
+    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups', component: GroupAllComponent }]},
+    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups/edit/:id', component: GroupEditComponent }]},
+    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups/edit', component: GroupEditComponent }]},
 ]
 
 @NgModule({

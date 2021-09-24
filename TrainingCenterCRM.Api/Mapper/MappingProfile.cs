@@ -23,6 +23,8 @@ namespace TrainingCenterCRM.WebAngular.Mapper
                 .ReverseMap();
 
             CreateMap<Teacher, TeacherDto>().ReverseMap();
+
+            CreateMap<Group, GroupDto>().ReverseMap();
         }
     }   
 }

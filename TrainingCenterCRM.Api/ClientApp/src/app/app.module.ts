@@ -14,6 +14,7 @@ import { DndDirective } from './directives/drag-and-drop.directive';
 import { RequestService } from './services/request.service';
 import { DatePipe } from '@angular/common';
 import { TeacherService } from './services/teacher.service';
+import { GroupService } from './services/group.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TeacherService } from './services/teacher.service';
     CourseService,
     TopicService,
     RequestService,
-    TeacherService
+    TeacherService,
+    GroupService
   ],
   bootstrap: [AppComponent]
 })

@@ -17,6 +17,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<List<StudentRequest>> GetOpenRequestsByCourseAsync(int courseId);
         Task<IEnumerable<Student>> GetStudentsRequestedForCourseAsync(int courseId);
         Task ReOpenRequestAsync(int studentId, int courseId);
-        Task CloseRequestsAsync(List<int> studentsId, int courseId);
+        Task CloseRequestsAsync(IEnumerable<int> studentsId, int courseId);
     }
 }
