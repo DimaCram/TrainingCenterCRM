@@ -25,4 +25,8 @@ export class RequestService{
     deleteRequest(id : number){
         return this.http.delete(`${this.baseUrl}api/studentrequests/${id}`)
     }
+
+    getRequestStatuses(){
+        return this.http.get<string[]>(this.baseUrl + `api/studentrequests/statuses`);
+    }
 }

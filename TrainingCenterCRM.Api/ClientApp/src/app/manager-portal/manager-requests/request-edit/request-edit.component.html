@@ -15,20 +15,30 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label asp-for="readyToStartDate" class="col-sm-3 col-form-label"></label>
+                                <label class="col-sm-3 col-form-label">Status</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="status">
+                                        <option value="">Select status</option>
+                                        <option [value]="requestStatus" *ngFor="let requestStatus of requestStatuses">{{requestStatus}}</option>
+                                    </select>
+                                    <span class="alert-danger" *ngIf="form.get('status').touched && form.get('status').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Ready to start</label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="date" formControlName="readyToStartDate"/>
                                     <span class="alert-danger" *ngIf="form.get('readyToStartDate').touched && form.get('readyToStartDate').errors">This field is invalid</span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label asp-for="Comments" class="col-sm-3 col-form-label"></label>
+                                <label class="col-sm-3 col-form-label">Comments</label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" rows="3" formControlName="comments"></textarea>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-sm-3 col-form-label"></label>
+                                <label class="col-sm-3 col-form-label">Course</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="courseId">
                                         <option value="">Select course</option>
@@ -37,7 +47,7 @@
                                     <span class="alert-danger" *ngIf="form.get('courseId').touched && form.get('courseId').errors">This field is invalid</span>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success">Ok</button>
+                            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ok</button>
                         </form>
                     </div>
                 </div>

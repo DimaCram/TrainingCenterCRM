@@ -60,7 +60,7 @@ export class StudentsEditComponent {
 
 
   editStudent(): void{
-    let student : Student = new Student(this.form.value.name, this.form.value.surname, this.form.value.age);
+    let student : Student = new Student();
     if(!this.id){
       student.email = this.form.value.email;
       student.password = this.form.value.password;
@@ -69,6 +69,10 @@ export class StudentsEditComponent {
       student.id = +this.id;
       student.userId = this.form.value.userId;
     }
+    student.name = this.form.value.name
+    student.surname = this.form.value.surname
+    student.age = this.form.value.age
+
     console.log(student);
 
     this.studentSevice.egitStudent(student).subscribe(result => {

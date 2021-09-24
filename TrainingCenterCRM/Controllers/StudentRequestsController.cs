@@ -12,7 +12,7 @@ using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
 {
-    [Authorize(Roles = "manager")]
+    //[Authorize(Roles = "manager")]
     public class StudentRequestsController : Controller
     {
         private readonly IMapper mapper;

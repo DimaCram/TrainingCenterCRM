@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -16,10 +17,12 @@ export class RequestEditComponent {
     requestId: number;
     student: Student = new Student();
     courses: Course[];
+    requestStatuses: string[];
 
     form: FormGroup;
 
     constructor(private fb: FormBuilder,
+                private datePipe: DatePipe,
                 private requestSevice: RequestService,
                 private studentService: StudentService,
                 private courseService: CourseService,
@@ -33,8 +36,10 @@ export class RequestEditComponent {
             this.requestId = this.route.snapshot.params['id'];
 
             if (this.requestId) {
-                this.requestSevice.getRequest(this.requestId)
-                                  .subscribe(res => {this.form.patchValue(res)});
+                this.requestSevice.getRequest(this.requestId).subscribe(res => {
+                    this.form.patchValue(res)
+                    this.form.get('readyToStartDate').setValue(this.datePipe.transform(res.readyToStartDate,"yyyy-MM-dd"));
+                });
             }
 
             this.studentService.getStudent(this.student.id).subscribe(res => {
@@ -42,16 +47,20 @@ export class RequestEditComponent {
             });
         });
 
+        this.requestSevice.getRequestStatuses().subscribe(res => {
+            this.requestStatuses = res;
+        });
+
         this.courseService.getCourses().subscribe(res => {
             this.courses = res;
         });
 
 
-
         this.form = this.fb.group({
             readyToStartDate: ['', Validators.required],
             comments: [''],
-            courseId: ['', Validators.required]
+            courseId: ['', Validators.required],
+            status: ['', Validators.required]
         });
 
     }
@@ -69,8 +78,9 @@ export class RequestEditComponent {
 
       request.readyToStartDate = this.form.value.readyToStartDate;
       request.comments = this.form.value.comments;
-      request.courseId = this.form.value.courseId;
-      request.studentId = this.student.id;
+      request.courseId = +this.form.value.courseId;
+      request.studentId = +this.student.id;
+      request.status = this.form.value.status;
 
       this.requestSevice.egitRequest(request).subscribe(result => {
             if(this.requestId)

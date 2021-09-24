@@ -18,57 +18,56 @@ namespace TrainingCenterCRM.Api.Controllers
         private readonly IMapper _mapper;
 
         private readonly IStudentRequestService studentRequestService;
-        private readonly IStudentService studentService;
-        private readonly ICourseService courseService;
         private readonly IGroupService groupService;
 
         public StudentRequestsController(IMapper mapper,
                                          IStudentRequestService studentRequestService,
-                                         IStudentService studentService,
-                                         ICourseService courseService,
                                          IGroupService groupService)
         {
             _mapper = mapper;
 
             this.studentRequestService = studentRequestService;
-            this.studentService = studentService;
-            this.courseService = courseService;
             this.groupService = groupService;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<StudentRequestDto>> GetStudentsAsync()
+        public async Task<IEnumerable<StudentRequestDto>> GetRequestsAsync()
         {
             var requests = await studentRequestService.GetRequestsAsync();
             return _mapper.Map<IEnumerable<StudentRequestDto>>(requests);
         }
 
         [HttpGet("{id}")]
-        public async Task<StudentDto> GetStudentAsync(int id)
+        public async Task<StudentRequestDto> GetRequestAsync(int id)
         {
-            
-            return _mapper.Map<StudentDto>(await studentService.GetStudentAsync(id));
+            return _mapper.Map<StudentRequestDto>(await studentRequestService.GetRequestAsync(id));
         }
 
         [HttpPost]
-        public async Task EditStudentAsync(StudentDto studentDto)
+        public async Task EditRequestAsync(StudentRequestDto requestDto)
         {
-            var request = _mapper.Map<StudentRequest>(studentDto);
+            var request = _mapper.Map<StudentRequest>(requestDto);
 
-            if (studentDto.Id == 0)
+            if (requestDto.Id == 0)
                 await studentRequestService.AddRequestAsync(request);
             else
                 await studentRequestService.EditRequestAsync(request);
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteStudentAsync(int id)
+        public async Task DeleteRequestAsync(int id)
         {
             await studentRequestService.DeleteRequestAsync(id);
         }
 
-        [HttpGet("GetStudentsForGroupByCourse")]
-        public async Task<List<StudentDto>> GetStudentsByCourseAsync(int courseId, int groupId)
+        [HttpGet("statuses")]
+        public List<string> GetRequestStatuses()
+        {
+            return Enum.GetNames(typeof(RequestStatus)).ToList();
+        }
+
+        [HttpGet("studentsForGroupByCourse")]
+        public async Task<List<StudentDto>> GetStudentsForGroupByCourse(int courseId, int groupId)
         {
             var students = _mapper.Map<List<StudentDto>>(await studentRequestService.GetStudentsRequestedForCourseAsync(courseId));
 
