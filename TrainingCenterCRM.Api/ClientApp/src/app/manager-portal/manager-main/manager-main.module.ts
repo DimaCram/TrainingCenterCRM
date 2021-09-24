@@ -9,6 +9,8 @@ import { RequestAllComponent } from "../manager-requests/request-all/request-all
 import { RequestEditComponent } from "../manager-requests/request-edit/request-edit.component";
 import { StudentsAllComponent } from "../manager-students/students-all/students-all.component";
 import { StudentsEditComponent } from "../manager-students/students-edit/students-edit.component";
+import { TeacherAllComponent } from "../manager-teachers/teacher-all/teacher-all.component";
+import { TeacherEditComponent } from "../manager-teachers/teacher-edit/teacher-edit.component";
 import { TopicAllComponent } from "../manager-topics/topic-all/topic-all.component";
 import { TopicEditComponent } from "../manager-topics/topic-edit/topic-edit.component";
 import { ManagerMainComponent } from "./manager-main.component";
@@ -26,6 +28,8 @@ import { ManagerMainComponent } from "./manager-main.component";
         TopicEditComponent,
         RequestAllComponent,
         RequestEditComponent,
+        TeacherAllComponent,
+        TeacherEditComponent,
         DndDirective
     ],
     exports: [ ManagerMainComponent]

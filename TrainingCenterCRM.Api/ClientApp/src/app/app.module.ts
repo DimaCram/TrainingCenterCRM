@@ -13,6 +13,7 @@ import { TopicService } from './services/topic.service';
 import { DndDirective } from './directives/drag-and-drop.directive';
 import { RequestService } from './services/request.service';
 import { DatePipe } from '@angular/common';
+import { TeacherService } from './services/teacher.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,14 @@ import { DatePipe } from '@angular/common';
     AppRoutingModule,
     ManagerMainModule
   ],
-  providers: [DatePipe, StudentService, CourseService, TopicService, RequestService],
+  providers: [
+    DatePipe,
+    StudentService,
+    CourseService,
+    TopicService,
+    RequestService,
+    TeacherService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

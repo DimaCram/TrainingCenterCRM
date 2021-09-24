@@ -18,11 +18,13 @@ namespace TrainingCenterCRM.Api.Controllers
         private readonly IMapper _mapper;
 
         private readonly IStudentService _studentService;
+        private readonly IUserService _userService;
 
-        public StudentsController(IMapper mapper, IStudentService studentService)
+        public StudentsController(IMapper mapper, IStudentService studentService, IUserService userService)
         {
             _mapper = mapper;
             _studentService = studentService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -41,10 +43,14 @@ namespace TrainingCenterCRM.Api.Controllers
         public async Task EditStudentAsync(StudentDto studentDto)
         {
             var student = _mapper.Map<Student>(studentDto);
-            var user = new User { Email = studentDto.Email, UserName = studentDto.Email };
 
             if (student.Id == 0)
-                await _studentService.AddStudentAsync(student, user, studentDto.Password);
+            {
+                await _userService.AddUser(studentDto.Email, studentDto.Password, "student");
+                
+                student.UserId = await _userService.GetUserIdByEmail(studentDto.Email);
+                await _studentService.AddStudentAsync(student);
+            }
             else
                 await _studentService.EditStudentAsync(student);
         }

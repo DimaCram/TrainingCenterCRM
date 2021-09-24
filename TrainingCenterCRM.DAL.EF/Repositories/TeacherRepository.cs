@@ -26,9 +26,14 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var teacher = await db.Teachers.FindAsync(id);
+            var teacher = await db.Teachers.Include(s => s.User).SingleAsync(s => s.Id == id);
+
             if (teacher == null)
                 throw new ArgumentException("Teacher not found");
+
+            if (teacher.User != null)
+                db.Users.Remove(teacher.User);
+
             db.Teachers.Remove(teacher);
             await db.SaveChangesAsync();
         }

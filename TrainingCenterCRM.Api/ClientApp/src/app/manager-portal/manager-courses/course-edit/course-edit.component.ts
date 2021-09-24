@@ -58,8 +58,9 @@ export class CourseEditComponent{
     editCourse(): void{
         let course : Course = new Course();
 
-        if(this.id)
+        if(this.id){
             course.id = +this.id;
+        }
 
         course.title = this.form.value.title;
         course.description = this.form.value.description;

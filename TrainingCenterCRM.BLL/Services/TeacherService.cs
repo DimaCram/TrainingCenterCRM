@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,10 +21,15 @@ namespace TrainingCenterCRM.BLL.Services
 
             this.localFileService = localFileService;
         }
-        public async Task AddTeacherAsync(Teacher teacher)
+        public async Task AddTeacherAsync(Teacher teacher, IFormFile file)
         {
-            if (teacher == null)
-                throw new ArgumentException();
+            if (file != null)
+            {
+                string pathToImg = @$"\assets\files\teachers\{file.FileName}";
+
+                await localFileService.AddFile(file, pathToImg);
+                teacher.PathToIcon = pathToImg;
+            }
 
             await repository.CreateAsync(teacher);
         }
@@ -37,10 +43,18 @@ namespace TrainingCenterCRM.BLL.Services
             await repository.DeleteAsync(id);
         }
 
-        public async Task EditTeacherAsync(Teacher teacher)
+        public async Task EditTeacherAsync(Teacher teacher, IFormFile file)
         {
             if (teacher == null)
                 throw new ArgumentException();
+
+            if (file != null)
+            {
+                string pathToImg = @$"\assets\files\teachers\{file.FileName}";
+
+                await localFileService.AddFile(file, pathToImg);
+                teacher.PathToIcon = pathToImg;
+            }
 
             await repository.UpdateAsync(teacher);
         }

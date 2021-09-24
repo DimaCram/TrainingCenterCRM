@@ -76,26 +76,12 @@ namespace TrainingCenterCRM.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if(icon != null)
-                    {
-                        string pathToImg = @$"\assets\files\teachers\{icon.FileName}";
-
-                        if (localFileService.FileExists(pathToImg))
-                        {
-                            ViewBag.Eror = $"The file {icon.FileName} exists, please change the name or select a different file";
-                            return View(teacherModel);
-                        }
-                        await localFileService.AddFile(icon, pathToImg);
-                        
-                        teacherModel.PathToIcon = pathToImg;
-                    }
-
                     var teacher = mapper.Map<Teacher>(teacherModel);
 
                     if (teacherModel.Id == 0)
-                        await teacherService.AddTeacherAsync(teacher);
+                        await teacherService.AddTeacherAsync(teacher, icon);
                     else
-                        await teacherService.EditTeacherAsync(teacher);
+                        await teacherService.EditTeacherAsync(teacher, icon);
 
                     return RedirectToAction("Index", "Teachers");
                 }

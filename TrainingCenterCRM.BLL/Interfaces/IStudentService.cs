@@ -8,7 +8,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface IStudentService
     {
-        Task AddStudentAsync(Student studentDTO, User user, string password);
+        Task AddStudentAsync(Student studentDTO);
         Task EditStudentAsync(Student studentDTO);
         Task DeleteStudentAsync(int id);
         Task<Student> GetStudentAsync(int id);

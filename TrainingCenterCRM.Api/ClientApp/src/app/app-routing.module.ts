@@ -7,6 +7,8 @@ import { RequestAllComponent } from "./manager-portal/manager-requests/request-a
 import { RequestEditComponent } from "./manager-portal/manager-requests/request-edit/request-edit.component";
 import { StudentsAllComponent } from "./manager-portal/manager-students/students-all/students-all.component";
 import { StudentsEditComponent } from "./manager-portal/manager-students/students-edit/students-edit.component";
+import { TeacherAllComponent } from "./manager-portal/manager-teachers/teacher-all/teacher-all.component";
+import { TeacherEditComponent } from "./manager-portal/manager-teachers/teacher-edit/teacher-edit.component";
 import { TopicAllComponent } from "./manager-portal/manager-topics/topic-all/topic-all.component";
 import { TopicEditComponent } from "./manager-portal/manager-topics/topic-edit/topic-edit.component";
 
@@ -26,6 +28,10 @@ const routes: Routes = [
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'requests', component: RequestAllComponent }]},
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'requests/edit/:id', component: RequestEditComponent }]},
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'requests/edit', component: RequestEditComponent }]},
+
+    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers', component: TeacherAllComponent }]},
+    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers/edit/:id', component: TeacherEditComponent }]},
+    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers/edit', component: TeacherEditComponent }]},
 ]
 
 @NgModule({
