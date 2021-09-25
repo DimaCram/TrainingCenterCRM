@@ -23,9 +23,7 @@ export class StudentsEditComponent {
 
   ngOnInit(): void {
     if (this.id) {
-      this.studentSevice.getStudent(this.id)
-      .subscribe(res => {
-        console.log(res);
+      this.studentSevice.getStudent(this.id).subscribe(res => {
         this.form.patchValue(res);
       });
 

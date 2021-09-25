@@ -67,7 +67,7 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpGet("studentsForGroupByCourse")]
-        public async Task<List<StudentDto>> GetStudentsForGroupByCourse(int courseId, int groupId)
+        public async Task<IEnumerable<StudentDto>> GetStudentsForGroupByCourse(int courseId, int groupId)
         {
             var students = _mapper.Map<List<StudentDto>>(await studentRequestService.GetStudentsRequestedForCourseAsync(courseId));
 
@@ -82,7 +82,7 @@ namespace TrainingCenterCRM.Api.Controllers
                 students.AddRange(studentsWithGroup);
             }
 
-            return students;
+            return students.OrderBy(s => s.Name);
         }
     }
 }

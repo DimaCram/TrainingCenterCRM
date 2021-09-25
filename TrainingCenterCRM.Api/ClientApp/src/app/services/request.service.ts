@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Request } from "../models/request.model";
 
@@ -29,4 +29,5 @@ export class RequestService{
     getRequestStatuses(){
         return this.http.get<string[]>(this.baseUrl + `api/studentrequests/statuses`);
     }
+    
 }

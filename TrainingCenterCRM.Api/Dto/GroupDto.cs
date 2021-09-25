@@ -11,7 +11,7 @@ namespace TrainingCenterCRM.Api.Dto
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
 
-        public int? GroupStatus { get; set; }
+        public string Status { get; set; }
 
         public List<StudentDto> Students { get; set; }
 

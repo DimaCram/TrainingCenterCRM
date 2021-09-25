@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Student } from "../models/student.model";
 
@@ -24,5 +24,15 @@ export class StudentService{
 
     deleteStudent(id : number){
         return this.http.delete(`${this.baseUrl}api/students/${id}`)
+    }
+
+    getStudentsForGroupByCourse(courseId: string, groupId: number){
+        let params = new HttpParams();
+        params = params.append('courseId', courseId);
+        
+        if(groupId)
+            params = params.append('groupId', groupId.toString());
+
+        return this.http.get<Student[]>(this.baseUrl + `api/studentrequests/studentsForGroupByCourse`, {params: params});
     }
 }

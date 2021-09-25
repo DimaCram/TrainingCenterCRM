@@ -53,5 +53,11 @@ namespace TrainingCenterCRM.Api.Controllers
         {
             await _groupService.DeleteGroupAsync(id);
         }
+
+        [HttpGet("statuses")]
+        public List<string> GetGroupStatuses()
+        {
+            return Enum.GetNames(typeof(GroupStatus)).ToList();
+        }
     }
 }

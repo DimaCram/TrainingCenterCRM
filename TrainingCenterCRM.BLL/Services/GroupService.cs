@@ -33,6 +33,8 @@ namespace TrainingCenterCRM.BLL.Services
             if (group == null)
                 throw new ArgumentException();
 
+            group.Students = null;
+
             await groupRepository.CreateAsync(group);
 
             foreach(var studentId in studentsId)
@@ -62,6 +64,8 @@ namespace TrainingCenterCRM.BLL.Services
         {
             if (group == null)
                 throw new ArgumentException();
+
+            group.Students = null;
 
             var assignmentsByGroup = await assignmentService.GetAssignmentsByGroupAsync(group.Id);
                                                         

@@ -24,7 +24,9 @@ namespace TrainingCenterCRM.WebAngular.Mapper
 
             CreateMap<Teacher, TeacherDto>().ReverseMap();
 
-            CreateMap<Group, GroupDto>().ReverseMap();
+            CreateMap<Group, GroupDto>()
+                .ForMember(sr => sr.Status, map => map.MapFrom(sr => sr.GroupStatus))
+                .ReverseMap();
         }
     }   
 }

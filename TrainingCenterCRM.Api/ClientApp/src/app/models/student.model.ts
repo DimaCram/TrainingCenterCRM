@@ -5,7 +5,8 @@ export class Student {
     userId: string;
     name: string;
     surname: string;
-    age: number
+    age: number;
+    hasGroup: boolean;
     constructor(
     ) {}
 }
