@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { DndDirective } from "src/app/directives/drag-and-drop.directive";
+import { NavMenuComponent } from "src/app/nav-menu/nav-menu.component";
 import { CourseAllComponent } from "../manager-courses/course-all/course-all.component";
 import { CourseEditComponent } from "../manager-courses/course-edit/course-edit.component";
 import { GroupAllComponent } from "../manager-groups/group-all/group-all.component";
@@ -34,6 +35,7 @@ import { ManagerMainComponent } from "./manager-main.component";
         TeacherEditComponent,
         GroupAllComponent,
         GroupEditComponent,
+        NavMenuComponent,
         DndDirective
     ],
     exports: [ ManagerMainComponent]

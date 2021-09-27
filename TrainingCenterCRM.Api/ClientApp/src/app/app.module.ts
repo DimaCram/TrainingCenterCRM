@@ -15,18 +15,31 @@ import { RequestService } from './services/request.service';
 import { DatePipe } from '@angular/common';
 import { TeacherService } from './services/teacher.service';
 import { GroupService } from './services/group.service';
+import { LoginComponent } from './account/login/login.component';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter(){
+  return localStorage.getItem("jwt");
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    ManagerMainModule
+    ManagerMainModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:44378"],
+        disallowedRoutes: []
+      }
+    })
   ],
   providers: [
     DatePipe,

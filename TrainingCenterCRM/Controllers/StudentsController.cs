@@ -79,7 +79,7 @@ namespace TrainingCenterCRM.Controllers
                     var student = mapper.Map<Student>(studentModel);
 
                     if (student.Id == 0)
-                        await studentService.AddStudentAsync(student, null, "");
+                        await studentService.AddStudentAsync(student);
                     else
                         await studentService.EditStudentAsync(student);
 
