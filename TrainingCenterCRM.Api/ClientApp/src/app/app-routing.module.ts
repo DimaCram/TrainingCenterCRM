@@ -15,6 +15,7 @@ import { TeacherAllComponent } from "./manager-portal/manager-teachers/teacher-a
 import { TeacherEditComponent } from "./manager-portal/manager-teachers/teacher-edit/teacher-edit.component";
 import { TopicAllComponent } from "./manager-portal/manager-topics/topic-all/topic-all.component";
 import { TopicEditComponent } from "./manager-portal/manager-topics/topic-edit/topic-edit.component";
+import { TeacherMainComponent } from "./teacher-portal/teacher-model/teacher-main.component";
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -42,6 +43,9 @@ const routes: Routes = [
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups', component: GroupAllComponent }]},
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups/edit/:id', component: GroupEditComponent }]},
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups/edit', component: GroupEditComponent }]},
+
+
+    { path: 'teacher', component: TeacherMainComponent },
 ]
 
 @NgModule({

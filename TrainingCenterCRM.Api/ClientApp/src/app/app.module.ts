@@ -18,6 +18,7 @@ import { GroupService } from './services/group.service';
 import { LoginComponent } from './account/login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AccountService } from './services/account.service';
+import { TeacherMainModule } from './teacher-portal/teacher-model/teacher-main.module';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -34,6 +35,7 @@ export function tokenGetter(){
     FormsModule,
     AppRoutingModule,
     ManagerMainModule,
+    TeacherMainModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -43,6 +45,7 @@ export function tokenGetter(){
     }),
     ReactiveFormsModule
   ],
+  exports:[NavMenuComponent],
   providers: [
     DatePipe,
     StudentService,

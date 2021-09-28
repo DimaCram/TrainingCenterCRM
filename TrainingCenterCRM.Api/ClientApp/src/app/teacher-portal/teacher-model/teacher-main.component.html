@@ -1,0 +1,17 @@
+<app-nav-menu></app-nav-menu>
+<main>
+    <div class="wrapper">
+        <button class="btn btn-link navbar-button" id="sidebarToggle" href="#!" (click)="toggle()"><i class="fas fa-bars"></i></button>
+        <div class="sidebar" id="sidebar-wrapper" [ngClass]="{'sidenav-toggled': isActive}">
+            <div class="list-group list-group-flush">
+                <a class="list-group-item sidebar-item" asp-controller="Materials" asp-action="Index">
+                    <i class="fas fa-copy"></i>
+                    Materials
+                </a>
+            </div>
+        </div>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</main>
