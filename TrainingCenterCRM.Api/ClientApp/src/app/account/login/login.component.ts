@@ -44,10 +44,12 @@ export class LoginComponent{
         user.password = this.form.value.password;
 
         this.accountService.login(user).subscribe(res => {
-            const token = (<any>res).token;
-            localStorage.setItem("jwt", token);
+            localStorage.setItem("jwt", (<any>res).token);
+            localStorage.setItem("userRoles", JSON.stringify((<any>res).userRoles));
+
             this.invalidLogin = false;
-            this.router.navigate(['manager'])
+
+            this.router.navigate(['manager/students'])
         },
         err => {console.log(err); this.invalidLogin = true;})
     }

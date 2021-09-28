@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Api.Dto;
+using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
@@ -19,45 +20,21 @@ namespace TrainingCenterCRM.Api.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly IUserService _userService;
 
-        public AccountsController(UserManager<User> userManager,
-                                  IConfiguration configuration)
+        public AccountsController(IUserService userService)
         {
-            _userManager = userManager;
-            _configuration = configuration;
+            _userService = userService;
         }
 
-        [HttpPost]
-        [Route("Login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(UserDto userLogin)
         {
-            var user = await _userManager.FindByEmailAsync(userLogin.Email);
-            if (user != null && await _userManager.CheckPasswordAsync(user, userLogin.Password))
+            if(await _userService.CheckPassword(userLogin.Email, userLogin.Password))
             {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokkenOption:SecretKey"]));
-                var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                var token = await _userService.GetToken(userLogin.Email);
+                var userRoles = await _userService.GetUserRoles(userLogin.Email);
 
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName)
-                };
-
-                var userRoles = await _userManager.GetRolesAsync(user);
-                foreach(var userRole in userRoles)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, userRole));
-                }
-
-                var tokenOptions = new JwtSecurityToken(
-                    issuer: _configuration["TokkenOption:Issuer"],
-                    audience: _configuration["TokkenOption:Audience"],
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(5),
-                    signingCredentials: signingCredentials
-                );
-                var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                 return Ok(new { token, userRoles });
             }
             return BadRequest();
