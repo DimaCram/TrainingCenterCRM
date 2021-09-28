@@ -3,6 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { Course } from "../models/course.model";
 
 Injectable()
+@Injectable()
 export class CourseService{
     baseUrl: string;
 

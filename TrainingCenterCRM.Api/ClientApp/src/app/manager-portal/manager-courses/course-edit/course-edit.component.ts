@@ -19,7 +19,7 @@ export class CourseEditComponent{
     id: number;
     filePath : string = "";
 
-    @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
+    @ViewChild("fileDropRef") fileDropEl: ElementRef;
     files: any[] = [];
 
     constructor(private fb: FormBuilder,

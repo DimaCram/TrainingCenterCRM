@@ -3,6 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { Request } from "../models/request.model";
 
 Injectable()
+@Injectable()
 export class RequestService{
     baseUrl: string;
 

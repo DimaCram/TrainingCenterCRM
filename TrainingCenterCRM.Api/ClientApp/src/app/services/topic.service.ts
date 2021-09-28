@@ -3,6 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { Topic } from "../models/topic.model";
 
 Injectable()
+@Injectable()
 export class TopicService{
     baseUrl: string;
 

@@ -3,6 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { Teacher } from "../models/teacher.model";
 
 Injectable()
+@Injectable()
 export class TeacherService{
     baseUrl: string;
 

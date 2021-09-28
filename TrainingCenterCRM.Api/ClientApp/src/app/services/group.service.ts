@@ -3,6 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { Group } from "../models/group.model";
 
 Injectable()
+@Injectable()
 export class GroupService{
     baseUrl: string;
 

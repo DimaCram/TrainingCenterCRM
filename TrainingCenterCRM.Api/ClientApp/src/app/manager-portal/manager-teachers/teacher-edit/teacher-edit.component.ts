@@ -15,7 +15,7 @@ import { TeacherService } from "src/app/services/teacher.service";
     form: FormGroup;
     id: number;
 
-    @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
+    @ViewChild("fileDropRef") fileDropEl: ElementRef;
     files: any[] = [];
 
 
