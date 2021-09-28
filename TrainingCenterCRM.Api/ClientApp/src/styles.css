@@ -416,3 +416,18 @@ input[type="color"]:focus,
   left: 10px;
   z-index: 10;
 }
+
+
+
+.page-link{
+  color: var(--color-green) !important;
+}
+.page-item.active .page-link{
+  background-color: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  color: #fff !important;
+}
+.page-link:focus {
+  outline: 0;
+  box-shadow: none;
+}

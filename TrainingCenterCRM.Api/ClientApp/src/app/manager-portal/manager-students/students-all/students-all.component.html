@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Table</div>
                     <div class="card-body">
-                        <div class="table-responsive scroll-div content-table">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
@@ -16,7 +16,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let student of students">
+                                    <tr *ngFor="let student of students | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <th scope="col"><a href="#" class="modal-link js-studentModal" data-modal="@student.Id">{{student.name}} {{student.surname}}</a></th>
                                         <th scope="col" class="text-center">
                                             <a class="btn btn-success m-1" [routerLink]="['/manager/requests/edit']" [queryParams]="{studentId: student.id}">Add request</a>
@@ -27,6 +27,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="studentCount"></ngb-pagination>
                         <a class="btn btn-head" [routerLink]="['/manager/students/edit']">Add new student</a>
                     </div>
                 </div>
