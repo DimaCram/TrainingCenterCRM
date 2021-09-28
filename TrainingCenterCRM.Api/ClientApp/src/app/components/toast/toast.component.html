@@ -1,10 +1,19 @@
-<div id="ss" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
-    <div class="toast-header ${toastColor}">
-      <div class="me-2">asdasd</div>
-      <strong class="me-auto">asdsad</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      dsadsadas
-    </div>
-  </div>
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+    <!-- Position it -->
+    <div style="position: absolute; top: 10px; right: 10px;">
+    <ngb-toast
+      *ngFor="let toast of toastService.toasts"
+      [header]="toast.headertext"
+      [class]="toast.classname"
+      [autohide]="toast.autohide"
+      [delay]="toast.delay || 5000"
+      (hide)="toastService.remove(toast)"
+    >
+      <ng-template [ngIf]="isTemplate(toast)" [ngIfElse]="text">
+        <ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
+      </ng-template>
+
+      <ng-template #text>{{ toast.textOrTpl }}</ng-template>
+    </ngb-toast>
+    </div> 
+</div>

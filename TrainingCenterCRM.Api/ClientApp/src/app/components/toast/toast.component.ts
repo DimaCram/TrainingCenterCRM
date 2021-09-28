@@ -1,4 +1,5 @@
 import { Component, TemplateRef } from "@angular/core";
+import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastService } from "./toast.service";
 
 @Component({
@@ -8,6 +9,6 @@ import { ToastService } from "./toast.service";
 
 export class ToastComponent{
     constructor(public toastService: ToastService) {}
-
+    
     isTemplate(toast) { return toast.textOrTpl instanceof TemplateRef; }
 }

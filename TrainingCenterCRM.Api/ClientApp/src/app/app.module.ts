@@ -21,6 +21,7 @@ import { AccountService } from './services/account.service';
 import { TeacherMainModule } from './teacher-portal/teacher-model/teacher-main.module';
 import { ToastComponent } from './components/toast/toast.component';
 import { ToastService } from './components/toast/toast.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -46,7 +47,8 @@ export function tokenGetter(){
         disallowedRoutes: []
       }
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
     DatePipe,

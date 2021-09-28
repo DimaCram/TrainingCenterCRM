@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +6,4 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 })
 export class AppComponent {
   title = 'app';
-
 }
