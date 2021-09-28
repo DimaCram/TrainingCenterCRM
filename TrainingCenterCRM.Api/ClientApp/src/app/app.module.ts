@@ -19,6 +19,8 @@ import { LoginComponent } from './account/login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AccountService } from './services/account.service';
 import { TeacherMainModule } from './teacher-portal/teacher-model/teacher-main.module';
+import { ToastComponent } from './components/toast/toast.component';
+import { ToastService } from './components/toast/toast.service';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -27,7 +29,8 @@ export function tokenGetter(){
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,7 +56,8 @@ export function tokenGetter(){
     RequestService,
     TeacherService,
     GroupService,
-    AccountService
+    AccountService,
+    ToastService
   ],
   bootstrap: [AppComponent]
 })
