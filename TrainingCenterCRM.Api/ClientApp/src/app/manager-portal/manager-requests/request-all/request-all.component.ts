@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Request } from "src/app/models/request.model";
 import { RequestService } from "src/app/services/request.service";
 
@@ -11,9 +12,12 @@ import { RequestService } from "src/app/services/request.service";
 export class RequestAllComponent{
     public requests: Request[];
 
-    constructor(private courseService: RequestService){}
+    constructor(private courseService: RequestService,
+                private titleService: Title){}
 
     ngOnInit(): void {
+      this.titleService.setTitle("Requests - Training Center")
+
       this.courseService.getRequests().subscribe(result => {
         this.requests = result;
       },

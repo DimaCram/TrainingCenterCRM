@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Course } from "src/app/models/course.model";
 import { Topic } from "src/app/models/topic.model";
@@ -26,10 +27,13 @@ export class CourseEditComponent{
                 private topicService: TopicService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private httpClient: HttpClient){}
+                private titleService: Title
+                ){}
 
 
     ngOnInit(): void {
+        this.titleService.setTitle("Edit course - Training Center")
+
         this.id = this.route.snapshot.params['id'];
 
         if (this.id) {

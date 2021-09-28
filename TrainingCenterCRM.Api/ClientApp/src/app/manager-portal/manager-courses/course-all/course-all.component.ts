@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Course } from "src/app/models/course.model";
 import { CourseService } from "src/app/services/courses.service";
 
@@ -10,9 +11,12 @@ import { CourseService } from "src/app/services/courses.service";
 export class CourseAllComponent{
     public courses: Course[];
 
-    constructor(private courseService: CourseService){}
+    constructor(private courseService: CourseService,
+                private titleService: Title){}
 
     ngOnInit(): void {
+      this.titleService.setTitle("Courses - Training Center")
+
       this.courseService.getCourses().subscribe(result => {
         this.courses = result;
       },
@@ -20,7 +24,7 @@ export class CourseAllComponent{
     }
 
     deleteCourse(id: number){
-      
+
       this.courseService.deleteCourse(id).subscribe(result => {
         const removeIndex = this.courses.findIndex( item => item.id === id );
         this.courses.splice( removeIndex, 1 );

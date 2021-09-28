@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { TeacherService } from './services/teacher.service';
 import { GroupService } from './services/group.service';
 import { LoginComponent } from './account/login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AccountService } from './services/account.service';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -39,7 +40,8 @@ export function tokenGetter(){
         allowedDomains: ["localhost:44378"],
         disallowedRoutes: []
       }
-    })
+    }),
+    ReactiveFormsModule
   ],
   providers: [
     DatePipe,
@@ -48,7 +50,8 @@ export function tokenGetter(){
     TopicService,
     RequestService,
     TeacherService,
-    GroupService
+    GroupService,
+    AccountService
   ],
   bootstrap: [AppComponent]
 })

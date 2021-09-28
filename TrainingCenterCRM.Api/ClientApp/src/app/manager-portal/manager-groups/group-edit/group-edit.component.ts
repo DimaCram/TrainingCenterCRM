@@ -1,6 +1,7 @@
 import { DatePipe } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Course } from "src/app/models/course.model";
 import { Group } from "src/app/models/group.model";
@@ -32,12 +33,15 @@ export class GroupEditComponent {
               private courseService: CourseService,
               private teacherService: TeacherService,
               private studentService: StudentService,
-              private datePipe: DatePipe
+              private datePipe: DatePipe,
+              private titleService: Title
               ){
                 this.groupId = this.route.snapshot.params['id'];
               }
 
     ngOnInit(): void {
+        this.titleService.setTitle("Edit group - Training Center")
+
         if (this.groupId) {
             this.groupService.getGroup(this.groupId).subscribe(res => {
 
@@ -56,11 +60,11 @@ export class GroupEditComponent {
             courseId: ['', Validators.required],
             studentIds: new FormArray([]),
         });
-        
+
         this.teacherService.getTeachers().subscribe(res => {
             this.teachers = res;
         }, error => {console.error(error);});
-        
+
         this.courseService.getCourses().subscribe(res => {
             this.courses = res;
         }, error => {console.error(error);});
@@ -72,13 +76,13 @@ export class GroupEditComponent {
 
     onCheckChange(event) {
         const formArray: FormArray = this.form.get('studentIds') as FormArray;
-      
+
         if(event.target.checked){
           formArray.push(new FormControl(event.target.value));
         }
         else{
           let i: number = 0;
-      
+
           formArray.controls.forEach((ctrl: FormControl) => {
             if(ctrl.value == event.target.value) {
               formArray.removeAt(i);
@@ -92,7 +96,7 @@ export class GroupEditComponent {
     getStudentForCourse(courseId : string){
         this.studentService.getStudentsForGroupByCourse(courseId, this.groupId).subscribe(res => {
             this.studentsForCourse = res;
-            
+
             const formArray: FormArray = this.form.get('studentIds') as FormArray;
 
             this.studentsForCourse.forEach(student => {
@@ -111,7 +115,7 @@ export class GroupEditComponent {
 
         if(this.groupId)
             group.id = +this.groupId;
-        
+
         group.name = this.form.value.name;
         group.startDate = this.form.value.startDate;
         group.groupStatus = this.form.value.status;

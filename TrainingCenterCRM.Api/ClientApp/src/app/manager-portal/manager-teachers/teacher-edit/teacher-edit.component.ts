@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Teacher } from "src/app/models/teacher.model";
 import { TeacherService } from "src/app/services/teacher.service";
@@ -21,11 +22,14 @@ import { TeacherService } from "src/app/services/teacher.service";
     constructor(private fb: FormBuilder,
         private teacherService: TeacherService,
         private route: ActivatedRoute,
-        private router: Router){
+        private router: Router,
+        private titleService: Title){
 
         }
 
     ngOnInit(): void {
+      this.titleService.setTitle("Edit teacher - Training Center")
+
       this.id = this.route.snapshot.params['id'];
 
       if (this.id) {

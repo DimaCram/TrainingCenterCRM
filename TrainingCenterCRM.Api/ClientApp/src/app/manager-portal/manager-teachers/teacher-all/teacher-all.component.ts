@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Teacher } from 'src/app/models/teacher.model';
 import { TeacherService } from 'src/app/services/teacher.service';
 
@@ -9,9 +10,12 @@ import { TeacherService } from 'src/app/services/teacher.service';
 export class TeacherAllComponent {
     public teachers: Teacher[];
 
-    constructor(private teacherService : TeacherService){}
+    constructor(private teacherService : TeacherService,
+                private titleService: Title){}
 
     ngOnInit(): void {
+      this.titleService.setTitle("Teachers - Training Center")
+
       this.teacherService.getTeachers().subscribe(result => {
         this.teachers = result;
       },

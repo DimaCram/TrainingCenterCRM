@@ -1,6 +1,7 @@
 import { DatePipe } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Course } from "src/app/models/course.model";
 import { Request } from "src/app/models/request.model";
@@ -27,10 +28,13 @@ export class RequestEditComponent {
                 private studentService: StudentService,
                 private courseService: CourseService,
                 private route: ActivatedRoute,
-                private router: Router){}
+                private router: Router,
+                private titleService: Title){}
 
 
     ngOnInit(): void {
+        this.titleService.setTitle("Edit request - Training Center")
+
         this.route.queryParams.subscribe(params => {
             this.student.id = params['studentId'];
             this.requestId = this.route.snapshot.params['id'];

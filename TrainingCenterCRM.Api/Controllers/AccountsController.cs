@@ -31,10 +31,10 @@ namespace TrainingCenterCRM.Api.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login(LoginDto login)
+        public async Task<IActionResult> Login(UserDto userLogin)
         {
-            var user = await _userManager.FindByNameAsync(login.UserName);
-            if (user != null && await _userManager.CheckPasswordAsync(user, login.Password))
+            var user = await _userManager.FindByEmailAsync(userLogin.Email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, userLogin.Password))
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokkenOption:SecretKey"]));
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -58,7 +58,7 @@ namespace TrainingCenterCRM.Api.Controllers
                     signingCredentials: signingCredentials
                 );
                 var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok(new { token });
+                return Ok(new { token, userRoles });
             }
             return BadRequest();
         }

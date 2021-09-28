@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Topic } from "src/app/models/topic.model";
 import { TopicService } from "src/app/services/topic.service";
@@ -15,10 +16,13 @@ export class TopicEditComponent {
     constructor(private fb: FormBuilder,
                 private topicSevice: TopicService,
                 private route: ActivatedRoute,
-                private router: Router){}
+                private router: Router,
+                private titleService: Title){}
 
 
     ngOnInit(): void {
+        this.titleService.setTitle("Edit topic - Training Center")
+
         this.id = this.route.snapshot.params['id'];
 
         this.form = this.fb.group({

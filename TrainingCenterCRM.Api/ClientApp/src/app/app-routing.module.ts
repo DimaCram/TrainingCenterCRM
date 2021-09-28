@@ -42,8 +42,6 @@ const routes: Routes = [
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups', component: GroupAllComponent }]},
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups/edit/:id', component: GroupEditComponent }]},
     { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups/edit', component: GroupEditComponent }]},
-
-    { path: 'manager', component: ManagerMainComponent},
 ]
 
 @NgModule({

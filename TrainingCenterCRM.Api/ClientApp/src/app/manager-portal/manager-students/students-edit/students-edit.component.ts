@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { StudentService } from 'src/app/services/student.service';
@@ -16,12 +17,15 @@ export class StudentsEditComponent {
   constructor(private fb: FormBuilder,
               private studentSevice: StudentService,
               private route: ActivatedRoute,
-              private router: Router){
+              private router: Router,
+              private titleService: Title){
 
                 this.id = this.route.snapshot.params['id'];
               }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Edit student - Training Center")
+
     if (this.id) {
       this.studentSevice.getStudent(this.id).subscribe(res => {
         this.form.patchValue(res);

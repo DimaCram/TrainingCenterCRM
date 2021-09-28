@@ -79,6 +79,10 @@ textarea {
       color: var(--color-green);
       border: 1px solid var(--color-green);
   }
+  .pannel-btn:disabled {
+    color: #868686;
+    border: 1px solid #868686;
+}
 
 .pannel-input {
   background-color: rgba(0,0,0,.4) !important;

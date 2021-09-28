@@ -86,19 +86,19 @@ namespace TrainingCenterCRM.Api
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer(opt => {
-                    opt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
+            .AddJwtBearer(opt => {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
 
-                        ValidIssuer = Configuration["TokkenOption:Issuer"],
-                        ValidAudience = Configuration["TokkenOption:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokkenOption:SecretKey"]))
-                    };
-                });
+                    ValidIssuer = Configuration["TokkenOption:Issuer"],
+                    ValidAudience = Configuration["TokkenOption:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokkenOption:SecretKey"]))
+                };
+            });
 
             services.AddControllersWithViews();
 
