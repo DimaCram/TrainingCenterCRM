@@ -4,6 +4,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { DndDirective } from "src/app/directives/drag-and-drop.directive";
 import { NavMenuComponent } from "src/app/nav-menu/nav-menu.component";
+import { NavMenuMainModule } from "src/app/nav-menu/nav-menu.module";
 import { CourseAllComponent } from "../manager-courses/course-all/course-all.component";
 import { CourseEditComponent } from "../manager-courses/course-edit/course-edit.component";
 import { GroupAllComponent } from "../manager-groups/group-all/group-all.component";
@@ -19,7 +20,14 @@ import { TopicEditComponent } from "../manager-topics/topic-edit/topic-edit.comp
 import { ManagerMainComponent } from "./manager-main.component";
 
 @NgModule({
-    imports:      [ BrowserModule, FormsModule, RouterModule, ReactiveFormsModule ],
+    imports:      
+    [ 
+        BrowserModule,
+        FormsModule,
+        RouterModule,
+        ReactiveFormsModule,
+        NavMenuMainModule
+    ],
     declarations:
     [
         ManagerMainComponent,
@@ -35,7 +43,6 @@ import { ManagerMainComponent } from "./manager-main.component";
         TeacherEditComponent,
         GroupAllComponent,
         GroupEditComponent,
-        NavMenuComponent,
         DndDirective
     ],
     exports: [ ManagerMainComponent]

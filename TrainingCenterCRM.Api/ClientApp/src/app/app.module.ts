@@ -45,7 +45,6 @@ export function tokenGetter(){
     }),
     ReactiveFormsModule
   ],
-  exports:[NavMenuComponent],
   providers: [
     DatePipe,
     StudentService,
