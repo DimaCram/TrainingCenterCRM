@@ -78,7 +78,7 @@ namespace TrainingCenterCRM.BLL.Services
                 issuer: _configuration["TokkenOption:Issuer"],
                 audience: _configuration["TokkenOption:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: signingCredentials
             );
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);

@@ -315,6 +315,11 @@ namespace TrainingCenterCRM.DAL.EF.Context
             {
                 RoleId = roleTeacher.Id,
                 UserId = teacherUser10.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleManager.Id,
+                UserId = managerUser.Id
             }
             );
 

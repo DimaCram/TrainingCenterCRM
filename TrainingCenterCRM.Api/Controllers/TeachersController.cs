@@ -12,7 +12,7 @@ using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
 {
-    [Authorize(Roles = "teacher")]
+    [Authorize(Roles = "manager")]
     [Route("api/[controller]")]
     [ApiController]
     public class TeachersController : ControllerBase

@@ -45,11 +45,15 @@ export class LoginComponent{
 
         this.accountService.login(user).subscribe(res => {
             localStorage.setItem("jwt", (<any>res).token);
-            localStorage.setItem("userRoles", JSON.stringify((<any>res).userRoles));
+            const roles = (<any>res).userRoles as string[];
+
+            if(roles.includes('manager'))
+                this.router.navigate(['manager/students'])
+
+            if(roles.includes('teacher'))
+                this.router.navigate(['teacher'])
 
             this.invalidLogin = false;
-
-            this.router.navigate(['manager/students'])
         },
         err => {console.log(err); this.invalidLogin = true;})
     }

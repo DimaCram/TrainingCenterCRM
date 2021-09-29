@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from 'src/app/components/toast/toast.service';
 import { Student } from 'src/app/models/student.model';
 import { StudentService } from 'src/app/services/student.service';
@@ -10,11 +11,13 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class StudentsAllComponent {
     public students: Student[] = [];
+    public studentInfo: Student;
     public page = 1;
     public pageSize = 5;
 
     constructor(private studentService : StudentService,
                 private titleService: Title,
+                private modalService: NgbModal,
                 private toastService: ToastService){}
 
     ngOnInit(): void {
@@ -35,5 +38,16 @@ export class StudentsAllComponent {
         this.students.splice( removeIndex, 1 );
       },
       error => {console.error(error);});
+    }
+
+    open(content, studentId) {
+      this.studentService.getStudent(studentId).subscribe(result => {
+        this.studentInfo = result;
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+      },
+      error => {
+        this.toastService.showError((<any>error).message);
+        console.error(error);
+      });
     }
 }

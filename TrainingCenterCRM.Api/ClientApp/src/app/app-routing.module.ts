@@ -20,32 +20,38 @@ import { TeacherMainComponent } from "./teacher-portal/teacher-model/teacher-mai
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
 
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'students', component: StudentsAllComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'students/edit', component: StudentsEditComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'students/edit/:id', component: StudentsEditComponent }]},
+    { path: 'manager', component: ManagerMainComponent,
+        children: [
+            { path: 'students', component: StudentsAllComponent },
+            { path: 'students/edit', component: StudentsEditComponent },
+            { path: 'students/edit/:id', component: StudentsEditComponent },
 
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'courses', component: CourseAllComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'courses/edit', component: CourseEditComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'courses/edit/:id', component: CourseEditComponent }]},
+            { path: 'courses', component: CourseAllComponent },
+            { path: 'courses/edit', component: CourseEditComponent },
+            { path: 'courses/edit/:id', component: CourseEditComponent },
 
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'topics', component: TopicAllComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'topics/edit/:id', component: TopicEditComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'topics/edit', component: TopicEditComponent }]},
+            { path: 'topics', component: TopicAllComponent },
+            { path: 'topics/edit', component: TopicEditComponent },
+            { path: 'topics/edit/:id', component: TopicEditComponent },
 
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'requests', component: RequestAllComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'requests/edit/:id', component: RequestEditComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'requests/edit', component: RequestEditComponent }]},
+            { path: 'requests', component: RequestAllComponent },
+            { path: 'requests/edit', component: RequestEditComponent },
+            { path: 'requests/edit/:id', component: RequestEditComponent },
 
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers', component: TeacherAllComponent }], canActivate: [AuthGuard]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers/edit/:id', component: TeacherEditComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'teachers/edit', component: TeacherEditComponent }]},
+            { path: 'teachers', component: TeacherAllComponent },
+            { path: 'teachers/edit', component: TeacherEditComponent },
+            { path: 'teachers/edit/:id', component: TeacherEditComponent },
 
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups', component: GroupAllComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups/edit/:id', component: GroupEditComponent }]},
-    { path: 'manager', component: ManagerMainComponent, children: [{ path: 'groups/edit', component: GroupEditComponent }]},
+            { path: 'groups', component: GroupAllComponent },
+            { path: 'groups/edit', component: GroupEditComponent },
+            { path: 'groups/edit/:id', component: GroupEditComponent }
+        ],
+        canActivate: [AuthGuard]
+    },
 
-
-    { path: 'teacher', component: TeacherMainComponent },
+    { path: 'teacher', component: TeacherMainComponent,
+        canActivate: [AuthGuard]
+    },
 ]
 
 @NgModule({

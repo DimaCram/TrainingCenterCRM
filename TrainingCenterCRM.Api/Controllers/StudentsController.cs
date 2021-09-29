@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
 {
+    [Authorize(Roles = "manager")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase

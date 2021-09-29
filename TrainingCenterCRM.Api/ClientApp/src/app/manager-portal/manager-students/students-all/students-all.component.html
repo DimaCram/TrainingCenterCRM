@@ -17,7 +17,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let student of students | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                                        <th scope="col"><a href="#" class="modal-link js-studentModal" data-modal="@student.Id">{{student.name}} {{student.surname}}</a></th>
+                                        <th scope="col"><p class="modal-link" (click)="open(content, student.id)">{{student.name}} {{student.surname}}</p></th>
                                         <th scope="col" class="text-center">
                                             <a class="btn btn-success m-1" [routerLink]="['/manager/requests/edit']" [queryParams]="{studentId: student.id}">Add request</a>
                                             <a class="btn btn-success m-1" [routerLink]="['/manager/students/edit', student.id]"><i class="fas fa-edit"></i></a>
@@ -36,3 +36,27 @@
         </div>
     </div>
 </div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="staticBackdropLabel">Student info</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <dl class="row modal-body">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">{{studentInfo.name}}</dd>
+
+        <dt class="col-sm-3">Surname</dt>
+        <dd class="col-sm-9">{{studentInfo.surname}}</dd>
+
+        <dt class="col-sm-3">Age</dt>
+        <dd class="col-sm-9">{{studentInfo.age}}</dd>
+
+        <dt class="col-sm-3">Group</dt>
+        <dd class="col-sm-9" *ngIf="studentInfo.hasGroup; else elseTemplate">Has group</dd>
+        <ng-template #elseTemplate>
+            <dd class="col-sm-9 text-danger">Without group</dd>
+        </ng-template>
+    </dl>
+  </ng-template>

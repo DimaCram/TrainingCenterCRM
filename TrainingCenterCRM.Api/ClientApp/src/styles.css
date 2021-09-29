@@ -47,7 +47,7 @@ textarea {
 
 .pannel-link {
   text-align: center;
-  color: var(--color-green);
+  color: var(--color-green) !important;
   text-decoration: none;
   transition: color linear .2s;
 }
@@ -291,6 +291,7 @@ input:-webkit-autofill {
 }
 
 .modal-link {
+  cursor: pointer;
   color: var(--color-dark);
   text-decoration: none;
 
@@ -326,7 +327,7 @@ input:-webkit-autofill {
   background-color: #90b900;
   border-color: #90b900;
 }
-  .btn-success:hover, .btn-success:active, .btn-success:focus {
+  .btn-success:hover, .btn-success:active, .btn-success:focus, .btn-success:disabled {
       background-color: #576e07 !important;
       border-color: #576e07 !important;
   }
@@ -430,4 +431,7 @@ input[type="color"]:focus,
 .page-link:focus {
   outline: 0;
   box-shadow: none;
+}
+.close:focus{
+  outline: none;
 }
