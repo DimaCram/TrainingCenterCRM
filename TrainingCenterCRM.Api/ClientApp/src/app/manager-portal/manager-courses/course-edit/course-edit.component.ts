@@ -76,8 +76,7 @@ export class CourseEditComponent{
                 this.router.navigate(['../../'], { relativeTo: this.route });
             else
                 this.router.navigate(['../'], { relativeTo: this.route });
-        },
-        error => {console.error(error);});
+        });
     }
 
   /**

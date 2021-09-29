@@ -21,8 +21,7 @@ export class CourseAllComponent{
 
       this.courseService.getCourses().subscribe(result => {
         this.courses = result;
-      },
-      error => {console.error(error);});
+      });
     }
 
     deleteCourse(id: number){
@@ -30,7 +29,6 @@ export class CourseAllComponent{
       this.courseService.deleteCourse(id).subscribe(result => {
         const removeIndex = this.courses.findIndex( item => item.id === id );
         this.courses.splice( removeIndex, 1 );
-      },
-      error => {console.error(error);});
+      });
     }
 }

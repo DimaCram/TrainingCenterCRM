@@ -22,8 +22,7 @@ export class RequestAllComponent{
 
       this.courseService.getRequests().subscribe(result => {
         this.requests = result;
-      },
-      error => {console.error(error);});
+      });
     }
 
     deleteRequest(id: number){
@@ -31,7 +30,6 @@ export class RequestAllComponent{
       this.courseService.deleteRequest(id).subscribe(result => {
         const removeIndex = this.requests.findIndex( item => item.id === id );
         this.requests.splice( removeIndex, 1 );
-      },
-      error => {console.error(error);});
+      });
     }
 }

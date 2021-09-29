@@ -20,15 +20,13 @@ export class TeacherAllComponent {
 
       this.teacherService.getTeachers().subscribe(result => {
         this.teachers = result;
-      },
-      error => {console.error(error);});
+      });
     }
 
     deleteTeacher(id): void{
       this.teacherService.deleteTeacher(id).subscribe(result => {
         const removeIndex = this.teachers.findIndex( item => item.id === id );
         this.teachers.splice( removeIndex, 1 );
-      },
-      error => {console.error(error);});
+      });
     }
 }

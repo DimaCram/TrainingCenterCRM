@@ -75,15 +75,12 @@ export class StudentsEditComponent {
     student.surname = this.form.value.surname
     student.age = this.form.value.age
 
-    console.log(student);
-
     this.studentSevice.egitStudent(student).subscribe(result => {
 
       if(this.id)
         this.router.navigate(['../../'], { relativeTo: this.route });
        else
         this.router.navigate(['../'], { relativeTo: this.route });
-    },
-    error => {console.error(error);});
+    });
   }
 }

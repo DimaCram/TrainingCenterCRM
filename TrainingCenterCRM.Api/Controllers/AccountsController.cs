@@ -1,18 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Api.Dto;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
 {

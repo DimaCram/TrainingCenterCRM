@@ -63,15 +63,15 @@ export class GroupEditComponent {
 
         this.teacherService.getTeachers().subscribe(res => {
             this.teachers = res;
-        }, error => {console.error(error);});
+        });
 
         this.courseService.getCourses().subscribe(res => {
             this.courses = res;
-        }, error => {console.error(error);});
+        });
 
         this.groupService.getGroupStatuses().subscribe(res => {
             this.groupStatuses = res;
-        }, error => {console.error(error);});
+        });
     }
 
     onCheckChange(event) {
@@ -134,7 +134,6 @@ export class GroupEditComponent {
                 this.router.navigate(['../../'], { relativeTo: this.route });
             else
                 this.router.navigate(['../'], { relativeTo: this.route });
-        },
-        error => {console.error(error);});
+        });
     }
 }

@@ -56,7 +56,6 @@ export class TopicEditComponent {
             else
                 this.router.navigate(['../'], { relativeTo: this.route });
 
-      },
-      error => {console.error(error);});
+      });
     }
   }

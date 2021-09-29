@@ -92,7 +92,6 @@ export class RequestEditComponent {
             else
                 this.router.navigate(['../'], { relativeTo: this.route });
 
-      },
-      error => {console.error(error);});
+      });
     }
   }

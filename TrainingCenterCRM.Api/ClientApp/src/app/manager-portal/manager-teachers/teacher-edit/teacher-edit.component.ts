@@ -85,10 +85,9 @@ import { TeacherService } from "src/app/services/teacher.service";
         teacher.age = this.form.value.age
         teacher.file = this.files[0];
         teacher.bio = this.form.value.bio;
+
         if(!teacher.file)
           teacher.pathToIcon = this.filePath;
-
-        console.log(teacher);
 
         this.teacherService.egitTeacher(teacher).subscribe(result => {
 
@@ -96,8 +95,7 @@ import { TeacherService } from "src/app/services/teacher.service";
             this.router.navigate(['../../'], { relativeTo: this.route });
            else
             this.router.navigate(['../'], { relativeTo: this.route });
-        },
-        error => {console.error(error);});
+        });
       }
 
 

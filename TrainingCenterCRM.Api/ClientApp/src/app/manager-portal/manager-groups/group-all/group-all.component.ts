@@ -23,8 +23,7 @@ export class GroupAllComponent{
 
       this.groupService.getGroups().subscribe(result => {
         this.groups = result;
-      },
-      error => {console.error(error);});
+      });
     }
 
     deleteGroup(id: number){
@@ -32,7 +31,6 @@ export class GroupAllComponent{
       this.groupService.deleteGroup(id).subscribe(result => {
         const removeIndex = this.groups.findIndex( item => item.id === id );
         this.groups.splice( removeIndex, 1 );
-      },
-      error => {console.error(error);});
+      });
     }
 }

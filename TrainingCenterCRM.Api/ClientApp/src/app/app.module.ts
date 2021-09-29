@@ -22,6 +22,7 @@ import { TeacherMainModule } from './teacher-portal/teacher-model/teacher-main.m
 import { ToastComponent } from './components/toast/toast.component';
 import { ToastService } from './components/toast/toast.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpErrorInterceptorService } from './services/http-error-interceptor.service';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -59,7 +60,12 @@ export function tokenGetter(){
     TeacherService,
     GroupService,
     AccountService,
-    ToastService
+    ToastService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

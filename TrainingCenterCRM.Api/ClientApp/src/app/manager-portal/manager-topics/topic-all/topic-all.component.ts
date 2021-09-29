@@ -21,8 +21,7 @@ import { TopicService } from "src/app/services/topic.service";
 
       this.topicService.getTopics().subscribe(result => {
         this.topics = result;
-      },
-      error => {console.error(error);});
+      });
     }
 
 
@@ -30,7 +29,6 @@ import { TopicService } from "src/app/services/topic.service";
         this.topicService.deleteTopic(id).subscribe(result => {
             const removeIndex = this.topics.findIndex( item => item.id === id );
             this.topics.splice( removeIndex, 1 );
-          },
-          error => {console.error(error);});
+          });
     }
   }

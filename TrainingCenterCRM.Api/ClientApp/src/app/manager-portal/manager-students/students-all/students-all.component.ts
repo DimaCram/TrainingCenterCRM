@@ -25,10 +25,6 @@ export class StudentsAllComponent {
 
       this.studentService.getStudents().subscribe(result => {
         this.students = result;
-      },
-      error => {
-        this.toastService.showError((<any>error).message);
-        console.error(error);
       });
     }
 
@@ -36,18 +32,13 @@ export class StudentsAllComponent {
       this.studentService.deleteStudent(id).subscribe(result => {
         const removeIndex = this.students.findIndex( item => item.id === id );
         this.students.splice( removeIndex, 1 );
-      },
-      error => {console.error(error);});
+      });
     }
 
     open(content, studentId) {
       this.studentService.getStudent(studentId).subscribe(result => {
         this.studentInfo = result;
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
-      },
-      error => {
-        this.toastService.showError((<any>error).message);
-        console.error(error);
       });
     }
 }
