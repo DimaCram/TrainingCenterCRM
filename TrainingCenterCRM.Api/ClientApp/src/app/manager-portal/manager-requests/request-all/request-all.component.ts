@@ -10,7 +10,9 @@ import { RequestService } from "src/app/services/request.service";
 
 
 export class RequestAllComponent{
-    public requests: Request[];
+    public requests: Request[] = [];
+    public page = 1;
+    public pageSize = 5;
 
     constructor(private courseService: RequestService,
                 private titleService: Title){}

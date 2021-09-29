@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Table</div>
                     <div class="card-body">
-                        <div class="table-responsive scroll-div content-table">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
@@ -18,7 +18,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let group of groups">
+                                    <tr *ngFor="let group of groups | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <th scope="col">{{group.name}}</th>
                                         <th scope="col">{{group.startDate | date:'longDate'}}</th>
                                         <th scope="col">{{group.teacher.name}} {{group.teacher.surname}}</th>
@@ -30,6 +30,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="groups.length"></ngb-pagination>
                         <a class="btn btn-head" [routerLink]="['/manager/groups/edit']">Add new group</a>
                     </div>
                 </div>

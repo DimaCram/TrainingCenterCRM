@@ -8,7 +8,9 @@ import { TeacherService } from 'src/app/services/teacher.service';
   templateUrl: './teacher-all.component.html',
 })
 export class TeacherAllComponent {
-    public teachers: Teacher[];
+    public teachers: Teacher[] = [];
+    public page = 1;
+    public pageSize = 5;
 
     constructor(private teacherService : TeacherService,
                 private titleService: Title){}

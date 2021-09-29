@@ -10,6 +10,8 @@ import { CourseService } from "src/app/services/courses.service";
 
 export class CourseAllComponent{
     public courses: Course[];
+    public page = 1;
+    public pageSize = 5;
 
     constructor(private courseService: CourseService,
                 private titleService: Title){}

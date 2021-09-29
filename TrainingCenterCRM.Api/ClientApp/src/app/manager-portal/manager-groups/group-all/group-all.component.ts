@@ -12,6 +12,8 @@ import { TeacherService } from "src/app/services/teacher.service";
 
 export class GroupAllComponent{
     public groups: Group[];
+    public page = 1;
+    public pageSize = 5;
 
     constructor(private groupService: GroupService,
                 private titleService: Title){}

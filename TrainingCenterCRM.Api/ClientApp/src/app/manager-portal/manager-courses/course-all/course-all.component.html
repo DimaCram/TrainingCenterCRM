@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header">Table</div>
                     <div class="card-body">
-                        <div class="table-responsive scroll-div content-table">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
@@ -18,7 +18,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let course of courses">
+                                    <tr *ngFor="let course of courses | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <th scope="col">{{course.title}}</th>
                                         <th scope="col">{{course.description}}</th>
                                         <th scope="col" class="text-center">
@@ -29,6 +29,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="courses.length"></ngb-pagination>
                         <a class="btn btn-head" [routerLink]="['/manager/courses/edit']">Add new course</a>
                     </div>
                 </div>

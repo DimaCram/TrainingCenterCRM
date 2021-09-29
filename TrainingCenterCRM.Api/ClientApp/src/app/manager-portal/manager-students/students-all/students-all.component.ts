@@ -9,10 +9,9 @@ import { StudentService } from 'src/app/services/student.service';
   templateUrl: './students-all.component.html',
 })
 export class StudentsAllComponent {
-    public students: Student[];
+    public students: Student[] = [];
     public page = 1;
     public pageSize = 5;
-    public studentCount = 0;
 
     constructor(private studentService : StudentService,
                 private titleService: Title,
@@ -23,7 +22,6 @@ export class StudentsAllComponent {
 
       this.studentService.getStudents().subscribe(result => {
         this.students = result;
-        this.studentCount = this.students.length;
       },
       error => {
         this.toastService.showError((<any>error).message);

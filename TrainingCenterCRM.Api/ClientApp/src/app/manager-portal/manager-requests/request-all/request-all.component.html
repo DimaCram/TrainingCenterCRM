@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header">Table</div>
                     <div class="card-body">
-                        <div class="table-responsive scroll-div content-table">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
@@ -19,7 +19,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let request of requests">
+                                    <tr *ngFor="let request of requests | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <th scope="col">{{request.student.name}} {{request.student.surname}}</th>
                                         <th scope="col">{{request.course.title}}</th>
                                         <th scope="col">{{request.readyToStartDate | date:'longDate'}}</th>
@@ -30,6 +30,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="requests.length"></ngb-pagination>
                         </div>
                     </div>
                 </div>

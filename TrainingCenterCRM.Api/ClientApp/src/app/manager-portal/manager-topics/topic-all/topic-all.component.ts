@@ -9,7 +9,9 @@ import { TopicService } from "src/app/services/topic.service";
     templateUrl: './topic-all.component.html',
   })
   export class TopicAllComponent {
-    public topics: Topic[];
+    public topics: Topic[] = [];
+    public page = 1;
+    public pageSize = 5;
 
     constructor(private topicService : TopicService,
                 private titleService: Title){}
