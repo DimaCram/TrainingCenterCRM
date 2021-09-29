@@ -26,7 +26,6 @@ export class TeacherService{
             if (!teacher.hasOwnProperty(prop)) { continue; }
             formData.append(prop , teacher[prop]);
         }
-
         return this.http.post(this.baseUrl + 'api/teachers', formData)
     }
 

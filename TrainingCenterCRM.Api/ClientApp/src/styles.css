@@ -306,7 +306,7 @@ input:-webkit-autofill {
   box-shadow: none !important;
 }
 
-.btn-head:hover {
+.btn-head:hover:enabled {
   color: var(--color-dark);
 }
 .btn-head{

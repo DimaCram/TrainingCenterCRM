@@ -4,7 +4,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DndDirective } from "src/app/directives/drag-and-drop.directive";
-import { NavMenuMainModule } from "src/app/nav-menu/nav-menu.module";
+import { SharedModule } from "src/app/shared.module";
 import { CourseAllComponent } from "../manager-courses/course-all/course-all.component";
 import { CourseEditComponent } from "../manager-courses/course-edit/course-edit.component";
 import { GroupAllComponent } from "../manager-groups/group-all/group-all.component";
@@ -26,7 +26,7 @@ import { ManagerMainComponent } from "./manager-main.component";
         FormsModule,
         RouterModule,
         ReactiveFormsModule,
-        NavMenuMainModule,
+        SharedModule,
         NgbModule,
     ],
     declarations:

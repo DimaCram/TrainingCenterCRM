@@ -5,14 +5,21 @@ import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DndDirective } from "src/app/directives/drag-and-drop.directive";
 import { NavMenuComponent } from "src/app/nav-menu/nav-menu.component";
-import { NavMenuMainModule } from "src/app/nav-menu/nav-menu.module";
+import { SharedModule } from "src/app/shared.module";
 import { MaterialAllComponent } from "../teacher-materials/material-all/material-all.component";
 import { MaterialFileAddComponent } from "../teacher-materials/material-file-add/material-file-add.component";
 import { TeacherMainComponent } from "./teacher-main.component";
 
 @NgModule({
-    imports:      [ BrowserModule, FormsModule, RouterModule, ReactiveFormsModule, NavMenuMainModule,
-        NgbModule ],
+    imports:      
+    [ 
+        BrowserModule,
+        FormsModule,
+        RouterModule,
+        ReactiveFormsModule,
+        SharedModule,
+        NgbModule
+    ],
     declarations:
     [
         TeacherMainComponent,

@@ -59,7 +59,7 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpPost("addFile")]
-        public async Task AddFile(FileDto fileDto)
+        public async Task AddFile([FromForm] FileDto fileDto)
         {
             var files = new List<File>();
             foreach (var fileModel in fileDto.Files)

@@ -29,10 +29,11 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
             // Client side error
             errorMessage = error.error.message;
         } else {
-            // server side error
+          // server side error
             if (error.status!==0) {
                 errorMessage = error.error.errorMessage;
             }
+            errorMessage = error.message;
         }
         return errorMessage;
     }

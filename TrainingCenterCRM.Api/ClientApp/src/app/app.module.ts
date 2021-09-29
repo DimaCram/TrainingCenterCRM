@@ -33,8 +33,7 @@ export function tokenGetter(){
   declarations: [
     AppComponent,
     LoginComponent,
-    ToastComponent,
-    DndDirective
+    ToastComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

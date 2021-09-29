@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
+import { File } from "../models/file.model";
 import { Material } from "../models/metirial.model";
 
 @Injectable()
@@ -28,5 +29,15 @@ export class MaterialService{
 
     getMaterialStatuses(){
         return this.http.get<string[]>(this.baseUrl + `api/materials/statuses`);
+    }
+
+    addFile(file : File){
+        const formData = new FormData();
+
+        formData.append("courseId" , file.CourseId.toString());
+        file.files.forEach(element => {
+            formData.append("files" , element);
+        });
+        return this.http.post(this.baseUrl + 'api/materials/addFile', formData)
     }
 }
