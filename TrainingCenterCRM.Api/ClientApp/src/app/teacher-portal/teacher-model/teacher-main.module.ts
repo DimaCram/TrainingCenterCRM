@@ -7,6 +7,7 @@ import { DndDirective } from "src/app/directives/drag-and-drop.directive";
 import { NavMenuComponent } from "src/app/nav-menu/nav-menu.component";
 import { SharedModule } from "src/app/shared.module";
 import { MaterialAllComponent } from "../teacher-materials/material-all/material-all.component";
+import { MaterialEditComponent } from "../teacher-materials/material-edit/material-edit.component";
 import { MaterialFileAddComponent } from "../teacher-materials/material-file-add/material-file-add.component";
 import { TeacherMainComponent } from "./teacher-main.component";
 
@@ -24,7 +25,8 @@ import { TeacherMainComponent } from "./teacher-main.component";
     [
         TeacherMainComponent,
         MaterialAllComponent,
-        MaterialFileAddComponent
+        MaterialFileAddComponent,
+        MaterialEditComponent
     ],
     exports: [ TeacherMainComponent ]
 })

@@ -27,8 +27,8 @@ export class MaterialService{
         return this.http.delete(`${this.baseUrl}api/materials/${id}`)
     }
 
-    getMaterialStatuses(){
-        return this.http.get<string[]>(this.baseUrl + `api/materials/statuses`);
+    getMaterialTypes(){
+        return this.http.get<string[]>(this.baseUrl + `api/materials/types`);
     }
 
     addFile(file : File){

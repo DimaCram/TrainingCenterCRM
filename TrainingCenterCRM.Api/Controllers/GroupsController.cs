@@ -27,6 +27,7 @@ namespace TrainingCenterCRM.Api.Controllers
             _groupService = groupService;
         }
 
+        [Authorize(Roles = "teacher")]
         [HttpGet]
         public async Task<IEnumerable<GroupDto>> GetAsync()
         {

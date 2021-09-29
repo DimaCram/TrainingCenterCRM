@@ -28,7 +28,7 @@
                             </table>
                         </div>
                         <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="materials.length"></ngb-pagination>
-                        <a class="btn btn-head" asp-controller="Materials" asp-action="EditMaterial">Add new material</a>
+                        <a class="btn btn-head" [routerLink]="['/teacher/materials/edit']">Add new material</a>
                         <a class="btn btn-head" [routerLink]="['/teacher/materials/addFile']">Add file</a>
                     </div>
                 </div>

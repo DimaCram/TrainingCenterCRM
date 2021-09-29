@@ -103,5 +103,10 @@ namespace TrainingCenterCRM.Api.Controllers
                 }
             }
         }
+        [HttpGet("types")]
+        public List<string> GetMaterialTypes()
+        {
+            return Enum.GetNames(typeof(WorkingType)).ToList();
+        }
     }
 }
