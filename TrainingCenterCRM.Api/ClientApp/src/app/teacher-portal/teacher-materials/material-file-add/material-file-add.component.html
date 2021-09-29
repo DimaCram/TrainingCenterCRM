@@ -1,0 +1,54 @@
+
+<div class="content">
+    <div class="position-relative toast-box">
+        <div class="toast-container position-absolute top-0 end-0">
+        </div>
+    </div>
+    <h1 class="content__header">Work with files</h1>
+    <div class="containt-fluid">
+        <div class="row">
+            <div class="col-xl-3"></div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">Files</div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" asp-controller="Materials" asp-action="AddFile">
+                            <p>
+                                Upload multiple files <span class="alert-danger">(only Word, PowerPoint or Pdf)</span>
+                                with the file dialog or by dragging and dropping onto the dashed region.
+                                <span class="alert-danger">Max size 5 mb.</span>
+                            </p>
+
+                            <div id="drop-area" appDnd (fileDropped)="onFileDropped($event)">
+                                <input type="file" #fileDropRef id="fileDropRef" accept=".png, .jpg , .jpeg" (change)="fileBrowseHandler($event.target.files)">
+                                <label class="btn btn-head" for="fileDropRef">
+                                    Select some files
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </label>
+                            </div>
+                            <div class="mt-3 mb-3 row">
+                                <label class="col-sm-2 col-form-label">Course</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control">
+                                        <option value="">Select one</option>
+                                        <option [value]="course.id" *ngFor="let course of courses">{{course.title}}</option>
+                                    </select>
+                                    <span asp-validation-for="CourseId" class="alert-danger"></span>
+                                </div>
+                            </div>
+                            <p>Selected files</p>
+                            <ul class="files-group list-group scroll-div mb-3">
+                                <li class="list-group-item list-item" *ngFor="let file of selectedFiles">
+                                    sdas
+                                    <button class="deleteFile btn btn-danger"><i class="fas fa-times"></i></button>
+                                </li>
+                            </ul>
+                            <button id="submit" type="submit" class="btn btn-head">Загрузить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3"></div>
+        </div>
+    </div>
+</div>

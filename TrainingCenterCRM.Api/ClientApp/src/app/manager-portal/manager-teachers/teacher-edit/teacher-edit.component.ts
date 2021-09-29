@@ -134,4 +134,4 @@ import { TeacherService } from "src/app/services/teacher.service";
     }
     reader.readAsDataURL(file)
   }
-  }
+}

@@ -23,6 +23,7 @@ import { ToastComponent } from './components/toast/toast.component';
 import { ToastService } from './components/toast/toast.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorInterceptorService } from './services/http-error-interceptor.service';
+import { MaterialService } from './services/material.service';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -32,7 +33,8 @@ export function tokenGetter(){
   declarations: [
     AppComponent,
     LoginComponent,
-    ToastComponent
+    ToastComponent,
+    DndDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -61,6 +63,7 @@ export function tokenGetter(){
     GroupService,
     AccountService,
     ToastService,
+    MaterialService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,

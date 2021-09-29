@@ -20,8 +20,8 @@ import { TopicEditComponent } from "../manager-topics/topic-edit/topic-edit.comp
 import { ManagerMainComponent } from "./manager-main.component";
 
 @NgModule({
-    imports:      
-    [ 
+    imports:
+    [
         BrowserModule,
         FormsModule,
         RouterModule,
@@ -43,8 +43,7 @@ import { ManagerMainComponent } from "./manager-main.component";
         TeacherAllComponent,
         TeacherEditComponent,
         GroupAllComponent,
-        GroupEditComponent,
-        DndDirective
+        GroupEditComponent
     ],
     exports: [ ManagerMainComponent]
 })

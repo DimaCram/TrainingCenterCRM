@@ -15,6 +15,8 @@ import { TeacherAllComponent } from "./manager-portal/manager-teachers/teacher-a
 import { TeacherEditComponent } from "./manager-portal/manager-teachers/teacher-edit/teacher-edit.component";
 import { TopicAllComponent } from "./manager-portal/manager-topics/topic-all/topic-all.component";
 import { TopicEditComponent } from "./manager-portal/manager-topics/topic-edit/topic-edit.component";
+import { MaterialAllComponent } from "./teacher-portal/teacher-materials/material-all/material-all.component";
+import { MaterialFileAddComponent } from "./teacher-portal/teacher-materials/material-file-add/material-file-add.component";
 import { TeacherMainComponent } from "./teacher-portal/teacher-model/teacher-main.component";
 
 const routes: Routes = [
@@ -50,6 +52,10 @@ const routes: Routes = [
     },
 
     { path: 'teacher', component: TeacherMainComponent,
+        children: [
+            { path: 'materials', component: MaterialAllComponent },
+            { path: 'materials/addFile', component: MaterialFileAddComponent },
+        ],
         canActivate: [AuthGuard]
     },
 ]

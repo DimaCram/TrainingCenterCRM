@@ -55,7 +55,6 @@ export class TopicEditComponent {
                 this.router.navigate(['../../'], { relativeTo: this.route });
             else
                 this.router.navigate(['../'], { relativeTo: this.route });
-
       });
     }
   }
