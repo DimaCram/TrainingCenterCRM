@@ -8,8 +8,6 @@ namespace TrainingCenterCRM.BLL.Models
         public string Name { get; set; }
         public WorkingType MaterialType { get; set; }
 
-        public List<File> Files { get; set; }
-
         public int GroupId { get; set; }
         public Group Group { get; set; }
     }

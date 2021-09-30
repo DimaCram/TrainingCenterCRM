@@ -72,7 +72,7 @@ namespace TrainingCenterCRM.Api.Controllers
             if (materialId != 0)
             {
                 var material = await _materialService.GetMaterialAsync(materialId);
-                var selectedFiles = _mapper.Map<List<FileDto>>(material.Files);
+                /*var selectedFiles = _mapper.Map<List<FileDto>>(material.Files);
 
                 foreach (var selectedFile in selectedFiles)
                 {
@@ -81,7 +81,7 @@ namespace TrainingCenterCRM.Api.Controllers
                         filesForGroup.Add(selectedFile);
                     else
                         filesForGroup.FirstOrDefault(grf => grf.Id == file.Id).HasMaterial = true;
-                }
+                }*/
             }
         }
         [HttpGet("types")]
@@ -98,7 +98,7 @@ namespace TrainingCenterCRM.Api.Controllers
             if (materialId != 0)
             {
                 var material = await _materialService.GetMaterialAsync(materialId);
-                var selectedFiles = _mapper.Map<List<FileDto>>(material.Files);
+                /*var selectedFiles = _mapper.Map<List<FileDto>>(material.Files);
 
                 foreach (var selectedFile in selectedFiles)
                 {
@@ -107,7 +107,7 @@ namespace TrainingCenterCRM.Api.Controllers
                         filesForGroup.Add(selectedFile);
                     else
                         filesForGroup.FirstOrDefault(grf => grf.Id == file.Id).HasMaterial = true;
-                }
+                }*/
             }
             return filesForGroup;
         }

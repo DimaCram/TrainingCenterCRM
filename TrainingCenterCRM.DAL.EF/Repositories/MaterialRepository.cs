@@ -42,12 +42,14 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public Task<List<Material>> GetAllAsync()
         {
-            return db.Materials.Include(m => m.Files).ToListAsync();
+            //return db.Materials.Include(m => m.Files).ToListAsync();
+            return null;
         }
 
         public Task<Material> GetAsync(int id)
         {
-            return db.Materials.Include(m => m.Files).FirstOrDefaultAsync(c => c.Id == id);
+            //return db.Materials.Include(m => m.Files).FirstOrDefaultAsync(c => c.Id == id);
+            return null;
         }
 
         public async Task UpdateAsync(Material item)

@@ -19,8 +19,9 @@ namespace TrainingCenterCRM.DAL.EF.Context
         public DbSet<StudentRequest> StudentRequests { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<File> Files { get; set; }
+        public DbSet<FileToMaterialAssignment> FileToMaterialAssignments { get; set; }
         public DbSet<Manager> Managers { get; set; }
-
+        
         public TrainingCenterContext(DbContextOptions<TrainingCenterContext> options) : base(options)
         {
         }
@@ -47,7 +48,6 @@ namespace TrainingCenterCRM.DAL.EF.Context
                         .WithOne(a => a.User)
                         .HasForeignKey<Manager>(c => c.UserId)
                         .OnDelete(DeleteBehavior.Cascade);
-            
         }
     }
 }

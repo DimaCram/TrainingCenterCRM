@@ -28,7 +28,7 @@ namespace TrainingCenterCRM.BLL.Services
 
             var allfiles = await fileService.GetFilesAsync();
 
-            material.Files = allfiles.Where(f => fileIds.Contains(f.Id)).ToList();
+            //material.Files = allfiles.Where(f => fileIds.Contains(f.Id)).ToList();
 
             await repository.CreateAsync(material);
         }

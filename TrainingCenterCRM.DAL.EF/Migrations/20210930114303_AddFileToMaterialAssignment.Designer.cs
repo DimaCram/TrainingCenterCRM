@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainingCenterCRM.DAL.EF.Context;
 
 namespace TrainingCenterCRM.DAL.EF.Migrations
 {
     [DbContext(typeof(TrainingCenterContext))]
-    partial class TrainingCenterContextModelSnapshot : ModelSnapshot
+    [Migration("20210930114303_AddFileToMaterialAssignment")]
+    partial class AddFileToMaterialAssignment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,28 +51,28 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         new
                         {
                             Id = "021cb353-a049-404c-b2f6-b067a48a3b9a",
-                            ConcurrencyStamp = "c9ae20ba-86ef-40d5-96a6-d5790824a6c6",
+                            ConcurrencyStamp = "1db5800e-038a-4b95-b872-c23eda16364c",
                             Name = "user",
                             NormalizedName = "user"
                         },
                         new
                         {
                             Id = "800ac90f-e24c-485a-8be4-5869972e12a7",
-                            ConcurrencyStamp = "356d94be-d3eb-4639-8815-734ae324246f",
+                            ConcurrencyStamp = "c24b44fe-3291-4529-9b34-559ec9bba7a6",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
                             Id = "dc580e4d-92ba-47a9-bb31-62b0afb85445",
-                            ConcurrencyStamp = "b74c64bf-fc26-432d-9487-e0d1d9fba638",
+                            ConcurrencyStamp = "0fbbb8df-5c1f-435e-922b-2626146348cb",
                             Name = "teacher",
                             NormalizedName = "teacher"
                         },
                         new
                         {
                             Id = "9d5aeb79-50ca-48db-91dc-3a72f06c978f",
-                            ConcurrencyStamp = "16969cfb-ce44-4a85-86ea-5582f509f3a3",
+                            ConcurrencyStamp = "fe5680f2-0e46-4ed0-bc33-5fb8f0c033eb",
                             Name = "manager",
                             NormalizedName = "manager"
                         });
@@ -369,33 +371,6 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Files");
-                });
-
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.FileToMaterialAssignment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FileId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FileId");
-
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("FileToMaterialAssignments");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
@@ -1051,15 +1026,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "9888c09b-2509-4cda-a82e-3dbea07d94eb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "75abecac-5711-4e4c-b3ed-e8512d195e0b",
+                            ConcurrencyStamp = "980790ef-ce2e-4d07-bcc2-238d949069d2",
                             Email = "manager@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "manager@gmail.com",
                             NormalizedUserName = "manager@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOr4fP6VIBzcgQno5XsOkjbSKbPCw5aVSzr6BO2z0dVHJEf8wqvXOnK6hT2crNPBSA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBEN2p8OKqq3xPTwQ/ytaeNEt29KPt4R8ezOMDoF/MsKUEtcD7+jSAR1tsdkfUNu3A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f45e6f5e-ee5d-4927-bccc-70d7f04076ab",
+                            SecurityStamp = "7a487d53-08e0-4602-9366-81533288edb0",
                             TwoFactorEnabled = false,
                             UserName = "manager@gmail.com"
                         },
@@ -1067,15 +1042,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "8cccb2bc-95ed-4b5c-b72a-a2ee25bb6f94",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "354c1651-f500-4f48-8fad-f33f46255f61",
+                            ConcurrencyStamp = "e72dc982-1ba2-4b9a-9350-0ed0937fc30d",
                             Email = "rukavichnikova@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "rukavichnikova@gmail.com",
                             NormalizedUserName = "rukavichnikova@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMeF3mSJlByvuuic0Hmrl0UhvMD/Uf/kI8yFzZXltE9C8YH4RrzmR/KPF2DP1ft/jg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGm5IQ6HaWQT5J6VolZNlUvDeEaHNPVfxL3ugmh6eXkCfF4J0uCSSeHd5xK20Uai5g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ce08030c-4a46-4148-be46-59502a97189a",
+                            SecurityStamp = "4600b89b-5755-4ff7-b571-008e84d5c88e",
                             TwoFactorEnabled = false,
                             UserName = "rukavichnikova@gmail.com"
                         },
@@ -1083,15 +1058,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "8594cfc3-4252-4502-80e9-5c9dc3341595",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fb427e11-866a-4719-a0fe-efbf277eb5c6",
+                            ConcurrencyStamp = "b2346253-5215-4e3f-af66-c08ebdee4378",
                             Email = "astreiko@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "astreiko@gmail.com",
                             NormalizedUserName = "astreiko@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN2D8rvm7nI0KVkRLt4S7NHSTWWPs5M8b23apEnreUVn72qcH28i2nOWhJsVre/kzw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDw8Jl8UQolA8/56MhEAviuZENybDE3Ali3RJCKbpINvZXF1lZHu03py9uZOIK6QPQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "47d6942f-b8c1-4784-95a4-0b6588531ffc",
+                            SecurityStamp = "298690d6-e665-4e49-b633-8a6d4e3d2fbb",
                             TwoFactorEnabled = false,
                             UserName = "astreiko@gmail.com"
                         },
@@ -1099,15 +1074,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "da19a821-caca-4aa8-b544-45dc830b99d1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "54b2ca0b-a6a7-4979-8ca5-52630e3989f8",
+                            ConcurrencyStamp = "a9dd4e10-7d0f-4610-a03c-1025ed64261e",
                             Email = "morgun@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "morgun@gmail.com",
                             NormalizedUserName = "morgun@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENxqlwbu8PmJ5XS1Vvh51pPUcd1RzWfxjhJI/Z3LTsXLw2qcJ3X9dFXdT9kGxF2t9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF+OdEqb+k1sTI+HiOI3POxT/l5Xs7oqdQO8KvBPPH9/z1bKGvNc5jLbJNwjEeoeuA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a6425e66-4ecb-4dd9-ab38-c8d290dc2bbd",
+                            SecurityStamp = "d16454a5-3a91-44a2-ac9d-6c7c9e607d14",
                             TwoFactorEnabled = false,
                             UserName = "morgun@gmail.com"
                         },
@@ -1115,15 +1090,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "4188500e-87e7-4375-937c-2a1670a84418",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "58beccb0-48fe-4904-8dce-63cbd0da5390",
+                            ConcurrencyStamp = "e4e51343-26ed-4395-9903-a989aac393da",
                             Email = "pinyutin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "pinyutin@gmail.com",
                             NormalizedUserName = "pinyutin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJuJmeraqt+gbWorKPErB7M4l6UI2cyBXU+qsFUFAiMiiHXwF1A64iWAbItq++x0JQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH1UYijIFWRT3h0eEb9z4qWoj6iW8Nhy5xN+2wBg15PaPuG27UKjRs1qLCVjl1WtWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c65d8409-c231-4177-a209-74885c80f070",
+                            SecurityStamp = "837736be-6bba-43cb-8c7a-88b35c732482",
                             TwoFactorEnabled = false,
                             UserName = "pinyutin@gmail.com"
                         },
@@ -1131,15 +1106,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "6eca67d1-8174-46d9-9916-ed620e57e00d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ca70326-f600-4a1f-b945-539237d06505",
+                            ConcurrencyStamp = "4f5cbab0-6e1f-4f20-9c70-534da046c670",
                             Email = "samsonov@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "samsonov@gmail.com",
                             NormalizedUserName = "samsonov@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFe59jxEH1+4JwA67R4yrIweOnzHQlCTctWfUtk6x+DwXW6q9/BdBljnfiBfW3dgDA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELGE5Z6nH/N+T12095avvEtUFZq2PxxBA/TFqN29WKPbgKLZBOEIE01i/QEEcEbMEQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "929ed1e3-bf16-4916-aab6-94c6e76ca8fa",
+                            SecurityStamp = "ae24a6a4-7358-4352-bb02-417051b0eafd",
                             TwoFactorEnabled = false,
                             UserName = "samsonov@gmail.com"
                         },
@@ -1147,15 +1122,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "c05565d8-eaa8-4411-9b72-4ad0decdd06d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "45eba2ff-7274-4b4b-a6a4-f7929b48fa12",
+                            ConcurrencyStamp = "953a5e9f-0738-4779-a182-0f38eb1ad7b1",
                             Email = "belkevich@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "belkevich@gmail.com",
                             NormalizedUserName = "belkevich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEES/uJXKuTmjlBSz66xv4saPSRxFCf1vjrc9vOGCaPP5JDtXxCg8AWsAiUf6ar/xbA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELcSY9jYVp8Q8X91TGwbCGMHqS/dYEGf/s7vDiSZ/SoCUe3EA9q2t9PfIdFS/eOYYw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e19a87c3-9afa-40f8-8504-67caef6a47d2",
+                            SecurityStamp = "d9ffdf53-a558-4cb4-a5f0-076b2adb6453",
                             TwoFactorEnabled = false,
                             UserName = "belkevich@gmail.com"
                         },
@@ -1163,15 +1138,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "6743e8d1-bb94-48ca-83ce-cd14ba74d17b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "46219475-660c-4855-a3ab-22df4b697c3b",
+                            ConcurrencyStamp = "2def4ce0-1d33-47e3-ae82-07fcb0399672",
                             Email = "mazgo@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "mazgo@gmail.com",
                             NormalizedUserName = "mazgo@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMXas594JbTO211XCPWjzOtBlu661y4JZhMw7tJ/aspKFtMGIBxmxJBrCWeBX5lGKw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMq0CFyPxVRYEzih8WMHKDLSRgNPP0NQNBbK5/TAxXkdYlDDFJQD8rbJH/XplfviDg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "739b6cb4-b4e5-4266-bac8-f9ed60c04339",
+                            SecurityStamp = "18751598-13dd-4cd4-a9e9-e40820c80a1b",
                             TwoFactorEnabled = false,
                             UserName = "mazgo@gmail.com"
                         },
@@ -1179,15 +1154,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "79301f3b-d0ed-4331-9af8-7c751bce2f9b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "16dbe7a5-13f1-4685-bcfb-84e6cf360981",
+                            ConcurrencyStamp = "06324deb-9b85-4eb9-ab59-111de31d9530",
                             Email = "voitekhovich.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "voitekhovich@gmail.com",
                             NormalizedUserName = "voitekhovich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM7NZaqcsPEfI6FkgpJ/AIcfetOua974KMojoW0yzBnv50vWxDTaghgW2+Etz2z5gw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDNGrf6q9GNQAMJw8WYJGY+g/lnozJuEQ4upQSf00n6WuKqLtSnNUDHossyVtrYVjg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d53f5170-b327-468b-9462-83d85246726b",
+                            SecurityStamp = "9af8b5a6-a802-4e99-a269-2b9a1c48c572",
                             TwoFactorEnabled = false,
                             UserName = "voitekhovich@gmail.com"
                         },
@@ -1195,15 +1170,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "13309c41-4a79-402e-a5e4-63645c9ce8dd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ef5b5f71-0142-46ff-80fa-21cb6e1aeaaf",
+                            ConcurrencyStamp = "c3e4b69a-d12f-4c06-b429-c209230579dc",
                             Email = "sokol@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "sokol@gmail.com",
                             NormalizedUserName = "sokol@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGQ6vLL+lqO5Hx2UddO2VznvGXOINT1D2ayRf6rIzg7cQVUUixyRvL8hBNZ+izOl7A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA0fI1dLuXF3Wm2Uowc6EV0d8JC5S6xUJ8C2ffLrNYal3smpYQpJ2Of/CcN6vUHVhw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c6dfd57f-abfb-40a5-b74a-eacbb81c9005",
+                            SecurityStamp = "38fe9d98-3a3e-40d4-b324-758d53957284",
                             TwoFactorEnabled = false,
                             UserName = "sokol@gmail.com"
                         },
@@ -1211,15 +1186,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "9eb23459-2eaa-40a0-ad80-2f3288665d19",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "31e9d8a2-8867-4940-9a1f-3b95393e98ea",
+                            ConcurrencyStamp = "9ff4e897-174f-44a9-9aaa-3a78ae47e030",
                             Email = "martsinkevich@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "martsinkevich@gmail.com",
                             NormalizedUserName = "martsinkevich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMBFu8pPxdhWn9JHkaigZYWoN+HrNEXTkYNJtx+PqlgZp+W01CIxFFhiP2xh9Kb4kQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPDggTscLvg5gg29LKHhry9QGahGEpH8foifTsARsSIA5qtr/plYZXcaOh+JAqeM5A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2de92068-e23f-4c80-878f-8198a7e9e06d",
+                            SecurityStamp = "e27747a0-e956-468b-9599-4016fbbcbf29",
                             TwoFactorEnabled = false,
                             UserName = "martsinkevich@gmail.com"
                         });
@@ -1294,33 +1269,6 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
-                });
-
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.FileToMaterialAssignment", b =>
-                {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.File", "File")
-                        .WithMany()
-                        .HasForeignKey("FileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("File");
-
-                    b.Navigation("Material");
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>

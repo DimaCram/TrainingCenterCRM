@@ -83,7 +83,8 @@ namespace TrainingCenterCRM.BLL.Services
         }
         public List<File> GetFilesByMaterialAsync(int materialId)
         {
-            return repository.Find(f => f.Materials.Any(m => m.Id == materialId)).ToList();
+            //return repository.Find(f => f.Materials.Any(m => m.Id == materialId)).ToList();
+            return null;
         }
     }
 }

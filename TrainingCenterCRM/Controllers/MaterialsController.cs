@@ -118,7 +118,7 @@ namespace TrainingCenterCRM.Controllers
                 if (materialId != 0)
                 {
                     var material = await materialService.GetMaterialAsync(materialId);
-                    var selectedFiles = mapper.Map<List<FileModel>>(material.Files);
+                    /*var selectedFiles = mapper.Map<List<FileModel>>(material.Files);
 
                     foreach(var selectedFile in selectedFiles)
                     {
@@ -127,7 +127,7 @@ namespace TrainingCenterCRM.Controllers
                             filesForGroup.Add(selectedFile);
                         else
                             filesForGroup.FirstOrDefault(grf => grf.Id == file.Id).HasMaterial = true;
-                    }
+                    }*/
                 }
 
                 return Json(filesForGroup);

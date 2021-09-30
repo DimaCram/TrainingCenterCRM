@@ -14,7 +14,5 @@ namespace TrainingCenterCRM.BLL.Models
 
         public int? CourseId { get; set; }
         public Course Course { get; set; }
-
-        public List<Material> Materials { get; set; }
     }
 }
