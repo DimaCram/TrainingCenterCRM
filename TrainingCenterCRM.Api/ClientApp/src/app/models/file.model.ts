@@ -6,9 +6,8 @@ export class File{
     name : string;
     fileType : string;
     files: any[];
-    CreateDate: Date;
-    HasMaterial: boolean;
-    CourseId : number;
-    Course : Course;
-    Materials : Material[];
+    createDate: Date;
+    hasMaterial: boolean;
+    courseId : number;
+    course : Course;
 }

@@ -7,37 +7,45 @@
                 <div class="card">
                     <div class="card-header">Material</div>
                     <div class="card-body">
-                        <form method="post" asp-controller="Materials" asp-action="EditMaterial" asp-route-id="@Model.Id">
+                        <form method="post" [formGroup]="form" autocomplete="off" (submit)="onSubmit()">
                             <div class="mb-3 row">
                                 <label asp-for="Name" class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text" formControlName="name" />
-                                    <span asp-validation-for="Name" class="alert-danger"></span>
+                                    <span class="alert-danger" *ngIf="form.get('name').touched && form.get('name').errors">This field is required</span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label asp-for="MaterialType" class="col-sm-3 col-form-label"></label>
+                                <label asp-for="MaterialType" class="col-sm-3 col-form-label">Material type</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="materialType">
                                         <option value="">Select status</option>
                                         <option [value]="type" *ngFor="let type of materialTypes">{{type}}</option>
                                     </select>
-                                    <span asp-validation-for="MaterialType" class="alert-danger"></span>
+                                    <span class="alert-danger" *ngIf="form.get('materialType').touched && form.get('materialType').errors">This field is required</span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label asp-for="GroupId" class="col-sm-3 col-form-label"></label>
+                                <label asp-for="GroupId" class="col-sm-3 col-form-label">Group</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" formControlName="groupId">
+                                    <select class="form-control" formControlName="groupId" (change)="getFilesForGroup($event.target.value)">
                                         <option value="">Select group</option>
-                                        <option [value]="group.id" *ngFor="let group of groups">{{group.title}}</option>
+                                        <option [value]="group.id" *ngFor="let group of groups">{{group.name}}</option>
                                     </select>
-                                    <span asp-validation-for="GroupId" class="alert-danger"></span>
+                                    <span class="alert-danger" *ngIf="form.get('groupId').touched && form.get('groupId').errors">This field is required</span>
                                 </div>
                             </div>
-                            <div class="mb-3 row" id="files">
-                            </div>
-                            <button type="submit" class="btn btn-success">Ok</button>
+                            <p>Selected files</p>
+                            <p class="alert-danger" *ngIf="this.form.value.fileIds">{{fileLengthError}}</p>
+                            <ul class="list-files mb-3">
+                                <li class="list-group-item" *ngFor="let file of filesForGroup">
+                                    <label class="list-item">
+                                        {{file.name}}
+                                        <input type="checkbox" [value]="file.id" (change)="onCheckChange($event)" [checked]="file.hasMaterial">
+                                    </label>
+                                </li>
+                            </ul>
+                            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ok</button>
                         </form>
                     </div>
                 </div>

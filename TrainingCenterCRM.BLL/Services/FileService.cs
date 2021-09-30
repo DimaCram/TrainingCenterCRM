@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,13 +30,30 @@ namespace TrainingCenterCRM.BLL.Services
             await repository.CreateAsync(file);
         }
 
-        public async Task AddFilesAsync(List<File> files)
+        public async Task AddFilesAsync(List<IFormFile> formFiles, int courseId)
         {
-            if(files == null || files.Count == 0)
+            if(courseId == 0 || formFiles.Count == 0)
                 throw new ArgumentException();
 
-            foreach (var file in files)
+
+            foreach (var formFileModel in formFiles)
+            {
+                var file = new File
+                {
+                    Name = formFileModel.FileName,
+                    FileType = formFileModel.ContentType,
+                    CreateDate = DateTime.Now,
+                    CourseId = courseId,
+                };
+
+                using (var target = new System.IO.MemoryStream())
+                {
+                    formFileModel.CopyTo(target);
+                    file.Data = target.ToArray();
+                }
+
                 await repository.CreateAsync(file);
+            }
         }
 
         public async Task DeleteFileAsync(int id)

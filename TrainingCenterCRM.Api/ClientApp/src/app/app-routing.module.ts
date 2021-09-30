@@ -56,6 +56,7 @@ const routes: Routes = [
         children: [
             { path: 'materials', component: MaterialAllComponent },
             { path: 'materials/edit', component: MaterialEditComponent },
+            { path: 'materials/edit/:id', component: MaterialEditComponent },
             { path: 'materials/addFile', component: MaterialFileAddComponent },
         ],
         canActivate: [AuthGuard]

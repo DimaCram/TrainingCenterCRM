@@ -11,15 +11,10 @@ namespace TrainingCenterCRM.Api.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public string FileType { get; set; }
-        public byte[] Data { get; set; }
         public DateTime? CreateDate { get; set; }
         public bool HasMaterial { get; set; }
 
-        public List<IFormFile> Files { get; set; }
-
         public int? CourseId { get; set; }
         public CourseDto Course { get; set; }
-
-        public List<MaterialDto> Materials { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace TrainingCenterCRM.Api.Dto
 
         public string Name { get; set; }
 
-        public int? MaterialType { get; set; }
+        public string MaterialType { get; set; }
         public List<FileDto> Files { get; set; }
         public int GroupId { get; set; }
         public GroupDto Group { get; set; }

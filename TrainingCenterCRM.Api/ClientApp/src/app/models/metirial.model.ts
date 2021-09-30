@@ -1,3 +1,4 @@
+import { File } from "./file.model";
 import { Group } from "./group.model";
 
 export class Material{

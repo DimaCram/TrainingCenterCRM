@@ -12,7 +12,7 @@ using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
 {
-    [Authorize(Roles = "manager")]
+    //[Authorize(Roles = "manager")]
     [Route("api/[controller]")]
     [ApiController]
     public class GroupsController : ControllerBase
@@ -27,7 +27,7 @@ namespace TrainingCenterCRM.Api.Controllers
             _groupService = groupService;
         }
 
-        [Authorize(Roles = "teacher")]
+        [Authorize(Roles = "manager, teacher")]
         [HttpGet]
         public async Task<IEnumerable<GroupDto>> GetAsync()
         {

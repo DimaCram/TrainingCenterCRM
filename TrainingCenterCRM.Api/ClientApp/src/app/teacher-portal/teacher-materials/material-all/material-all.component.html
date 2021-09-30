@@ -21,6 +21,7 @@
                                         <th scope="col">{{material.name}}</th>
                                         <th scope="col">{{material.materialType}}</th>
                                         <th scope="col" class="text-center">
+                                            <a class="btn btn-success m-1" [routerLink]="['/teacher/materials/edit', material.id]" ><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-danger m-1" asp-controller="Materials" asp-action="DeleteMaterial" asp-route-id="@material.Id"><i class="fas fa-trash"></i></a>
                                         </th>
                                     </tr>

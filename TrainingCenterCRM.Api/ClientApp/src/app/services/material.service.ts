@@ -34,10 +34,20 @@ export class MaterialService{
     addFile(file : File){
         const formData = new FormData();
 
-        formData.append("courseId" , file.CourseId.toString());
+        formData.append("courseId" , file.courseId.toString());
         file.files.forEach(element => {
             formData.append("files" , element);
         });
         return this.http.post(this.baseUrl + 'api/materials/addFile', formData)
+    }
+
+    getFilesForGroup(groupId: number, materialId: number){
+        let params = new HttpParams();
+        params = params.append('groupId', groupId.toString());
+
+        if(groupId)
+            params = params.append('materialId', materialId.toString());
+
+        return this.http.get<File[]>(this.baseUrl + `api/materials/filesForGroup`, {params: params});
     }
 }

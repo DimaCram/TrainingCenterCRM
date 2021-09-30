@@ -39,7 +39,7 @@ export class MaterialFileAddComponent {
         this.courseService.getCourses().subscribe(res => {
             this.courses = res;
         })
-        
+
         this.form = this.fb.group({
             courseId: ['', Validators.required]
         });
@@ -48,7 +48,7 @@ export class MaterialFileAddComponent {
     deleteFile(index: number){
         this.files.splice(index, 1);
     }
-    
+
     onSubmit(){
         if(this.files.length === 0)
         {
@@ -57,8 +57,8 @@ export class MaterialFileAddComponent {
         }
 
         let file : File = new File();
-        
-        file.CourseId = this.form.value.courseId;
+
+        file.courseId = this.form.value.courseId;
         file.files = this.files;
 
         this.materialService.addFile(file).subscribe(res => {
@@ -86,10 +86,10 @@ export class MaterialFileAddComponent {
     validateFile(file): boolean {
         const allowedExtensions = ['doc', 'docx', 'ppt', 'pptx', 'pdf'],
               sizeLimit = 5_000_000,
-              bytesInMb = 1000000; 
-    
+              bytesInMb = 1000000;
+
         const fileExtension = file.name.split(".").pop();
-    
+
         if (!allowedExtensions.includes(fileExtension)) {
             this.toastService.showError(`"${file.name}" type not allowed. Allowed types ${allowedExtensions.join(", ")}.`);
             return false;

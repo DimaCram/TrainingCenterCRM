@@ -51,7 +51,7 @@
                                     <span class="alert-danger" *ngIf="form.get('courseId').touched && form.get('courseId').errors">This field is invalid</span>
                                 </div>
                             </div>
-                            <div class="mb-3 row" id="students">
+                            <div class="mb-3" id="students">
                                 <p>Students for course</p>
                                 <ul class="list-students" *ngIf="studentsForCourse.length > 0; else elseTemplate">
                                     <li class="list-group-item" *ngFor="let student of studentsForCourse">
@@ -62,7 +62,7 @@
                                     </li>
                                 </ul>
                                 <ng-template #elseTemplate>
-                                    <span class="alert-danger">not found</span>
+                                    <p class="alert-danger">not found</p>
                                 </ng-template>
                             </div>
                             <button type="submit" class="btn btn-success">Ok</button>
