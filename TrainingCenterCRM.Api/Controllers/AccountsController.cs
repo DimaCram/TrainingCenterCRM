@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Api.Dto;
 using TrainingCenterCRM.BLL.Interfaces;
@@ -17,16 +18,16 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(UserDto userLogin)
+        public async Task<IActionResult> Login([FromBody] UserDto userLogin)
         {
-            if(await _userService.CheckPassword(userLogin.Email, userLogin.Password))
+            if (await _userService.CheckPassword(userLogin.Email, userLogin.Password))
             {
                 var token = await _userService.GetToken(userLogin.Email);
                 var userRoles = await _userService.GetUserRoles(userLogin.Email);
 
                 return Ok(new { token, userRoles });
             }
-            return BadRequest();
+            return BadRequest("Incorrect login or password");
         }
     }
 }

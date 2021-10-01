@@ -45,7 +45,7 @@ export class MaterialService{
         let params = new HttpParams();
         params = params.append('groupId', groupId.toString());
 
-        if(groupId)
+        if(materialId)
             params = params.append('materialId', materialId.toString());
 
         return this.http.get<File[]>(this.baseUrl + `api/materials/filesForGroup`, {params: params});

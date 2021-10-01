@@ -12,7 +12,6 @@ using TrainingCenterCRM.BLL.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
 {
-    //[Authorize(Roles = "manager")]
     [Route("api/[controller]")]
     [ApiController]
     public class GroupsController : ControllerBase
@@ -34,12 +33,14 @@ namespace TrainingCenterCRM.Api.Controllers
             return _mapper.Map<IEnumerable<GroupDto>>(await _groupService.GetGroupsAsync());
         }
 
+        [Authorize(Roles = "manager")]
         [HttpGet("{id}")]
         public async Task<GroupDto> GetAsync(int id)
         {
             return _mapper.Map<GroupDto>(await _groupService.GetGroupAsync(id));
         }
 
+        [Authorize(Roles = "manager")]
         [HttpPost]
         public async Task EditCourseAsync(GroupDto groupDto)
         {
@@ -51,12 +52,14 @@ namespace TrainingCenterCRM.Api.Controllers
                 await _groupService.EditGroupAsync(group, groupDto.Students.Select(g => g.Id));
         }
 
+        [Authorize(Roles = "manager")]
         [HttpDelete("{id}")]
         public async Task DeleteCourseAsync(int id)
         {
             await _groupService.DeleteGroupAsync(id);
         }
 
+        [Authorize(Roles = "manager")]
         [HttpGet("statuses")]
         public List<string> GetGroupStatuses()
         {

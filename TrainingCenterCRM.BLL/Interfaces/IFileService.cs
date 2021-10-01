@@ -16,6 +16,5 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<File> GetFileAsync(int id);
         Task<List<File>> GetFilesAsync();
         Task<IEnumerable<File>> GetFilesByGroupAsync(int groupId);
-        List<File> GetFilesByMaterialAsync(int materialId);
     }
 }

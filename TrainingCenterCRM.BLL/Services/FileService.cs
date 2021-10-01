@@ -81,10 +81,5 @@ namespace TrainingCenterCRM.BLL.Services
             var group = await groupService.GetGroupAsync(groupId);
             return repository.Find(f => f.CourseId == group.CourseId);
         }
-        public List<File> GetFilesByMaterialAsync(int materialId)
-        {
-            //return repository.Find(f => f.Materials.Any(m => m.Id == materialId)).ToList();
-            return null;
-        }
     }
 }

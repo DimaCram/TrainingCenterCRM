@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
@@ -45,6 +46,19 @@ namespace TrainingCenterCRM.BLL.Services
         public Task<List<FileToMaterialAssignment>> GetAssignmentsAsync()
         {
             return repository.GetAllAsync();
+        }
+
+        public IEnumerable<File> GetFilesByMaterial(int materialId)
+        {
+            return repository.Find(r => r.MaterialId == materialId).Select(r => r.File);
+        }
+        public async Task DeleteAssignmentsByMaterial(int materialId)
+        {
+            var assigmentForMaterial = repository.Find(a => a.MaterialId == materialId).ToList();
+            foreach(var assigment in assigmentForMaterial)
+            {
+                await repository.DeleteAsync(assigment.Id);
+            }
         }
     }
 }

@@ -30,13 +30,14 @@ namespace TrainingCenterCRM.Api.Controllers
             _teacherService = teacherService;
             _userService = userService;
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<TeacherDto>> GetTeachersAsync()
         {
             return _mapper.Map<IEnumerable<TeacherDto>>(await _teacherService.GetTeachersAsync());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<TeacherDto> GetTeacherAsync(int id)
         {

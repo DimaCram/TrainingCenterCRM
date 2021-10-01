@@ -11,13 +11,12 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
 
     constructor(private toastService: ToastService) {}
     intercept(request: HttpRequest<any>, next: HttpHandler) {
-        console.log('HTTP Request started');
         return next.handle(request)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     const errorMessage = this.setError(error);
-                    console.log(error);
-                    this.toastService.showError(errorMessage);
+                    console.log(JSON.stringify(error));
+                    this.toastService.showError(JSON.stringify(errorMessage));
                     return throwError(errorMessage);
                 })
             );
@@ -27,14 +26,25 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         let errorMessage = 'Unknown error occured';
         if(error.error instanceof ErrorEvent) {
             // Client side error
-            errorMessage = error.error.message;
+            errorMessage = error.error.error;
         } else {
           // server side error
             if (error.status!==0) {
-                errorMessage = error.error.errorMessage;
+
+                if(error.error.errors)
+                    errorMessage = this.transformError(error.error.errors)
+                else
+                    errorMessage = error.error.message || error.error;
             }
-            errorMessage = error.message;
         }
         return errorMessage;
+    }
+    transformError(err: any) {
+        let messages = "";
+        Object.entries(err).forEach(([key, value]) =>{
+            let ar = value as string[];
+            messages += `${key}: ${ar.join(',')} `;
+        });
+        return messages;
     }
 }

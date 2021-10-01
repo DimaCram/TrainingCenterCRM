@@ -38,6 +38,7 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             return db.FileToMaterialAssignments.Include(a => a.File)
                                                .Include(a => a.Material)
+                                               .AsNoTracking()
                                                .Where(predicate);
         }
 

@@ -26,12 +26,15 @@ namespace TrainingCenterCRM.Api.Controllers
             _mapper = mapper;
             _topicService = topicService;
         }
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<TopicDto>> GetTopicsAsync()
         {
             return _mapper.Map<IEnumerable<TopicDto>>(await _topicService.GetTopicsAsync());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<TopicDto> GetTopicAsync(int id)
         {

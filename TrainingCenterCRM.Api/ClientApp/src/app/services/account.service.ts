@@ -12,6 +12,8 @@ export class AccountService{
     }
 
     login(user : User){
+        user.email = ""
+        user.password = ""
         return this.http.post(this.baseUrl + 'api/accounts/login', user)
     }
 }
