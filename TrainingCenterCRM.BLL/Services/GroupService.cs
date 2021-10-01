@@ -17,11 +17,13 @@ namespace TrainingCenterCRM.BLL.Services
         private readonly IStudentRequestService studentRequestService;
         private readonly IStudentToGroupAssignmentService assignmentService;
         private readonly IStudentService studentService;
+        private readonly ITeacherService teacherService;
 
         public GroupService(IRepository<Group> groupRepository,
                             IStudentRequestService studentRequestService,
                             IStudentService studentService, 
-                            IStudentToGroupAssignmentService assignmentService)
+                            IStudentToGroupAssignmentService assignmentService,
+                            ITeacherService teacherService)
         {
             this.groupRepository = groupRepository;
             this.studentRequestService = studentRequestService;
@@ -121,6 +123,16 @@ namespace TrainingCenterCRM.BLL.Services
         {
             var group = await groupRepository.GetAsync(groupId);
             return group.CourseId == courseId ? group.Students : new List<Student>();
+        }
+
+        public async Task<IEnumerable<Group>> GetTeacherGroups(string email)
+        {
+            var teacherId = 0;
+
+            var teacher = await teacherService.GetTeacherAsync(0);
+
+            var groups = groupRepository.Find(g => g.TeacherId == teacherId);
+            return groups;
         }
     }
 }

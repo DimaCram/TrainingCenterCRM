@@ -65,5 +65,12 @@ namespace TrainingCenterCRM.Api.Controllers
         {
             return Enum.GetNames(typeof(GroupStatus)).ToList();
         }
+        
+        [Authorize(Roles = "teacher")]
+        [HttpGet("teacherGroups")]
+        public async Task GetTeacherGroups()
+        {
+            var user = HttpContext.User.Identity.Name;
+        }
     }
 }

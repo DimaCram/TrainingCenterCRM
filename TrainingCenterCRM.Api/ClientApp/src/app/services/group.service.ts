@@ -30,4 +30,8 @@ export class GroupService{
     getGroupStatuses(){
         return this.http.get<string[]>(this.baseUrl + `api/groups/statuses`);
     }
+    
+    getTeacherGroups(){
+        return this.http.get<Group[]>(this.baseUrl + `api/groups/teacherGroups`);
+    }
 }

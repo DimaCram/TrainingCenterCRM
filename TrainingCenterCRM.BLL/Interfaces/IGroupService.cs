@@ -14,5 +14,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<Group> GetGroupAsync(int id);
         Task<List<Group>> GetGroupsAsync();
         Task<IEnumerable<Student>> GetStudentsWithGroupAsync(int groupId, int courseId);
+        Task<IEnumerable<Group>> GetTeacherGroups(string email);
     }
 }
