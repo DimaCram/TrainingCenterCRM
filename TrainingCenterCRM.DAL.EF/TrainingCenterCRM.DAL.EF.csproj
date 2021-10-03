@@ -14,8 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrainingCenterCRM.BLL\TrainingCenterCRM.BLL.csproj" />
-    <ProjectReference Include="..\TrainingCenterCRM.DAL\TrainingCenterCRM.DAL.csproj" />
+    <ProjectReference Include="..\TrainingCenterCRM.Core\TrainingCenterCRM.Core.csproj" />
   </ItemGroup>
 
 </Project>

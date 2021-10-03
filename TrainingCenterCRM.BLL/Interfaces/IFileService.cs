@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {

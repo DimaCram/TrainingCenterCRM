@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TrainingCenterCRM.BLL.Models
+﻿namespace TrainingCenterCRM.Core.Models
 {
     public class FileToMaterialAssignment
     {
         public int Id { get; set; }
-        
+
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
 

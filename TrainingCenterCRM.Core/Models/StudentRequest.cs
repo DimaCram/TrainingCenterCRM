@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TrainingCenterCRM.BLL.Models
+namespace TrainingCenterCRM.Core.Models
 {
     public class StudentRequest
     {
@@ -12,7 +10,7 @@ namespace TrainingCenterCRM.BLL.Models
         public RequestStatus RequestStatus { get; set; }
 
         public int CourseId { get; set; }
-        public Course  Course { get; set; }
+        public Course Course { get; set; }
 
         public int StudentId { get; set; }
         public Student Student { get; set; }

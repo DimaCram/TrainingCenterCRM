@@ -1,23 +1,18 @@
-    using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
+using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Context;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 using TrainingCenterCRM.DAL.EF.Repositories;
-using TrainingCenterCRM.DAL.Interfaces;
 using TrainingCenterCRM.Mappings;
 
 namespace TrainingCenterCRM

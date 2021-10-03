@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TrainingCenterCRM.BLL.Models
+﻿namespace TrainingCenterCRM.Core.Models
 {
     public enum GroupStatus
     {

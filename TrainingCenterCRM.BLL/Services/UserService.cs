@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.BLL.Services
 {

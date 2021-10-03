@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Api.Dto;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
 {
@@ -71,6 +71,8 @@ namespace TrainingCenterCRM.Api.Controllers
         public async Task GetTeacherGroups()
         {
             var user = HttpContext.User.Identity.Name;
+
+
         }
     }
 }

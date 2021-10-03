@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 
-namespace TrainingCenterCRM.BLL.Models
+namespace TrainingCenterCRM.Core.Models
 {
     public class User : IdentityUser
     {

@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Context;
-using TrainingCenterCRM.DAL.Interfaces;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories
 {

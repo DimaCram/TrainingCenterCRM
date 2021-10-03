@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace TrainingCenterCRM.BLL.Models
+namespace TrainingCenterCRM.Core.Models
 {
     public class Group
     {
@@ -12,7 +11,7 @@ namespace TrainingCenterCRM.BLL.Models
         public GroupStatus GroupStatus { get; set; }
 
         public List<Student> Students { get; set; } = new List<Student>();
-        
+
         public Teacher Teacher { get; set; }
         public int? TeacherId { get; set; }
 

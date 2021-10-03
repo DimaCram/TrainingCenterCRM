@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TrainingCenterCRM.BLL.Models
+﻿namespace TrainingCenterCRM.Core.Models
 {
     public class Material
     {
@@ -10,11 +8,5 @@ namespace TrainingCenterCRM.BLL.Models
 
         public int GroupId { get; set; }
         public Group Group { get; set; }
-    }
-
-    public enum WorkingType
-    {
-        HomeWork,
-        LessonWork
     }
 }

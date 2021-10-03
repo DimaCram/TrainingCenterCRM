@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
-using TrainingCenterCRM.DAL.Interfaces;
+using TrainingCenterCRM.Core.Models;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class MaterialService : IMaterialService
     {
         private readonly IRepository<Material> repository;
-        private readonly IFileService fileService;
         private readonly IFileToMaterialAssignmentService _materialAssignmentService;
 
         public MaterialService(IRepository<Material> repository,
-                               IFileService fileService,
                                IFileToMaterialAssignmentService materialAssignmentService)
         {
             this.repository = repository;
-            this.fileService = fileService;
             _materialAssignmentService = materialAssignmentService;
         }
 

@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrainingCenterCRM.DAL\TrainingCenterCRM.DAL.csproj" />
+    <ProjectReference Include="..\TrainingCenterCRM.Core\TrainingCenterCRM.Core.csproj" />
+    <ProjectReference Include="..\TrainingCenterCRM.DAL.EF\TrainingCenterCRM.DAL.EF.csproj" />
   </ItemGroup>
 
 </Project>

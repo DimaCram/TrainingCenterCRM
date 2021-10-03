@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.DAL.EF.Context
 {
