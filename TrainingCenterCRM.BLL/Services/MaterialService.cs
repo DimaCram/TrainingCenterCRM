@@ -73,5 +73,10 @@ namespace TrainingCenterCRM.BLL.Services
         {
             return repository.GetAllAsync();
         }
+
+        public IEnumerable<Material> GetMaterialsByGroup(int groupId)
+        {
+            return repository.Find(m => m.GroupId == groupId);
+        }
     }
 }

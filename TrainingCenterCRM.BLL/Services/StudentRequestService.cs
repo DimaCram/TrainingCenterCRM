@@ -10,9 +10,9 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class StudentRequestService : IStudentRequestService
     {
-        private readonly IRepository<StudentRequest> studentRequestRepository;
+        private readonly IRequestRepository studentRequestRepository;
 
-        public StudentRequestService(IRepository<StudentRequest> studentRequestRepository)
+        public StudentRequestService(IRequestRepository studentRequestRepository)
         {
             this.studentRequestRepository = studentRequestRepository;
         }
@@ -36,6 +36,14 @@ namespace TrainingCenterCRM.BLL.Services
                 throw new ArgumentException();
 
             await studentRequestRepository.UpdateAsync(model);
+        }
+
+        public async Task EditRequestsRangeAsync(IEnumerable<StudentRequest> models)
+        {
+            if (models == null)
+                throw new ArgumentNullException();
+
+            await studentRequestRepository.UpdateRange(models);
         }
 
         public Task<StudentRequest> GetRequestAsync(int id)
@@ -64,7 +72,8 @@ namespace TrainingCenterCRM.BLL.Services
             var requests = await studentRequestRepository.GetAllAsync();
             return requests.Where(sr => sr.CourseId == courseId && sr.RequestStatus == RequestStatus.Open)
                            .Select(s => s.Student)
-                           .Distinct();
+                           .Distinct()
+                           .ToList();
         }
 
         public async Task ReOpenRequestAsync(int studentId, int courseId)
@@ -85,11 +94,12 @@ namespace TrainingCenterCRM.BLL.Services
             var openRequests = await GetOpenRequestsByCourseAsync(courseId);
             var openRequestsForStudents = openRequests.Where(r => studentsId.Contains(r.StudentId));
 
-            foreach (var request in openRequestsForStudents)
+            openRequestsForStudents.ToList().ForEach(r =>
             {
-                request.RequestStatus = RequestStatus.Closed;
-                await EditRequestAsync(request);
-            }
+                r.RequestStatus = RequestStatus.Closed;
+            });
+
+            await EditRequestsRangeAsync(openRequestsForStudents);
         }
     }
 }

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingCenterCRM", "TrainingCenterCRM\TrainingCenterCRM.csproj", "{D78578C7-B7AB-4BA2-B124-03A448A35C83}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingCenterCRM.BLL", "TrainingCenterCRM.BLL\TrainingCenterCRM.BLL.csproj", "{BA94B089-692F-4C1C-B020-02547B360A31}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingCenterCRM.DAL.EF", "TrainingCenterCRM.DAL.EF\TrainingCenterCRM.DAL.EF.csproj", "{C0D8250E-D0DD-488A-96E5-2F262F399A1B}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D78578C7-B7AB-4BA2-B124-03A448A35C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D78578C7-B7AB-4BA2-B124-03A448A35C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D78578C7-B7AB-4BA2-B124-03A448A35C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D78578C7-B7AB-4BA2-B124-03A448A35C83}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA94B089-692F-4C1C-B020-02547B360A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA94B089-692F-4C1C-B020-02547B360A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA94B089-692F-4C1C-B020-02547B360A31}.Release|Any CPU.ActiveCfg = Release|Any CPU

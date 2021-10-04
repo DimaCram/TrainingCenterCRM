@@ -9,7 +9,7 @@ using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories
 {
-    public class StudentRequestRepository : IRepository<StudentRequest>
+    public class StudentRequestRepository : IRequestRepository
     {
         private readonly TrainingCenterContext db;
 
@@ -53,6 +53,12 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         public async Task UpdateAsync(StudentRequest item)
         {
             db.Entry(item).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+        }
+
+        public async Task UpdateRange(IEnumerable<StudentRequest> requests)
+        {
+            db.UpdateRange(requests);
             await db.SaveChangesAsync();
         }
     }

@@ -50,4 +50,11 @@ export class MaterialService{
 
         return this.http.get<File[]>(this.baseUrl + `api/materials/filesForGroup`, {params: params});
     }
+
+    getMaterialsByGroup(groupId: number){
+        let params = new HttpParams();
+        params = params.append('groupId', groupId.toString());
+
+        return this.http.get<Material[]>(this.baseUrl + `api/materials/groupMaterials`, {params: params});
+    }
 }

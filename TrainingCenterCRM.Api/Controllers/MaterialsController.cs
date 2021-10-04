@@ -95,5 +95,11 @@ namespace TrainingCenterCRM.Api.Controllers
             }
             return filesForGroup;
         }
+
+        [HttpGet("groupMaterials")]
+        public IEnumerable<MaterialDto> GetMaterialsByGroup(int groupId)
+        {
+            return _mapper.Map<IEnumerable<MaterialDto>>(_materialService.GetMaterialsByGroup(groupId));
+        }
     }
 }

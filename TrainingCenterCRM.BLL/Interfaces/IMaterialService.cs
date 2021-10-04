@@ -11,5 +11,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task DeleteMaterialAsync(int id);
         Task<Material> GetMaterialAsync(int id);
         Task<List<Material>> GetMaterialsAsync();
+        IEnumerable<Material> GetMaterialsByGroup(int groupId);
     }
 }

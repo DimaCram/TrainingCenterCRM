@@ -23,7 +23,7 @@
                                         <th scope="col">{{group.startDate | date:'longDate'}}</th>
                                         <th scope="col">{{group.course.title}}</th>
                                         <th scope="col" class="text-center">
-                                            <a class="btn btn-success m-1" [routerLink]="['/teacher/groupControl']" [queryParams]="{groupId: group.id}">control</a>
+                                            <a class="btn btn-success m-1" [routerLink]="['/teacher/groupControl']" [queryParams]="{groupId: group.id}">manage</a>
                                         </th>
                                     </tr>
                                 </tbody>
