@@ -10,13 +10,9 @@ namespace TrainingCenterCRM.Api.Dto
     public class TeacherDto : UserDto
     {
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string Surname { get; set; }
-        [Required]
         public int Age { get; set; }
-        [Required]
         public string Bio { get; set; }
         public string PathToIcon { get; set; }
         public IFormFile File { get; set; }

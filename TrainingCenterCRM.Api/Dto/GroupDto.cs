@@ -9,12 +9,9 @@ namespace TrainingCenterCRM.Api.Dto
     public class GroupDto
     {
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
         public DateTime StartDate { get; set; }
 
-        [Required]
         public string Status { get; set; }
 
         public List<StudentDto> Students { get; set; }
@@ -22,7 +19,6 @@ namespace TrainingCenterCRM.Api.Dto
         public TeacherDto Teacher { get; set; }
         public int TeacherId { get; set; }
 
-        [Required]
         public int CourseId { get; set; }
         public CourseDto Course { get; set; }
     }

@@ -68,11 +68,10 @@ namespace TrainingCenterCRM.Api.Controllers
         
         [Authorize(Roles = "teacher")]
         [HttpGet("teacherGroups")]
-        public async Task GetTeacherGroups()
+        public async Task<IEnumerable<GroupDto>> GetTeacherGroups()
         {
-            var user = HttpContext.User.Identity.Name;
-
-
+            var userEmail = HttpContext.User.Identity.Name;
+            return _mapper.Map<IEnumerable<GroupDto>>(await _groupService.GetTeacherGroups(userEmail));
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.Core.Models;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
@@ -18,14 +19,17 @@ namespace TrainingCenterCRM.BLL.Services
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IUserRepository _userRepository;
 
         public UserService(UserManager<User> userManager,
                            RoleManager<IdentityRole> roleManager,
-                           IConfiguration configuration)
+                           IConfiguration configuration,
+                           IUserRepository userRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _userRepository = userRepository;
         }
 
         public async Task AddUser(string email, string password, string role)
@@ -89,6 +93,11 @@ namespace TrainingCenterCRM.BLL.Services
             var user = await _userManager.FindByEmailAsync(email);
             var userRoles = await _userManager.GetRolesAsync(user);
             return userRoles.ToList();
+        }
+
+        public Task<User> GetUserWithTeacherByEmail(string email)
+        {
+            return _userRepository.GetUserWithTeacherByEmail(email);
         }
     }
 }

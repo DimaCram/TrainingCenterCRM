@@ -55,6 +55,7 @@ namespace TrainingCenterCRM.Api
             services.AddScoped<IRepository<Material>, MaterialRepository>();
             services.AddScoped<IRepository<File>, FileRepository>();
             services.AddScoped<IRepository<FileToMaterialAssignment>, FileToMaterialAssignmentRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IGroupService, GroupService>();

@@ -1,0 +1,56 @@
+<div class="content">
+    <h1 class="content__header">Group control</h1>
+    <div class="containt-fluid">
+        <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Student</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let student of groupStudents | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                        <th scope="col"><p class="modal-link" (click)="open(content, student.id)">{{student.name}} {{student.surname}}</p></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="groupStudents.length"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2"></div>
+        </div>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="staticBackdropLabel">Student info</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <dl class="row modal-body">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">{{studentInfo.name}}</dd>
+
+        <dt class="col-sm-3">Surname</dt>
+        <dd class="col-sm-9">{{studentInfo.surname}}</dd>
+
+        <dt class="col-sm-3">Age</dt>
+        <dd class="col-sm-9">{{studentInfo.age}}</dd>
+
+        <dt class="col-sm-3">Group</dt>
+        <dd class="col-sm-9" *ngIf="studentInfo.hasGroup; else elseTemplate">Has group</dd>
+        <ng-template #elseTemplate>
+            <dd class="col-sm-9 text-danger">Without group</dd>
+        </ng-template>
+    </dl>
+  </ng-template>

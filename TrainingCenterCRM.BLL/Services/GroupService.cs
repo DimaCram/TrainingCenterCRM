@@ -15,18 +15,19 @@ namespace TrainingCenterCRM.BLL.Services
         private readonly IStudentRequestService studentRequestService;
         private readonly IStudentToGroupAssignmentService assignmentService;
         private readonly IStudentService studentService;
-        private readonly ITeacherService teacherService;
+        private readonly IUserService _userService;
 
         public GroupService(IRepository<Group> groupRepository,
                             IStudentRequestService studentRequestService,
-                            IStudentService studentService, 
+                            IStudentService studentService,
                             IStudentToGroupAssignmentService assignmentService,
-                            ITeacherService teacherService)
+                            IUserService userService)
         {
             this.groupRepository = groupRepository;
             this.studentRequestService = studentRequestService;
             this.studentService = studentService;
             this.assignmentService = assignmentService;
+            _userService = userService;
         }
         public async Task AddGroupAsync(Group group, IEnumerable<int> studentsId)
         {
@@ -125,11 +126,11 @@ namespace TrainingCenterCRM.BLL.Services
 
         public async Task<IEnumerable<Group>> GetTeacherGroups(string email)
         {
-            var teacherId = 0;
+            var user = await _userService.GetUserWithTeacherByEmail(email);
+            if (user.Teacher == null)
+                throw new NullReferenceException("Teacher not found");
 
-            var teacher = await teacherService.GetTeacherAsync(0);
-
-            var groups = groupRepository.Find(g => g.TeacherId == teacherId);
+            var groups = groupRepository.Find(g => g.TeacherId == user.Teacher.Id);
             return groups;
         }
     }

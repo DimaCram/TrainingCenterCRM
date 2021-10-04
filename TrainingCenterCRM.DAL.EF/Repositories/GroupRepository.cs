@@ -24,7 +24,7 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public IEnumerable<Group> Find(Func<Group, bool> predicate)
         {
-            return db.Groups.Where(predicate).ToList();
+            return db.Groups.Include(g => g.Course).Where(predicate).ToList();
         }
 
         public async Task CreateAsync(Group item)

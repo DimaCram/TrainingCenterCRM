@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Table</div>
                     <div class="card-body">
-                        <div class="table-responsive"  *ngIf="teacherGroups.length > 0;else  elseTemplate" >
+                        <div class="table-responsive" *ngIf="teacherGroups.length > 0;else  elseTemplate" >
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
@@ -18,13 +18,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let group of groups | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                    <tr *ngFor="let group of teacherGroups | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <th scope="col">{{group.name}}</th>
                                         <th scope="col">{{group.startDate | date:'longDate'}}</th>
-                                        <th scope="col">{{group.teacher.name}} {{group.teacher.surname}}</th>
+                                        <th scope="col">{{group.course.title}}</th>
                                         <th scope="col" class="text-center">
-                                            <a class="btn btn-success m-1" [routerLink]="['/manager/groups/edit', group.id]" ><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-danger m-1" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id"><i class="fas fa-trash"></i></a>
+                                            <a class="btn btn-success m-1" [routerLink]="['/teacher/groupControl']" [queryParams]="{groupId: group.id}">control</a>
                                         </th>
                                     </tr>
                                 </tbody>
@@ -36,7 +35,6 @@
                             </div>
                         </ng-template>
                         <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="teacherGroups.length"></ngb-pagination>
-                        <a class="btn btn-head  mt-3" [routerLink]="['/manager/groups/edit']">Add new group</a>
                     </div>
                 </div>
             </div>

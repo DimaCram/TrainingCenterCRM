@@ -9,7 +9,6 @@ namespace TrainingCenterCRM.Api.Dto
     public class TopicDto
     {
         public int Id { get; set; }
-        [Required]
         public string Title { get; set; }
         public string Description { get; set; }
     }

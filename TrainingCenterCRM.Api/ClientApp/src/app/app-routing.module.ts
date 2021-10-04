@@ -15,6 +15,7 @@ import { TeacherAllComponent } from "./manager-portal/manager-teachers/teacher-a
 import { TeacherEditComponent } from "./manager-portal/manager-teachers/teacher-edit/teacher-edit.component";
 import { TopicAllComponent } from "./manager-portal/manager-topics/topic-all/topic-all.component";
 import { TopicEditComponent } from "./manager-portal/manager-topics/topic-edit/topic-edit.component";
+import { GroupControlComponent } from "./teacher-portal/teacher-groups/group-control/group-control.component";
 import { TeacherGroupsComponent } from "./teacher-portal/teacher-groups/teacher-groups.component";
 import { MaterialAllComponent } from "./teacher-portal/teacher-materials/material-all/material-all.component";
 import { MaterialEditComponent } from "./teacher-portal/teacher-materials/material-edit/material-edit.component";
@@ -60,6 +61,7 @@ const routes: Routes = [
             { path: 'materials/edit/:id', component: MaterialEditComponent },
             { path: 'materials/addFile', component: MaterialFileAddComponent },
             { path: 'groups', component: TeacherGroupsComponent },
+            { path: 'groupControl', component: GroupControlComponent },
         ],
         canActivate: [AuthGuard]
     },

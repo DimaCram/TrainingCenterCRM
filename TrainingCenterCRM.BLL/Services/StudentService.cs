@@ -48,5 +48,10 @@ namespace TrainingCenterCRM.BLL.Services
             var students = await repository.GetAllAsync();
             return students.FirstOrDefault(s => s.Id == id);
         }
+
+        public IEnumerable<Student> GetStudentsByGroup(int groupId)
+        {
+            return repository.Find(s => s.GroupId == groupId);
+        }
     }
 }

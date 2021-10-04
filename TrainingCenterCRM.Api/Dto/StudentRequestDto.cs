@@ -9,12 +9,9 @@ namespace TrainingCenterCRM.Api.Dto
     public class StudentRequestDto
     {
         public int Id { get; set; }
-        [Required]
         public DateTime ReadyToStartDate { get; set; }
         public string Comments { get; set; }
-        [Required]
         public string Status { get; set; }
-        [Required]
         public int CourseId { get; set; }
         public CourseDto Course { get; set; }
         public int StudentId { get; set; }

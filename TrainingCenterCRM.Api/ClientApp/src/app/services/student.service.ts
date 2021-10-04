@@ -30,10 +30,18 @@ export class StudentService{
     getStudentsForGroupByCourse(courseId: string, groupId: number){
         let params = new HttpParams();
         params = params.append('courseId', courseId);
-        
+
         if(groupId)
             params = params.append('groupId', groupId.toString());
 
         return this.http.get<Student[]>(this.baseUrl + `api/studentrequests/studentsForGroupByCourse`, {params: params});
+    }
+
+    getStudentsByGroup(groupId: number){
+        let params = new HttpParams();
+        params = params.append('groupId', groupId.toString());
+
+        return this.http.get<Student[]>(this.baseUrl + `api/students/groupStudents`, {params: params});
+
     }
 }

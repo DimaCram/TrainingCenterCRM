@@ -9,7 +9,6 @@ using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
 {
-    [Authorize(Roles = "manager")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase
@@ -26,18 +25,21 @@ namespace TrainingCenterCRM.Api.Controllers
             _userService = userService;
         }
 
+        [Authorize(Roles = "manager")]
         [HttpGet]
         public async Task<IEnumerable<StudentDto>> GetStudentsAsync()
         {
             return _mapper.Map<IEnumerable<StudentDto>>(await _studentService.GetStudentsAsync());
         }
 
+        [Authorize(Roles = "manager")]
         [HttpGet("{id}")]
         public async Task<StudentDto> GetStudentAsync(int id)
         {
             return _mapper.Map<StudentDto>(await _studentService.GetStudentAsync(id));
         }
 
+        [Authorize(Roles = "manager")]
         [HttpPost]
         public async Task EditStudentAsync(StudentDto studentDto)
         {
@@ -54,10 +56,18 @@ namespace TrainingCenterCRM.Api.Controllers
                 await _studentService.EditStudentAsync(student);
         }
 
+        [Authorize(Roles = "manager")]
         [HttpDelete("{id}")]
         public async Task DeleteStudentAsync(int id)
         {
             await _studentService.DeleteStudentAsync(id);
+        }
+
+        [Authorize(Roles = "manager, teacher")]
+        [HttpGet("groupStudents")]
+        public IEnumerable<StudentDto> GetStudentsByGroup(int groupId)
+        {
+            return _mapper.Map<IEnumerable<StudentDto>>(_studentService.GetStudentsByGroup(groupId));
         }
     }
 }
