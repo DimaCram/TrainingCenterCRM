@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { throwError } from "rxjs";
 import { catchError } from 'rxjs/operators';
 import { ToastService } from "../components/toast/toast.service";
-
+    
 @Injectable({
     providedIn: 'root'
 })
@@ -27,24 +27,11 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         if(error.error instanceof ErrorEvent) {
             // Client side error
             errorMessage = error.error.error;
-        } else {
-          // server side error
-            if (error.status!==0) {
-
-                if(error.error.errors)
-                    errorMessage = this.transformError(error.error.errors)
-                else
-                    errorMessage = error.error.message || error.error;
-            }
+        }
+        else {
+            errorMessage = error.error
         }
         return errorMessage;
     }
-    transformError(err: any) {
-        let messages = "";
-        Object.entries(err).forEach(([key, value]) =>{
-            let ar = value as string[];
-            messages += `${key}: ${ar.join(',')} `;
-        });
-        return messages;
-    }
+    
 }
