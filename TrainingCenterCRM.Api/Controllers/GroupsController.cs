@@ -28,21 +28,21 @@ namespace TrainingCenterCRM.Api.Controllers
 
         [Authorize(Roles = "manager, teacher")]
         [HttpGet]
-        public async Task<IEnumerable<GroupDto>> GetAsync()
+        public async Task<IEnumerable<GroupDto>> GetGroupsAsync()
         {
             return _mapper.Map<IEnumerable<GroupDto>>(await _groupService.GetGroupsAsync());
         }
 
         [Authorize(Roles = "manager")]
         [HttpGet("{id}")]
-        public async Task<GroupDto> GetAsync(int id)
+        public async Task<GroupDto> GetGroupAsync(int id)
         {
             return _mapper.Map<GroupDto>(await _groupService.GetGroupAsync(id));
         }
 
         [Authorize(Roles = "manager")]
         [HttpPost]
-        public async Task EditCourseAsync(GroupDto groupDto)
+        public async Task EditGroupAsync(GroupDto groupDto)
         {
             var group = _mapper.Map<Group>(groupDto);
 
@@ -54,7 +54,7 @@ namespace TrainingCenterCRM.Api.Controllers
 
         [Authorize(Roles = "manager")]
         [HttpDelete("{id}")]
-        public async Task DeleteCourseAsync(int id)
+        public async Task DeleteGroupAsync(int id)
         {
             await _groupService.DeleteGroupAsync(id);
         }

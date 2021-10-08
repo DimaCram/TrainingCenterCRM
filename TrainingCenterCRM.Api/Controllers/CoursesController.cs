@@ -26,14 +26,14 @@ namespace TrainingCenterCRM.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IEnumerable<CourseDto>> GetAsync()
+        public async Task<IEnumerable<CourseDto>> GetCoursesAsync()
         {
             return _mapper.Map<IEnumerable<CourseDto>>(await _courseService.GetCoursesAsync());
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<CourseDto> GetAsync(int id)
+        public async Task<CourseDto> GetCourseAsync(int id)
         {
             return _mapper.Map<CourseDto>(await _courseService.GetCourseAsync(id));
         }

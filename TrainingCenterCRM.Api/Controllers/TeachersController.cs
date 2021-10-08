@@ -42,7 +42,7 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpPost]
-        public async Task EditStudentAsync([FromForm] TeacherDto teacherDto)
+        public async Task EditTeacherAsync([FromForm] TeacherDto teacherDto)
         {
             var teacher = _mapper.Map<Teacher>(teacherDto);
 
@@ -58,7 +58,7 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteStudentAsync(int id)
+        public async Task DeleteTeacherAsync(int id)
         {
             await _teacherService.DeleteTeacherAsync(id);
         }
