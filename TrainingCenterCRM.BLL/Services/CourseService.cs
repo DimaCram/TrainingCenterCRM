@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Interfaces;
 
@@ -68,6 +69,11 @@ namespace TrainingCenterCRM.BLL.Services
         public Task<List<Course>> GetCoursesAsync()
         {
             return repository.GetAllAsync();
+        }
+
+        public Task<IEnumerable<Course>> GetCoursesByPaginationAsync(PaginationFilter pagination)
+        {
+            return repository.GetAllByPaginationAsync(pagination);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.EF.Interfaces;
@@ -60,6 +61,11 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             db.UpdateRange(requests);
             await db.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<StudentRequest>> GetAllByPaginationAsync(PaginationFilter pagination)
+        {
+            throw new NotImplementedException();
         }
     }
 }

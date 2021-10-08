@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
@@ -12,5 +13,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task DeleteCourseAsync(int id);
         Task<Course> GetCourseAsync(int id);
         Task<List<Course>> GetCoursesAsync();
+        Task<IEnumerable<Course>> GetCoursesByPaginationAsync(PaginationFilter pagination);
     }
 }

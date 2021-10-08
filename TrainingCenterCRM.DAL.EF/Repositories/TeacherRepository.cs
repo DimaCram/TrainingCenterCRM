@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.EF.Interfaces;
@@ -56,6 +57,11 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<Teacher>> GetAllByPaginationAsync(PaginationFilter pagination)
+        {
+            throw new NotImplementedException();
         }
     }
 }
