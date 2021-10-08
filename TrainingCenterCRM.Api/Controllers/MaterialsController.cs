@@ -35,19 +35,19 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<MaterialDto>> GetAsync()
+        public async Task<IEnumerable<MaterialDto>> GetMaterialsAsync()
         {
             return _mapper.Map<IEnumerable<MaterialDto>>(await _materialService.GetMaterialsAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<MaterialDto> GetAsync(int id)
+        public async Task<MaterialDto> GetMaterialAsync(int id)
         {
             return _mapper.Map<MaterialDto>(await _materialService.GetMaterialAsync(id));
         }
 
         [HttpPost]
-        public async Task EditCourseAsync(MaterialDto materialDto)
+        public async Task EditMaterialAsync(MaterialDto materialDto)
         {
             var material = _mapper.Map<Material>(materialDto);
 
@@ -58,7 +58,7 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteCourseAsync(int id)
+        public async Task DeleteMaterialAsync(int id)
         {
             await _materialService.DeleteMaterialAsync(id);
         }
