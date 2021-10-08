@@ -13,6 +13,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task DeleteFileAsync(int id);
         Task<File> GetFileAsync(int id);
         Task<List<File>> GetFilesAsync();
-        Task<IEnumerable<File>> GetFilesByGroupAsync(int groupId);
+        Task<IEnumerable<File>> GetFilesByCourseAsync(int groupId);
     }
 }

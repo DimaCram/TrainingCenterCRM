@@ -76,9 +76,9 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpGet("filesForGroup")]
-        public async Task<IEnumerable<FileDto>> GetFilesByGroup(int groupId, int materialId)
+        public async Task<IEnumerable<FileDto>> GetFilesByCourse(int courseId, int materialId)
         {
-            var filesForGroup = _mapper.Map<List<FileDto>>(await _fileService.GetFilesByGroupAsync(groupId));
+            var filesForCourse = _mapper.Map<List<FileDto>>(await _fileService.GetFilesByCourseAsync(courseId));
 
             if (materialId != 0)
             {
@@ -86,14 +86,14 @@ namespace TrainingCenterCRM.Api.Controllers
 
                 foreach (var selectedFile in materialFiles)
                 {
-                    var file = filesForGroup.FirstOrDefault(f => f.Id == selectedFile.Id);
+                    var file = filesForCourse.FirstOrDefault(f => f.Id == selectedFile.Id);
                     if (file == null)
-                        filesForGroup.Add(selectedFile);
+                        filesForCourse.Add(selectedFile);
                     else
-                        filesForGroup.FirstOrDefault(grf => grf.Id == file.Id).HasMaterial = true;
+                        filesForCourse.FirstOrDefault(grf => grf.Id == file.Id).HasMaterial = true;
                 }
             }
-            return filesForGroup;
+            return filesForCourse;
         }
 
         [HttpGet("groupMaterials")]

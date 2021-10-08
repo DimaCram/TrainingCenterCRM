@@ -7,5 +7,5 @@ export class Material{
     materialType : string;
     files: File[];
     groupId : number;
-    groups : Group;
+    group : Group;
 }

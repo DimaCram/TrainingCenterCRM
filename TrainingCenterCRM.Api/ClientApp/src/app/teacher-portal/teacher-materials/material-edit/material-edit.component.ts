@@ -15,6 +15,7 @@ import { MaterialService } from "src/app/services/material.service";
 })
 export class MaterialEditComponent {
     form: FormGroup;
+    selectedGroupId: number;
     materialId: number;
     materialTypes: string[] = [];
     groups: Group[];
@@ -37,8 +38,13 @@ export class MaterialEditComponent {
         if (this.materialId) {
             this.materialService.getMaterial(this.materialId).subscribe(res => {
               this.form.patchValue(res);
-              this.getFilesForGroup(res.groupId);
+              this.selectedGroupId = res.groupId;
+
+              this.getGroups();
             });
+        }
+        else{
+            this.getGroups();
         }
 
 
@@ -49,14 +55,12 @@ export class MaterialEditComponent {
             fileIds: new FormArray([]),
         });
 
-        this.groupService.getGroups().subscribe(res =>{
-            this.groups = res;
-        })
 
         this.materialService.getMaterialTypes().subscribe(res => {
             this.materialTypes = res;
         })
     }
+
 
     onCheckChange(event) {
         const formArray: FormArray = this.form.get('fileIds') as FormArray;
@@ -78,15 +82,27 @@ export class MaterialEditComponent {
     }
 
     getFilesForGroup(groupId: number){
-        this.materialService.getFilesForGroup(groupId, this.materialId).subscribe(res => {
-            this.filesForGroup = res;
+        let group = this.groups.find(g => g.id == groupId);
+        if(group){
+            this.materialService.getFilesForGroup(group.courseId, this.materialId).subscribe(res => {
+                this.filesForGroup = res;
 
-            const formArray: FormArray = this.form.get('fileIds') as FormArray;
+                const formArray: FormArray = this.form.get('fileIds') as FormArray;
 
-            this.filesForGroup.forEach(file => {
-                if(file.hasMaterial)
-                    formArray.push(new FormControl(file.id));
-            });
+                this.filesForGroup.forEach(file => {
+                    if(file.hasMaterial)
+                        formArray.push(new FormControl(file.id));
+                });
+            })
+        }
+    }
+
+    getGroups(){
+        this.groupService.getGroups().subscribe(res =>{
+            this.groups = res;
+
+            if(this.selectedGroupId)
+                this.getFilesForGroup(this.selectedGroupId);
         })
     }
 

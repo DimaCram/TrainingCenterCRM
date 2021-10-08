@@ -41,9 +41,9 @@ export class MaterialService{
         return this.http.post(this.baseUrl + 'api/materials/addFile', formData)
     }
 
-    getFilesForGroup(groupId: number, materialId: number){
+    getFilesForGroup(courseId: number, materialId: number){
         let params = new HttpParams();
-        params = params.append('groupId', groupId.toString());
+        params = params.append('courseId', courseId.toString());
 
         if(materialId)
             params = params.append('materialId', materialId.toString());

@@ -88,7 +88,7 @@ export class MaterialFileAddComponent {
               sizeLimit = 5_000_000,
               bytesInMb = 1000000;
 
-        const fileExtension = file.name.split(".").pop();
+        const fileExtension = file.name.split(".").pop().toLowerCase();
 
         if (!allowedExtensions.includes(fileExtension)) {
             this.toastService.showError(`"${file.name}" type not allowed. Allowed types ${allowedExtensions.join(", ")}.`);

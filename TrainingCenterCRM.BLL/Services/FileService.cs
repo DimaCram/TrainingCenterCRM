@@ -74,10 +74,9 @@ namespace TrainingCenterCRM.BLL.Services
             return repository.GetAllAsync();
         }
 
-        public async Task<IEnumerable<File>> GetFilesByGroupAsync(int groupId)
+        public async Task<IEnumerable<File>> GetFilesByCourseAsync(int courseId)
         {
-            var group = await groupService.GetGroupAsync(groupId);
-            return repository.Find(f => f.CourseId == group.CourseId);
+            return repository.Find(f => f.CourseId == courseId);
         }
     }
 }
