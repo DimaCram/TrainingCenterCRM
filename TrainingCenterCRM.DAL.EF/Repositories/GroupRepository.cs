@@ -56,9 +56,11 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
                             .ToListAsync();
         }
 
-        public Task<IEnumerable<Group>> GetAllByPaginationAsync(PaginationFilter pagination)
+        public async Task<IEnumerable<Group>> GetAllByPaginationAsync(PaginationFilter pagination)
         {
-            throw new NotImplementedException();
+            return await db.Groups.Skip((pagination.Offset - 1) * pagination.Limit)
+                                  .Take(pagination.Limit)
+                                  .ToListAsync();
         }
     }
 }

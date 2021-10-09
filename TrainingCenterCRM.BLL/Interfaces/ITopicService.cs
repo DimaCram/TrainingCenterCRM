@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
@@ -11,5 +12,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task DeleteTopicAsync(int id);
         Task<Topic> GetTopicAsync(int id);
         Task<List<Topic>> GetTopicsAsync();
+        Task<IEnumerable<Topic>> GetTopicsByPaginationAsync(PaginationFilter pagination);
     }
 }

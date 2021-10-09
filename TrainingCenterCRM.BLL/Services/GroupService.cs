@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Interfaces;
 
@@ -118,6 +119,12 @@ namespace TrainingCenterCRM.BLL.Services
         {
             return groupRepository.GetAllAsync();
         }
+
+        public Task<IEnumerable<Group>> GetGroupsByPaginationAsync(PaginationFilter pagination)
+        {
+            return groupRepository.GetAllByPaginationAsync(pagination);
+        }
+
         public async Task<IEnumerable<Student>> GetStudentsWithGroupAsync(int groupId, int courseId)
         {
             var group = await groupRepository.GetAsync(groupId);
