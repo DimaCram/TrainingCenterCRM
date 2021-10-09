@@ -41,7 +41,6 @@ namespace TrainingCenterCRM.Api.Controllers
             return _mapper.Map<IEnumerable<MaterialDto>>(await _materialService.GetMaterialsAsync());
         }
 
-        [AllowAnonymous]
         [HttpGet("pagination")]
         public async Task<IEnumerable<MaterialDto>> GetCoursesByPaginationAsync([FromQuery] PaginationDto pagination)
         {

@@ -34,7 +34,7 @@ namespace TrainingCenterCRM.Api.Controllers
             return _mapper.Map<IEnumerable<GroupDto>>(await _groupService.GetGroupsAsync());
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "manager, teacher")]
         [HttpGet("pagination")]
         public async Task<IEnumerable<GroupDto>> GetCoursesByPaginationAsync([FromQuery] PaginationDto pagination)
         {
