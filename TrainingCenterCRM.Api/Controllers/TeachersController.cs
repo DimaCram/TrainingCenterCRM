@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Api.Dto;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
@@ -32,6 +33,16 @@ namespace TrainingCenterCRM.Api.Controllers
         public async Task<IEnumerable<TeacherDto>> GetTeachersAsync()
         {
             return _mapper.Map<IEnumerable<TeacherDto>>(await _teacherService.GetTeachersAsync());
+        }
+
+        [AllowAnonymous]
+        [HttpGet("pagination")]
+        public async Task<IEnumerable<TeacherDto>> GetCoursesByPaginationAsync([FromQuery] PaginationDto pagination)
+        {
+            var paginationFilter = _mapper.Map<PaginationFilter>(pagination);
+            var teachers = await _teacherService.GetTeachersByPaginationAsync(paginationFilter);
+
+            return _mapper.Map<IEnumerable<TeacherDto>>(teachers);
         }
 
         [AllowAnonymous]

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TrainingCenterCRM.Api.Dto;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.WebAngular.Mapper
@@ -27,6 +28,8 @@ namespace TrainingCenterCRM.WebAngular.Mapper
             CreateMap<File, FileDto>().ReverseMap();
 
             CreateMap<Material, MaterialDto>().ReverseMap();
+
+            CreateMap<PaginationFilter, PaginationDto>().ReverseMap();
         }
     }   
 }

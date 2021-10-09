@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Context;
 using TrainingCenterCRM.DAL.EF.Interfaces;
@@ -42,6 +43,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         public Task<List<Material>> GetAllAsync()
         {
             return db.Materials.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Material>> GetAllByPaginationAsync(PaginationFilter pagination)
+        {
+            return await db.Materials.Skip((pagination.Offset - 1) * pagination.Limit)
+                                     .Take(pagination.Limit)
+                                     .ToListAsync();
         }
 
         public Task<Material> GetAsync(int id)

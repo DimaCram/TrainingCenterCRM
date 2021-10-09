@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
@@ -11,6 +12,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task DeleteGroupAsync(int id);
         Task<Group> GetGroupAsync(int id);
         Task<List<Group>> GetGroupsAsync();
+        Task<IEnumerable<Group>> GetGroupsByPaginationAsync(PaginationFilter pagination);
         Task<IEnumerable<Student>> GetStudentsWithGroupAsync(int groupId, int courseId);
         Task<IEnumerable<Group>> GetTeacherGroups(string email);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Interfaces;
 
@@ -52,6 +53,11 @@ namespace TrainingCenterCRM.BLL.Services
         public IEnumerable<Student> GetStudentsByGroup(int groupId)
         {
             return repository.Find(s => s.GroupId == groupId);
+        }
+
+        public Task<IEnumerable<Student>> GetStudentsByPaginationAsync(PaginationFilter filter)
+        {
+            return repository.GetAllByPaginationAsync(filter);
         }
     }
 }
