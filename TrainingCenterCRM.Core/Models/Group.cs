@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TrainingCenterCRM.Core.Enums;
 
 namespace TrainingCenterCRM.Core.Models
 {

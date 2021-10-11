@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using TrainingCenterCRM.Core.Enums;
 using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.DAL.EF.Context

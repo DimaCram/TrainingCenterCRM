@@ -1,4 +1,5 @@
 ﻿using System;
+using TrainingCenterCRM.Core.Enums;
 
 namespace TrainingCenterCRM.Core.Models
 {

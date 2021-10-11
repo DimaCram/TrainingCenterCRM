@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, Inject, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -11,9 +11,12 @@ import { TeacherService } from "src/app/services/teacher.service";
   })
   export class TeacherEditComponent {
 
+    icon: string;
+    baseUrl: string;
     filePath : string = "";
     form: FormGroup;
     id: number;
+
 
     @ViewChild("fileDropRef") fileDropEl: ElementRef;
     files: any[] = [];
@@ -23,8 +26,9 @@ import { TeacherService } from "src/app/services/teacher.service";
         private teacherService: TeacherService,
         private route: ActivatedRoute,
         private router: Router,
-        private titleService: Title){
-
+        private titleService: Title,
+        @Inject('BASE_URL') baseUrl: string){
+          this.baseUrl = baseUrl;
         }
 
     ngOnInit(): void {
@@ -33,11 +37,14 @@ import { TeacherService } from "src/app/services/teacher.service";
       this.id = this.route.snapshot.params['id'];
 
       if (this.id) {
-        this.teacherService.getTeacher(this.id).subscribe(res => {
-          this.form.patchValue(res);
-          if(res.pathToIcon)
-            this.filePath = res.pathToIcon;
-        });
+        this.teacherService.getTeacher(this.id)
+                           .subscribe(res => {
+                              this.form.patchValue(res);
+                              if(res.pathToIcon){
+                                this.filePath = res.pathToIcon;
+                                this.icon = `${this.baseUrl}/${res.pathToIcon}`;
+                              }
+                            });
 
         this.form = this.fb.group({
           name: ['', Validators.required],
@@ -130,7 +137,7 @@ import { TeacherService } from "src/app/services/teacher.service";
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.filePath = reader.result as string;
+      this.icon = reader.result as string;
     }
     reader.readAsDataURL(file)
   }

@@ -29,7 +29,10 @@ namespace TrainingCenterCRM.WebAngular.Mapper
 
             CreateMap<Material, MaterialDto>().ReverseMap();
 
-            CreateMap<PaginationFilter, PaginationDto>().ReverseMap();
+            CreateMap<PaginationFilter, PaginationDto>()
+                .ForMember(sr => sr.PageNumber, map => map.MapFrom(sr => sr.Offset))
+                .ForMember(sr => sr.PageSize, map => map.MapFrom(sr => sr.Limit))
+                .ReverseMap();
         }
     }   
 }

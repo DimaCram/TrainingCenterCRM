@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, Inject, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -14,10 +14,14 @@ import { TopicService } from "src/app/services/topic.service";
 })
 
 export class CourseEditComponent{
+
+    filePath : string = "";
+    baseUrl: string;
+    icon: string;
+
     topics : Topic[];
     form: FormGroup;
     id: number;
-    filePath : string = "";
 
     @ViewChild("fileDropRef") fileDropEl: ElementRef;
     files: any[] = [];
@@ -27,8 +31,11 @@ export class CourseEditComponent{
                 private topicService: TopicService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private titleService: Title
-                ){}
+                private titleService: Title,
+                @Inject('BASE_URL') baseUrl: string
+                ){
+                  this.baseUrl = baseUrl;
+                }
 
 
     ngOnInit(): void {
@@ -39,9 +46,11 @@ export class CourseEditComponent{
         if (this.id) {
             this.courseSevice.getCourse(this.id)
                              .subscribe(res => {
-                               this.form.patchValue(res);
-                               if(res.pathToIcon)
-                                this.filePath = res.pathToIcon;
+                                this.form.patchValue(res);
+                                if(res.pathToIcon){
+                                  this.filePath = res.pathToIcon;
+                                  this.icon = `${this.baseUrl}/${res.pathToIcon}`;
+                                }
                               });
         }
 
@@ -70,6 +79,9 @@ export class CourseEditComponent{
         course.description = this.form.value.description;
         course.topicId = +this.form.value.topicId
         course.file = this.files[0];
+        
+        if(!course.file)
+          course.pathToIcon = this.filePath;
 
         this.courseSevice.egitCourse(course).subscribe(result => {
             if(this.id)
@@ -107,7 +119,7 @@ export class CourseEditComponent{
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.filePath = reader.result as string;
+      this.icon = reader.result as string;
     }
     reader.readAsDataURL(file)
   }

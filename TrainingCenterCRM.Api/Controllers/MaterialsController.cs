@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Api.Dto;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.Core.Enums;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 
@@ -42,7 +43,7 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpGet("pagination")]
-        public async Task<IEnumerable<MaterialDto>> GetCoursesByPaginationAsync([FromQuery] PaginationDto pagination)
+        public async Task<IEnumerable<MaterialDto>> GetMaterialsByPaginationAsync([FromQuery] PaginationDto pagination)
         {
             var paginationFilter = _mapper.Map<PaginationFilter>(pagination);
             var materials = await _materialService.GetMaterialsByPaginationAsync(paginationFilter);

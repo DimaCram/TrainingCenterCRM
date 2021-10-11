@@ -34,7 +34,7 @@ namespace TrainingCenterCRM.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("pagination")]
-        public async Task<IEnumerable<TopicDto>> GetCoursesByPaginationAsync([FromQuery] PaginationDto pagination)
+        public async Task<IEnumerable<TopicDto>> GetTopicsByPaginationAsync([FromQuery] PaginationDto pagination)
         {
             var paginationFilter = _mapper.Map<PaginationFilter>(pagination);
             var topics = await _topicService.GetTopicsByPaginationAsync(paginationFilter);

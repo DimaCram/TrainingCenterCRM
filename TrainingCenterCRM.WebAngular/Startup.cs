@@ -37,7 +37,7 @@ namespace TrainingCenterCRM.WebAngular
             services.AddSingleton(mapper);
 
             services.AddDbContext<TrainingCenterContext>(options =>
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
+                options.UseSqlServer(Configuration["ConnectionString"]));
 
             services.AddScoped<IRepository<Topic>, TopicRepository>();
             services.AddScoped<IRepository<Course>, CourseRepository>();

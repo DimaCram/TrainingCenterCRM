@@ -1,4 +1,4 @@
-﻿namespace TrainingCenterCRM.Core.Models
+﻿namespace TrainingCenterCRM.Core.Enums
 {
     public enum WorkingType
     {

@@ -8,8 +8,8 @@ namespace TrainingCenterCRM.BLL.Interfaces
 {
     public interface ITeacherService
     {
-        Task AddTeacherAsync(Teacher teacherDTO, IFormFile file);
-        Task EditTeacherAsync(Teacher teacherDTO, IFormFile file);
+        Task AddTeacherAsync(Teacher teacherDTO);
+        Task EditTeacherAsync(Teacher teacherDTO);
         Task DeleteTeacherAsync(int id);
         Task<Teacher> GetTeacherAsync(int id);
         Task<List<Teacher>> GetTeachersAsync();

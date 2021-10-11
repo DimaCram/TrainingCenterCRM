@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,69 +12,46 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class CourseService : ICourseService
     {
-        private readonly IRepository<Course> repository;
-        private readonly ILocalFileService localFileService;
+        private readonly IRepository<Course> _courseRepository;
 
-        public CourseService(IRepository<Course> repository,
-                             ILocalFileService localFileService)
+        public CourseService(IRepository<Course> repository)
         {
-            this.repository = repository;
-
-            this.localFileService = localFileService;
+            _courseRepository = repository;
         }
-        public async Task AddCourseAsync(Course course, IFormFile file)
+        public async Task AddCourseAsync(Course course)
         {
             if (course == null)
                 throw new ArgumentException();
 
-            if (file != null)
-            {
-                string pathToImg = @$"\assets\files\courses\{file.FileName}";
-
-                await localFileService.AddFile(file, pathToImg);
-                course.PathToIcon = pathToImg;
-            }
-
-            await repository.CreateAsync(course);
+            await _courseRepository.CreateAsync(course);
         }
 
         public async Task DeleteCourseAsync(int id)
         {
-            var course = await repository.GetAsync(id);
-
-            localFileService.DeleteFile(course.PathToIcon);
-            await repository.DeleteAsync(id);
+            await _courseRepository.DeleteAsync(id);
         }
 
-        public async Task EditCourseAsync(Course course, IFormFile file)
+        public async Task EditCourseAsync(Course course)
         {
             if (course == null)
                 throw new ArgumentException();
 
-            if (file != null)
-            {
-                string pathToImg = @$"\assets\files\courses\{file.FileName}";
-
-                await localFileService.AddFile(file, pathToImg);
-                course.PathToIcon = pathToImg;
-            }
-
-            await repository.UpdateAsync(course);
+            await _courseRepository.UpdateAsync(course);
         }
 
         public Task<Course> GetCourseAsync(int id)
         {
-            return repository.GetAsync(id);
+            return _courseRepository.GetAsync(id);
         }
 
         public Task<List<Course>> GetCoursesAsync()
         {
-            return repository.GetAllAsync();
+            return _courseRepository.GetAllAsync();
         }
 
         public Task<IEnumerable<Course>> GetCoursesByPaginationAsync(PaginationFilter pagination)
         {
-            return repository.GetAllByPaginationAsync(pagination);
+            return _courseRepository.GetAllByPaginationAsync(pagination);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Api.Dto;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.Core.Enums;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 
@@ -17,16 +18,19 @@ namespace TrainingCenterCRM.Api.Controllers
     {
         private readonly ITeacherService _teacherService;
         private readonly IUserService _userService;
+        private readonly ILocalFileService _localFileService;
 
         private readonly IMapper _mapper;
         public TeachersController(IMapper mapper,
                                   ITeacherService teacherService,
-                                  IUserService userService)
+                                  IUserService userService,
+                                  ILocalFileService localFileService)
         {
             _mapper = mapper;
 
             _teacherService = teacherService;
             _userService = userService;
+            _localFileService = localFileService;
         }
         [AllowAnonymous]
         [HttpGet]
@@ -37,7 +41,7 @@ namespace TrainingCenterCRM.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("pagination")]
-        public async Task<IEnumerable<TeacherDto>> GetCoursesByPaginationAsync([FromQuery] PaginationDto pagination)
+        public async Task<IEnumerable<TeacherDto>> GetTeachersByPaginationAsync([FromQuery] PaginationDto pagination)
         {
             var paginationFilter = _mapper.Map<PaginationFilter>(pagination);
             var teachers = await _teacherService.GetTeachersByPaginationAsync(paginationFilter);
@@ -57,20 +61,32 @@ namespace TrainingCenterCRM.Api.Controllers
         {
             var teacher = _mapper.Map<Teacher>(teacherDto);
 
+            if (teacherDto.File != null)
+            {
+                var pathToFile = _localFileService.GetFilePath(teacherDto.File.FileName, FileDestiny.Teacher);
+                await _localFileService.AddFile(teacherDto.File, pathToFile);
+
+                teacher.PathToIcon = pathToFile;
+            }
+
             if (teacher.Id == 0)
             {
                 await _userService.AddUser(teacherDto.Email, teacherDto.Password, "student");
 
                 teacher.UserId = await _userService.GetUserIdByEmail(teacherDto.Email);
-                await _teacherService.AddTeacherAsync(teacher, teacherDto.File);
+                await _teacherService.AddTeacherAsync(teacher);
             }
             else
-                await _teacherService.EditTeacherAsync(teacher, teacherDto.File);
+                await _teacherService.EditTeacherAsync(teacher);
         }
 
         [HttpDelete("{id}")]
         public async Task DeleteTeacherAsync(int id)
         {
+            var teacher = await _teacherService.GetTeacherAsync(id);
+            if(string.IsNullOrEmpty(teacher.PathToIcon))
+                _localFileService.DeleteFile(teacher.PathToIcon);
+
             await _teacherService.DeleteTeacherAsync(id);
         }
     }

@@ -34,6 +34,11 @@
     <ProjectReference Include="..\TrainingCenterCRM.DAL.EF\TrainingCenterCRM.DAL.EF.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\assets\files\courses\6f915326-b23d-41b2-9837-2d994ef8e9a6.png" />
+    <None Include="wwwroot\assets\files\teachers\person.jpg" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

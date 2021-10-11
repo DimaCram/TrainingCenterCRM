@@ -1,9 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System.Text;
 using TrainingCenterCRM.Api.Middleware;
 using TrainingCenterCRM.BLL.Interfaces;
@@ -71,7 +68,7 @@ namespace TrainingCenterCRM.Api
             services.AddScoped<IStudentToGroupAssignmentService, StudentToGroupAssignmentService>();
             services.AddScoped<IMaterialService, MaterialService>();
             services.AddScoped<IFileService, FileService>();
-            services.AddScoped<ILocalFileService>(s => new LocalFileService(_env.WebRootPath));
+            services.AddScoped<ILocalFileService>(s => new LocalFileService(_env.WebRootPath, Configuration));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFileToMaterialAssignmentService, FileToMaterialAssignmentService>();
 

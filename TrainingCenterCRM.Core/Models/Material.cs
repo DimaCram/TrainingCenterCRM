@@ -1,4 +1,6 @@
-﻿namespace TrainingCenterCRM.Core.Models
+﻿using TrainingCenterCRM.Core.Enums;
+
+namespace TrainingCenterCRM.Core.Models
 {
     public class Material
     {

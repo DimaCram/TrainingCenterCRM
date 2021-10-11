@@ -12,48 +12,25 @@ namespace TrainingCenterCRM.BLL.Services
     public class TeacherService : ITeacherService
     {
         private readonly IRepository<Teacher> repository;
-        private readonly ILocalFileService localFileService;
 
-        public TeacherService(IRepository<Teacher> repository, ILocalFileService localFileService)
+        public TeacherService(IRepository<Teacher> repository)
         {
             this.repository = repository;
-
-            this.localFileService = localFileService;
         }
-        public async Task AddTeacherAsync(Teacher teacher, IFormFile file)
+        public async Task AddTeacherAsync(Teacher teacher)
         {
-            if (file != null)
-            {
-                string pathToImg = @$"\assets\files\teachers\{file.FileName}";
-
-                await localFileService.AddFile(file, pathToImg);
-                teacher.PathToIcon = pathToImg;
-            }
-
             await repository.CreateAsync(teacher);
         }
 
         public async Task DeleteTeacherAsync(int id)
         {
-
-            var teacher = await repository.GetAsync(id);
-            localFileService.DeleteFile(teacher.PathToIcon);
-
             await repository.DeleteAsync(id);
         }
 
-        public async Task EditTeacherAsync(Teacher teacher, IFormFile file)
+        public async Task EditTeacherAsync(Teacher teacher)
         {
             if (teacher == null)
                 throw new ArgumentException();
-
-            if (file != null)
-            {
-                string pathToImg = @$"\assets\files\teachers\{file.FileName}";
-
-                await localFileService.AddFile(file, pathToImg);
-                teacher.PathToIcon = pathToImg;
-            }
 
             await repository.UpdateAsync(teacher);
         }
