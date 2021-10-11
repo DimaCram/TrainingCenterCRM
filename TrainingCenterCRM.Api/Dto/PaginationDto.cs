@@ -7,7 +7,7 @@ namespace TrainingCenterCRM.Api.Dto
 {
     public class PaginationDto
     {
-        public int Offset { get; set; }
-        public int Limit { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
     }
 }
