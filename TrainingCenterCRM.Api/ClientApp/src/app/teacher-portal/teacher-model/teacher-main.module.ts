@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { DndDirective } from "src/app/directives/drag-and-drop.directive";
 import { NavMenuComponent } from "src/app/nav-menu/nav-menu.component";
 import { SharedModule } from "src/app/shared.module";
@@ -21,7 +22,8 @@ import { TeacherMainComponent } from "./teacher-main.component";
         RouterModule,
         ReactiveFormsModule,
         SharedModule,
-        NgbModule
+        NgbModule,
+        NgxUiLoaderModule
     ],
     declarations:
     [

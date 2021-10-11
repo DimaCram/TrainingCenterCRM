@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Title } from "@angular/platform-browser";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Course } from "src/app/models/course.model";
 import { CourseService } from "src/app/services/courses.service";
 
@@ -14,13 +15,16 @@ export class CourseAllComponent{
     public pageSize = 5;
 
     constructor(private courseService: CourseService,
-                private titleService: Title){}
+                private titleService: Title,
+                private ngxService: NgxUiLoaderService){}
 
     ngOnInit(): void {
       this.titleService.setTitle("Courses - Training Center")
-
+      this.ngxService.startLoader("loader");
+      
       this.courseService.getCourses().subscribe(result => {
         this.courses = result;
+        this.ngxService.stopLoader("loader");
       });
     }
 

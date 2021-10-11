@@ -24,6 +24,7 @@ import { ToastService } from './components/toast/toast.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorInterceptorService } from './services/http-error-interceptor.service';
 import { MaterialService } from './services/material.service';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
