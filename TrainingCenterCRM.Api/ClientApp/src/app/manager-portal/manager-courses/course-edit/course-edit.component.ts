@@ -60,6 +60,7 @@ export class CourseEditComponent{
         this.form = this.fb.group({
             title: ['', Validators.required],
             description: [''],
+            price: ['', Validators.required],
             topicId: ['', Validators.required]
         });
     }
@@ -77,7 +78,8 @@ export class CourseEditComponent{
 
         course.title = this.form.value.title;
         course.description = this.form.value.description;
-        course.topicId = +this.form.value.topicId
+        course.topicId = +this.form.value.topicId;
+        course.price = Number(this.form.value.price).toFixed(2).replace(".", ",");
         course.file = this.files[0];
         
         if(!course.file)

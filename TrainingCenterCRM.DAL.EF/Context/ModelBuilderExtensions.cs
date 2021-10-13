@@ -516,6 +516,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 1,
                 Title = "C# Programming",
                 Description = "Basic course",
+                Price = 499,
                 TopicId = topic1.Id
             };
             var course2 = new Course
@@ -523,6 +524,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 2,
                 Title = "Industrial programming with ASP.NET",
                 Description = "Professional course",
+                Price = 755,
                 TopicId = topic1.Id
             };
             var course3 = new Course
@@ -530,6 +532,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 3,
                 Title = "Development of mobile games on the Unity engine",
                 Description = "Professional course",
+                Price = 699,
                 TopicId = topic1.Id
             };
             var course4 = new Course
@@ -537,6 +540,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 4,
                 Title = "Java programming",
                 Description = "Basic course",
+                Price = 499,
                 TopicId = topic1.Id
             };
             var course5 = new Course
@@ -544,6 +548,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 5,
                 Title = "Development of mobile applications for Android",
                 Description = "Professional course",
+                Price = 710,
                 TopicId = topic1.Id
             };
             var course6 = new Course
@@ -551,6 +556,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 6,
                 Title = "Java Web Development",
                 Description = "Professional course",
+                Price = 755,
                 TopicId = topic1.Id
             };
             var course7 = new Course
@@ -558,6 +564,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 7,
                 Title = "HTML, CSS and JavaScript",
                 Description = "Basic course",
+                Price = 610,
                 TopicId = topic3.Id
             };
             var course8 = new Course
@@ -565,6 +572,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 8,
                 Title = "JavaScript Web Application Development",
                 Description = "Professional course",
+                Price = 729,
                 TopicId = topic3.Id
             };
             var course9 = new Course
@@ -572,6 +580,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 9,
                 Title = "React and Angular for web development",
                 Description = "Professional course",
+                Price = 699,
                 TopicId = topic3.Id
             };
             var course10 = new Course
@@ -579,6 +588,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 10,
                 Title = "C and C++ Programming",
                 Description = "Basic course",
+                Price = 599,
                 TopicId = topic4.Id
             };
             var course11 = new Course
@@ -586,6 +596,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 11,
                 Title = "Professional game development in C++",
                 Description = "Professional course",
+                Price = 719,
                 TopicId = topic4.Id
             };
 

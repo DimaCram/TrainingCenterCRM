@@ -13,6 +13,7 @@ namespace TrainingCenterCRM.Api.Dto
         public string Title { get; set; }
         public string Description { get; set; }
         public string PathToIcon { get; set; }
+        public decimal Price { get; set; }
         public int TopicId { get; set; }
         public IFormFile File { get; set; }
     }
