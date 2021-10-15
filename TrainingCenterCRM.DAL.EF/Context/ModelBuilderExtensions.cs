@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using TrainingCenterCRM.Core.Enums;
 using TrainingCenterCRM.Core.Models;
 
@@ -519,6 +520,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 499,
                 TopicId = topic1.Id
             };
+
             var course2 = new Course
             {
                 Id = 2,
@@ -527,6 +529,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 755,
                 TopicId = topic1.Id
             };
+
             var course3 = new Course
             {
                 Id = 3,
@@ -535,6 +538,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 699,
                 TopicId = topic1.Id
             };
+
             var course4 = new Course
             {
                 Id = 4,
@@ -543,6 +547,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 499,
                 TopicId = topic1.Id
             };
+
             var course5 = new Course
             {
                 Id = 5,
@@ -551,6 +556,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 710,
                 TopicId = topic1.Id
             };
+
             var course6 = new Course
             {
                 Id = 6,
@@ -559,6 +565,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 755,
                 TopicId = topic1.Id
             };
+
             var course7 = new Course
             {
                 Id = 7,
@@ -567,6 +574,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 610,
                 TopicId = topic3.Id
             };
+
             var course8 = new Course
             {
                 Id = 8,
@@ -575,6 +583,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 729,
                 TopicId = topic3.Id
             };
+
             var course9 = new Course
             {
                 Id = 9,
@@ -583,6 +592,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 699,
                 TopicId = topic3.Id
             };
+
             var course10 = new Course
             {
                 Id = 10,
@@ -591,6 +601,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Price = 599,
                 TopicId = topic4.Id
             };
+
             var course11 = new Course
             {
                 Id = 11,
@@ -600,12 +611,18 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 TopicId = topic4.Id
             };
 
+
             modelBuilder.Entity<Course>().HasData(
                 course1, course2, course3,
                 course4, course5, course6,
                 course7, course8, course9,
                 course10, course11
             );
+            
+            modelBuilder.Entity<CourseReview>().HasData(
+                GenerateCourseReviews()
+            );
+
             modelBuilder.Entity<StudentRequest>().HasData(
                 new StudentRequest
                 {
@@ -692,7 +709,32 @@ namespace TrainingCenterCRM.DAL.EF.Context
                     RequestStatus = RequestStatus.Open
                 }
             );
-            
+        }
+        private static IEnumerable<CourseReview> GenerateCourseReviews()
+        {
+            var courseReviews = new List<CourseReview>();
+            Random rnd = new Random();
+            var courseCount = 11;
+
+            var id = 1;
+            for(int c = 1; c <= courseCount; c++)
+            {
+                var maxCountReview = rnd.Next(50, 100);
+                for (int i = 0; i < maxCountReview; i++)
+                {
+                    courseReviews.Add(new CourseReview
+                    {
+                        Id = id,
+                        Rating = rnd.Next(1, 5),
+                        CourseId = c,
+                        StudentId = rnd.Next(1, 20)
+                    });
+
+                    id++;
+                }
+            }
+
+            return courseReviews;
         }
     }
 }

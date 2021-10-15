@@ -1,4 +1,7 @@
-﻿namespace TrainingCenterCRM.Core.Models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TrainingCenterCRM.Core.Models
 {
     public class Student
     {
@@ -12,5 +15,8 @@
 
         public User User { get; set; }
         public string UserId { get; set; }
+
+
+        public List<CourseReview> CourseReview { get; set; } = new List<CourseReview>();
     }
 }

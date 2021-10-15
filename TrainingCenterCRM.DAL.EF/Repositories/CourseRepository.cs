@@ -41,7 +41,7 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
 
         public Task<Course> GetAsync(int id)
         {
-            return db.Courses.FirstOrDefaultAsync(c => c.Id == id);
+            return db.Courses.ToListAsync();
         }
 
         public Task<List<Course>> GetAllAsync()

@@ -55,7 +55,6 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task EditCourseAsync([FromForm] CourseDto courseDto)
         {
             var course = _mapper.Map<Course>(courseDto);

@@ -17,7 +17,8 @@ namespace TrainingCenterCRM.DAL.EF.Context
         public DbSet<File> Files { get; set; }
         public DbSet<FileToMaterialAssignment> FileToMaterialAssignments { get; set; }
         public DbSet<Manager> Managers { get; set; }
-        
+        public DbSet<CourseReview> CourseReviews { get; set; }
+
         public TrainingCenterContext(DbContextOptions<TrainingCenterContext> options) : base(options)
         {
         }

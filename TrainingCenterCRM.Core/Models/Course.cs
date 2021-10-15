@@ -15,5 +15,7 @@ namespace TrainingCenterCRM.Core.Models
         public Topic Topic { get; set; }
 
         public List<Group> Groups { get; set; } = new List<Group>();
+
+        public List<CourseReview> CourseReviews { get; set; } = new List<CourseReview>();
     }
 }
