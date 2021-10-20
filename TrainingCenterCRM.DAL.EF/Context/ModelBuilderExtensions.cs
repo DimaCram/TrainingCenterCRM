@@ -518,6 +518,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Title = "C# Programming",
                 Description = "Basic course",
                 Price = 499,
+                Level = CourseLevel.Advanced,
                 TopicId = topic1.Id
             };
 
@@ -526,6 +527,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 2,
                 Title = "Industrial programming with ASP.NET",
                 Description = "Professional course",
+                Level = CourseLevel.Beginner,
                 Price = 755,
                 TopicId = topic1.Id
             };
@@ -535,6 +537,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 3,
                 Title = "Development of mobile games on the Unity engine",
                 Description = "Professional course",
+                Level = CourseLevel.Expert,
                 Price = 699,
                 TopicId = topic1.Id
             };
@@ -544,6 +547,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 4,
                 Title = "Java programming",
                 Description = "Basic course",
+                Level = CourseLevel.Beginner,
                 Price = 499,
                 TopicId = topic1.Id
             };
@@ -553,6 +557,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 5,
                 Title = "Development of mobile applications for Android",
                 Description = "Professional course",
+                Level = CourseLevel.Advanced,
                 Price = 710,
                 TopicId = topic1.Id
             };
@@ -562,6 +567,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 6,
                 Title = "Java Web Development",
                 Description = "Professional course",
+                Level = CourseLevel.Advanced,
                 Price = 755,
                 TopicId = topic1.Id
             };
@@ -571,6 +577,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 7,
                 Title = "HTML, CSS and JavaScript",
                 Description = "Basic course",
+                Level = CourseLevel.Beginner,
                 Price = 610,
                 TopicId = topic3.Id
             };
@@ -581,6 +588,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Title = "JavaScript Web Application Development",
                 Description = "Professional course",
                 Price = 729,
+                Level = CourseLevel.Advanced,
                 TopicId = topic3.Id
             };
 
@@ -590,6 +598,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Title = "React and Angular for web development",
                 Description = "Professional course",
                 Price = 699,
+                Level = CourseLevel.Advanced,
                 TopicId = topic3.Id
             };
 
@@ -599,6 +608,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Title = "C and C++ Programming",
                 Description = "Basic course",
                 Price = 599,
+                Level = CourseLevel.Beginner,
                 TopicId = topic4.Id
             };
 
@@ -607,6 +617,7 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 11,
                 Title = "Professional game development in C++",
                 Description = "Professional course",
+                Level = CourseLevel.Expert,
                 Price = 719,
                 TopicId = topic4.Id
             };

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TrainingCenterCRM.Core.Enums;
 
 namespace TrainingCenterCRM.Core.Models
 {
@@ -9,7 +10,7 @@ namespace TrainingCenterCRM.Core.Models
         public string Description { get; set; }
         public string PathToIcon { get; set; }
         public double? Price { get; set; }
-
+        public CourseLevel Level { get; set; }
 
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
