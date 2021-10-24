@@ -40,7 +40,7 @@ namespace TrainingCenterCRM.WebAngular
                 options.UseSqlServer(Configuration["ConnectionString"]));
 
             services.AddScoped<IRepository<Topic>, TopicRepository>();
-            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IRepository<Teacher>, TeacherRepository>();
 
             services.AddScoped<ITopicService, TopicService>();

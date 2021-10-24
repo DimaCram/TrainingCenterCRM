@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
+using TrainingCenterCRM.Core.Extensions;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Interfaces;
@@ -12,9 +13,9 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class CourseService : ICourseService
     {
-        private readonly IRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public CourseService(IRepository<Course> repository)
+        public CourseService(ICourseRepository repository)
         {
             _courseRepository = repository;
         }
@@ -39,6 +40,13 @@ namespace TrainingCenterCRM.BLL.Services
             await _courseRepository.UpdateAsync(course);
         }
 
+        public async Task<IEnumerable<Course>> Filter(CourseFilter filter)
+        {
+            var filteredCourses = _courseRepository.Filter(filter);
+
+            return filteredCourses;
+        }
+
         public Task<Course> GetCourseAsync(int id)
         {
             return _courseRepository.GetAsync(id);
@@ -52,6 +60,12 @@ namespace TrainingCenterCRM.BLL.Services
         public Task<IEnumerable<Course>> GetCoursesByPaginationAsync(PaginationFilter pagination)
         {
             return _courseRepository.GetAllByPaginationAsync(pagination);
+        }
+
+        public async Task<IEnumerable<Course>> Search(string search)
+        {
+            return _courseRepository.Find(s => s.Title.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase) ||
+                                               s.Description.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase));
         }
     }
 }

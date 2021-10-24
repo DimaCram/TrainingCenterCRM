@@ -14,5 +14,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<Course> GetCourseAsync(int id);
         Task<List<Course>> GetCoursesAsync();
         Task<IEnumerable<Course>> GetCoursesByPaginationAsync(PaginationFilter pagination);
+        Task<IEnumerable<Course>> Search(string search);
+        Task<IEnumerable<Course>> Filter(CourseFilter filter);
     }
 }

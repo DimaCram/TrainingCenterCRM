@@ -10,7 +10,7 @@ using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories
 {
-    public class CourseRepository : IRepository<Course>
+    public class CourseRepository : ICourseRepository
     {
         private readonly TrainingCenterContext db;
 
@@ -60,6 +60,30 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             return await db.Courses.Skip((pagination.Offset - 1) * pagination.Limit)
                                    .Take(pagination.Limit)
                                    .ToListAsync();
+        }
+
+        public IEnumerable<Course> Filter(CourseFilter filter)
+        {
+            var filteredCourses = db.Courses.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.Title))
+                filteredCourses = filteredCourses.Where(c =>
+                c.Title.Contains(filter.Title));
+
+            if (!string.IsNullOrWhiteSpace(filter.Description))
+                filteredCourses = filteredCourses.Where(c =>
+                c.Description.Contains(filter.Description));
+
+            if (filter.Level.HasValue)
+                filteredCourses = filteredCourses.Where(c => c.Level == filter.Level.Value);
+
+            if (filter.PriceFrom.HasValue)
+                filteredCourses = filteredCourses.Where(c => c.Price >= filter.PriceFrom.Value);
+
+            if (filter.PriceTo.HasValue)
+                filteredCourses = filteredCourses.Where(c => c.Price <= filter.PriceTo.Value);
+
+            return filteredCourses.ToList();
         }
     }
 }
