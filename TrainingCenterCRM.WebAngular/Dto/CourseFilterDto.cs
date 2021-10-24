@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrainingCenterCRM.Core.Enums;
 
 namespace TrainingCenterCRM.WebAngular.Dto
 {
-    public class CourseDto
+    public class CourseFilterDto
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int TopicId { get; set; }
-        public double? Price { get; set; }
+        public string TopicName { get; set; }
+
+        public double? PriceFrom { get; set; }
+        public double? PriceTo { get; set; }
         public string Level { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -17,6 +17,7 @@ import { CourseComponent } from './course/course.component';
 import { TeachersComponent } from './teacher/teacher.component';
 import { CourseService } from './course/course.service';
 import { TeacherService } from './teacher/teacher.service';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -29,16 +30,19 @@ import { TeacherService } from './teacher/teacher.service';
     FooterComponent,
     CourseComponent,
     TeachersComponent,
+    SearchComponent,
     FilterPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'courses', component: CourseComponent },
-      { path: 'teachers', component: TeachersComponent }
+      { path: 'teachers', component: TeachersComponent },
+      { path: 'search', component: SearchComponent }
     ])
   ],
   providers: [StudentService, CourseService, TeacherService],

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.WebAngular.Dto;
 
@@ -13,6 +14,8 @@ namespace TrainingCenterCRM.WebAngular.Mapper
             CreateMap<Course, CourseDto>().ReverseMap();
 
             CreateMap<Teacher, TeacherDto>().ReverseMap();
+
+            CreateMap<CourseFilter, CourseFilterDto>().ReverseMap();
         }
     }   
 }
