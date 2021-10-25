@@ -50,7 +50,7 @@ namespace TrainingCenterCRM.Api
             services.AddScoped<IRepository<Student>, StudentRepository>();
             services.AddScoped<IRepository<Group>, GroupRepository>();
             services.AddScoped<IRepository<Teacher>, TeacherRepository>();
-            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IRepository<Topic>, TopicRepository>();
             services.AddScoped<IRequestRepository, StudentRequestRepository>();
             services.AddScoped<IRepository<StudentToGroupAssignment>, StudentToGroupAssignmentRepository>();

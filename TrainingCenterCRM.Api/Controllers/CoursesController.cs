@@ -84,5 +84,14 @@ namespace TrainingCenterCRM.Api.Controllers
 
             await _courseService.DeleteCourseAsync(id);
         }
+
+        [HttpGet("Download")]
+        public async Task<IActionResult> Download()
+        {
+            var content = await _courseService.GetCsvContent();
+            var contentType = "text/plain";
+            var fileName = "courses.csv";
+            return File(content, contentType, fileName);
+        }
     }
 }

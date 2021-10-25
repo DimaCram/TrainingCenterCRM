@@ -35,4 +35,10 @@ export class CourseAllComponent{
         this.courses.splice( removeIndex, 1 );
       });
     }
+
+    download(){
+      this.courseService.download().subscribe(res => {
+       console.log("successe") 
+      })
+    }
 }
