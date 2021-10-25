@@ -3,6 +3,7 @@ import { Title } from "@angular/platform-browser";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Course } from "src/app/models/course.model";
 import { CourseService } from "src/app/services/courses.service";
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: 'app-manager-courses',
@@ -37,8 +38,12 @@ export class CourseAllComponent{
     }
 
     download(){
-      this.courseService.download().subscribe(res => {
-       console.log("successe") 
-      })
+
+      this.courseService.download().subscribe(result => {
+
+        var FileSaver = require('file-saver');
+        var blob = new Blob([result], {type: "text/plain;charset=utf-8"});
+        FileSaver.saveAs(blob, "courses.csv");
+      });
     }
 }

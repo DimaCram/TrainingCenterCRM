@@ -35,6 +35,6 @@ export class CourseService{
     }
 
     download(){
-        return this.http.get<HttpEvent<Blob>>(`${this.baseUrl}api/courses/download`)
+        return this.http.get(`${this.baseUrl}api/courses/download`, { responseType: 'text' })
     }
 }
