@@ -12,14 +12,14 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class GroupService : IGroupService
     {
-        private readonly IRepository<Group> groupRepository;
+        private readonly IGroupRepository groupRepository;
 
         private readonly IStudentRequestService studentRequestService;
         private readonly IStudentToGroupAssignmentService assignmentService;
         private readonly IStudentService studentService;
         private readonly IUserService _userService;
 
-        public GroupService(IRepository<Group> groupRepository,
+        public GroupService(IGroupRepository groupRepository,
                             IStudentRequestService studentRequestService,
                             IStudentService studentService,
                             IStudentToGroupAssignmentService assignmentService,
@@ -38,7 +38,7 @@ namespace TrainingCenterCRM.BLL.Services
 
             group.Students = null;
 
-            await groupRepository.CreateAsync(group);
+            await groupRepository.Create(group);
 
             foreach(var studentId in studentsId)
             {
@@ -60,7 +60,7 @@ namespace TrainingCenterCRM.BLL.Services
 
         public async Task DeleteGroupAsync(int id)
         {
-            await groupRepository.DeleteAsync(id);
+            await groupRepository.Delete(id);
         }
 
         public async Task EditGroupAsync(Group group, IEnumerable<int> studentsId)
@@ -108,27 +108,27 @@ namespace TrainingCenterCRM.BLL.Services
 
             await studentRequestService.CloseRequestsAsync(studentsId, group.CourseId);
 
-            await groupRepository.UpdateAsync(group);
+            await groupRepository.Update(group);
         }
 
         public Task<Group> GetGroupAsync(int id)
         {
-            return groupRepository.GetAsync(id);
+            return groupRepository.Get(id);
         }
 
         public Task<List<Group>> GetGroupsAsync()
         {
-            return groupRepository.GetAllAsync();
+            return groupRepository.GetAll();
         }
 
         public Task<IEnumerable<Group>> GetGroupsByPaginationAsync(PaginationFilter pagination)
         {
-            return groupRepository.GetAllByPaginationAsync(pagination);
+            return groupRepository.GetAllByPagination(pagination);
         }
 
         public async Task<IEnumerable<Student>> GetStudentsWithGroupAsync(int groupId, int courseId)
         {
-            var group = await groupRepository.GetAsync(groupId);
+            var group = await groupRepository.Get(groupId);
             return group.CourseId == courseId ? group.Students : new List<Student>();
         }
 
@@ -138,7 +138,7 @@ namespace TrainingCenterCRM.BLL.Services
             if (user.Teacher == null)
                 throw new NullReferenceException("Teacher not found");
 
-            var groups = groupRepository.Find(g => g.TeacherId == user.Teacher.Id);
+            var groups = await groupRepository.Find(g => g.TeacherId == user.Teacher.Id);
             return groups;
         }
     }

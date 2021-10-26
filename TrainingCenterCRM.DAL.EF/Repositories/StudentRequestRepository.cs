@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -19,13 +20,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             this.db = db;
         }
 
-        public async Task CreateAsync(StudentRequest item)
+        public async Task Create(StudentRequest item)
         {
             await db.StudentRequests.AddAsync(item);
             await db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
             var request = await db.StudentRequests.FindAsync(id);
             if (request == null)
@@ -34,24 +35,27 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             await db.SaveChangesAsync();
         }
 
-        public IEnumerable<StudentRequest> Find(Func<StudentRequest, bool> predicate)
+        public async Task<IEnumerable<StudentRequest>> Find(Expression<Func<StudentRequest, bool>> predicate)
         {
-            return db.StudentRequests.Where(predicate).ToList();
+            return await db.StudentRequests.Where(predicate)
+                                           .Include(s => s.Student)
+                                           .Include(c => c.Course)
+                                           .ToListAsync();
         }
 
-        public Task<StudentRequest> GetAsync(int id)
+        public Task<StudentRequest> Get(int id)
         {
             return db.StudentRequests.FirstOrDefaultAsync(sr => sr.Id == id);
         }
 
-        public Task<List<StudentRequest>> GetAllAsync()
+        public Task<List<StudentRequest>> GetAll()
         {
             return db.StudentRequests.Include(s => s.Student)
                                      .Include(c => c.Course)
                                      .ToListAsync();
         }
 
-        public async Task UpdateAsync(StudentRequest item)
+        public async Task Update(StudentRequest item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
@@ -63,9 +67,5 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             await db.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<StudentRequest>> GetAllByPaginationAsync(PaginationFilter pagination)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -47,16 +47,16 @@ namespace TrainingCenterCRM.Api
             services.AddDbContext<TrainingCenterContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionString"]));
 
-            services.AddScoped<IRepository<Student>, StudentRepository>();
-            services.AddScoped<IRepository<Group>, GroupRepository>();
-            services.AddScoped<IRepository<Teacher>, TeacherRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
-            services.AddScoped<IRepository<Topic>, TopicRepository>();
+            services.AddScoped<ITopicRepository, TopicRepository>();
             services.AddScoped<IRequestRepository, StudentRequestRepository>();
             services.AddScoped<IRepository<StudentToGroupAssignment>, StudentToGroupAssignmentRepository>();
-            services.AddScoped<IRepository<Material>, MaterialRepository>();
-            services.AddScoped<IRepository<File>, FileRepository>();
-            services.AddScoped<IRepository<FileToMaterialAssignment>, FileToMaterialAssignmentRepository>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
+            services.AddScoped<IFileToMaterialAssignmentRepository, FileToMaterialAssignmentRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IStudentService, StudentService>();

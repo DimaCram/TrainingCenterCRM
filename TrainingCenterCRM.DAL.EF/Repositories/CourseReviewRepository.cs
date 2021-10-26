@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Core.Filters;
@@ -18,13 +19,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             _context = context;
         }
-        public async Task CreateAsync(CourseReview item)
+        public async Task Create(CourseReview item)
         {
             await _context.CourseReviews.AddAsync(item);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
             var courseReview = await _context.CourseReviews.FindAsync(id);
             if (courseReview == null)
@@ -34,27 +35,22 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<CourseReview> Find(Func<CourseReview, bool> predicate)
+        public async Task<IEnumerable<CourseReview>> Find(Expression<Func<CourseReview, bool>> predicate)
         {
-            return _context.CourseReviews.Where(predicate);
+            return await _context.CourseReviews.Where(predicate).ToListAsync();
         }
 
-        public Task<List<CourseReview>> GetAllAsync()
+        public Task<List<CourseReview>> GetAll()
         {
             return _context.CourseReviews.ToListAsync();
         }
 
-        public Task<IEnumerable<CourseReview>> GetAllByPaginationAsync(PaginationFilter pagination)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<CourseReview> GetAsync(int id)
+        public Task<CourseReview> Get(int id)
         {
             return _context.CourseReviews.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task UpdateAsync(CourseReview item)
+        public async Task Update(CourseReview item)
         {
             _context.Entry(item).State = EntityState.Modified;
             await _context.SaveChangesAsync();

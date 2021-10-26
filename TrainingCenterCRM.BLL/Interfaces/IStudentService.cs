@@ -13,7 +13,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<Student> GetStudentAsync(int id);
         Task<Student> GetStudentWithGroupAsync(int id);
         Task<List<Student>> GetStudentsAsync();
-        IEnumerable<Student> GetStudentsByGroup(int groupId);
+        Task<IEnumerable<Student>> GetStudentsByGroupAsync(int groupId);
         Task<IEnumerable<Student>> GetStudentsByPaginationAsync(PaginationFilter filter);
     }
 }

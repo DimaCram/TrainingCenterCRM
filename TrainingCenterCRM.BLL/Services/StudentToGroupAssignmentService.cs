@@ -21,12 +21,12 @@ namespace TrainingCenterCRM.BLL.Services
             if (assignment == null)
                 throw new ArgumentException();
 
-            await repository.CreateAsync(assignment);
+            await repository.Create(assignment);
         }
 
         public async Task DeleteAssignmentAsync(int id)
         {
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditAssignmentAsync(StudentToGroupAssignment assignment)
@@ -34,28 +34,28 @@ namespace TrainingCenterCRM.BLL.Services
             if (assignment == null)
                 throw new ArgumentException();
 
-            await repository.UpdateAsync(assignment);
+            await repository.Update(assignment);
         }
 
         public Task<StudentToGroupAssignment> GetAssignmentAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public async Task<StudentToGroupAssignment> GetAssignmentByStudentAsync(int studentId)
         {
-            var assignments = await repository.GetAllAsync();
+            var assignments = await repository.GetAll();
             return assignments.FirstOrDefault(a => a.StudentId == studentId);
         }
 
         public Task<List<StudentToGroupAssignment>> GetAssignmentsAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
         }
 
         public async Task<IEnumerable<StudentToGroupAssignment>> GetAssignmentsByGroupAsync(int groupId)
         {
-            var assignments = await repository.GetAllAsync();
+            var assignments = await repository.GetAll();
             return assignments.Where(stg => stg.GroupId == groupId);
         }
     }

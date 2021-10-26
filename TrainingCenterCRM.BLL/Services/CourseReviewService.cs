@@ -19,12 +19,12 @@ namespace TrainingCenterCRM.BLL.Services
             if (courseDTO == null)
                 throw new ArgumentException();
 
-            await _courseReviewRepository.CreateAsync(courseDTO);
+            await _courseReviewRepository.Create(courseDTO);
         }
 
         public async Task DeleteCourseReviewAsync(int id)
         {
-            await _courseReviewRepository.DeleteAsync(id);
+            await _courseReviewRepository.Delete(id);
         }
 
         public async Task EditCourseReviewAsync(CourseReview courseDTO)
@@ -32,17 +32,17 @@ namespace TrainingCenterCRM.BLL.Services
             if (courseDTO == null)
                 throw new ArgumentException();
 
-            await _courseReviewRepository.UpdateAsync(courseDTO);
+            await _courseReviewRepository.Update(courseDTO);
         }
 
         public Task<CourseReview> GetCourseReviewAsync(int id)
         {
-            return _courseReviewRepository.GetAsync(id);
+            return _courseReviewRepository.Get(id);
         }
 
         public Task<List<CourseReview>> GetCourseReviewsAsync()
         {
-            return _courseReviewRepository.GetAllAsync();
+            return _courseReviewRepository.GetAll();
         }
     }
 }

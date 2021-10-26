@@ -10,10 +10,10 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class MaterialService : IMaterialService
     {
-        private readonly IRepository<Material> repository;
+        private readonly IMaterialRepository repository;
         private readonly IFileToMaterialAssignmentService _materialAssignmentService;
 
-        public MaterialService(IRepository<Material> repository,
+        public MaterialService(IMaterialRepository repository,
                                IFileToMaterialAssignmentService materialAssignmentService)
         {
             this.repository = repository;
@@ -25,7 +25,7 @@ namespace TrainingCenterCRM.BLL.Services
             if (material == null)
                 throw new ArgumentException();
 
-            await repository.CreateAsync(material);
+            await repository.Create(material);
 
             foreach(var fileId in fileIds)
             {
@@ -40,7 +40,7 @@ namespace TrainingCenterCRM.BLL.Services
 
         public async Task DeleteMaterialAsync(int id)
         {
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditMaterialAsync(Material material, List<int> fileIds)
@@ -62,27 +62,27 @@ namespace TrainingCenterCRM.BLL.Services
                 });
             }
 
-            await repository.UpdateAsync(material);
+            await repository.Update(material);
         }
 
         public Task<Material> GetMaterialAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public Task<List<Material>> GetMaterialsAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
         }
 
-        public IEnumerable<Material> GetMaterialsByGroup(int groupId)
+        public async Task<IEnumerable<Material>> GetMaterialsByGroupAsync(int groupId)
         {
-            return repository.Find(m => m.GroupId == groupId);
+            return await repository.Find(m => m.GroupId == groupId);
         }
 
         public Task<IEnumerable<Material>> GetMaterialsByPaginationAsync(PaginationFilter pagination)
         {
-            return repository.GetAllByPaginationAsync(pagination);
+            return repository.GetAllByPagination(pagination);
         }
     }
 }

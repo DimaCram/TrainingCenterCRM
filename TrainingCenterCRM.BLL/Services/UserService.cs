@@ -88,11 +88,11 @@ namespace TrainingCenterCRM.BLL.Services
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
             return token;
         }
-        public async Task<List<string>> GetUserRoles(string email)
+        public async Task<string> GetUserRole(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             var userRoles = await _userManager.GetRolesAsync(user);
-            return userRoles.ToList();
+            return userRoles.FirstOrDefault();
         }
 
         public Task<User> GetUserWithTeacherByEmail(string email)

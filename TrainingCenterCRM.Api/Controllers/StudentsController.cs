@@ -76,9 +76,10 @@ namespace TrainingCenterCRM.Api.Controllers
 
         [Authorize(Roles = "manager, teacher")]
         [HttpGet("groupStudents")]
-        public IEnumerable<StudentDto> GetStudentsByGroup(int groupId)
+        public async Task<IEnumerable<StudentDto>> GetStudentsByGroupAsync(int groupId)
         {
-            return _mapper.Map<IEnumerable<StudentDto>>(_studentService.GetStudentsByGroup(groupId));
+            var students = await _studentService.GetStudentsByGroupAsync(groupId);
+            return _mapper.Map<IEnumerable<StudentDto>>(students);
         }
     }
 }

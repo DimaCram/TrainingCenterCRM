@@ -7,9 +7,8 @@ using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.DAL.EF.Interfaces
 {
-    public interface ICourseRepository : IRepository<Course>
+    public interface IGroupRepository : IRepository<Group>
     {
-        IEnumerable<Course> Filter(CourseFilter filter);
-        Task<IEnumerable<Course>> GetAllByPagination(PaginationFilter pagination);
+        Task<IEnumerable<Group>> GetAllByPagination(PaginationFilter pagination);
     }
 }

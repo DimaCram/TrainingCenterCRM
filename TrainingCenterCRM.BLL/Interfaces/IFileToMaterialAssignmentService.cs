@@ -11,7 +11,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task DeleteAssignmentAsync(int id);
         Task<FileToMaterialAssignment> GetAssignmentAsync(int id);
         Task<List<FileToMaterialAssignment>> GetAssignmentsAsync();
-        IEnumerable<File> GetFilesByMaterial(int materialId);
+        Task<IEnumerable<File>> GetFilesByMaterial(int materialId);
         Task DeleteAssignmentsByMaterial(int materialId);
     }
 }

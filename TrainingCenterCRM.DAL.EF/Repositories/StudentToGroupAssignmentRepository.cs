@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -19,13 +20,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public async Task CreateAsync(StudentToGroupAssignment item)
+        public async Task Create(StudentToGroupAssignment item)
         {
             await db.StudentToGroupAssignments.AddAsync(item);
             await db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
             var studentToGroupAssignment = await db.StudentToGroupAssignments.FindAsync(id);
             if (studentToGroupAssignment == null)
@@ -35,30 +36,26 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             await db.SaveChangesAsync();
         }
 
-        public IEnumerable<StudentToGroupAssignment> Find(Func<StudentToGroupAssignment, bool> predicate)
+        public async Task<IEnumerable<StudentToGroupAssignment>> Find(Expression<Func<StudentToGroupAssignment, bool>> predicate)
         {
-            return db.StudentToGroupAssignments.Where(predicate).ToList();
+            return await db.StudentToGroupAssignments.Where(predicate).ToListAsync();
         }
 
-        public Task<StudentToGroupAssignment> GetAsync(int id)
+        public Task<StudentToGroupAssignment> Get(int id)
         {
             return db.StudentToGroupAssignments.FirstOrDefaultAsync(a => a.StudentToGroupAssignmentId == id);
         }
 
-        public Task<List<StudentToGroupAssignment>> GetAllAsync()
+        public Task<List<StudentToGroupAssignment>> GetAll()
         {
             return db.StudentToGroupAssignments.ToListAsync();
         }
 
-        public async Task UpdateAsync(StudentToGroupAssignment item)
+        public async Task Update(StudentToGroupAssignment item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<StudentToGroupAssignment>> GetAllByPaginationAsync(PaginationFilter pagination)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

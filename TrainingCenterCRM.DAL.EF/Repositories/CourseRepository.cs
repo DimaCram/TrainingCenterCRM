@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -18,13 +19,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public async Task CreateAsync(Course item)
+        public async Task Create(Course item)
         {
             await db.Courses.AddAsync(item);
             await db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
             var course = await db.Courses.FindAsync(id);
             if (course == null)
@@ -34,28 +35,28 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             await db.SaveChangesAsync();
         }
 
-        public IEnumerable<Course> Find(Func<Course, bool> predicate)
+        public async Task<IEnumerable<Course>> Find(Expression<Func<Course, bool>> predicate)
         {
-            return db.Courses.Where(predicate);
+            return await db.Courses.Where(predicate).ToListAsync();
         }
 
-        public Task<Course> GetAsync(int id)
+        public Task<Course> Get(int id)
         {
             return db.Courses.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public Task<List<Course>> GetAllAsync()
+        public Task<List<Course>> GetAll()
         {
             return db.Courses.ToListAsync();
         }
 
-        public async Task UpdateAsync(Course item)
+        public async Task Update(Course item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Course>> GetAllByPaginationAsync(PaginationFilter pagination)
+        public async Task<IEnumerable<Course>> GetAllByPagination(PaginationFilter pagination)
         {
             return await db.Courses.Skip((pagination.Offset - 1) * pagination.Limit)
                                    .Take(pagination.Limit)

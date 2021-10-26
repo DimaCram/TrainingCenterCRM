@@ -24,7 +24,7 @@ namespace TrainingCenterCRM.Api.Controllers
             if (await _userService.CheckPassword(userLogin.Email, userLogin.Password))
             {
                 var token = await _userService.GetToken(userLogin.Email);
-                var userRoles = await _userService.GetUserRoles(userLogin.Email);
+                var userRoles = await _userService.GetUserRole(userLogin.Email);
 
                 return Ok(new { token, userRoles });
             }

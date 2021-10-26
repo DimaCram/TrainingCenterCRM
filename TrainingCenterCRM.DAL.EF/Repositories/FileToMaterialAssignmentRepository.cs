@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -10,7 +11,7 @@ using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories
 {
-    public class FileToMaterialAssignmentRepository : IRepository<FileToMaterialAssignment>
+    public class FileToMaterialAssignmentRepository : IFileToMaterialAssignmentRepository
     {
         private readonly TrainingCenterContext db;
 
@@ -18,13 +19,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public async Task CreateAsync(FileToMaterialAssignment item)
+        public async Task Create(FileToMaterialAssignment item)
         {
             await db.FileToMaterialAssignments.AddAsync(item);
             await db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
             var assignment = await db.FileToMaterialAssignments.FindAsync(id);
             if (assignment == null)
@@ -33,34 +34,41 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             db.FileToMaterialAssignments.Remove(assignment);
             await db.SaveChangesAsync();
         }
-
-        public IEnumerable<FileToMaterialAssignment> Find(Func<FileToMaterialAssignment, bool> predicate)
+        public async Task DeleteRange(IEnumerable<int> ids)
         {
-            return db.FileToMaterialAssignments.Include(a => a.File)
-                                               .Include(a => a.Material)
-                                               .AsNoTracking()
-                                               .Where(predicate);
+            if (ids == null)
+                throw new ArgumentNullException("File to material assignments not found");
+
+            var assignments = db.FileToMaterialAssignments.Where(a => ids.Contains(a.Id));
+
+            db.FileToMaterialAssignments.RemoveRange(assignments);
+            await db.SaveChangesAsync();
         }
 
-        public Task<FileToMaterialAssignment> GetAsync(int id)
+        public async Task<IEnumerable<FileToMaterialAssignment>> Find(Expression<Func<FileToMaterialAssignment, bool>> predicate)
+        {
+            return await db.FileToMaterialAssignments.Include(a => a.File)
+                                                     .Include(a => a.Material)
+                                                     .AsNoTracking()
+                                                     .Where(predicate)
+                                                     .ToListAsync();
+        }
+
+        public Task<FileToMaterialAssignment> Get(int id)
         {
             return db.FileToMaterialAssignments.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public Task<List<FileToMaterialAssignment>> GetAllAsync()
+        public Task<List<FileToMaterialAssignment>> GetAll()
         {
             return db.FileToMaterialAssignments.ToListAsync();
         }
 
-        public async Task UpdateAsync(FileToMaterialAssignment item)
+        public async Task Update(FileToMaterialAssignment item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<FileToMaterialAssignment>> GetAllByPaginationAsync(PaginationFilter pagination)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

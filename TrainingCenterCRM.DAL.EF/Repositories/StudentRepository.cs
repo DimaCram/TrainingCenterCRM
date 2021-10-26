@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -10,7 +11,7 @@ using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories
 {
-    public class StudentRepository : IRepository<Student>
+    public class StudentRepository : IStudentRepository
     {
         public TrainingCenterContext db;
 
@@ -18,34 +19,34 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public Task<List<Student>> GetAllAsync()
+        public Task<List<Student>> GetAll()
         {
             return db.Students.Include(x => x.Group).ToListAsync();
         }
 
-        public Task<Student> GetAsync(int id)
+        public Task<Student> Get(int id)
         {
             return db.Students.Include(s => s.User).FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public IEnumerable<Student> Find(Func<Student, bool> predicate)
+        public async Task<IEnumerable<Student>> Find(Expression<Func<Student, bool>> predicate)
         {
-            return db.Students.Where(predicate).ToList();
+            return await db.Students.Where(predicate).ToListAsync();
         }
 
-        public async Task CreateAsync(Student item)
+        public async Task Create(Student item)
         {
             await db.Students.AddAsync(item);
             await db.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Student item)
+        public async Task Update(Student item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
             var student = await db.Students.Include(s => s.User).SingleAsync(s => s.Id == id);
             if (student == null)
@@ -58,7 +59,7 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             await db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Student>> GetAllByPaginationAsync(PaginationFilter pagination)
+        public async Task<IEnumerable<Student>> GetAllByPagination(PaginationFilter pagination)
         {
             return await db.Students.Skip((pagination.Offset - 1) * pagination.Limit)
                                     .Take(pagination.Limit)

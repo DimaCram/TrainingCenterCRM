@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -10,7 +11,7 @@ using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories
 {
-    public class MaterialRepository : IRepository<Material>
+    public class MaterialRepository : IMaterialRepository
     {
         private readonly TrainingCenterContext db;
 
@@ -19,13 +20,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             this.db = db;
         }
 
-        public async Task CreateAsync(Material item)
+        public async Task Create(Material item)
         {
             await db.Materials.AddAsync(item);
             await db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
             var material = await db.Materials.FindAsync(id);
             if (material == null)
@@ -35,29 +36,29 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             await db.SaveChangesAsync();
         }
 
-        public IEnumerable<Material> Find(Func<Material, bool> predicate)
+        public async Task<IEnumerable<Material>> Find(Expression<Func<Material, bool>> predicate)
         {
-            return db.Materials.Where(predicate);
+            return await db.Materials.Where(predicate).ToListAsync();
         }
 
-        public Task<List<Material>> GetAllAsync()
+        public Task<List<Material>> GetAll()
         {
             return db.Materials.ToListAsync();
         }
 
-        public async Task<IEnumerable<Material>> GetAllByPaginationAsync(PaginationFilter pagination)
+        public async Task<IEnumerable<Material>> GetAllByPagination(PaginationFilter pagination)
         {
             return await db.Materials.Skip((pagination.Offset - 1) * pagination.Limit)
                                      .Take(pagination.Limit)
                                      .ToListAsync();
         }
 
-        public Task<Material> GetAsync(int id)
+        public Task<Material> Get(int id)
         {
             return db.Materials.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task UpdateAsync(Material item)
+        public async Task Update(Material item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();

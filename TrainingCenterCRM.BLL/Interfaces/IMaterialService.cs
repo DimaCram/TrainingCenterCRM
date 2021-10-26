@@ -13,6 +13,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<Material> GetMaterialAsync(int id);
         Task<List<Material>> GetMaterialsAsync();
         Task<IEnumerable<Material>> GetMaterialsByPaginationAsync(PaginationFilter pagination);
-        IEnumerable<Material> GetMaterialsByGroup(int groupId);
+        Task<IEnumerable<Material>> GetMaterialsByGroupAsync(int groupId);
     }
 }

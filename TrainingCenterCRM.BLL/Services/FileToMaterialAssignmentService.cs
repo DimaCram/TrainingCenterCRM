@@ -10,9 +10,9 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class FileToMaterialAssignmentService : IFileToMaterialAssignmentService
     {
-        private readonly IRepository<FileToMaterialAssignment> repository;
+        private readonly IFileToMaterialAssignmentRepository repository;
 
-        public FileToMaterialAssignmentService(IRepository<FileToMaterialAssignment> repository)
+        public FileToMaterialAssignmentService(IFileToMaterialAssignmentRepository repository)
         {
             this.repository = repository;
         }
@@ -21,12 +21,12 @@ namespace TrainingCenterCRM.BLL.Services
             if(assignment == null)
                 throw new ArgumentException();
 
-            await repository.CreateAsync(assignment);
+            await repository.Create(assignment);
         }
 
         public async Task DeleteAssignmentAsync(int id)
         {
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditAssignmentAsync(FileToMaterialAssignment assignment)
@@ -34,30 +34,28 @@ namespace TrainingCenterCRM.BLL.Services
             if (assignment == null)
                 throw new ArgumentException();
 
-            await repository.UpdateAsync(assignment);
+            await repository.Update(assignment);
         }
 
         public Task<FileToMaterialAssignment> GetAssignmentAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public Task<List<FileToMaterialAssignment>> GetAssignmentsAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
         }
 
-        public IEnumerable<File> GetFilesByMaterial(int materialId)
+        public async Task<IEnumerable<File>> GetFilesByMaterial(int materialId)
         {
-            return repository.Find(r => r.MaterialId == materialId).Select(r => r.File);
+            return (await repository.Find(r => r.MaterialId == materialId)).Select(r => r.File);
         }
         public async Task DeleteAssignmentsByMaterial(int materialId)
         {
-            var assigmentForMaterial = repository.Find(a => a.MaterialId == materialId).ToList();
-            foreach(var assigment in assigmentForMaterial)
-            {
-                await repository.DeleteAsync(assigment.Id);
-            }
+            var assigmentsForMaterial = await repository.Find(a => a.MaterialId == materialId);
+            
+            await repository.DeleteRange(assigmentsForMaterial.Select(a => a.Id));
         }
     }
 }

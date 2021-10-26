@@ -10,14 +10,11 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class FileService : IFileService
     {
-        private readonly IRepository<File> repository;
-        private readonly IGroupService groupService;
+        private readonly IFileRepository repository;
 
-        public FileService(IRepository<File> repository,
-                           IGroupService groupService)
+        public FileService(IFileRepository repository)
         {
             this.repository = repository;
-            this.groupService = groupService;
         }
 
         public async Task AddFileAsync(File file)
@@ -25,7 +22,7 @@ namespace TrainingCenterCRM.BLL.Services
             if (file == null)
                 throw new ArgumentException();
 
-            await repository.CreateAsync(file);
+            await repository.Create(file);
         }
 
         public async Task AddFilesAsync(List<IFormFile> formFiles, int courseId)
@@ -50,33 +47,33 @@ namespace TrainingCenterCRM.BLL.Services
                     file.Data = target.ToArray();
                 }
 
-                await repository.CreateAsync(file);
+                await repository.Create(file);
             }
         }
 
         public async Task DeleteFileAsync(int id)
         {
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditFileAsync(File file)
         {
-            await repository.UpdateAsync(file);
+            await repository.Update(file);
         }
 
         public Task<File> GetFileAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public Task<List<File>> GetFilesAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
         }
 
         public async Task<IEnumerable<File>> GetFilesByCourseAsync(int courseId)
         {
-            return repository.Find(f => f.CourseId == courseId);
+            return await repository.Find(f => f.CourseId == courseId);
         }
     }
 }

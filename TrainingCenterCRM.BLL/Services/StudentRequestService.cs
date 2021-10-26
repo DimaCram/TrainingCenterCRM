@@ -23,12 +23,12 @@ namespace TrainingCenterCRM.BLL.Services
             if (model == null)
                 throw new ArgumentException();
 
-            await studentRequestRepository.CreateAsync(model);
+            await studentRequestRepository.Create(model);
         }
 
         public async Task DeleteRequestAsync(int id)
         {
-            await studentRequestRepository.DeleteAsync(id);
+            await studentRequestRepository.Delete(id);
         }
 
         public async Task EditRequestAsync(StudentRequest model)
@@ -36,7 +36,7 @@ namespace TrainingCenterCRM.BLL.Services
             if (model == null)
                 throw new ArgumentException();
 
-            await studentRequestRepository.UpdateAsync(model);
+            await studentRequestRepository.Update(model);
         }
 
         public async Task EditRequestsRangeAsync(IEnumerable<StudentRequest> models)
@@ -49,44 +49,39 @@ namespace TrainingCenterCRM.BLL.Services
 
         public Task<StudentRequest> GetRequestAsync(int id)
         {
-            return studentRequestRepository.GetAsync(id);
+            return studentRequestRepository.Get(id);
         }
 
-        public Task<List<StudentRequest>> GetRequestsAsync()
+        public async Task<IEnumerable<StudentRequest>> GetRequestsAsync()
         {
-            return studentRequestRepository.GetAllAsync();
+            return await studentRequestRepository.GetAll();
         }
-        public async Task<List<StudentRequest>> GetOpenRequestsAsync()
+        public async Task<IEnumerable<StudentRequest>> GetOpenRequestsAsync()
         {
-            var requests = await studentRequestRepository.GetAllAsync();
-            return requests.Where(sr => sr.RequestStatus == RequestStatus.Open).ToList();
+            return await studentRequestRepository.Find(r => r.RequestStatus == RequestStatus.Open);
         }
-        public async Task<List<StudentRequest>> GetOpenRequestsByCourseAsync(int courseId)
+        public async Task<IEnumerable<StudentRequest>> GetOpenRequestsByCourseAsync(int courseId)
         {
-            var requests = await studentRequestRepository.GetAllAsync();
-            return requests.Where(sr => sr.RequestStatus == RequestStatus.Open && sr.CourseId == courseId)
-                           .Distinct()
-                           .ToList();
+            return (await studentRequestRepository.Find(sr => sr.RequestStatus == RequestStatus.Open && sr.CourseId == courseId))
+                                                  .Distinct();
         }
         public async Task<IEnumerable<Student>> GetStudentsRequestedForCourseAsync(int courseId)
         {
-            var requests = await studentRequestRepository.GetAllAsync();
-            return requests.Where(sr => sr.CourseId == courseId && sr.RequestStatus == RequestStatus.Open)
-                           .Select(s => s.Student)
-                           .Distinct()
-                           .ToList();
+            return (await studentRequestRepository.Find(sr => sr.CourseId == courseId && sr.RequestStatus == RequestStatus.Open))
+                                                  .Select(s => s.Student)
+                                                  .Distinct();
         }
 
         public async Task ReOpenRequestAsync(int studentId, int courseId)
         {
-            var request = studentRequestRepository.Find(sr => sr.StudentId == studentId &&
-                                                        sr.CourseId == courseId &&
-                                                        sr.RequestStatus == RequestStatus.Closed).LastOrDefault();
+            var request = (await studentRequestRepository.Find(sr => sr.StudentId == studentId &&
+                                                               sr.CourseId == courseId &&
+                                                               sr.RequestStatus == RequestStatus.Closed)).LastOrDefault();
 
             if(request != null)
             {
                 request.RequestStatus = RequestStatus.Open;
-                await studentRequestRepository.UpdateAsync(request);
+                await studentRequestRepository.Update(request);
             }
         }
 

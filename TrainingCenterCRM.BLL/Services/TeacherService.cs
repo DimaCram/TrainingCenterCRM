@@ -11,20 +11,20 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class TeacherService : ITeacherService
     {
-        private readonly IRepository<Teacher> repository;
+        private readonly ITeacherRepository repository;
 
-        public TeacherService(IRepository<Teacher> repository)
+        public TeacherService(ITeacherRepository repository)
         {
             this.repository = repository;
         }
         public async Task AddTeacherAsync(Teacher teacher)
         {
-            await repository.CreateAsync(teacher);
+            await repository.Create(teacher);
         }
 
         public async Task DeleteTeacherAsync(int id)
         {
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditTeacherAsync(Teacher teacher)
@@ -32,22 +32,22 @@ namespace TrainingCenterCRM.BLL.Services
             if (teacher == null)
                 throw new ArgumentException();
 
-            await repository.UpdateAsync(teacher);
+            await repository.Update(teacher);
         }
 
         public Task<Teacher> GetTeacherAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public Task<List<Teacher>> GetTeachersAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
         }
 
         public Task<IEnumerable<Teacher>> GetTeachersByPaginationAsync(PaginationFilter pagination)
         {
-            return repository.GetAllByPaginationAsync(pagination);
+            return repository.GetAllByPagination(pagination);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<string> GetUserIdByEmail(string email);
         Task<bool> CheckPassword(string email, string password);
         Task<string> GetToken(string email);
-        Task<List<string>> GetUserRoles(string email);
+        Task<string> GetUserRole(string email);
         Task<User> GetUserWithTeacherByEmail(string email);
     }
 }

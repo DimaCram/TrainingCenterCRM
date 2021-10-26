@@ -26,12 +26,12 @@ namespace TrainingCenterCRM.BLL.Services
             if (course == null)
                 throw new ArgumentException();
 
-            await _courseRepository.CreateAsync(course);
+            await _courseRepository.Create(course);
         }
 
         public async Task DeleteCourseAsync(int id)
         {
-            await _courseRepository.DeleteAsync(id);
+            await _courseRepository.Delete(id);
         }
 
         public async Task EditCourseAsync(Course course)
@@ -39,7 +39,7 @@ namespace TrainingCenterCRM.BLL.Services
             if (course == null)
                 throw new ArgumentException();
 
-            await _courseRepository.UpdateAsync(course);
+            await _courseRepository.Update(course);
         }
 
         public async Task<IEnumerable<Course>> Filter(CourseFilter filter)
@@ -51,22 +51,22 @@ namespace TrainingCenterCRM.BLL.Services
 
         public Task<Course> GetCourseAsync(int id)
         {
-            return _courseRepository.GetAsync(id);
+            return _courseRepository.Get(id);
         }
 
         public Task<List<Course>> GetCoursesAsync()
         {
-            return _courseRepository.GetAllAsync();
+            return _courseRepository.GetAll();
         }
 
         public Task<IEnumerable<Course>> GetCoursesByPaginationAsync(PaginationFilter pagination)
         {
-            return _courseRepository.GetAllByPaginationAsync(pagination);
+            return _courseRepository.GetAllByPagination(pagination);
         }
 
         public async Task<Stream> GetCsvContent()
         {
-            var courses = await _courseRepository.GetAllAsync();
+            var courses = await _courseRepository.GetAll();
 
             var sb = new StringBuilder();
 
@@ -80,8 +80,8 @@ namespace TrainingCenterCRM.BLL.Services
 
         public async Task<IEnumerable<Course>> Search(string search)
         {
-            return _courseRepository.Find(s => s.Title.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase) ||
-                                               s.Description.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase));
+            return await _courseRepository.Find(s => s.Title.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase) ||
+                                                s.Description.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase));
         }
     }
 }

@@ -10,9 +10,9 @@ namespace TrainingCenterCRM.BLL.Services
 {
     public class TopicService : ITopicService
     {
-        private readonly IRepository<Topic> repository;
+        private readonly ITopicRepository repository;
 
-        public TopicService(IRepository<Topic> repository)
+        public TopicService(ITopicRepository repository)
         {
             this.repository = repository;
         }
@@ -21,12 +21,12 @@ namespace TrainingCenterCRM.BLL.Services
             if (topic == null)
                 throw new ArgumentException();
 
-            await repository.CreateAsync(topic);
+            await repository.Create(topic);
         }
 
         public async Task DeleteTopicAsync(int id)
         {
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditTopicAsync(Topic topic)
@@ -34,22 +34,22 @@ namespace TrainingCenterCRM.BLL.Services
             if (topic == null)
                 throw new ArgumentException();
 
-            await repository.UpdateAsync(topic);
+            await repository.Update(topic);
         }
 
         public Task<Topic> GetTopicAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public Task<List<Topic>> GetTopicsAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
         }
 
         public Task<IEnumerable<Topic>> GetTopicsByPaginationAsync(PaginationFilter pagination)
         {
-            return repository.GetAllByPaginationAsync(pagination);
+            return repository.GetAllByPagination(pagination);
         }
     }
 }

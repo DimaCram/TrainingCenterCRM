@@ -108,9 +108,9 @@ namespace TrainingCenterCRM.Api.Controllers
         }
 
         [HttpGet("groupMaterials")]
-        public IEnumerable<MaterialDto> GetMaterialsByGroup(int groupId)
+        public async Task<IEnumerable<MaterialDto>> GetMaterialsByGroupAsync(int groupId)
         {
-            return _mapper.Map<IEnumerable<MaterialDto>>(_materialService.GetMaterialsByGroup(groupId));
+            return _mapper.Map<IEnumerable<MaterialDto>>(await _materialService.GetMaterialsByGroupAsync(groupId));
         }
     }
 }
