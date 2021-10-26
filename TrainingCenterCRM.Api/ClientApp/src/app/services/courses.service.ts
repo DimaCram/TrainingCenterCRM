@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpEvent, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Course } from "../models/course.model";
 
@@ -32,5 +32,9 @@ export class CourseService{
 
     deleteCourse(id : number){
         return this.http.delete(`${this.baseUrl}api/courses/${id}`)
+    }
+
+    download(){
+        return this.http.get(`${this.baseUrl}api/courses/download`, { responseType: 'text' })
     }
 }

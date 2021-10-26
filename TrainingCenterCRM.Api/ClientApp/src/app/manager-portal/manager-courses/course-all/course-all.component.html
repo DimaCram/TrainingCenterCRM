@@ -31,7 +31,10 @@
                             </table>
                         </div>
                         <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="courses.length"></ngb-pagination>
-                        <a class="btn btn-head" [routerLink]="['/manager/courses/edit']">Add new course</a>
+                        <div class="mt-3">
+                            <a class="btn btn-head mr-3" [routerLink]="['/manager/courses/edit']">Add new course</a>
+                            <button class="btn btn-head" (click)="download()">Download</button>
+                        </div>
                     </div>
                 </div>
             </div>

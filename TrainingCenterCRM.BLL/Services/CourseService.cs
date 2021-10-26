@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.Core.Extensions;
@@ -60,6 +62,20 @@ namespace TrainingCenterCRM.BLL.Services
         public Task<IEnumerable<Course>> GetCoursesByPaginationAsync(PaginationFilter pagination)
         {
             return _courseRepository.GetAllByPaginationAsync(pagination);
+        }
+
+        public async Task<Stream> GetCsvContent()
+        {
+            var courses = await _courseRepository.GetAllAsync();
+
+            var sb = new StringBuilder();
+
+            foreach (var course in courses)
+            {
+                sb.AppendLine($"{course.Title};{course.Description};{course.Price};{course.Level}");
+            }
+
+            return sb.ToString().GetMemoryStreamFromString();
         }
 
         public async Task<IEnumerable<Course>> Search(string search)

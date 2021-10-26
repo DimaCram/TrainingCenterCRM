@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -16,5 +17,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<IEnumerable<Course>> GetCoursesByPaginationAsync(PaginationFilter pagination);
         Task<IEnumerable<Course>> Search(string search);
         Task<IEnumerable<Course>> Filter(CourseFilter filter);
+        Task<Stream> GetCsvContent();
     }
 }
