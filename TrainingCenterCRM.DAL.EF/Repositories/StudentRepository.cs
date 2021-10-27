@@ -65,5 +65,11 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
                                     .Take(pagination.Limit)
                                     .ToListAsync();
         }
+
+        public async Task<Student> GetStudentWithUserById(int id)
+        {
+            var studentWithUser = await db.Students.Include(s => s.User).SingleOrDefaultAsync(s => s.Id == id);
+            return studentWithUser;
+        }
     }
 }

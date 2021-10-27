@@ -71,6 +71,7 @@ namespace TrainingCenterCRM.Api
             services.AddScoped<ILocalFileService>(s => new LocalFileService(_env.WebRootPath, Configuration));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFileToMaterialAssignmentService, FileToMaterialAssignmentService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<TrainingCenterContext>();

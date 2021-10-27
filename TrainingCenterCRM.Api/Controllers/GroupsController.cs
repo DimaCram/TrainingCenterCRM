@@ -21,11 +21,13 @@ namespace TrainingCenterCRM.Api.Controllers
         private readonly IMapper _mapper;
 
         private readonly IGroupService _groupService;
+        private readonly IEmailService _emailService;
 
-        public GroupsController(IMapper mapper, IGroupService groupService)
+        public GroupsController(IMapper mapper, IGroupService groupService, IEmailService emailService)
         {
             _mapper = mapper;
             _groupService = groupService;
+            _emailService = emailService;
         }
 
         [Authorize(Roles = "manager, teacher")]
@@ -84,6 +86,12 @@ namespace TrainingCenterCRM.Api.Controllers
         {
             var userEmail = HttpContext.User.Identity.Name;
             return _mapper.Map<IEnumerable<GroupDto>>(await _groupService.GetTeacherGroups(userEmail));
+        }
+        [Authorize(Roles = "manager")]
+        [HttpGet("inviteNotification")]
+        public async Task SendInviteNotifications(int groupId)
+        {
+            await _groupService.SendInviteNotifications(groupId);
         }
     }
 }

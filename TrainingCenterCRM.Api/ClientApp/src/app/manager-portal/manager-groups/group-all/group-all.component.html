@@ -23,6 +23,10 @@
                                         <th scope="col">{{group.startDate | date:'longDate'}}</th>
                                         <th scope="col">{{group.teacher.name}} {{group.teacher.surname}}</th>
                                         <th scope="col" class="text-center">
+                                            <a class="btn btn-success m-1" (click)="sendInviteNotifications(group.id)"  >
+                                                <i class="fas fa-envelope-open-text"></i>
+                                                Send invite notification
+                                            </a>
                                             <a class="btn btn-success m-1" [routerLink]="['/manager/groups/edit', group.id]" ><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-danger m-1" asp-controller="Groups" asp-action="DeleteGroup" asp-route-id="@group.Id"><i class="fas fa-trash"></i></a>
                                         </th>

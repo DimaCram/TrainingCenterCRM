@@ -59,5 +59,10 @@ namespace TrainingCenterCRM.BLL.Services
         {
             return repository.GetAllByPagination(filter);
         }
+
+        public Task<Student> GetStudentWithUserById(int id)
+        {
+            return repository.GetStudentWithUserById(id);
+        }
     }
 }
