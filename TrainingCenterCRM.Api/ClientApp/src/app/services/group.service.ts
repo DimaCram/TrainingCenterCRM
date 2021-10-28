@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Group } from "../models/group.model";
 
@@ -30,8 +30,12 @@ export class GroupService{
     getGroupStatuses(){
         return this.http.get<string[]>(this.baseUrl + `api/groups/statuses`);
     }
-    
+
     getTeacherGroups(){
         return this.http.get<Group[]>(this.baseUrl + `api/groups/teacherGroups`);
+    }
+    sendInviteNotifications(groupId: number){
+        let params = new HttpParams().append('groupId', groupId.toString());
+        return this.http.get(this.baseUrl + `api/groups/inviteNotification`, {params: params});
     }
 }

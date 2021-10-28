@@ -18,18 +18,21 @@ namespace TrainingCenterCRM.BLL.Services
         private readonly IStudentToGroupAssignmentService assignmentService;
         private readonly IStudentService studentService;
         private readonly IUserService _userService;
+        private readonly IEmailService _emailService;
 
         public GroupService(IGroupRepository groupRepository,
                             IStudentRequestService studentRequestService,
                             IStudentService studentService,
                             IStudentToGroupAssignmentService assignmentService,
-                            IUserService userService)
+                            IUserService userService, 
+                            IEmailService emailService)
         {
             this.groupRepository = groupRepository;
             this.studentRequestService = studentRequestService;
             this.studentService = studentService;
             this.assignmentService = assignmentService;
             _userService = userService;
+            _emailService = emailService;
         }
         public async Task AddGroupAsync(Group group, IEnumerable<int> studentsId)
         {
@@ -140,6 +143,19 @@ namespace TrainingCenterCRM.BLL.Services
 
             var groups = await groupRepository.Find(g => g.TeacherId == user.Teacher.Id);
             return groups;
+        }
+
+        public async Task SendInviteNotifications(int groupId)
+        {
+            var group = await groupRepository.GetFullGroupInfo(groupId);
+            var taskList = new List<Task>();
+            foreach(var student in group.Students)
+            {
+                var message = _emailService.GenerateCourseInvitationMessage(group, student);
+                var studentEmail = (await studentService.GetStudentWithUserById(student.Id)).User.Email;
+                taskList.Add(Task.Run(() => _emailService.SendEmailAsync(studentEmail, "Сourse invitation notification", message)));
+            }
+            await Task.WhenAll(taskList);
         }
     }
 }

@@ -63,5 +63,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
                                   .Take(pagination.Limit)
                                   .ToListAsync();
         }
+
+        public async Task<Group> GetFullGroupInfo(int id)
+        {
+            return await db.Groups.Include(g => g.Teacher)
+                                  .Include(g => g.Students)
+                                  .Include(g => g.Course)
+                                  .SingleOrDefaultAsync(g => g.Id == id);
+        }
     }
 }

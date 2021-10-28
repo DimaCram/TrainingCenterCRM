@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Title } from "@angular/platform-browser";
+import { ToastService } from "src/app/components/toast/toast.service";
 import { Group } from "src/app/models/group.model";
 import { GroupService } from "src/app/services/group.service";
 import { TeacherService } from "src/app/services/teacher.service";
@@ -16,7 +17,8 @@ export class GroupAllComponent{
     public pageSize = 5;
 
     constructor(private groupService: GroupService,
-                private titleService: Title){}
+                private titleService: Title,
+                private toastService: ToastService){}
 
     ngOnInit(): void {
       this.titleService.setTitle("Groups - Training Center")
@@ -31,6 +33,13 @@ export class GroupAllComponent{
       this.groupService.deleteGroup(id).subscribe(result => {
         const removeIndex = this.groups.findIndex( item => item.id === id );
         this.groups.splice( removeIndex, 1 );
+      });
+    }
+
+    sendInviteNotifications(id: number){
+
+      this.groupService.sendInviteNotifications(id).subscribe(result => {
+        this.toastService.showSuccess("invitation notification sent successfully");
       });
     }
 }

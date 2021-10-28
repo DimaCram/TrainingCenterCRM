@@ -10,5 +10,6 @@ namespace TrainingCenterCRM.DAL.EF.Interfaces
     public interface IStudentRepository : IRepository<Student>
     {
         Task<IEnumerable<Student>> GetAllByPagination(PaginationFilter pagination);
+        Task<Student> GetStudentWithUserById(int id);
     }
 }

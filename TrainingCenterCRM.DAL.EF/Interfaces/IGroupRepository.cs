@@ -10,5 +10,6 @@ namespace TrainingCenterCRM.DAL.EF.Interfaces
     public interface IGroupRepository : IRepository<Group>
     {
         Task<IEnumerable<Group>> GetAllByPagination(PaginationFilter pagination);
+        Task<Group> GetFullGroupInfo(int id);
     }
 }
