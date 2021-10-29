@@ -45,7 +45,9 @@ export class LoginComponent{
 
         this.accountService.login(user).subscribe(res => {
             localStorage.setItem("jwt", (<any>res).token);
-            const roles = (<any>res).userRoles as string[];
+            const roles = (<any>res).userRoles as string;
+
+            localStorage.setItem('role', roles);
 
             if(roles.includes('manager'))
                 this.router.navigate(['manager/students'])

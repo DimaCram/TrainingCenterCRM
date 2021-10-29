@@ -25,6 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorInterceptorService } from './services/http-error-interceptor.service';
 import { MaterialService } from './services/material.service';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { StatusErrorComponent } from './components/statusError/status-error.component';
+import { RouterModule } from '@angular/router';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -34,6 +36,7 @@ export function tokenGetter(){
   declarations: [
     AppComponent,
     LoginComponent,
+    StatusErrorComponent,
     ToastComponent
   ],
   imports: [
@@ -51,7 +54,8 @@ export function tokenGetter(){
       }
     }),
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    RouterModule
   ],
   providers: [
     DatePipe,

@@ -27,7 +27,7 @@ export class NavMenuComponent {
   }
 
   logOut(){
-    localStorage.removeItem("jwt");
+    this.accountService.logout();
     this.router.navigate(['login']);
   }
 }

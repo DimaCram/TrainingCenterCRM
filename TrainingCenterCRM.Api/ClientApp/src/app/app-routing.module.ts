@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuard } from "./account/guards/auth-guard.service";
 import { LoginComponent } from "./account/login/login.component";
+import { StatusErrorComponent } from "./components/statusError/status-error.component";
 import { CourseAllComponent } from "./manager-portal/manager-courses/course-all/course-all.component";
 import { CourseEditComponent } from "./manager-portal/manager-courses/course-edit/course-edit.component";
 import { GroupAllComponent } from "./manager-portal/manager-groups/group-all/group-all.component";
@@ -23,8 +24,10 @@ import { MaterialFileAddComponent } from "./teacher-portal/teacher-materials/mat
 import { TeacherMainComponent } from "./teacher-portal/teacher-model/teacher-main.component";
 
 const routes: Routes = [
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent},
 
+    { path: 'manager', redirectTo: 'manager/students', pathMatch: 'full' },
     { path: 'manager', component: ManagerMainComponent,
         children: [
             { path: 'students', component: StudentsAllComponent },
@@ -51,9 +54,12 @@ const routes: Routes = [
             { path: 'groups/edit', component: GroupEditComponent },
             { path: 'groups/edit/:id', component: GroupEditComponent }
         ],
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        data: { role: 'manager' }
     },
 
+    { path: 'teacher', redirectTo: 'teacher/materials', pathMatch: 'full' },
     { path: 'teacher', component: TeacherMainComponent,
         children: [
             { path: 'materials', component: MaterialAllComponent },
@@ -63,8 +69,13 @@ const routes: Routes = [
             { path: 'groups', component: TeacherGroupsComponent },
             { path: 'groupControl', component: GroupControlComponent },
         ],
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        data: { role: 'teacher' }
     },
+
+    { path: 'error/:code', component: StatusErrorComponent},
+    { path: '**', redirectTo: '/error/404'},
 ]
 
 @NgModule({
