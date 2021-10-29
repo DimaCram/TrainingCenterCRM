@@ -23,8 +23,8 @@ namespace TrainingCenterCRM.Test.Services
         {
             //Arrange
             var search = "C# Programming";
-            Func<Course, bool> predicate = s => s.Title.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase) ||
-                                                s.Description.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase);
+            bool predicate(Course s) => s.Title.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase) ||
+                                        s.Description.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase);
 
             var mock = new Mock<ICourseRepository>();
 
