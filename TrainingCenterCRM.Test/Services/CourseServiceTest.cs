@@ -27,18 +27,21 @@ namespace TrainingCenterCRM.Test.Services
                                                 s.Description.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase);
 
             var mock = new Mock<ICourseRepository>();
-            mock.Setup(cr => cr.Find(It.IsAny<Expression<Func<Course, bool>>>()).Result).Returns((await GetCourses()).Where(predicate).ToList());
+
+            mock.Setup(cr => cr.Find(It.IsAny<Expression<Func<Course, bool>>>()).Result)
+                .Returns(GetCourses().Where(predicate).ToList());
+            
             ICourseService _courseService = new CourseService(mock.Object);
-            var expected =  new List<Course>() { (await GetCourses()).FirstOrDefault() };
+            var expected = 1;
 
             //Act
             var actual = await _courseService.Search(search);
 
             //Assert
-            Assert.AreEqual(expected.Count(), actual.Count());
+            Assert.AreEqual(expected, actual.Count());
         }
 
-        private async Task<IEnumerable<Course>> GetCourses()
+        private IEnumerable<Course> GetCourses()
         {
             var courses = new List<Course>
             {
