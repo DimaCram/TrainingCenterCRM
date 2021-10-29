@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ToastService } from 'src/app/components/toast/toast.service';
 import { Student } from 'src/app/models/student.model';
 import { StudentService } from 'src/app/services/student.service';
@@ -18,12 +19,15 @@ export class StudentsAllComponent {
     constructor(private studentService : StudentService,
                 private titleService: Title,
                 private modalService: NgbModal,
-                private toastService: ToastService){}
+                private toastService: ToastService,
+                private ngxService: NgxUiLoaderService){}
 
     ngOnInit(): void {
       this.titleService.setTitle("Students - Training Center")
+      this.ngxService.startLoader("studentsLoader");
 
       this.studentService.getStudents().subscribe(result => {
+        this.ngxService.stopLoader("studentsLoader");
         this.students = result;
       });
     }

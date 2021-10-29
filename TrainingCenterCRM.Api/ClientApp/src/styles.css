@@ -440,3 +440,10 @@ ul{
   padding: 0;
   margin: 0;
 }
+.dropdown-item:active{
+  background-color: transparent;
+  color: #000;
+}
+button:focus{
+  outline: none;
+}

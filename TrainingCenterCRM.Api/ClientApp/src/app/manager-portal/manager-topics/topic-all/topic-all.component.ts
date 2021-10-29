@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Topic } from "src/app/models/topic.model";
 import { TopicService } from "src/app/services/topic.service";
 
@@ -14,12 +15,15 @@ import { TopicService } from "src/app/services/topic.service";
     public pageSize = 5;
 
     constructor(private topicService : TopicService,
-                private titleService: Title){}
+                private titleService: Title,
+                private ngxService: NgxUiLoaderService){}
 
     ngOnInit(): void {
       this.titleService.setTitle("Topics - Training Center")
 
+      this.ngxService.startLoader("topicsLoader");
       this.topicService.getTopics().subscribe(result => {
+        this.ngxService.stopLoader("topicsLoader");
         this.topics = result;
       });
     }

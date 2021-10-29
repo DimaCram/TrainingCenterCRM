@@ -25,6 +25,7 @@ import { TopicService } from "src/app/services/topic.service";
 
       this.ngxService.startLoader("loader");
       this.materialSerive.getMaterials().subscribe(result => {
+        this.ngxService.stopLoader("loader");
         this.materials = result;
       });
     }

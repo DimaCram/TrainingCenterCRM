@@ -13,10 +13,9 @@ export class NavMenuComponent {
   constructor(private router: Router,
               private accountService: AccountService)
   {}
-    ngOnInit(): void {
 
-
-    }
+  ngOnInit(): void {
+  }
 
   collapse() {
     this.isExpanded = false;

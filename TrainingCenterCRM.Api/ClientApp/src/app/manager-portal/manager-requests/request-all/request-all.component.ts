@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Title } from "@angular/platform-browser";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Request } from "src/app/models/request.model";
 import { RequestService } from "src/app/services/request.service";
 
@@ -15,16 +16,19 @@ export class RequestAllComponent{
     public pageSize = 5;
 
     constructor(private courseService: RequestService,
-                private titleService: Title){}
+                private titleService: Title,
+                private ngxService: NgxUiLoaderService){}
 
     ngOnInit(): void {
       this.titleService.setTitle("Requests - Training Center")
 
+      this.ngxService.startLoader("requestsLoader");
       this.courseService.getRequests().subscribe(result => {
+        this.ngxService.stopLoader("requestsLoader");
         this.requests = result;
       });
     }
-
+    requestsLoader
     deleteRequest(id: number){
 
       this.courseService.deleteRequest(id).subscribe(result => {

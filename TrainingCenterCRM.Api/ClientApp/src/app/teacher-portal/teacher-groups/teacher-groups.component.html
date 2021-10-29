@@ -7,6 +7,7 @@
                 <div class="card">
                     <div class="card-header">Table</div>
                     <div class="card-body">
+                        <ngx-ui-loader [loaderId]="'groupsLoader'"></ngx-ui-loader>
                         <div class="table-responsive" *ngIf="teacherGroups.length > 0;else  elseTemplate" >
                             <table class="table">
                                 <thead class="thead-dark">
