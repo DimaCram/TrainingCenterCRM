@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.Services;
 using TrainingCenterCRM.Core.Enums;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -17,7 +12,9 @@ namespace TrainingCenterCRM.Test.Repositories
 {
     public class CourseRepositoryTest
     {
-        public DbContextOptions<TrainingCenterContext> _dbOpt;
+        private DbContextOptions<TrainingCenterContext> _dbOpt;
+        private TrainingCenterContext context;
+        private CourseRepository courseRepository;
 
         [SetUp]
         public void SetUp()
@@ -25,19 +22,24 @@ namespace TrainingCenterCRM.Test.Repositories
             _dbOpt = new DbContextOptionsBuilder<TrainingCenterContext>()
                 .UseInMemoryDatabase(databaseName: "TestDb").Options;
 
-            using var context = new TrainingCenterContext(_dbOpt);
-            // Remove data
-            context.RemoveRange(context.Courses);
-            context.SaveChanges();
-            // Seed data
+            context = new TrainingCenterContext(_dbOpt);
+            courseRepository = new CourseRepository(context);
+
             context.Courses.AddRange(GetCourses());
+            context.SaveChanges();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            context.RemoveRange(context.Courses);
             context.SaveChanges();
         }
 
         [TestCase("C# Programming", null, null, null, null, null, ExpectedResult = 1)]
         [TestCase(null, null, CourseLevel.Beginner, 500, null, null, ExpectedResult = 1)]
         [TestCase(null, null, null, null, 700, "C#", ExpectedResult = 3)]
-        public async Task<int> Filter_ReturnResult(string title, string description, CourseLevel? level, double? priceFrom, double? priceTo, string topicName)
+        public int Filter_ReturnResult(string title, string description, CourseLevel? level, double? priceFrom, double? priceTo, string topicName)
         {
             // Arrange
             var courseFilter = new CourseFilter
@@ -49,8 +51,6 @@ namespace TrainingCenterCRM.Test.Repositories
                 PriceTo = priceTo,
                 TopicName = topicName
             };
-            await using var context = new TrainingCenterContext(_dbOpt);
-            var courseRepository = new CourseRepository(context);
 
             // Act
             var res = courseRepository.Filter(courseFilter);

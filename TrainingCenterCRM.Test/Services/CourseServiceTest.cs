@@ -4,20 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
 using TrainingCenterCRM.BLL.Services;
-using TrainingCenterCRM.Core.Enums;
 using TrainingCenterCRM.Core.Extensions;
 using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Interfaces;
-using Xunit;
 
 namespace TrainingCenterCRM.Test.Services
 {
     public class CourseServiceTest
     {
+        private Mock<ICourseRepository> mockCourseRepository;
+        [SetUp]
+        public void SetUp()
+        {
+            mockCourseRepository = new Mock<ICourseRepository>();
+        }
+
         [Test]
         public async Task Search_ReturnResult()
         {
@@ -26,12 +30,10 @@ namespace TrainingCenterCRM.Test.Services
             bool predicate(Course s) => s.Title.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase) ||
                                         s.Description.Contains(search.NormalizeSearchString(), StringComparison.OrdinalIgnoreCase);
 
-            var mock = new Mock<ICourseRepository>();
-
-            mock.Setup(cr => cr.Find(It.IsAny<Expression<Func<Course, bool>>>()).Result)
-                .Returns(GetCourses().Where(predicate).ToList());
+            mockCourseRepository.Setup(cr => cr.Find(It.IsAny<Expression<Func<Course, bool>>>()).Result)
+                                .Returns(GetCourses().Where(predicate).ToList());
             
-            ICourseService _courseService = new CourseService(mock.Object);
+            ICourseService _courseService = new CourseService(mockCourseRepository.Object);
             var expected = 1;
 
             //Act
