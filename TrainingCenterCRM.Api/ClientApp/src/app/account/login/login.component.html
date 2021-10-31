@@ -1,5 +1,6 @@
 <main class="main">
     <div class="pannel">
+        <ngx-ui-loader [loaderId]="'loginLoader'"></ngx-ui-loader>
         <h1 class="pannel-header">Sign in to Training Center</h1>
         <form method="post" [formGroup]="form" (submit)="login()" class="mt-4">
             <div class="text-danger"></div>

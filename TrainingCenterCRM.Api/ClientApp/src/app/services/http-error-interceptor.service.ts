@@ -41,7 +41,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         return errorMessage;
     }
     setStatusError(error: HttpErrorResponse) {
-        if (error.status === 401 || error.status === 403) {
+        if (error.status === 401 || error.status === 403 || error.status === 0 || error.status === 500) {
             this.router.navigate(['/error', error.status]);
         }
     }

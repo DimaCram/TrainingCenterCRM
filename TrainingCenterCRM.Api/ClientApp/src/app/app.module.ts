@@ -55,7 +55,8 @@ export function tokenGetter(){
     }),
     ReactiveFormsModule,
     NgbModule,
-    RouterModule
+    RouterModule,
+    NgxUiLoaderModule
   ],
   providers: [
     DatePipe,

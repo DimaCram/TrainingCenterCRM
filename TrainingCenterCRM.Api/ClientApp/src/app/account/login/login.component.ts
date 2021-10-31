@@ -3,6 +3,7 @@ import { Component, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import { User } from "src/app/models/user.model";
 import { AccountService } from "src/app/services/account.service";
 
@@ -21,7 +22,8 @@ export class LoginComponent{
                 private router: Router,
                 private accountService: AccountService,
                 private fb: FormBuilder,
-                private titleService: Title)
+                private titleService: Title,
+                private ngxService: NgxUiLoaderService)
     {
         this.baseUrl = baseUrl;
     }
@@ -42,6 +44,7 @@ export class LoginComponent{
         let user = new User();
         user.email = this.form.value.email;
         user.password = this.form.value.password;
+        this.ngxService.startLoader("loginLoader");
 
         this.accountService.login(user).subscribe(res => {
             localStorage.setItem("jwt", (<any>res).token);
@@ -57,6 +60,10 @@ export class LoginComponent{
 
             this.invalidLogin = false;
         },
-        err => {console.log(err); this.invalidLogin = true;})
+        err => {
+            console.log(err);
+            this.ngxService.stopLoader("loginLoader");
+            this.invalidLogin = true;
+        })
     }
 }
