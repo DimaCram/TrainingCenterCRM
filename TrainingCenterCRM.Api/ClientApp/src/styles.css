@@ -400,6 +400,9 @@ input[type="color"]:focus,
   margin: 10px 0;
 }
 
+.toast{
+  min-width: 200px;
+}
 .toast-box{
   z-index: 10;
 }

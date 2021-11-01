@@ -3,6 +3,7 @@ import { Component, ElementRef, Inject, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ToastService } from "src/app/components/toast/toast.service";
 import { Course } from "src/app/models/course.model";
 import { Topic } from "src/app/models/topic.model";
 import { CourseService } from "src/app/services/courses.service";
@@ -32,8 +33,9 @@ export class CourseEditComponent{
                 private route: ActivatedRoute,
                 private router: Router,
                 private titleService: Title,
-                @Inject('BASE_URL') baseUrl: string
-                ){
+                @Inject('BASE_URL') baseUrl: string,
+                private toastService: ToastService)
+                {
                   this.baseUrl = baseUrl;
                 }
 
@@ -87,10 +89,18 @@ export class CourseEditComponent{
 
         this.courseSevice.egitCourse(course).subscribe(result => {
             if(this.id)
+            {
+                this.toastService.showSuccess("Course edited successfully");
                 this.router.navigate(['../../'], { relativeTo: this.route });
+            }
             else
-                this.router.navigate(['../'], { relativeTo: this.route });
+            {
+              this.toastService.showSuccess("Course added successfully");
+              this.router.navigate(['../'], { relativeTo: this.route });
+            }
         });
+
+        
     }
 
   /**

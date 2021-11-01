@@ -36,6 +36,8 @@ export class StudentsAllComponent {
       this.studentService.deleteStudent(id).subscribe(result => {
         const removeIndex = this.students.findIndex( item => item.id === id );
         this.students.splice( removeIndex, 1 );
+
+        this.toastService.showSuccess("Student deleted");
       });
     }
 

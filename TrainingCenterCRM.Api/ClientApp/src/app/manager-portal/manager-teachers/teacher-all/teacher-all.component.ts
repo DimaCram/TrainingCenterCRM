@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastService } from 'src/app/components/toast/toast.service';
 import { Teacher } from 'src/app/models/teacher.model';
 import { TeacherService } from 'src/app/services/teacher.service';
 
@@ -15,7 +16,8 @@ export class TeacherAllComponent {
 
     constructor(private teacherService : TeacherService,
                 private titleService: Title,
-                private ngxService: NgxUiLoaderService){}
+                private ngxService: NgxUiLoaderService,
+                private toastService: ToastService){}
 
     ngOnInit(): void {
       this.titleService.setTitle("Teachers - Training Center")
@@ -31,6 +33,8 @@ export class TeacherAllComponent {
       this.teacherService.deleteTeacher(id).subscribe(result => {
         const removeIndex = this.teachers.findIndex( item => item.id === id );
         this.teachers.splice( removeIndex, 1 );
+
+        this.toastService.showSuccess("Teacher deleted");
       });
     }
 }

@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ToastService } from "src/app/components/toast/toast.service";
 import { Course } from "src/app/models/course.model";
 import { Group } from "src/app/models/group.model";
 import { Student } from "src/app/models/student.model";
@@ -34,7 +35,8 @@ export class GroupEditComponent {
               private teacherService: TeacherService,
               private studentService: StudentService,
               private datePipe: DatePipe,
-              private titleService: Title
+              private titleService: Title,
+              private toastService: ToastService
               ){
                 this.groupId = this.route.snapshot.params['id'];
               }
@@ -131,9 +133,15 @@ export class GroupEditComponent {
 
         this.groupService.egitGroup(group).subscribe(result => {
             if(this.groupId)
+            {
                 this.router.navigate(['../../'], { relativeTo: this.route });
+                this.toastService.showSuccess("Group edited");
+            }
             else
+            {
                 this.router.navigate(['../'], { relativeTo: this.route });
+                this.toastService.showSuccess("Group added");
+            }
         });
     }
 }

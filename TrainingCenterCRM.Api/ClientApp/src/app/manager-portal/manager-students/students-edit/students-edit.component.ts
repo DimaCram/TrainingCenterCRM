@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastService } from 'src/app/components/toast/toast.service';
 import { Student } from 'src/app/models/student.model';
 import { StudentService } from 'src/app/services/student.service';
 
@@ -18,7 +19,8 @@ export class StudentsEditComponent {
               private studentSevice: StudentService,
               private route: ActivatedRoute,
               private router: Router,
-              private titleService: Title){
+              private titleService: Title,
+              private toastService: ToastService){
 
                 this.id = this.route.snapshot.params['id'];
               }
@@ -77,10 +79,14 @@ export class StudentsEditComponent {
 
     this.studentSevice.egitStudent(student).subscribe(result => {
 
-      if(this.id)
+      if(this.id){
+        this.toastService.showSuccess("Student edited");
         this.router.navigate(['../../'], { relativeTo: this.route });
-       else
+      }
+      else{
+        this.toastService.showSuccess("Student added");
         this.router.navigate(['../'], { relativeTo: this.route });
+      }
     });
   }
 }

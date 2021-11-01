@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ToastService } from "src/app/components/toast/toast.service";
 import { Course } from "src/app/models/course.model";
 import { Request } from "src/app/models/request.model";
 import { Student } from "src/app/models/student.model";
@@ -29,7 +30,8 @@ export class RequestEditComponent {
                 private courseService: CourseService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private titleService: Title){}
+                private titleService: Title,
+                private toastService: ToastService){}
 
 
     ngOnInit(): void {
@@ -88,10 +90,15 @@ export class RequestEditComponent {
 
       this.requestSevice.egitRequest(request).subscribe(result => {
             if(this.requestId)
+            {
                 this.router.navigate(['../../'], { relativeTo: this.route });
+                this.toastService.showSuccess("Request edited");
+            }
             else
+            {
                 this.router.navigate(['../'], { relativeTo: this.route });
-
+                this.toastService.showSuccess("Request added");
+            }
       });
     }
   }

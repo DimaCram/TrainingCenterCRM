@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ToastService } from "src/app/components/toast/toast.service";
 import { Topic } from "src/app/models/topic.model";
 import { TopicService } from "src/app/services/topic.service";
 
@@ -17,7 +18,8 @@ export class TopicEditComponent {
                 private topicSevice: TopicService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private titleService: Title){}
+                private titleService: Title,
+                private toastService: ToastService){}
 
 
     ngOnInit(): void {
@@ -52,9 +54,15 @@ export class TopicEditComponent {
 
       this.topicSevice.egitTopic(topic).subscribe(result => {
             if(this.id)
-                this.router.navigate(['../../'], { relativeTo: this.route });
+            {
+              this.router.navigate(['../../'], { relativeTo: this.route });
+              this.toastService.showSuccess("Topic edited");
+            }
             else
-                this.router.navigate(['../'], { relativeTo: this.route });
+            {
+              this.router.navigate(['../'], { relativeTo: this.route });
+              this.toastService.showSuccess("Topic added");
+            }
       });
     }
   }

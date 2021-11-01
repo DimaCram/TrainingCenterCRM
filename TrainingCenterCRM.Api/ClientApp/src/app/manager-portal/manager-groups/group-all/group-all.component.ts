@@ -37,13 +37,15 @@ export class GroupAllComponent{
       this.groupService.deleteGroup(id).subscribe(result => {
         const removeIndex = this.groups.findIndex( item => item.id === id );
         this.groups.splice( removeIndex, 1 );
+        
+        this.toastService.showSuccess("Group deleted");
       });
     }
 
     sendInviteNotifications(id: number){
 
       this.groupService.sendInviteNotifications(id).subscribe(result => {
-        this.toastService.showSuccess("invitation notification sent successfully");
+        this.toastService.showSuccess("Invitation notification sent");
       });
     }
 }

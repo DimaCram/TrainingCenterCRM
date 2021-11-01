@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastService } from "src/app/components/toast/toast.service";
 import { Request } from "src/app/models/request.model";
 import { RequestService } from "src/app/services/request.service";
 
@@ -17,7 +18,8 @@ export class RequestAllComponent{
 
     constructor(private courseService: RequestService,
                 private titleService: Title,
-                private ngxService: NgxUiLoaderService){}
+                private ngxService: NgxUiLoaderService,
+                private toastService: ToastService){}
 
     ngOnInit(): void {
       this.titleService.setTitle("Requests - Training Center")
@@ -28,12 +30,14 @@ export class RequestAllComponent{
         this.requests = result;
       });
     }
-    requestsLoader
+    
     deleteRequest(id: number){
 
       this.courseService.deleteRequest(id).subscribe(result => {
         const removeIndex = this.requests.findIndex( item => item.id === id );
         this.requests.splice( removeIndex, 1 );
+
+        this.toastService.showSuccess("Request deleted");
       });
     }
 }
