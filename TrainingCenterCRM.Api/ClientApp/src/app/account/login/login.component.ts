@@ -48,15 +48,9 @@ export class LoginComponent{
 
         this.accountService.login(user).subscribe(res => {
             localStorage.setItem("jwt", (<any>res).token);
-            const roles = (<any>res).userRoles as string;
+            localStorage.setItem('role', (<any>res).userRoles);
 
-            localStorage.setItem('role', roles);
-
-            if(roles.includes('manager'))
-                this.router.navigate(['manager/students'])
-
-            if(roles.includes('teacher'))
-                this.router.navigate(['teacher'])
+            this.accountService.redirectToHomePage();
 
             this.invalidLogin = false;
         },

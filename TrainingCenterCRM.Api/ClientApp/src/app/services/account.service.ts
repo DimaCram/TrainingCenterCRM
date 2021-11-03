@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { User } from "../models/user.model";
 
@@ -8,7 +9,10 @@ Injectable()
 export class AccountService{
     baseUrl: string;
 
-    constructor(private http : HttpClient, @Inject('BASE_URL') baseUrl: string){
+    constructor(private http : HttpClient,
+                @Inject('BASE_URL') baseUrl: string,
+                private router: Router)
+    {
         this.baseUrl = baseUrl;
     }
 
@@ -23,5 +27,21 @@ export class AccountService{
 
     getRole() {
       return localStorage.getItem('role');
+    }
+
+    redirectToHomePage(){
+      const role = this.getRole();
+
+      switch(role){
+          case "manager":
+              this.router.navigate(['manager'])
+              break;
+          case "teacher":
+              this.router.navigate(['teacher'])
+              break;
+          default:
+              this.router.navigate(['login'])
+              break;
+      }
     }
 }

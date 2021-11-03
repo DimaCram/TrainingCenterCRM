@@ -12,7 +12,6 @@ export class StatusErrorComponent{
     code: number;
     errorMessage: string;
     constructor(private route: ActivatedRoute,
-                private router: Router,
                 private accountService: AccountService){}
 
     ngOnInit(): void {
@@ -36,18 +35,6 @@ export class StatusErrorComponent{
         }
     }
     goHomePage() {
-        const role = this.accountService.getRole();
-
-        switch(role){
-            case "manager":
-                this.router.navigate(['manager'])
-                break;
-            case "teacher":
-                this.router.navigate(['teacher'])
-                break;
-            default:
-                this.router.navigate(['login'])
-                break;
-        }
+        this.accountService.redirectToHomePage();
     }
 }
