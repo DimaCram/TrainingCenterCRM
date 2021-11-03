@@ -24,7 +24,7 @@ export class CourseAllComponent{
     ngOnInit(): void {
       this.titleService.setTitle("Courses - Training Center")
       this.ngxService.startLoader("loader");
-      
+
       this.courseService.getCourses().subscribe(result => {
         this.courses = result;
         this.ngxService.stopLoader("loader");
@@ -37,7 +37,7 @@ export class CourseAllComponent{
         const removeIndex = this.courses.findIndex( item => item.id === id );
         this.courses.splice( removeIndex, 1 );
 
-        this.toastService.showSuccess("Course deleted successfully");
+        this.toastService.showSuccess("Course deleted");
       });
     }
 

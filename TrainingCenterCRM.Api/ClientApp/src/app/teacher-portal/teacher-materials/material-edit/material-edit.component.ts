@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@ang
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { group } from "console";
+import { ToastService } from "src/app/components/toast/toast.service";
 import { File } from "src/app/models/file.model";
 import { Group } from "src/app/models/group.model";
 import { Material } from "src/app/models/metirial.model";
@@ -30,7 +31,8 @@ export class MaterialEditComponent {
                 private router: Router,
                 private titleService: Title,
                 private groupService: GroupService,
-                private materialService: MaterialService)
+                private materialService: MaterialService,
+                private toastService: ToastService)
                 {
                     this.materialId = this.route.snapshot.params['id'];
                 }
@@ -134,10 +136,14 @@ export class MaterialEditComponent {
 
         this.materialService.egitMaterial(material).subscribe(result => {
             if(this.materialId)
-                this.router.navigate(['../../'], { relativeTo: this.route });
+            {
+                this.toastService.showSuccess("Material edited");
+            }
             else
-                this.router.navigate(['../'], { relativeTo: this.route });
+            {
+                this.toastService.showSuccess("Material added");
+            }
+            this.router.navigate(['/teacher/groupControl'], { relativeTo: this.route, queryParams : {groupId: this.group.id} });
         })
     }
-
 }

@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastService } from "src/app/components/toast/toast.service";
 import { Material } from "src/app/models/metirial.model";
 import { Student } from "src/app/models/student.model";
 import { MaterialService } from "src/app/services/material.service";
@@ -27,7 +28,8 @@ export class GroupControlComponent{
                 private materialService: MaterialService,
                 private modalService: NgbModal,
                 private route: ActivatedRoute,
-                private ngxService: NgxUiLoaderService){}
+                private ngxService: NgxUiLoaderService,
+                private toastService: ToastService){}
 
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
@@ -58,6 +60,9 @@ export class GroupControlComponent{
         this.materialService.deleteMaterial(id).subscribe(result => {
             const removeIndex = this.groupMaterials.findIndex( item => item.id === id );
             this.groupMaterials.splice( removeIndex, 1 );
-          });
+
+
+            this.toastService.showSuccess("Material deleted");
+        });
     }
 }

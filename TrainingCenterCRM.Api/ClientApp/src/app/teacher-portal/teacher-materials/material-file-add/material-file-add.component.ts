@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
@@ -28,8 +29,8 @@ export class MaterialFileAddComponent {
                 private toastService: ToastService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private titleService: Title){}
-
+                private titleService: Title,
+                private location: Location){}
 
     ngOnInit(): void {
         this.titleService.setTitle("Edit material - Training Center")
@@ -62,7 +63,9 @@ export class MaterialFileAddComponent {
         file.files = this.files;
 
         this.materialService.addFile(file).subscribe(res => {
-            this.router.navigate(['../'], { relativeTo: this.route });
+            this.toastService.showSuccess(`Files added for this course`);
+
+            this.location.back();
         })
     }
 
