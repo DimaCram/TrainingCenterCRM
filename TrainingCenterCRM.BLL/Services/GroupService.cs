@@ -129,6 +129,17 @@ namespace TrainingCenterCRM.BLL.Services
             return groupRepository.GetAllByPagination(pagination);
         }
 
+        public async Task<IEnumerable<Group>> GetStudentGroups(string userEmail)
+        {
+            var user = await _userService.GetUserWithStudentByEmail(userEmail);
+
+            if (user.Student == null)
+                throw new NullReferenceException("Student not found");
+
+            var groups = await groupRepository.Find(g => g.Students.Any(s => s.Id == user.Student.Id));
+            return groups;
+        }
+
         public async Task<IEnumerable<Student>> GetStudentsWithGroupAsync(int groupId, int courseId)
         {
             var group = await groupRepository.Get(groupId);

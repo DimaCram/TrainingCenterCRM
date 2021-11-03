@@ -39,6 +39,9 @@ export class AccountService{
           case "teacher":
               this.router.navigate(['teacher'])
               break;
+          case "student":
+              this.router.navigate(['student'])
+              break;
           default:
               this.router.navigate(['login'])
               break;

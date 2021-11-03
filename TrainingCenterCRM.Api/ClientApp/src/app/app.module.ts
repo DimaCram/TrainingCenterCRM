@@ -27,6 +27,7 @@ import { MaterialService } from './services/material.service';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { StatusErrorComponent } from './components/statusError/status-error.component';
 import { RouterModule } from '@angular/router';
+import { StudentMainModule } from './student-portal/student-main/student-main.module';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -46,6 +47,7 @@ export function tokenGetter(){
     AppRoutingModule,
     ManagerMainModule,
     TeacherMainModule,
+    StudentMainModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

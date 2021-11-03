@@ -44,4 +44,8 @@ export class GroupService{
         let params = new HttpParams().append('groupId', groupId.toString());
         return this.http.get<boolean>(this.baseUrl + `api/groups/checkAccessToGroup`, {params: params});
     }
+
+    getStudentGroups(){
+        return this.http.get<Group[]>(this.baseUrl + `api/groups/studentGroups`);
+    }
 }

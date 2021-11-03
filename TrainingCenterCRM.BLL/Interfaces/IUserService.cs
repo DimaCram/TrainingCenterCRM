@@ -12,5 +12,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<string> GetToken(string email);
         Task<string> GetUserRole(string email);
         Task<User> GetUserWithTeacherByEmail(string email);
+        Task<User> GetUserWithStudentByEmail(string email);
     }
 }

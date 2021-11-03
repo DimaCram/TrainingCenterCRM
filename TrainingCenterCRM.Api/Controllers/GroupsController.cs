@@ -77,7 +77,7 @@ namespace TrainingCenterCRM.Api.Controllers
         {
             return Enum.GetNames(typeof(GroupStatus)).ToList();
         }
-        
+
         [Authorize(Roles = "teacher")]
         [HttpGet("teacherGroups")]
         public async Task<IEnumerable<GroupDto>> GetTeacherGroups()
@@ -98,6 +98,14 @@ namespace TrainingCenterCRM.Api.Controllers
         {
             var userEmail = HttpContext.User.Identity.Name;
             return await _groupService.HasAccessToGroup(groupId, userEmail);
+        }
+
+        [Authorize(Roles = "student")]
+        [HttpGet("studentGroups")]
+        public async Task<IEnumerable<GroupDto>> GetStudentGroups()
+        {
+            var userEmail = HttpContext.User.Identity.Name;
+            return _mapper.Map<IEnumerable<GroupDto>>(await _groupService.GetStudentGroups(userEmail));
         }
     }
 }

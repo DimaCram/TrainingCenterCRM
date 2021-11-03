@@ -102,5 +102,13 @@ namespace TrainingCenterCRM.BLL.Services
 
             return _userRepository.GetUserWithTeacherByEmail(email);
         }
+
+        public Task<User> GetUserWithStudentByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentException();
+
+            return _userRepository.GetUserWithStudentByEmail(email);
+        }
     }
 }

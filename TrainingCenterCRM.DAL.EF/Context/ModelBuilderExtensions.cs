@@ -20,12 +20,13 @@ namespace TrainingCenterCRM.DAL.EF.Context
             //roles
             var roleTeacher = new IdentityRole { Id = "dc580e4d-92ba-47a9-bb31-62b0afb85445", Name = "teacher", NormalizedName = "teacher" };
             var roleManager = new IdentityRole { Id = "9d5aeb79-50ca-48db-91dc-3a72f06c978f", Name = "manager", NormalizedName = "manager" };
+            var roleStudent = new IdentityRole { Id = "3f0d93b3-02a9-482b-b6d9-9ecbfcfb3e56", Name = "student", NormalizedName = "student" };
 
             modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole { Id = "021cb353-a049-404c-b2f6-b067a48a3b9a", Name = "user", NormalizedName = "user" },
                 new IdentityRole { Id = "800ac90f-e24c-485a-8be4-5869972e12a7", Name = "admin", NormalizedName = "admin"},
                 roleTeacher,
-                roleManager
+                roleManager,
+                roleStudent
             );
 
             var managerUser = new User
@@ -324,12 +325,25 @@ namespace TrainingCenterCRM.DAL.EF.Context
             );
 
             //Students
+            var studentUser1 = new User
+            {
+                Id = "20141624-04de-4fc2-aaf7-3154609f66f1",
+                UserName = "fedorova@gmail.com",
+                NormalizedEmail = "fedorova@gmail.com",
+                Email = "fedorova@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "fedorova@gmail.com",
+            };
+            studentUser1.PasswordHash = ph.HashPassword(studentUser1, passwordStudent);
+            modelBuilder.Entity<User>().HasData(studentUser1);
+
             var student1 = new Student
             {
                 Id = 1,
                 Name = "Darya",
                 Surname = "Fedorova",
-                Age = 22
+                Age = 22,
+                UserId = studentUser1.Id
             };
             var student2 = new Student()
             {
@@ -470,6 +484,13 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 student6, student7, student8, student9, student10,
                 student11, student12, student13, student14, student15,
                 student16, student17, student18, student19, student20
+            );
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {   
+                    RoleId = roleStudent.Id,
+                    UserId = studentUser1.Id
+                }
             );
 
             var topic1 = new Topic

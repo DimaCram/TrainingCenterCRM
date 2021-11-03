@@ -14,7 +14,6 @@ using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.Api.Controllers
 {
-    [Authorize(Roles = "teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class MaterialsController : ControllerBase
@@ -36,12 +35,14 @@ namespace TrainingCenterCRM.Api.Controllers
             _materialAssignmentService = materialAssignmentService;
         }
 
+        [Authorize(Roles = "teacher, student")]
         [HttpGet]
         public async Task<IEnumerable<MaterialDto>> GetMaterialsAsync()
         {
             return _mapper.Map<IEnumerable<MaterialDto>>(await _materialService.GetMaterialsAsync());
         }
 
+        [Authorize(Roles = "teacher, student")]
         [HttpGet("pagination")]
         public async Task<IEnumerable<MaterialDto>> GetMaterialsByPaginationAsync([FromQuery] PaginationDto pagination)
         {
@@ -51,12 +52,14 @@ namespace TrainingCenterCRM.Api.Controllers
             return _mapper.Map<IEnumerable<MaterialDto>>(materials);
         }
 
+        [Authorize(Roles = "teacher, student")]
         [HttpGet("{id}")]
         public async Task<MaterialDto> GetMaterialAsync(int id)
         {
             return _mapper.Map<MaterialDto>(await _materialService.GetMaterialAsync(id));
         }
 
+        [Authorize(Roles = "teacher")]
         [HttpPost]
         public async Task EditMaterialAsync(MaterialDto materialDto)
         {
@@ -68,24 +71,28 @@ namespace TrainingCenterCRM.Api.Controllers
                 await _materialService.EditMaterialAsync(material, materialDto.Files.Select(f => f.Id).ToList());
         }
 
+        [Authorize(Roles = "teacher")]
         [HttpDelete("{id}")]
         public async Task DeleteMaterialAsync(int id)
         {
             await _materialService.DeleteMaterialAsync(id);
         }
 
+        [Authorize(Roles = "teacher")]
         [HttpPost("addFile")]
         public async Task AddFile([FromForm] List<IFormFile> files, [FromForm] int courseId)
         {
             await _fileService.AddFilesAsync(files, courseId);
         }
 
+        [Authorize(Roles = "teacher, student")]
         [HttpGet("types")]
         public List<string> GetMaterialTypes()
         {
             return Enum.GetNames(typeof(WorkingType)).ToList();
         }
 
+        [Authorize(Roles = "teacher")]
         [HttpGet("filesForGroup")]
         public async Task<IEnumerable<FileDto>> GetFilesByCourse(int courseId, int materialId)
         {
@@ -107,6 +114,7 @@ namespace TrainingCenterCRM.Api.Controllers
             return filesForCourse;
         }
 
+        [Authorize(Roles = "teacher, student")]
         [HttpGet("groupMaterials")]
         public async Task<IEnumerable<MaterialDto>> GetMaterialsByGroupAsync(int groupId)
         {

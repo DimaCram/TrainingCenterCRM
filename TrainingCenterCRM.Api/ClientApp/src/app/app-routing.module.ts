@@ -16,6 +16,9 @@ import { TeacherAllComponent } from "./manager-portal/manager-teachers/teacher-a
 import { TeacherEditComponent } from "./manager-portal/manager-teachers/teacher-edit/teacher-edit.component";
 import { TopicAllComponent } from "./manager-portal/manager-topics/topic-all/topic-all.component";
 import { TopicEditComponent } from "./manager-portal/manager-topics/topic-edit/topic-edit.component";
+import { StudentGroupComponent } from "./student-portal/student-group/student-group.component";
+import { StudentGroupsComponent } from "./student-portal/student-groups/student-groups.component";
+import { StudentMainComponent } from "./student-portal/student-main/student-main.component";
 import { GroupControlComponent } from "./teacher-portal/teacher-groups/group-control/group-control.component";
 import { TeacherGroupsComponent } from "./teacher-portal/teacher-groups/teacher-groups.component";
 import { MaterialEditComponent } from "./teacher-portal/teacher-materials/material-edit/material-edit.component";
@@ -70,6 +73,17 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         data: { role: 'teacher' }
+    },
+
+    { path: 'student', redirectTo: 'student/groups', pathMatch: 'full' },
+    { path: 'student', component: StudentMainComponent,
+        children: [
+            { path: 'groups', component: StudentGroupsComponent },
+            { path: 'group', component: StudentGroupComponent },
+        ],
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        data: { role: 'student' }
     },
 
     { path: 'error/:code', component: StatusErrorComponent},

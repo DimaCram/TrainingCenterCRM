@@ -18,6 +18,12 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
+
+        public Task<User> GetUserWithStudentByEmail(string email)
+        {
+            return db.Users.Include(u => u.Student).SingleOrDefaultAsync(u => u.Email == email);
+        }
+
         public Task<User> GetUserWithTeacherByEmail(string email)
         {
             return db.Users.Include(u => u.Teacher).SingleOrDefaultAsync(u => u.Email == email);

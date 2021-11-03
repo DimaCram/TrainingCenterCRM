@@ -9,5 +9,6 @@ namespace TrainingCenterCRM.DAL.EF.Interfaces
     public interface IUserRepository
     {
         Task<User> GetUserWithTeacherByEmail(string email);
+        Task<User> GetUserWithStudentByEmail(string email);
     }
 }
