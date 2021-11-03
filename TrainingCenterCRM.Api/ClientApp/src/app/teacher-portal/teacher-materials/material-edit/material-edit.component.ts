@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { group } from "console";
 import { File } from "src/app/models/file.model";
 import { Group } from "src/app/models/group.model";
 import { Material } from "src/app/models/metirial.model";
@@ -18,9 +19,11 @@ export class MaterialEditComponent {
     selectedGroupId: number;
     materialId: number;
     materialTypes: string[] = [];
-    groups: Group[];
+    group: Group;
     filesForGroup: File[] = [];
+
     fileLengthError:string = "";
+    groupError: string;
 
     constructor(private fb: FormBuilder,
                 private route: ActivatedRoute,
@@ -38,20 +41,13 @@ export class MaterialEditComponent {
         if (this.materialId) {
             this.materialService.getMaterial(this.materialId).subscribe(res => {
               this.form.patchValue(res);
-              this.selectedGroupId = res.groupId;
-
-              this.getGroups();
             });
-        }
-        else{
-            this.getGroups();
         }
 
 
         this.form = this.fb.group({
             name: ['', Validators.required],
             materialType: ['', Validators.required],
-            groupId: ['', [Validators.required]],
             fileIds: new FormArray([]),
         });
 
@@ -59,6 +55,12 @@ export class MaterialEditComponent {
         this.materialService.getMaterialTypes().subscribe(res => {
             this.materialTypes = res;
         })
+
+        this.route.queryParams.subscribe(params => {
+            console.log(params['groupId'])
+            this.getGroup(+params['groupId'])
+        });
+
     }
 
 
@@ -81,10 +83,9 @@ export class MaterialEditComponent {
         }
     }
 
-    getFilesForGroup(groupId: number){
-        let group = this.groups.find(g => g.id == groupId);
-        if(group){
-            this.materialService.getFilesForGroup(group.courseId, this.materialId).subscribe(res => {
+    getFilesForGroup(){
+        if(this.group){
+            this.materialService.getFilesForGroup(this.group.courseId, this.materialId).subscribe(res => {
                 this.filesForGroup = res;
 
                 const formArray: FormArray = this.form.get('fileIds') as FormArray;
@@ -97,12 +98,10 @@ export class MaterialEditComponent {
         }
     }
 
-    getGroups(){
-        this.groupService.getGroups().subscribe(res =>{
-            this.groups = res;
-
-            if(this.selectedGroupId)
-                this.getFilesForGroup(this.selectedGroupId);
+    getGroup(groupId: number){
+        this.groupService.getGroup(groupId).subscribe(res =>{
+            this.group = res;
+            this.getFilesForGroup();
         })
     }
 
@@ -112,14 +111,19 @@ export class MaterialEditComponent {
             this.fileLengthError = "Select minimum one file";
             return;
         }
-        let material : Material = new Material();
+        if(!this.group.id){
+            this.groupError = "Group not found";
+            return;
+        }
+
+        let material = new Material();
 
         if(this.materialId)
             material.id = +this.materialId;
 
         material.name = this.form.value.name;
         material.materialType = this.form.value.materialType;
-        material.groupId = +this.form.value.groupId;
+        material.groupId = +this.group.id;
         material.files = [];
 
         this.form.value.fileIds.forEach(id => {

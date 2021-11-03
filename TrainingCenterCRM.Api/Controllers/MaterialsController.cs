@@ -93,7 +93,7 @@ namespace TrainingCenterCRM.Api.Controllers
 
             if (materialId != 0)
             {
-                var materialFiles = _mapper.Map<List<FileDto>>(_materialAssignmentService.GetFilesByMaterial(materialId));
+                var materialFiles = _mapper.Map<List<FileDto>>(await _materialAssignmentService.GetFilesByMaterial(materialId));
 
                 foreach (var selectedFile in materialFiles)
                 {

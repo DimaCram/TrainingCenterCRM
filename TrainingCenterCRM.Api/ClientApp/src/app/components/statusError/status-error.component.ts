@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Location } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -9,7 +10,8 @@ import { ActivatedRoute } from "@angular/router";
 export class StatusErrorComponent{
     code: number;
     errorMessage: string;
-    constructor(private route: ActivatedRoute){}
+    constructor(private route: ActivatedRoute,
+                private location: Location){}
 
     ngOnInit(): void {
         this.code = +this.route.snapshot.params['code'];
@@ -30,5 +32,8 @@ export class StatusErrorComponent{
                 this.errorMessage = "Sorry, something went wrong.";
                 break;
         }
+    }
+    back() {
+        this.location.back(); // <-- go back to previous location on cancel
     }
 }

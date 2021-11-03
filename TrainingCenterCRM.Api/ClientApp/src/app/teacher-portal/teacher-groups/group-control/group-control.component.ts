@@ -53,4 +53,11 @@ export class GroupControlComponent{
         this.studentInfo = user;
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
     }
+
+    deleteMaterial(id: number):void{
+        this.materialService.deleteMaterial(id).subscribe(result => {
+            const removeIndex = this.groupMaterials.findIndex( item => item.id === id );
+            this.groupMaterials.splice( removeIndex, 1 );
+          });
+    }
 }

@@ -46,6 +46,10 @@ textarea {
 }
 
 .pannel-link {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+
   text-align: center;
   color: var(--color-green) !important;
   text-decoration: none;

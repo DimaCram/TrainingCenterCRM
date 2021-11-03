@@ -9,6 +9,12 @@
                     <div class="card-body">
                         <form method="post" [formGroup]="form" autocomplete="off" (submit)="onSubmit()">
                             <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Group</label>
+                                <div class="col-sm-9" *ngIf="group">
+                                    <input class="form-control" type="text" [value]="group.name" readonly />
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
                                 <label asp-for="Name" class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text" formControlName="name" />
@@ -23,16 +29,6 @@
                                         <option [value]="type" *ngFor="let type of materialTypes">{{type}}</option>
                                     </select>
                                     <span class="alert-danger" *ngIf="form.get('materialType').touched && form.get('materialType').errors">This field is required</span>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label asp-for="GroupId" class="col-sm-3 col-form-label">Group</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" formControlName="groupId" (change)="getFilesForGroup($event.target.value)">
-                                        <option value="">Select group</option>
-                                        <option [value]="group.id" *ngFor="let group of groups">{{group.name}}</option>
-                                    </select>
-                                    <span class="alert-danger" *ngIf="form.get('groupId').touched && form.get('groupId').errors">This field is required</span>
                                 </div>
                             </div>
                             <p>Selected files</p>

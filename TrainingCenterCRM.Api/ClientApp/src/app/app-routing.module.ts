@@ -18,7 +18,6 @@ import { TopicAllComponent } from "./manager-portal/manager-topics/topic-all/top
 import { TopicEditComponent } from "./manager-portal/manager-topics/topic-edit/topic-edit.component";
 import { GroupControlComponent } from "./teacher-portal/teacher-groups/group-control/group-control.component";
 import { TeacherGroupsComponent } from "./teacher-portal/teacher-groups/teacher-groups.component";
-import { MaterialAllComponent } from "./teacher-portal/teacher-materials/material-all/material-all.component";
 import { MaterialEditComponent } from "./teacher-portal/teacher-materials/material-edit/material-edit.component";
 import { MaterialFileAddComponent } from "./teacher-portal/teacher-materials/material-file-add/material-file-add.component";
 import { TeacherMainComponent } from "./teacher-portal/teacher-model/teacher-main.component";
@@ -59,10 +58,9 @@ const routes: Routes = [
         data: { role: 'manager' }
     },
 
-    { path: 'teacher', redirectTo: 'teacher/materials', pathMatch: 'full' },
+    { path: 'teacher', redirectTo: 'teacher/groups', pathMatch: 'full' },
     { path: 'teacher', component: TeacherMainComponent,
         children: [
-            { path: 'materials', component: MaterialAllComponent },
             { path: 'materials/edit', component: MaterialEditComponent },
             { path: 'materials/edit/:id', component: MaterialEditComponent },
             { path: 'materials/addFile', component: MaterialFileAddComponent },

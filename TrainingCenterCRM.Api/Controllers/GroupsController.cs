@@ -47,7 +47,7 @@ namespace TrainingCenterCRM.Api.Controllers
             return _mapper.Map<IEnumerable<GroupDto>>(groups);
         }
 
-        [Authorize(Roles = "manager")]
+        [Authorize(Roles = "manager, teacher")]
         [HttpGet("{id}")]
         public async Task<GroupDto> GetGroupAsync(int id)
         {
