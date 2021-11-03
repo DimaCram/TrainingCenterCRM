@@ -34,8 +34,14 @@ export class GroupService{
     getTeacherGroups(){
         return this.http.get<Group[]>(this.baseUrl + `api/groups/teacherGroups`);
     }
+
     sendInviteNotifications(groupId: number){
         let params = new HttpParams().append('groupId', groupId.toString());
         return this.http.get(this.baseUrl + `api/groups/inviteNotification`, {params: params});
+    }
+
+    hasAccessToGroup(groupId: number){
+        let params = new HttpParams().append('groupId', groupId.toString());
+        return this.http.get<boolean>(this.baseUrl + `api/groups/checkAccessToGroup`, {params: params});
     }
 }

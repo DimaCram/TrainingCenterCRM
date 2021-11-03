@@ -145,6 +145,19 @@ namespace TrainingCenterCRM.BLL.Services
             return groups;
         }
 
+        public async Task<bool> HasAccessToGroup(int groupId, string userEmail)
+        {
+            var user = await _userService.GetUserWithTeacherByEmail(userEmail);
+            if (user.Teacher == null)
+                return false;
+
+            var group = await groupRepository.Get(groupId);
+            if (group == null)
+                return false;
+
+            return group.TeacherId == user.Teacher.Id;
+        }
+
         public async Task SendInviteNotifications(int groupId)
         {
             var group = await groupRepository.GetFullGroupInfo(groupId);

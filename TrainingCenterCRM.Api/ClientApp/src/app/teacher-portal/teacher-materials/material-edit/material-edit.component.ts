@@ -59,8 +59,14 @@ export class MaterialEditComponent {
         })
 
         this.route.queryParams.subscribe(params => {
-            console.log(params['groupId'])
-            this.getGroup(+params['groupId'])
+            const groupId = +params['groupId'];
+
+            this.groupService.hasAccessToGroup(groupId).subscribe(hasAccess => {
+                if(hasAccess)
+                    this.getGroup(+params['groupId'])
+                else
+                    this.router.navigate(['/error', 401]);
+            })
         });
 
     }

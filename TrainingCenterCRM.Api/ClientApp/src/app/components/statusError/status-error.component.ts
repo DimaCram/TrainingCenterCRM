@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Location } from '@angular/common';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AccountService } from "src/app/services/account.service";
 
 @Component({
     selector: 'app-status-error',
@@ -11,7 +12,8 @@ export class StatusErrorComponent{
     code: number;
     errorMessage: string;
     constructor(private route: ActivatedRoute,
-                private location: Location){}
+                private router: Router,
+                private accountService: AccountService){}
 
     ngOnInit(): void {
         this.code = +this.route.snapshot.params['code'];
@@ -33,7 +35,19 @@ export class StatusErrorComponent{
                 break;
         }
     }
-    back() {
-        this.location.back(); // <-- go back to previous location on cancel
+    goHomePage() {
+        const role = this.accountService.getRole();
+
+        switch(role){
+            case "manager":
+                this.router.navigate(['manager'])
+                break;
+            case "teacher":
+                this.router.navigate(['teacher'])
+                break;
+            default:
+                this.router.navigate(['login'])
+                break;
+        }
     }
 }

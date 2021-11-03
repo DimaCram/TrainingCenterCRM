@@ -16,5 +16,6 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<IEnumerable<Student>> GetStudentsWithGroupAsync(int groupId, int courseId);
         Task<IEnumerable<Group>> GetTeacherGroups(string email);
         Task SendInviteNotifications(int groupId);
+        Task<bool> HasAccessToGroup(int groupId, string userEmail);
     }
 }
