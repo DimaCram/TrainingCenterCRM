@@ -6,6 +6,7 @@ import { ToastService } from "src/app/components/toast/toast.service";
 import { Material } from "src/app/models/metirial.model";
 import { GroupService } from "src/app/services/group.service";
 import { MaterialService } from "src/app/services/material.service";
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: 'student-group',
@@ -38,8 +39,15 @@ export class StudentGroupComponent{
 
         this.materialService.getMaterialsByGroup(this.groupId).subscribe(res => {
             this.ngxService.stopLoader("materialsLoader");
-            console.log(res);
             this.groupMaterials = res;
         })
+    }
+
+    downloadMaterialFile(fileId: number, fileName: string){
+    
+        this.materialService.downloadFile(fileId).subscribe(result => {
+            var blob = new Blob([result]);
+            saveAs(blob, fileName);
+        });
     }
 }

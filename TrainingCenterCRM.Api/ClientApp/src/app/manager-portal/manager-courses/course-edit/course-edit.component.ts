@@ -99,8 +99,6 @@ export class CourseEditComponent{
               this.router.navigate(['../'], { relativeTo: this.route });
             }
         });
-
-        
     }
 
   /**

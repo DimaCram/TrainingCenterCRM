@@ -444,6 +444,7 @@ input[type="color"]:focus,
 }
 
 ul{
+  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -453,4 +454,21 @@ ul{
 }
 button:focus{
   outline: none;
+}
+
+.collapse-block{
+  flex-direction: row;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.collapse-content{
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+.collapse-icon{
+  transition: all linear .2s;
+}
+.collapse-block[aria-expanded="true"] > .collapse-icon{
+  transform: rotate(180deg);
 }

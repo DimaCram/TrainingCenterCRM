@@ -57,4 +57,10 @@ export class MaterialService{
 
         return this.http.get<Material[]>(this.baseUrl + `api/materials/groupMaterials`, {params: params});
     }
+
+    downloadFile(fileId: number){
+        let params = new HttpParams().append('fileId', fileId.toString());
+
+        return this.http.get(this.baseUrl + `api/materials/downloadFile`, {params: params , responseType: 'blob'});
+    }
 }

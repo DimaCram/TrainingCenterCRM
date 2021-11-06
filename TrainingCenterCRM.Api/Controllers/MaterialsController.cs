@@ -121,5 +121,13 @@ namespace TrainingCenterCRM.Api.Controllers
             var res = _mapper.Map<IEnumerable<MaterialDto>>(await _materialService.GetMaterialsByGroupAsync(groupId));
             return res;
         }
+
+        [Authorize(Roles = "teacher, student")]
+        [HttpGet("downloadFile")]
+        public async Task<IActionResult> DownloadMaterialFile(int fileId)
+        {
+            var file = await _fileService.GetFileAsync(fileId);
+            return File(file.Data, file.FileType, file.Name);
+        }
     }
 }
