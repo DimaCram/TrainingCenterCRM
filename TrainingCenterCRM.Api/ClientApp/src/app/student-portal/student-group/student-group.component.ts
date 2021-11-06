@@ -38,6 +38,7 @@ export class StudentGroupComponent{
 
         this.materialService.getMaterialsByGroup(this.groupId).subscribe(res => {
             this.ngxService.stopLoader("materialsLoader");
+            console.log(res);
             this.groupMaterials = res;
         })
     }

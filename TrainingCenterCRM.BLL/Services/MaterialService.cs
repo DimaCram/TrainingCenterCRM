@@ -77,7 +77,9 @@ namespace TrainingCenterCRM.BLL.Services
 
         public async Task<IEnumerable<Material>> GetMaterialsByGroupAsync(int groupId)
         {
-            return await repository.Find(m => m.GroupId == groupId);
+            //return await repository.Find(m => m.GroupId == groupId);
+            var res = await repository.GetMaterialsWithFilesByGroup(groupId);
+            return res;
         }
 
         public Task<IEnumerable<Material>> GetMaterialsByPaginationAsync(PaginationFilter pagination)

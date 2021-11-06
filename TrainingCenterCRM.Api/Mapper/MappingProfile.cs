@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Linq;
 using TrainingCenterCRM.Api.Dto;
 using TrainingCenterCRM.Core.Filters;
 using TrainingCenterCRM.Core.Models;
@@ -27,7 +28,9 @@ namespace TrainingCenterCRM.WebAngular.Mapper
 
             CreateMap<File, FileDto>().ReverseMap();
 
-            CreateMap<Material, MaterialDto>().ReverseMap();
+            CreateMap<Material, MaterialDto>()
+                .ForMember(sr => sr.Files, map => map.MapFrom(sr => sr.FileToMaterialAssignments.Select(fma => fma.File).ToList()))
+                .ReverseMap();
 
             CreateMap<PaginationFilter, PaginationDto>()
                 .ForMember(sr => sr.PageNumber, map => map.MapFrom(sr => sr.Offset))

@@ -1,4 +1,5 @@
-﻿using TrainingCenterCRM.Core.Enums;
+﻿using System.Collections.Generic;
+using TrainingCenterCRM.Core.Enums;
 
 namespace TrainingCenterCRM.Core.Models
 {
@@ -10,5 +11,7 @@ namespace TrainingCenterCRM.Core.Models
 
         public int GroupId { get; set; }
         public Group Group { get; set; }
+
+        public List<FileToMaterialAssignment> FileToMaterialAssignments { get; set; }
     }
 }

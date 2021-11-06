@@ -63,5 +63,13 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Material>> GetMaterialsWithFilesByGroup(int groupId)
+        {
+            return await db.Materials.Include(m => m.FileToMaterialAssignments)
+                                     .ThenInclude(a => a.File)
+                                     .Where(m => m.GroupId == groupId)
+                                     .ToListAsync();
+        }
     }
 }
