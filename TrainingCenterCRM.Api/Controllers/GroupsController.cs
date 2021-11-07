@@ -107,5 +107,12 @@ namespace TrainingCenterCRM.Api.Controllers
             var userEmail = HttpContext.User.Identity.Name;
             return _mapper.Map<IEnumerable<GroupDto>>(await _groupService.GetStudentGroups(userEmail));
         }
+
+        [Authorize(Roles = "student")]
+        [HttpGet("groupTeacher")]
+        public async Task<TeacherDto> GetGroupTeacher(int groupId)
+        {
+            return _mapper.Map<TeacherDto>(await _groupService.GetGroupTeacher(groupId));
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace TrainingCenterCRM.DAL.EF.Interfaces
     {
         Task<IEnumerable<Group>> GetAllByPagination(PaginationFilter pagination);
         Task<Group> GetFullGroupInfo(int id);
+        Task<Group> GetGroupWithTeacher(int groupId);
     }
 }

@@ -71,5 +71,11 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
                                   .Include(g => g.Course)
                                   .SingleOrDefaultAsync(g => g.Id == id);
         }
+
+        public async Task<Group> GetGroupWithTeacher(int groupId)
+        {
+            return await db.Groups.Include(g => g.Teacher)
+                                   .SingleOrDefaultAsync(g => g.Id == groupId);
+        }
     }
 }

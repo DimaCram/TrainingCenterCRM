@@ -129,6 +129,12 @@ namespace TrainingCenterCRM.BLL.Services
             return groupRepository.GetAllByPagination(pagination);
         }
 
+        public async Task<Teacher> GetGroupTeacher(int groupId)
+        {
+            var group = await groupRepository.GetGroupWithTeacher(groupId);
+            return group?.Teacher;
+        }
+
         public async Task<IEnumerable<Group>> GetStudentGroups(string userEmail)
         {
             var user = await _userService.GetUserWithStudentByEmail(userEmail);

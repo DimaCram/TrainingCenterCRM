@@ -7,6 +7,7 @@ import { Material } from "src/app/models/metirial.model";
 import { GroupService } from "src/app/services/group.service";
 import { MaterialService } from "src/app/services/material.service";
 import { saveAs } from 'file-saver';
+import { Teacher } from "src/app/models/teacher.model";
 
 @Component({
     selector: 'student-group',
@@ -15,6 +16,7 @@ import { saveAs } from 'file-saver';
 
 export class StudentGroupComponent{
     groupMaterials: Material[] = [];
+    groupTeacher: Teacher;
 
     groupId: number;
 
@@ -40,6 +42,12 @@ export class StudentGroupComponent{
         this.materialService.getMaterialsByGroup(this.groupId).subscribe(res => {
             this.ngxService.stopLoader("materialsLoader");
             this.groupMaterials = res;
+        })
+
+        this.ngxService.startLoader("teacherLoader");
+        this.groupService.getGroupTeacher(this.groupId).subscribe(res => {
+            this.ngxService.stopLoader("teacherLoader");
+            this.groupTeacher = res;
         })
     }
 
