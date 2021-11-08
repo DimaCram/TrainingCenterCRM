@@ -9,6 +9,8 @@ import { NavMenuComponent } from "src/app/nav-menu/nav-menu.component";
 import { SharedModule } from "src/app/shared.module";
 import { GroupControlComponent } from "../teacher-groups/group-control/group-control.component";
 import { TeacherGroupsComponent } from "../teacher-groups/teacher-groups.component";
+import { GroupMarksComponent } from "../teacher-marks/group-marks/group-marks.component";
+import { MarkEditComponent } from "../teacher-marks/mark-edit/mark-edit.component";
 import { MaterialEditComponent } from "../teacher-materials/material-edit/material-edit.component";
 import { MaterialFileAddComponent } from "../teacher-materials/material-file-add/material-file-add.component";
 import { TeacherMainComponent } from "./teacher-main.component";
@@ -30,7 +32,9 @@ import { TeacherMainComponent } from "./teacher-main.component";
         MaterialFileAddComponent,
         MaterialEditComponent,
         TeacherGroupsComponent,
-        GroupControlComponent
+        GroupControlComponent,
+        MarkEditComponent,
+        GroupMarksComponent
     ],
     exports: [ TeacherMainComponent ]
 })

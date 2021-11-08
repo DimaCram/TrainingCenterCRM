@@ -36,6 +36,8 @@ namespace TrainingCenterCRM.WebAngular.Mapper
                 .ForMember(sr => sr.PageNumber, map => map.MapFrom(sr => sr.Offset))
                 .ForMember(sr => sr.PageSize, map => map.MapFrom(sr => sr.Limit))
                 .ReverseMap();
+
+            CreateMap<StudentMark, StudentMarkDto>().ReverseMap();
         }
     }   
 }

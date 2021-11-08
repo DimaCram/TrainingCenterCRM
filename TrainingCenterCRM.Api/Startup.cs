@@ -58,6 +58,7 @@ namespace TrainingCenterCRM.Api
             services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IFileToMaterialAssignmentRepository, FileToMaterialAssignmentRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IStudentMarkRepository, StudentMarkRepository>();
 
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IGroupService, GroupService>();
@@ -72,6 +73,7 @@ namespace TrainingCenterCRM.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFileToMaterialAssignmentService, FileToMaterialAssignmentService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IStudentMarkService, StudentMarkService>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<TrainingCenterContext>();

@@ -12,7 +12,9 @@ import { ToastService } from "src/app/components/toast/toast.service";
 })
 
 export class CourseAllComponent{
-    public courses: Course[] = [];
+    private courses: Course[] = [];
+    public filteredCourses: Course[] = [];
+
     public page = 1;
     public pageSize = 5;
 
@@ -26,8 +28,9 @@ export class CourseAllComponent{
       this.ngxService.startLoader("loader");
 
       this.courseService.getCourses().subscribe(result => {
-        this.courses = result;
         this.ngxService.stopLoader("loader");
+        this.courses = result;
+        this.filteredCourses = result;
       });
     }
 
@@ -48,6 +51,14 @@ export class CourseAllComponent{
         var FileSaver = require('file-saver');
         var blob = new Blob([result], {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(blob, "courses.csv");
+      });
+    }
+
+    search(searchText: string){
+      this.filteredCourses = this.courses.filter(course => {
+        const term = searchText.toLowerCase();
+        return course.title.toLowerCase().includes(term)
+            || course.description.toLowerCase().includes(term);
       });
     }
 }

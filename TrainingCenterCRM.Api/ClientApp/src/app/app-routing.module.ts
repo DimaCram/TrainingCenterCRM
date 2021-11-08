@@ -21,6 +21,8 @@ import { StudentGroupsComponent } from "./student-portal/student-groups/student-
 import { StudentMainComponent } from "./student-portal/student-main/student-main.component";
 import { GroupControlComponent } from "./teacher-portal/teacher-groups/group-control/group-control.component";
 import { TeacherGroupsComponent } from "./teacher-portal/teacher-groups/teacher-groups.component";
+import { GroupMarksComponent } from "./teacher-portal/teacher-marks/group-marks/group-marks.component";
+import { MarkEditComponent } from "./teacher-portal/teacher-marks/mark-edit/mark-edit.component";
 import { MaterialEditComponent } from "./teacher-portal/teacher-materials/material-edit/material-edit.component";
 import { MaterialFileAddComponent } from "./teacher-portal/teacher-materials/material-file-add/material-file-add.component";
 import { TeacherMainComponent } from "./teacher-portal/teacher-model/teacher-main.component";
@@ -67,8 +69,13 @@ const routes: Routes = [
             { path: 'materials/edit', component: MaterialEditComponent },
             { path: 'materials/edit/:id', component: MaterialEditComponent },
             { path: 'materials/addFile', component: MaterialFileAddComponent },
+
             { path: 'groups', component: TeacherGroupsComponent },
             { path: 'groupControl', component: GroupControlComponent },
+
+            { path: 'marks/edit', component: MarkEditComponent },
+            { path: 'marks/edit/:id', component: MarkEditComponent },
+            { path: 'marks/groupMarks', component: GroupMarksComponent },
         ],
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],

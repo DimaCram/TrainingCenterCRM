@@ -43,7 +43,7 @@ namespace TrainingCenterCRM.Api.Controllers
             return _mapper.Map<IEnumerable<StudentDto>>(students);
         }
 
-        [Authorize(Roles = "manager")]
+        [Authorize(Roles = "manager, teacher")]
         [HttpGet("{id}")]
         public async Task<StudentDto> GetStudentAsync(int id)
         {
