@@ -35,6 +35,6 @@ export class StudentMarkService{
     getStudentAverageByGroup(groupId: number){
         let httpParams = new HttpParams().append('groupId', groupId.toString());
 
-        return this.http.get<StudentMark[]>(`${this.baseUrl}api/studentMarks/studentAverageByGroup`, {params: httpParams})
+        return this.http.get<number>(`${this.baseUrl}api/studentMarks/studentAverageByGroup`, {params: httpParams})
     }
 }

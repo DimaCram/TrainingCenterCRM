@@ -18,6 +18,10 @@ import { Color, Label, MultiDataSet } from "ng2-charts";
 })
 
 export class StudentGroupComponent{
+    //chart settings
+    maxMark = 10;
+    public currentMark = 0;
+
     groupMaterials: Material[] = [];
     groupTeacher: Teacher;
 
@@ -55,7 +59,8 @@ export class StudentGroupComponent{
         })
 
         this.studentMarkService.getStudentAverageByGroup(this.groupId).subscribe(res => {
-            console.log(res);
+            this.currentMark = +res.toFixed(2);
+            this.initChart()
         })
     }
 
@@ -67,26 +72,38 @@ export class StudentGroupComponent{
         });
     }
 
-
-
-    // Pie
-    // Doughnut
-  public doughnutChartLabels: Label[] = ['', ''];
-  public doughnutChartData: MultiDataSet = [
-    [2, 8],
-  ];
+  // Doughnut
+  public doughnutChartLabels: Label[] = [];
+  public doughnutChartData: MultiDataSet = [];
   public doughnutChartType: ChartType = 'doughnut';
   public options: ChartOptions = {
     tooltips: {enabled: false},
   };
-  public lineChartColors: Color[] = [
-    { // grey
-      backgroundColor: 'rgba(232, 86, 86, 0.8)',
-      pointHoverBackgroundColor: 'rgb(232, 86, 86)',
-    },
-    { // dark grey
-        backgroundColor: 'rgb(223, 184, 28)',
-        pointHoverBackgroundColor: 'rgb(223, 184, 28)',
+  public donutColors=[];
+
+  initChart(): void{
+
+    this.doughnutChartData = [
+      [this.currentMark, this.maxMark - this.currentMark]
+    ];
+
+    let currentMarkColor = '';
+    
+    if(this.currentMark < 4){
+      currentMarkColor = 'rgba(232, 86, 86)';
     }
-  ];
+    else if(this.currentMark >= 4 && this.currentMark < 8){
+      currentMarkColor = 'rgb(223, 184, 28)';
+    }
+    else{
+      currentMarkColor = '#90b900';
+    }
+
+    this.donutColors=[
+      {
+        backgroundColor: [ currentMarkColor, '#d3d3d3'],
+        borderWidth: [0, 0]
+      }
+    ]
+  }
 }
