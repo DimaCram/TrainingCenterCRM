@@ -9,6 +9,8 @@ import { MaterialService } from "src/app/services/material.service";
 import { saveAs } from 'file-saver';
 import { Teacher } from "src/app/models/teacher.model";
 import { StudentMarkService } from "src/app/services/student-mark.service";
+import { ChartOptions, ChartType } from "chart.js";
+import { Color, Label, MultiDataSet } from "ng2-charts";
 
 @Component({
     selector: 'student-group',
@@ -64,4 +66,27 @@ export class StudentGroupComponent{
             saveAs(blob, fileName);
         });
     }
+
+
+
+    // Pie
+    // Doughnut
+  public doughnutChartLabels: Label[] = ['', ''];
+  public doughnutChartData: MultiDataSet = [
+    [2, 8],
+  ];
+  public doughnutChartType: ChartType = 'doughnut';
+  public options: ChartOptions = {
+    tooltips: {enabled: false},
+  };
+  public lineChartColors: Color[] = [
+    { // grey
+      backgroundColor: 'rgba(232, 86, 86, 0.8)',
+      pointHoverBackgroundColor: 'rgb(232, 86, 86)',
+    },
+    { // dark grey
+        backgroundColor: 'rgb(223, 184, 28)',
+        pointHoverBackgroundColor: 'rgb(223, 184, 28)',
+    }
+  ];
 }

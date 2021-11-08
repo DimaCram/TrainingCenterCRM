@@ -29,6 +29,7 @@ import { StatusErrorComponent } from './components/statusError/status-error.comp
 import { RouterModule } from '@angular/router';
 import { StudentMainModule } from './student-portal/student-main/student-main.module';
 import { StudentMarkService } from './services/student-mark.service';
+import { ChartsModule } from 'ng2-charts';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");

@@ -34,6 +34,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-6 form-group">
+              <canvas baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"
+                [legend]="false"
+                [options]="options"
+                [colors]="lineChartColors">
+              </canvas>
+            </div>
         </div>
     </div>
 </div>
