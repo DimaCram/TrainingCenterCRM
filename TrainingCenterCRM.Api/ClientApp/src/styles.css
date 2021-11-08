@@ -472,3 +472,7 @@ button:focus{
 .collapse-block[aria-expanded="true"] > .collapse-icon{
   transform: rotate(180deg);
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}

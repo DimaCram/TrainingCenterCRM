@@ -17,12 +17,20 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let student of groupStudents | slice: (pageStudent-1) * pageSize : (pageStudent-1) * pageSize + pageSize">
-                                        <th scope="col"><p class="modal-link" (click)="open(content, student.id)">{{student.name}} {{student.surname}}</p></th>
+                                        <th scope="col">
+                                            <p class="modal-link" (click)="open(content, student.id)">{{student.name}} {{student.surname}}</p>
+                                        </th>
+                                        <th scope="col">
+                                            <a class="btn btn-success" [routerLink]="['/teacher/marks/edit']" [queryParams]="{groupId: groupId, studentId: student.id}">Add mark</a>
+                                        </th>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <ngb-pagination [(page)]="pageStudent" [pageSize]="pageSize" [collectionSize]="groupStudents.length"></ngb-pagination>
+                        <div class="pt-3">
+                            <a class="btn btn-head mr-3" [routerLink]="['/teacher/marks/groupMarks']" [queryParams]="{groupId: groupId}">Group marks</a>
+                        </div>
                     </div>
                 </div>
             </div>

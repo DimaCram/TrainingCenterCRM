@@ -8,6 +8,7 @@ import { GroupService } from "src/app/services/group.service";
 import { MaterialService } from "src/app/services/material.service";
 import { saveAs } from 'file-saver';
 import { Teacher } from "src/app/models/teacher.model";
+import { StudentMarkService } from "src/app/services/student-mark.service";
 
 @Component({
     selector: 'student-group',
@@ -30,6 +31,7 @@ export class StudentGroupComponent{
                 private route: ActivatedRoute,
                 private router: Router,
                 private ngxService: NgxUiLoaderService,
+                private studentMarkService: StudentMarkService,
                 private toastService: ToastService)
                 {
                     this.groupId = +this.route.snapshot.queryParams['groupId']
@@ -49,10 +51,14 @@ export class StudentGroupComponent{
             this.ngxService.stopLoader("teacherLoader");
             this.groupTeacher = res;
         })
+
+        this.studentMarkService.getStudentAverageByGroup(this.groupId).subscribe(res => {
+            console.log(res);
+        })
     }
 
     downloadMaterialFile(fileId: number, fileName: string){
-    
+
         this.materialService.downloadFile(fileId).subscribe(result => {
             var blob = new Blob([result]);
             saveAs(blob, fileName);

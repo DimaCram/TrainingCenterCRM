@@ -28,6 +28,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { StatusErrorComponent } from './components/statusError/status-error.component';
 import { RouterModule } from '@angular/router';
 import { StudentMainModule } from './student-portal/student-main/student-main.module';
+import { StudentMarkService } from './services/student-mark.service';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -71,6 +72,7 @@ export function tokenGetter(){
     AccountService,
     ToastService,
     MaterialService,
+    StudentMarkService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,

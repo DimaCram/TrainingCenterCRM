@@ -149,7 +149,7 @@ export class MaterialEditComponent {
             {
                 this.toastService.showSuccess("Material added");
             }
-            this.router.navigate(['/teacher/groupControl'], { relativeTo: this.route, queryParams : {groupId: this.group.id} });
+            this.router.navigate(['/teacher/groupControl'], {  queryParams : {groupId: this.group.id} });
         })
     }
 }
