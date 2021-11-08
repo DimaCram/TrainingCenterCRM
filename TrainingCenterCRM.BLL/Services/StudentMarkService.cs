@@ -62,9 +62,9 @@ namespace TrainingCenterCRM.BLL.Services
             if (user.Student == null)
                 throw new ArgumentException("Student not found");
 
-            var studentMarks = await _studentMarkRepository.GetMarksForStudentByGroup(groupId, user.Student.Id);
-            
-            return studentMarks.Average(m => m.Mark);
+            var studentMarks = await _studentMarkRepository.Find(m => m.Material.GroupId == groupId && m.StudentId == user.Student.Id);
+
+            return studentMarks.Count() == 0 ? 0 : studentMarks.Average(m => m.Mark);
         }
     }
 }
