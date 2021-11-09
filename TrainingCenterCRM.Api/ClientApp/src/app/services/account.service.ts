@@ -21,8 +21,7 @@ export class AccountService{
     }
 
     logout() {
-      localStorage.removeItem('jwt');
-      localStorage.removeItem('role');
+      localStorage.clear();
     }
 
     getRole() {

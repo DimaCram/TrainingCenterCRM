@@ -11,6 +11,7 @@ import { Teacher } from "src/app/models/teacher.model";
 import { StudentMarkService } from "src/app/services/student-mark.service";
 import { ChartOptions, ChartType } from "chart.js";
 import { Color, Label, MultiDataSet } from "ng2-charts";
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: 'student-group',
@@ -35,15 +36,19 @@ export class StudentGroupComponent{
                 private groupService: GroupService,
                 private modalService: NgbModal,
                 private route: ActivatedRoute,
+                private titleService: Title,
                 private router: Router,
                 private ngxService: NgxUiLoaderService,
                 private studentMarkService: StudentMarkService,
                 private toastService: ToastService)
                 {
-                    this.groupId = +this.route.snapshot.queryParams['groupId']
+                    this.groupId = +localStorage.getItem('groupId');
+                    if(!this.groupId)
+                      this.router.navigate(["student"]);
                 }
 
     ngOnInit(): void {
+        this.titleService.setTitle("Student group - Training Center")
 
         this.ngxService.startLoader("materialsLoader");
 

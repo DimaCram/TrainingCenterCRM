@@ -17,6 +17,8 @@ import { TopicService } from "src/app/services/topic.service";
     public filteredGroupMarks: StudentMark[] = [];
     private groupMarks: StudentMark[] = [];
 
+    private groupId: number;
+
     public page = 1;
     public pageSize = 5;
 
@@ -24,17 +26,18 @@ import { TopicService } from "src/app/services/topic.service";
     constructor(private studentMarkService : StudentMarkService,
                 private titleService: Title,
                 private ngxService: NgxUiLoaderService,
-                private route: ActivatedRoute)
+                private router: Router)
                 {
+                  this.groupId = +localStorage.getItem('groupId');
+                  if(!this.groupId)
+                    this.router.navigate(["student"]);
                 }
 
     ngOnInit(): void {
       this.titleService.setTitle("Student marks - Training Center")
 
-      const groupId = +this.route.snapshot.queryParams['groupId']
-
       this.ngxService.startLoader("studentGroupMarksLoader");
-      this.studentMarkService.getStudentGroupMarks(groupId).subscribe(result => {
+      this.studentMarkService.getStudentGroupMarks(this.groupId).subscribe(result => {
         this.ngxService.stopLoader("studentGroupMarksLoader");
         this.groupMarks = result;
         this.filteredGroupMarks = result;
