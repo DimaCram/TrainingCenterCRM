@@ -72,7 +72,7 @@ namespace TrainingCenterCRM.BLL.Services
             var user = await _userService.GetUserWithStudentByEmail(userEmail);
 
             if (user.Student == null)
-                throw new NullReferenceException("Student not found");
+                throw new ArgumentException("Student not found");
 
             return await _studentMarkRepository.GetStudentMarksByGroup(groupId, user.Student.Id);
         }

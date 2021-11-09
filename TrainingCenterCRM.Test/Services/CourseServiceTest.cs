@@ -16,6 +16,7 @@ namespace TrainingCenterCRM.Test.Services
     public class CourseServiceTest
     {
         private Mock<ICourseRepository> mockCourseRepository;
+
         [SetUp]
         public void SetUp()
         {
