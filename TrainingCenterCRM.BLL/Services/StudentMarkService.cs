@@ -66,5 +66,15 @@ namespace TrainingCenterCRM.BLL.Services
 
             return studentMarks.Count() == 0 ? 0 : studentMarks.Average(m => m.Mark);
         }
+
+        public async Task<IEnumerable<StudentMark>> GetStudentMarksByGroup(int groupId, string userEmail)
+        {
+            var user = await _userService.GetUserWithStudentByEmail(userEmail);
+
+            if (user.Student == null)
+                throw new NullReferenceException("Student not found");
+
+            return await _studentMarkRepository.GetStudentMarksByGroup(groupId, user.Student.Id);
+        }
     }
 }

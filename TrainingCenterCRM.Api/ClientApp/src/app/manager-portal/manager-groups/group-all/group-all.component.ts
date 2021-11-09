@@ -13,7 +13,9 @@ import { TeacherService } from "src/app/services/teacher.service";
 
 
 export class GroupAllComponent{
-    public groups: Group[] = [];
+    private groups: Group[] = [];
+    public filteredGroups: Group[] = [];
+
     public page = 1;
     public pageSize = 5;
 
@@ -29,6 +31,7 @@ export class GroupAllComponent{
       this.groupService.getGroups().subscribe(result => {
         this.ngxService.stopLoader("groupsLoader");
         this.groups = result;
+        this.filteredGroups = result;
       });
     }
 
@@ -37,7 +40,7 @@ export class GroupAllComponent{
       this.groupService.deleteGroup(id).subscribe(result => {
         const removeIndex = this.groups.findIndex( item => item.id === id );
         this.groups.splice( removeIndex, 1 );
-        
+
         this.toastService.showSuccess("Group deleted");
       });
     }
@@ -46,6 +49,16 @@ export class GroupAllComponent{
 
       this.groupService.sendInviteNotifications(id).subscribe(result => {
         this.toastService.showSuccess("Invitation notification sent");
+      });
+    }
+
+    search(searchText: string){
+      this.filteredGroups = this.groups.filter(group => {
+        const term = searchText.toLowerCase();
+        return group.name.toLowerCase().includes(term)
+            || group.startDate.toString().includes(term)
+            || group.teacher.name.toLocaleLowerCase().includes(term)
+            || group.teacher.surname.includes(term);
       });
     }
 }

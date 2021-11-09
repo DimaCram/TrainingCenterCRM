@@ -68,5 +68,14 @@ namespace TrainingCenterCRM.Api.Controllers
             var averageMark = await _studentMarkService.GetStudentAverageMarkByGroup(groupId, userEmail);
             return averageMark;
         }
+
+        [HttpGet("studentByGroup")]
+        public async Task<IEnumerable<StudentMarkDto>> GetStudentMarksByGroup(int groupId)
+        {
+            var userEmail = HttpContext.User.Identity.Name;
+            var marks = await _studentMarkService.GetStudentMarksByGroup(groupId, userEmail);
+            return _mapper.Map<IEnumerable<StudentMarkDto>>(marks);
+        }
+
     }
 }

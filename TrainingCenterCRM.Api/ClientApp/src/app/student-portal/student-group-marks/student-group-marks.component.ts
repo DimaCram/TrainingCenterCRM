@@ -9,14 +9,13 @@ import { StudentMarkService } from "src/app/services/student-mark.service";
 import { TopicService } from "src/app/services/topic.service";
 
 @Component({
-    selector: 'teacher-group-marks',
-    templateUrl: './group-marks.component.html',
+    selector: 'student-group-marks',
+    templateUrl: './student-group-marks.component.html',
   })
-  export class GroupMarksComponent {
+  export class StudentGroupMarksComponent {
 
-    groupId: number;
-    private groupMarks: StudentMark[] = [];
     public filteredGroupMarks: StudentMark[] = [];
+    private groupMarks: StudentMark[] = [];
 
     public page = 1;
     public pageSize = 5;
@@ -25,40 +24,28 @@ import { TopicService } from "src/app/services/topic.service";
     constructor(private studentMarkService : StudentMarkService,
                 private titleService: Title,
                 private ngxService: NgxUiLoaderService,
-                private route: ActivatedRoute,
-                private toastService: ToastService)
+                private route: ActivatedRoute)
                 {
-                  this.groupId = +this.route.snapshot.queryParams['groupId']
                 }
 
     ngOnInit(): void {
-      this.titleService.setTitle("Group marks - Training Center")
+      this.titleService.setTitle("Student marks - Training Center")
 
-      this.groupId = +this.route.snapshot.queryParams['groupId']
+      const groupId = +this.route.snapshot.queryParams['groupId']
 
-      this.ngxService.startLoader("groupMarksLoader");
-      this.studentMarkService.getGroupMarks(this.groupId).subscribe(result => {
-        this.ngxService.stopLoader("groupMarksLoader");
+      this.ngxService.startLoader("studentGroupMarksLoader");
+      this.studentMarkService.getStudentGroupMarks(groupId).subscribe(result => {
+        this.ngxService.stopLoader("studentGroupMarksLoader");
         this.groupMarks = result;
         this.filteredGroupMarks = result;
-      });
-    }
-
-    deleteMark(markId: number){
-      this.studentMarkService.deleteMark(markId).subscribe(result => {
-        const removeIndex = this.groupMarks.findIndex( item => item.id === markId );
-        this.groupMarks.splice( removeIndex, 1 );
-
-        this.toastService.showSuccess("Mark deleted");
       });
     }
 
     search(searchText: string){
       this.filteredGroupMarks = this.groupMarks.filter(mark => {
         const term = searchText.toLowerCase();
-        return mark.student.name.toLowerCase().includes(term)
-            || mark.student.surname.toLowerCase().includes(term)
-            || mark.mark.toString().includes(term)
+        return mark.mark.toString().includes(term)
+            || mark.comment.toLowerCase().includes(term)
             || mark.material.name.toLowerCase().includes(term)
             || mark.material.materialType.toLowerCase().includes(term);
       });

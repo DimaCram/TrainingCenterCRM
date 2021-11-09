@@ -10,7 +10,9 @@ import { TeacherService } from 'src/app/services/teacher.service';
   templateUrl: './teacher-all.component.html',
 })
 export class TeacherAllComponent {
-    public teachers: Teacher[] = [];
+    private teachers: Teacher[] = [];
+    public filteredteachers: Teacher[] = [];
+
     public page = 1;
     public pageSize = 5;
 
@@ -26,6 +28,7 @@ export class TeacherAllComponent {
       this.teacherService.getTeachers().subscribe(result => {
         this.ngxService.stopLoader("teachersLoader");
         this.teachers = result;
+        this.filteredteachers = result;
       });
     }
 
@@ -35,6 +38,15 @@ export class TeacherAllComponent {
         this.teachers.splice( removeIndex, 1 );
 
         this.toastService.showSuccess("Teacher deleted");
+      });
+    }
+
+    search(searchText: string){
+      this.filteredteachers = this.teachers.filter(teacher => {
+        const term = searchText.toLowerCase();
+        return teacher.name.toLowerCase().includes(term)
+            || teacher.surname.toLowerCase().includes(term)
+            || teacher.age.toString().includes(term);
       });
     }
 }

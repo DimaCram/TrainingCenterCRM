@@ -8,6 +8,9 @@
                     <ngx-ui-loader [loaderId]="'groupsLoader'"></ngx-ui-loader>
                     <div class="card-header">Table</div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <input class="form-control" type="text" placeholder="Search..." (input)="search($event.target.value)"/>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-dark">
@@ -19,7 +22,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let group of groups | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                    <tr *ngFor="let group of filteredGroups | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <th scope="col">{{group.name}}</th>
                                         <th scope="col">{{group.startDate | date:'longDate'}}</th>
                                         <th scope="col">{{group.teacher.name}} {{group.teacher.surname}}</th>
@@ -35,7 +38,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="groups.length"></ngb-pagination>
+                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="filteredGroups.length"></ngb-pagination>
                         <div class="mt-3">
                             <a class="btn btn-head" [routerLink]="['/manager/groups/edit']">Add new group</a>
                         </div>

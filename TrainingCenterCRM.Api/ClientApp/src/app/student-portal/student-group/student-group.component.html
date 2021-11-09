@@ -23,7 +23,7 @@
                         <div class="collapse mb-3" id="mat-col-{{material.id}}">
                           <div class="card card-body d-block">
                             <ul>
-                              <li *ngFor="let materialFile of material.files" class="d-flex justify-content-between flex-wrap mb-2">
+                              <li *ngFor="let materialFile of material.files" class="d-flex align-items-center justify-content-between flex-wrap mt-2 mb-2">
                                 <span>{{materialFile.name}}</span>
                                 <button class="btn btn-success" (click)="downloadMaterialFile(materialFile.id, materialFile.name)">download</button>
                               </li>
@@ -35,18 +35,22 @@
                 </div>
             </div>
             <div class="col-xl-6 form-group">
-              <h2 class="average-text" *ngIf="currentMark != 0;else unset">Your average mark: {{currentMark}}</h2>
-              <ng-template #unset>  
-                <h2 class="average-text">You have no marks</h2>
-              </ng-template> 
-              <canvas baseChart
-                [data]="doughnutChartData"
-                [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"
-                [legend]="false"
-                [colors]="donutColors"
-                [options]="options">
-              </canvas>
+              <div class="card card-body mb-3" *ngIf="groupTeacher">
+                <ngx-ui-loader [loaderId]="'currentMarkLoader'"></ngx-ui-loader>
+                <h2 class="average-text" *ngIf="currentMark != 0;else unset">Your average mark: {{currentMark}}</h2>
+                <ng-template #unset>
+                  <h2 class="average-text">You have no marks</h2>
+                </ng-template>
+                <canvas baseChart
+                  [data]="doughnutChartData"
+                  [labels]="doughnutChartLabels"
+                  [chartType]="doughnutChartType"
+                  [legend]="false"
+                  [colors]="donutColors"
+                  [options]="options">
+                </canvas>
+                <a [routerLink]="['/student/group/marks']" [queryParams]="{groupId: groupId}">See all marks</a>
+              </div>
             </div>
         </div>
     </div>

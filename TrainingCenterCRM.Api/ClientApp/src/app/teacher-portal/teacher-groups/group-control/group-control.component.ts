@@ -15,8 +15,11 @@ import { StudentService } from "src/app/services/student.service";
 })
 
 export class GroupControlComponent{
-    groupStudents: Student[] = [];
-    groupMaterials: Material[] = [];
+    public filteredGroupStudents: Student[] = [];
+    private groupStudents: Student[] = [];
+
+    public filteredGroupMaterials: Material[] = [];
+    private groupMaterials: Material[] = [];
 
     studentInfo: Student;
     groupId: number;
@@ -49,11 +52,13 @@ export class GroupControlComponent{
         this.studentService.getStudentsByGroup(this.groupId).subscribe(res => {
             this.ngxService.stopLoader("studentsLoader");
             this.groupStudents = res;
+            this.filteredGroupStudents = res;
         })
 
         this.materialService.getMaterialsByGroup(this.groupId).subscribe(res => {
             this.ngxService.stopLoader("materialsLoader");
             this.groupMaterials = res;
+            this.filteredGroupMaterials = res;
         })
     }
 
@@ -70,6 +75,22 @@ export class GroupControlComponent{
 
 
             this.toastService.showSuccess("Material deleted");
+        });
+    }
+
+    searchStudents(searchText: string){
+        this.filteredGroupStudents = this.groupStudents.filter(student => {
+          const term = searchText.toLowerCase();
+          return student.name.toLowerCase().includes(term)
+              || student.surname.toLowerCase().includes(term);
+        });
+    }
+
+    searchMaterials(searchText: string){
+        this.filteredGroupMaterials = this.groupMaterials.filter(material => {
+          const term = searchText.toLowerCase();
+          return material.name.toLowerCase().includes(term)
+              || material.materialType.toLowerCase().includes(term);
         });
     }
 }

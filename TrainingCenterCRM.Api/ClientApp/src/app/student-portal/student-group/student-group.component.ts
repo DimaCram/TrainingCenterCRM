@@ -58,7 +58,9 @@ export class StudentGroupComponent{
             this.groupTeacher = res;
         })
 
+        this.ngxService.startLoader("currentMarkLoader");
         this.studentMarkService.getStudentAverageByGroup(this.groupId).subscribe(res => {
+            this.ngxService.stopLoader("currentMarkLoader");
             this.currentMark = +res.toFixed(2);
             this.initChart()
         })
@@ -88,7 +90,7 @@ export class StudentGroupComponent{
     ];
 
     let currentMarkColor = '';
-    
+
     if(this.currentMark < 4){
       currentMarkColor = 'rgba(232, 86, 86)';
     }

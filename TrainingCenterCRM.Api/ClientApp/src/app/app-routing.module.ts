@@ -16,6 +16,7 @@ import { TeacherAllComponent } from "./manager-portal/manager-teachers/teacher-a
 import { TeacherEditComponent } from "./manager-portal/manager-teachers/teacher-edit/teacher-edit.component";
 import { TopicAllComponent } from "./manager-portal/manager-topics/topic-all/topic-all.component";
 import { TopicEditComponent } from "./manager-portal/manager-topics/topic-edit/topic-edit.component";
+import { StudentGroupMarksComponent } from "./student-portal/student-group-marks/student-group-marks.component";
 import { StudentGroupComponent } from "./student-portal/student-group/student-group.component";
 import { StudentGroupsComponent } from "./student-portal/student-groups/student-groups.component";
 import { StudentMainComponent } from "./student-portal/student-main/student-main.component";
@@ -87,6 +88,7 @@ const routes: Routes = [
         children: [
             { path: 'groups', component: StudentGroupsComponent },
             { path: 'group', component: StudentGroupComponent },
+            { path: 'group/marks', component: StudentGroupMarksComponent },
         ],
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],

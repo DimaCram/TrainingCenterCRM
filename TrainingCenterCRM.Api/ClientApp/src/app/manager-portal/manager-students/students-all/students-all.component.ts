@@ -11,7 +11,9 @@ import { StudentService } from 'src/app/services/student.service';
   templateUrl: './students-all.component.html',
 })
 export class StudentsAllComponent {
-    public students: Student[] = [];
+    private students: Student[] = [];
+    public filteredStudents: Student[] = [];
+
     public studentInfo: Student;
     public page = 1;
     public pageSize = 5;
@@ -29,6 +31,7 @@ export class StudentsAllComponent {
       this.studentService.getStudents().subscribe(result => {
         this.ngxService.stopLoader("studentsLoader");
         this.students = result;
+        this.filteredStudents = result;
       });
     }
 
@@ -45,6 +48,14 @@ export class StudentsAllComponent {
       this.studentService.getStudent(studentId).subscribe(result => {
         this.studentInfo = result;
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+      });
+    }
+
+    search(searchText: string){
+      this.filteredStudents = this.students.filter(student => {
+        const term = searchText.toLowerCase();
+        return student.name.toLowerCase().includes(term)
+            || student.surname.toLowerCase().includes(term);
       });
     }
 }

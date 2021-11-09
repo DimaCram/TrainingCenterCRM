@@ -56,6 +56,14 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
                                               .ToListAsync();
         }
 
+        public async Task<IEnumerable<StudentMark>> GetStudentMarksByGroup(int groupId, int studentId)
+        {
+            return await _context.StudentMarks.Include(m => m.Material)
+                                              .Include(m => m.Student)
+                                              .Where(m => m.Material.GroupId == groupId && m.StudentId == studentId)
+                                              .ToListAsync();
+        }
+
         public async Task Update(StudentMark item)
         {
             _context.Entry(item).State = EntityState.Modified;

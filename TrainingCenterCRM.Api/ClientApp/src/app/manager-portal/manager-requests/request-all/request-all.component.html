@@ -9,6 +9,9 @@
                     <ngx-ui-loader [loaderId]="'requestsLoader'"></ngx-ui-loader>
                     <div class="card-header">Table</div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <input class="form-control" type="text" placeholder="Search..." (input)="search($event.target.value)"/>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-dark">
@@ -20,7 +23,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let request of requests | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                    <tr *ngFor="let request of filteredRequests | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <th scope="col">{{request.student.name}} {{request.student.surname}}</th>
                                         <th scope="col">{{request.course.title}}</th>
                                         <th scope="col">{{request.readyToStartDate | date:'longDate'}}</th>
@@ -31,7 +34,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="requests.length"></ngb-pagination>
+                            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="filteredRequests.length"></ngb-pagination>
                         </div>
                     </div>
                 </div>

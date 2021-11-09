@@ -8,6 +8,9 @@
                     <ngx-ui-loader [loaderId]="'teachersLoader'"></ngx-ui-loader>
                     <div class="card-header">Table</div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <input class="form-control" type="text" placeholder="Search..." (input)="search($event.target.value)"/>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-dark">
@@ -18,7 +21,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let teacher of teachers | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                    <tr *ngFor="let teacher of filteredteachers | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <th scope="col">{{teacher.name}} {{teacher.surname}}</th>
                                         <th scope="col">{{teacher.age}}</th>
                                         <th scope="col" class="text-center">
@@ -29,7 +32,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="teachers.length"></ngb-pagination>
+                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="filteredteachers.length"></ngb-pagination>
                         <div class="mt-3">
                             <a class="btn btn-head" [routerLink]="['/manager/teachers/edit']">Add new teacher</a>
                         </div>

@@ -11,7 +11,9 @@ import { TopicService } from "src/app/services/topic.service";
     templateUrl: './topic-all.component.html',
   })
   export class TopicAllComponent {
-    public topics: Topic[] = [];
+    public filteredTopics: Topic[] = [];
+    private topics: Topic[] = [];
+
     public page = 1;
     public pageSize = 5;
 
@@ -27,6 +29,7 @@ import { TopicService } from "src/app/services/topic.service";
       this.topicService.getTopics().subscribe(result => {
         this.ngxService.stopLoader("topicsLoader");
         this.topics = result;
+        this.filteredTopics = result;
       });
     }
 
@@ -38,5 +41,12 @@ import { TopicService } from "src/app/services/topic.service";
 
             this.toastService.showSuccess("Topic deleted");
           });
+    }
+
+    search(searchText: string){
+      this.filteredTopics = this.topics.filter(topic => {
+        const term = searchText.toLowerCase();
+        return topic.title.toLowerCase().includes(term);
+      });
     }
   }

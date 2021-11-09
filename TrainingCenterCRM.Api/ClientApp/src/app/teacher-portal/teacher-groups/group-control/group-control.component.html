@@ -7,6 +7,9 @@
                     <ngx-ui-loader [loaderId]="'studentsLoader'"></ngx-ui-loader>
                     <div class="card-header">Students</div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <input class="form-control" type="text" placeholder="Search..." (input)="searchStudents($event.target.value)"/>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-dark">
@@ -16,7 +19,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let student of groupStudents | slice: (pageStudent-1) * pageSize : (pageStudent-1) * pageSize + pageSize">
+                                    <tr *ngFor="let student of filteredGroupStudents | slice: (pageStudent-1) * pageSize : (pageStudent-1) * pageSize + pageSize">
                                         <th scope="col">
                                             <p class="modal-link" (click)="open(content, student.id)">{{student.name}} {{student.surname}}</p>
                                         </th>
@@ -27,7 +30,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <ngb-pagination [(page)]="pageStudent" [pageSize]="pageSize" [collectionSize]="groupStudents.length"></ngb-pagination>
+                        <ngb-pagination [(page)]="pageStudent" [pageSize]="pageSize" [collectionSize]="filteredGroupStudents.length"></ngb-pagination>
                         <div class="pt-3">
                             <a class="btn btn-head mr-3" [routerLink]="['/teacher/marks/groupMarks']" [queryParams]="{groupId: groupId}">Group marks</a>
                         </div>
@@ -39,6 +42,9 @@
                     <ngx-ui-loader [loaderId]="'materialsLoader'"></ngx-ui-loader>
                     <div class="card-header">Materials</div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <input class="form-control" type="text" placeholder="Search..." (input)="searchMaterials($event.target.value)"/>
+                        </div>
                         <div class="table-responsive scroll-div content-table">
                             <table class="table">
                                 <thead class="thead-dark">
@@ -49,7 +55,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let material of groupMaterials | slice: (pageMaterial-1) * pageSize : (pageMaterial-1) * pageSize + pageSize">
+                                    <tr *ngFor="let material of filteredGroupMaterials | slice: (pageMaterial-1) * pageSize : (pageMaterial-1) * pageSize + pageSize">
                                         <th scope="col">{{material.name}}</th>
                                         <th scope="col">{{material.materialType}}</th>
                                         <th scope="col" class="text-center">
@@ -60,7 +66,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <ngb-pagination [(page)]="pageMaterial" [pageSize]="pageSize" [collectionSize]="groupMaterials.length"></ngb-pagination>
+                        <ngb-pagination [(page)]="pageMaterial" [pageSize]="pageSize" [collectionSize]="filteredGroupMaterials.length"></ngb-pagination>
                         <div class="mt-3">
                             <a class="btn btn-head mr-3" [routerLink]="['/teacher/materials/edit']" [queryParams]="{groupId: groupId}">Add new material</a>
                             <a class="btn btn-head" [routerLink]="['/teacher/materials/addFile']">Add file</a>

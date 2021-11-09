@@ -12,7 +12,9 @@ import { RequestService } from "src/app/services/request.service";
 
 
 export class RequestAllComponent{
-    public requests: Request[] = [];
+    private requests: Request[] = [];
+    public filteredRequests: Request[] = [];
+
     public page = 1;
     public pageSize = 5;
 
@@ -28,9 +30,10 @@ export class RequestAllComponent{
       this.courseService.getRequests().subscribe(result => {
         this.ngxService.stopLoader("requestsLoader");
         this.requests = result;
+        this.filteredRequests = result;
       });
     }
-    
+
     deleteRequest(id: number){
 
       this.courseService.deleteRequest(id).subscribe(result => {
@@ -38,6 +41,16 @@ export class RequestAllComponent{
         this.requests.splice( removeIndex, 1 );
 
         this.toastService.showSuccess("Request deleted");
+      });
+    }
+
+    search(searchText: string){
+      this.filteredRequests = this.requests.filter(request => {
+        const term = searchText.toLowerCase();
+        return request.course.title.toLowerCase().includes(term)
+            || request.student.name.toLowerCase().includes(term)
+            || request.student.surname.toLowerCase().includes(term)
+            || request.readyToStartDate.toString().toLowerCase().includes(term);
       });
     }
 }

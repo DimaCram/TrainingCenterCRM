@@ -6,6 +6,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ChartsModule } from "ng2-charts";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { SharedModule } from "src/app/shared.module";
+import { StudentGroupMarksComponent } from "../student-group-marks/student-group-marks.component";
 import { StudentGroupComponent } from "../student-group/student-group.component";
 import { StudentGroupsComponent } from "../student-groups/student-groups.component";
 import { StudentMainComponent } from "./student-main.component";
@@ -26,7 +27,8 @@ import { StudentMainComponent } from "./student-main.component";
     [
         StudentMainComponent,
         StudentGroupsComponent,
-        StudentGroupComponent
+        StudentGroupComponent,
+        StudentGroupMarksComponent
     ],
     exports: [ StudentMainComponent ]
 })

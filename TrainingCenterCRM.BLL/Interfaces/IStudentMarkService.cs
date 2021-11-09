@@ -14,6 +14,7 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<StudentMark> GetMarkAsync(int id);
         Task<List<StudentMark>> GetMarksAsync();
         Task<IEnumerable<StudentMark>> GetMarksByGroup(int groupId);
+        Task<IEnumerable<StudentMark>> GetStudentMarksByGroup(int groupId, string userEmail);
         Task<double> GetStudentAverageMarkByGroup(int groupId, string userEmail);
     }
 }
