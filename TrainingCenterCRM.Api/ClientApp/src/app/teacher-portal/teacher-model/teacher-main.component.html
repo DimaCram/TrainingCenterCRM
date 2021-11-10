@@ -1,16 +1,19 @@
-<app-nav-menu></app-nav-menu>
 <main>
     <div class="wrapper">
-        <button class="btn btn-link navbar-button" id="sidebarToggle" href="#!" (click)="toggle()"><i class="fas fa-bars"></i></button>
         <div class="sidebar" id="sidebar-wrapper" [ngClass]="{'sidenav-toggled': isActive}">
+            <div class="sidebar-block">
+                <a class="navbar-brand" asp-controller="Students" asp-action="Index"><span>Training</span> Center</a>
+                <button class="btn btn-link navbar-button sidebar-toggle" id="sidebarToggle" href="#!" (click)="toggle()"><i class="fas fa-bars"></i></button>
+            </div>
             <div class="list-group list-group-flush">
-                <a class="list-group-item sidebar-item" [routerLink]="['/teacher/groups']">
+                <a class="list-group-item sidebar-item sidebar-block" [routerLink]="['/teacher/groups']">
+                    <span>My groups</span>
                     <i class="far fa-object-group"></i>
-                    My groups
                 </a>
             </div>
         </div>
         <div class="content">
+            <app-nav-menu></app-nav-menu>
             <router-outlet></router-outlet>
         </div>
     </div>

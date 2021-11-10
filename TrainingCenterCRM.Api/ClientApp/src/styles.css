@@ -4,6 +4,8 @@
   --color-light: #fff;
   --color-light-dark: #f0f3f4;
   --color-green: #209e91;
+
+  --sidebar-width: 250px;
 }
 
 * {
@@ -19,6 +21,7 @@ html, body {
 textarea {
   resize: none;
 }
+
 
 .main {
   display: flex;
@@ -125,18 +128,18 @@ input:-webkit-autofill {
       background-color: var(--color-dark);
       position: fixed !important;
       top: 0;
+      left: 0;
       width: 100%;
       z-index: 10;
   }
-  #sidebarToggle{
-    position: fixed !important;
+  .content{
+    padding-left: 50px;
   }
 }
 
 .navbar-brand {
   color: var(--color-light) !important;
   transition: color linear .2s;
-  margin-left: 50px !important;
   cursor: pointer;
 }
 
@@ -192,8 +195,8 @@ input:-webkit-autofill {
 }
 /* -- Sidebar -- */
 .sidebar {
-  width: 200px;
-  min-height: calc(100vh - 56px);
+  width: var(--sidebar-width);
+  min-height: 100vh;
   margin-left: 0px;
   background-color: var(--color-dark) !important;
   transition: margin 0.25s linear;
@@ -203,9 +206,14 @@ input:-webkit-autofill {
 @media(max-width:800px) {
   .sidebar {
       position: fixed;
-      top: 56px;
+      top: 0;
       left: 0;
   }
+}
+.sidebar-block{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 15px;
 }
 
 .sidebar-item {
@@ -214,13 +222,16 @@ input:-webkit-autofill {
   border: none !important;
   transition: color linear .2s;
   text-decoration: none !important;
-  margin: 10px 20px;
+  margin-top: 10px;
   padding: 0 !important;
 }
 
   .sidebar-item:hover {
       color: var(--color-green) !important;
   }
+.sidebar-toggle{
+  padding: 0;
+}
 
 .sidenav-toggled {
   margin-left: -200px;
@@ -272,8 +283,10 @@ input:-webkit-autofill {
 .content {
   height: 100%;
   width: 100%;
-  padding: 20px;
   z-index: 1;
+}
+.content-wrapper{
+  padding: 20px;
 }
 
 .content__header {
@@ -420,16 +433,6 @@ input[type="color"]:focus,
 
 }
 
-
-#sidebarToggle{
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-}
-
-
-
 .page-link{
   color: var(--color-green) !important;
 }
@@ -483,4 +486,10 @@ button:focus{
 .average-text{
   color: var(--color-gray);
   text-align: center;
+}
+
+@media(max-width:400px) {
+  .average-text{
+    font-size: 1rem;
+  }
 }

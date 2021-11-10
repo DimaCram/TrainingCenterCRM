@@ -86,7 +86,7 @@ export class StudentGroupComponent{
   public options: ChartOptions = {
     tooltips: {enabled: false},
   };
-  public donutColors=[];
+  public doughnutColors=[];
 
   initChart(): void{
 
@@ -106,7 +106,7 @@ export class StudentGroupComponent{
       currentMarkColor = '#90b900';
     }
 
-    this.donutColors=[
+    this.doughnutColors=[
       {
         backgroundColor: [ currentMarkColor, '#d3d3d3'],
         borderWidth: [0, 0]
