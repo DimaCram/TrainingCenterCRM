@@ -1,0 +1,45 @@
+
+<div class="content-wrapper">
+    <h1 class="content__header">Student request</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-8">
+                <div class="card">
+                    <ngx-ui-loader [loaderId]="'requestsLoader'"></ngx-ui-loader>
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <input class="form-control" type="text" placeholder="Search..." (input)="search($event.target.value)"/>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Student</th>
+                                        <th scope="col">Course</th>
+                                        <th scope="col">Ready to start date</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let request of filteredRequests | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                        <th scope="col">{{request.student.name}} {{request.student.surname}}</th>
+                                        <th scope="col">{{request.course.title}}</th>
+                                        <th scope="col">{{request.readyToStartDate | date:'longDate'}}</th>
+                                        <th scope="col" class="text-center">
+                                            <a class="btn btn-success m-1" [routerLink]="['/manager/requests/edit/', request.id]" [queryParams]="{studentId: request.studentId}"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger m-1" (click)="deleteRequest(request.id)"><i class="fas fa-trash"></i></a>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="filteredRequests.length"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2"></div>
+        </div>
+    </div>
+</div>

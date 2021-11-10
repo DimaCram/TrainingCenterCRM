@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Filters;
+using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Context;
-using TrainingCenterCRM.DAL.Interfaces;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.DAL.EF.Repositories
 {
-    public class TeacherRepository : IRepository<Teacher>
+    public class TeacherRepository : ITeacherRepository
     {
         private readonly TrainingCenterContext db;
 
@@ -18,40 +19,52 @@ namespace TrainingCenterCRM.DAL.EF.Repositories
         {
             this.db = db;
         }
-        public async Task CreateAsync(Teacher item)
+        public async Task Create(Teacher item)
         {
             await db.AddAsync(item);
             await db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task Delete(int id)
         {
-            var teacher = await db.Teachers.FindAsync(id);
+            var teacher = await db.Teachers.Include(s => s.User).SingleAsync(s => s.Id == id);
+
             if (teacher == null)
                 throw new ArgumentException("Teacher not found");
+
+            if (teacher.User != null)
+                db.Users.Remove(teacher.User);
+
             db.Teachers.Remove(teacher);
             await db.SaveChangesAsync();
         }
 
-        public IEnumerable<Teacher> Find(Func<Teacher, bool> predicate)
+        public async Task<IEnumerable<Teacher>> Find(Expression<Func<Teacher, bool>> predicate)
         {
-            return db.Teachers.Where(predicate).ToList();
+            return await db.Teachers.Where(predicate).ToListAsync();
         }
 
-        public Task<Teacher> GetAsync(int id)
+        public Task<Teacher> Get(int id)
         {
             return db.Teachers.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public Task<List<Teacher>> GetAllAsync()
+        public Task<List<Teacher>> GetAll()
         {
             return db.Teachers.ToListAsync();
         }
 
-        public async Task UpdateAsync(Teacher item)
+        public async Task Update(Teacher item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Teacher>> GetAllByPagination(PaginationFilter pagination)
+        {
+            return await db.Teachers.Skip((pagination.Offset - 1) * pagination.Limit)
+                                    .Take(pagination.Limit)
+                                    .ToListAsync();
         }
     }
 }

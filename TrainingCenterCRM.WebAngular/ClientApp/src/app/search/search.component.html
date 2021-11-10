@@ -1,0 +1,91 @@
+<main>
+    <section class="short-preview">
+      <div class="preview-content wrapper">
+        <div class="short-preview-box" data-aos="fade-up">
+          <h1 class="preview__header">Search course</h1>
+        </div>
+        <div class="search-control">
+          <input class="form-control search-input" placeholder="Search..." [(ngModel)]="searchValue" (keydown.enter)="search()"/>
+          <button class="search-button" data-bs-toggle="modal" data-bs-target="#searchFilterModal">
+            <i class="fas fa-sliders-h"></i>
+          </button>
+          <button class="search-button" (click)="search()"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    </section>
+    <section class="courses">
+      <div class="wrapper">
+        <div class="course-content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-4 mb-4" *ngFor="let course of courses" data-aos="flip-left" data-aos-delay="100" data-aos-duration="1000">
+                <div class="course-card">
+                  <div class="course-card-body">
+                      <div class="card-body__icon">
+                          <img class="img-fluid" [src]="course.pathToIcon" alt="" *ngIf="course.pathToIcon; else elseTemplate">
+                          <ng-template #elseTemplate>
+                            <img class="img-fluid" src="assets/icons/default-course.png" alt="">
+                          </ng-template>
+                      </div>
+                      <div class="card-body__text">
+                          <h3>{{course.title}}</h3>
+                          <p>Level: {{course.level}}</p>
+                          <p *ngIf="course.price">Price: {{course.price}}$</p>
+                      </div>
+                  </div>
+                  <a href="#" class="card-btn">Enroll Now!</a>
+                </div>
+              </div>
+              <div class="col-lg-12 mb-4" *ngIf="courses && courses.length == 0">
+                <p class="text-danger text-center">courses not found</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="modal fade" id="searchFilterModal" tabindex="-1" aria-labelledby="searchFilterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="searchFilterModalLabel">Search filter</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" [formGroup]="form" autocomplete="off" (submit)="onSubmit()">
+            <div class="form-group">
+              <label>Title Contains</label>
+              <input class="form-control" formControlName="title" />
+            </div>
+            <div class="form-group">
+                <label>Description Contains</label>
+                <input class="form-control" formControlName="description" />
+            </div>
+            <div class="form-group">
+                <label>Topic Contains</label>
+                <input class="form-control" formControlName="topicName" />
+            </div>
+            <div class="form-group">
+                <label>Course level</label>
+                <select class="form-control" formControlName="courseLevel">
+                  <option value="">Select level</option>
+                  <option *ngFor="let courseLevel of courseLevels" [value]="courseLevel">{{courseLevel}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Price from</label>
+                <input class="form-control" formControlName="priceFrom" type="number" />
+            </div>
+            <div class="form-group">
+                <label>Price to</label>
+                <input class="form-control" formControlName="priceTo" type="number" />
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Apply</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

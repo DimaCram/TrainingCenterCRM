@@ -19,21 +19,6 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("FileMaterial", b =>
-                {
-                    b.Property<int>("FilesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaterialsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FilesId", "MaterialsId");
-
-                    b.HasIndex("MaterialsId");
-
-                    b.ToTable("FileMaterial");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -63,31 +48,31 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "021cb353-a049-404c-b2f6-b067a48a3b9a",
-                            ConcurrencyStamp = "86f6fb82-7fb8-467f-becc-c56a4aaff0f2",
-                            Name = "user",
-                            NormalizedName = "user"
-                        },
-                        new
-                        {
                             Id = "800ac90f-e24c-485a-8be4-5869972e12a7",
-                            ConcurrencyStamp = "6cfdac54-1e40-4146-b1aa-060a3f6e8c9d",
+                            ConcurrencyStamp = "15d999e0-727a-4f08-99c8-f889da900b7b",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
                             Id = "dc580e4d-92ba-47a9-bb31-62b0afb85445",
-                            ConcurrencyStamp = "175333c8-44e0-469d-ad91-064955d1e7b6",
+                            ConcurrencyStamp = "06ce99fc-e1f7-4416-b759-19312bb36714",
                             Name = "teacher",
                             NormalizedName = "teacher"
                         },
                         new
                         {
                             Id = "9d5aeb79-50ca-48db-91dc-3a72f06c978f",
-                            ConcurrencyStamp = "1dccd77f-5794-4308-88ab-7b4ff0c48ac3",
+                            ConcurrencyStamp = "9d2b8684-3202-4217-8ae6-6d703f01f7a9",
                             Name = "manager",
                             NormalizedName = "manager"
+                        },
+                        new
+                        {
+                            Id = "3f0d93b3-02a9-482b-b6d9-9ecbfcfb3e56",
+                            ConcurrencyStamp = "df3b14f9-a67e-4b8c-b70e-0a2baf0f2c63",
+                            Name = "student",
+                            NormalizedName = "student"
                         });
                 });
 
@@ -180,6 +165,61 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             UserId = "8cccb2bc-95ed-4b5c-b72a-a2ee25bb6f94",
                             RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "8594cfc3-4252-4502-80e9-5c9dc3341595",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "da19a821-caca-4aa8-b544-45dc830b99d1",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "4188500e-87e7-4375-937c-2a1670a84418",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "6eca67d1-8174-46d9-9916-ed620e57e00d",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "c05565d8-eaa8-4411-9b72-4ad0decdd06d",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "6743e8d1-bb94-48ca-83ce-cd14ba74d17b",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "79301f3b-d0ed-4331-9af8-7c751bce2f9b",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "13309c41-4a79-402e-a5e4-63645c9ce8dd",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "9eb23459-2eaa-40a0-ad80-2f3288665d19",
+                            RoleId = "dc580e4d-92ba-47a9-bb31-62b0afb85445"
+                        },
+                        new
+                        {
+                            UserId = "9888c09b-2509-4cda-a82e-3dbea07d94eb",
+                            RoleId = "9d5aeb79-50ca-48db-91dc-3a72f06c978f"
+                        },
+                        new
+                        {
+                            UserId = "20141624-04de-4fc2-aaf7-3154609f66f1",
+                            RoleId = "3f0d93b3-02a9-482b-b6d9-9ecbfcfb3e56"
                         });
                 });
 
@@ -202,7 +242,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Course", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -212,8 +252,14 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
                     b.Property<string>("PathToIcon")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Price")
+                        .HasColumnType("float");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -232,6 +278,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 1,
                             Description = "Basic course",
+                            Level = 1,
+                            Price = 499.0,
                             Title = "C# Programming",
                             TopicId = 1
                         },
@@ -239,6 +287,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 2,
                             Description = "Professional course",
+                            Level = 0,
+                            Price = 755.0,
                             Title = "Industrial programming with ASP.NET",
                             TopicId = 1
                         },
@@ -246,6 +296,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 3,
                             Description = "Professional course",
+                            Level = 2,
+                            Price = 699.0,
                             Title = "Development of mobile games on the Unity engine",
                             TopicId = 1
                         },
@@ -253,6 +305,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 4,
                             Description = "Basic course",
+                            Level = 0,
+                            Price = 499.0,
                             Title = "Java programming",
                             TopicId = 1
                         },
@@ -260,6 +314,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 5,
                             Description = "Professional course",
+                            Level = 1,
+                            Price = 710.0,
                             Title = "Development of mobile applications for Android",
                             TopicId = 1
                         },
@@ -267,6 +323,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 6,
                             Description = "Professional course",
+                            Level = 1,
+                            Price = 755.0,
                             Title = "Java Web Development",
                             TopicId = 1
                         },
@@ -274,6 +332,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 7,
                             Description = "Basic course",
+                            Level = 0,
+                            Price = 610.0,
                             Title = "HTML, CSS and JavaScript",
                             TopicId = 3
                         },
@@ -281,6 +341,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 8,
                             Description = "Professional course",
+                            Level = 1,
+                            Price = 729.0,
                             Title = "JavaScript Web Application Development",
                             TopicId = 3
                         },
@@ -288,6 +350,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 9,
                             Description = "Professional course",
+                            Level = 1,
+                            Price = 699.0,
                             Title = "React and Angular for web development",
                             TopicId = 3
                         },
@@ -295,6 +359,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 10,
                             Description = "Basic course",
+                            Level = 0,
+                            Price = 599.0,
                             Title = "C and C++ Programming",
                             TopicId = 4
                         },
@@ -302,12 +368,6148 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = 11,
                             Description = "Professional course",
+                            Level = 2,
+                            Price = 719.0,
                             Title = "Professional game development in C++",
                             TopicId = 4
                         });
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.File", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.CourseReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("CourseReviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 54,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 55,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 56,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 57,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 58,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 59,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 60,
+                            CourseId = 1,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 61,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 62,
+                            CourseId = 1,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 63,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 64,
+                            CourseId = 1,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 65,
+                            CourseId = 1,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 66,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 67,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 68,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 69,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 70,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 71,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 72,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 73,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 74,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 75,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 76,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 77,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 78,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 79,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 80,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 81,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 82,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 83,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 84,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 85,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 86,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 87,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 88,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 89,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 90,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 91,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 92,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 93,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 94,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 95,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 96,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 97,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 113,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 114,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 115,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 116,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 117,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 118,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 119,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 120,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 121,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 122,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 123,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 124,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 125,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 126,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 127,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 128,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 129,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 130,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 131,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 132,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 133,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 134,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 135,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 136,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 137,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 138,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 139,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 140,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 141,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 142,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 143,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 144,
+                            CourseId = 2,
+                            Rating = 3.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 145,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 146,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 147,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 148,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 149,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 150,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 151,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 152,
+                            CourseId = 2,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 153,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 154,
+                            CourseId = 2,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 155,
+                            CourseId = 2,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 156,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 157,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 158,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 159,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 160,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 161,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 162,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 163,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 164,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 165,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 166,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 167,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 168,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 169,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 170,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 171,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 172,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 173,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 174,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 175,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 176,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 177,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 178,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 179,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 180,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 181,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 182,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 183,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 184,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 185,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 186,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 187,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 188,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 189,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 190,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 191,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 192,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 193,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 194,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 195,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 196,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 197,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 198,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 199,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 200,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 201,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 202,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 203,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 204,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 205,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 206,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 207,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 208,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 209,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 210,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 211,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 212,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 213,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 214,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 215,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 216,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 217,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 218,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 219,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 220,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 221,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 222,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 223,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 224,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 225,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 226,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 227,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 228,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 229,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 230,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 231,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 232,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 233,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 234,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 235,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 236,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 237,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 238,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 239,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 240,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 241,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 242,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 243,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 244,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 245,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 246,
+                            CourseId = 3,
+                            Rating = 3.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 247,
+                            CourseId = 3,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 248,
+                            CourseId = 3,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 249,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 250,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 251,
+                            CourseId = 3,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 252,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 253,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 254,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 255,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 256,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 257,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 258,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 259,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 260,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 261,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 262,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 263,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 264,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 265,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 266,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 267,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 268,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 269,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 270,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 271,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 272,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 273,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 274,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 275,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 276,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 277,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 278,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 279,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 280,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 281,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 282,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 283,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 284,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 285,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 286,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 287,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 288,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 289,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 290,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 291,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 292,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 293,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 294,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 295,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 296,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 297,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 298,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 299,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 300,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 301,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 302,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 303,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 304,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 305,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 306,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 307,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 308,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 309,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 310,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 311,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 312,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 313,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 314,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 315,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 316,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 317,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 318,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 319,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 320,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 321,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 322,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 323,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 324,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 325,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 326,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 327,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 328,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 329,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 330,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 331,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 332,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 333,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 334,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 335,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 336,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 337,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 338,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 339,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 340,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 341,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 342,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 343,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 344,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 345,
+                            CourseId = 4,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 346,
+                            CourseId = 4,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 347,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 348,
+                            CourseId = 4,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 349,
+                            CourseId = 4,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 350,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 351,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 352,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 353,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 354,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 355,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 356,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 357,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 358,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 359,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 360,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 361,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 362,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 363,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 364,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 365,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 366,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 367,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 368,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 369,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 370,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 371,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 372,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 373,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 374,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 375,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 376,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 377,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 378,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 379,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 380,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 381,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 382,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 383,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 384,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 385,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 386,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 387,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 388,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 389,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 390,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 391,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 392,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 393,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 394,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 395,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 396,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 397,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 398,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 399,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 400,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 401,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 402,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 403,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 404,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 405,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 406,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 407,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 408,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 409,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 410,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 411,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 412,
+                            CourseId = 5,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 413,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 414,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 415,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 416,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 417,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 418,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 419,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 420,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 421,
+                            CourseId = 5,
+                            Rating = 4.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 422,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 423,
+                            CourseId = 5,
+                            Rating = 1.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 424,
+                            CourseId = 5,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 425,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 426,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 427,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 428,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 429,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 430,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 431,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 432,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 433,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 434,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 435,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 436,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 437,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 438,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 439,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 440,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 441,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 442,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 443,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 444,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 445,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 446,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 447,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 448,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 449,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 450,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 451,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 452,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 453,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 454,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 455,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 456,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 457,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 458,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 459,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 460,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 461,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 462,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 463,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 464,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 465,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 466,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 467,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 468,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 469,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 470,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 471,
+                            CourseId = 6,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 472,
+                            CourseId = 6,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 473,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 474,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 475,
+                            CourseId = 6,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 476,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 477,
+                            CourseId = 6,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 478,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 479,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 480,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 481,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 482,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 483,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 484,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 485,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 486,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 487,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 488,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 489,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 490,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 491,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 492,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 493,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 494,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 495,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 496,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 497,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 498,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 499,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 500,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 501,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 502,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 503,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 504,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 505,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 506,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 507,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 508,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 509,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 510,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 511,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 512,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 513,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 514,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 515,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 516,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 517,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 518,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 519,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 520,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 521,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 522,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 523,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 524,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 525,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 526,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 527,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 528,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 529,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 530,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 531,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 532,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 533,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 534,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 535,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 536,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 537,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 538,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 539,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 540,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 541,
+                            CourseId = 7,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 542,
+                            CourseId = 7,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 543,
+                            CourseId = 7,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 544,
+                            CourseId = 7,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 545,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 546,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 547,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 548,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 549,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 550,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 551,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 552,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 553,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 554,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 555,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 556,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 557,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 558,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 559,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 560,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 561,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 562,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 563,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 564,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 565,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 566,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 567,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 568,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 569,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 570,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 571,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 572,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 573,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 574,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 575,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 576,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 577,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 578,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 579,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 580,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 581,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 582,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 583,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 584,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 585,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 586,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 587,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 588,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 589,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 590,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 591,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 592,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 593,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 594,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 595,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 596,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 597,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 598,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 599,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 600,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 601,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 602,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 603,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 604,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 605,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 606,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 607,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 608,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 609,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 610,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 611,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 612,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 613,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 614,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 615,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 616,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 617,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 618,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 619,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 620,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 621,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 622,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 623,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 624,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 625,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 626,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 627,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 628,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 629,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 630,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 631,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 632,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 633,
+                            CourseId = 8,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 634,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 635,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 636,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 637,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 638,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 639,
+                            CourseId = 8,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 640,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 641,
+                            CourseId = 8,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 642,
+                            CourseId = 8,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 643,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 644,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 645,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 646,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 647,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 648,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 649,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 650,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 651,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 652,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 653,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 654,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 655,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 656,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 657,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 658,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 659,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 660,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 661,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 662,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 663,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 664,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 665,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 666,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 667,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 668,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 669,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 670,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 671,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 672,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 673,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 674,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 675,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 676,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 677,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 678,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 679,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 680,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 681,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 682,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 683,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 684,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 685,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 686,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 687,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 688,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 689,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 690,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 691,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 692,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 693,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 694,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 695,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 696,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 697,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 698,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 699,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 700,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 701,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 702,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 703,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 704,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 705,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 706,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 707,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 708,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 709,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 710,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 711,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 712,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 713,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 714,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 715,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 716,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 717,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 718,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 719,
+                            CourseId = 9,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 720,
+                            CourseId = 9,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 721,
+                            CourseId = 9,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 722,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 723,
+                            CourseId = 9,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 724,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 725,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 726,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 727,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 728,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 729,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 730,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 731,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 732,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 733,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 734,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 735,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 736,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 737,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 738,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 739,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 740,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 741,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 742,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 743,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 744,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 745,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 746,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 747,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 748,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 749,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 750,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 751,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 752,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 753,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 754,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 755,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 756,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 757,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 758,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 759,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 760,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 761,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 762,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 763,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 764,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 765,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 766,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 767,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 768,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 769,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 770,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 771,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 772,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 773,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 774,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 775,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 776,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 777,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 778,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 779,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 780,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 781,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 782,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 783,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 784,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 785,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 786,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 787,
+                            CourseId = 10,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 788,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 789,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 790,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 791,
+                            CourseId = 10,
+                            Rating = 2.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 792,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 793,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 794,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 795,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 796,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 797,
+                            CourseId = 10,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 798,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 799,
+                            CourseId = 10,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 800,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 801,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 802,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 803,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 804,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 805,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 806,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 807,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 808,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 16
+                        },
+                        new
+                        {
+                            Id = 809,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 810,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 811,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 812,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 813,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 814,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 815,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 816,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 817,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 818,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 819,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 14
+                        },
+                        new
+                        {
+                            Id = 820,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 821,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 822,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 823,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 824,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 825,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 826,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 827,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 828,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 829,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 830,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 831,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 832,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 833,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 834,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 835,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 836,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 837,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 838,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 839,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 840,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 19
+                        },
+                        new
+                        {
+                            Id = 841,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 842,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 843,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 844,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 845,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 846,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 847,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 848,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 849,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 850,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 851,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 852,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 853,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 854,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 17
+                        },
+                        new
+                        {
+                            Id = 855,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 856,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 857,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 858,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 15
+                        },
+                        new
+                        {
+                            Id = 859,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 860,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 861,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 18
+                        },
+                        new
+                        {
+                            Id = 862,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 863,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 12
+                        },
+                        new
+                        {
+                            Id = 864,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 865,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 866,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 867,
+                            CourseId = 11,
+                            Rating = 1.0,
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 868,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 869,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 11
+                        },
+                        new
+                        {
+                            Id = 870,
+                            CourseId = 11,
+                            Rating = 4.0,
+                            StudentId = 13
+                        },
+                        new
+                        {
+                            Id = 871,
+                            CourseId = 11,
+                            Rating = 3.0,
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 872,
+                            CourseId = 11,
+                            Rating = 2.0,
+                            StudentId = 4
+                        });
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.File", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -336,7 +6538,34 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.ToTable("Files");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.FileToMaterialAssignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("MaterialId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("FileToMaterialAssignments");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -367,7 +6596,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Manager", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Manager", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -401,7 +6630,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Material", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Material", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -424,7 +6653,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -462,7 +6691,8 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                             Id = 1,
                             Age = 22,
                             Name = "Darya",
-                            Surname = "Fedorova"
+                            Surname = "Fedorova",
+                            UserId = "20141624-04de-4fc2-aaf7-3154609f66f1"
                         },
                         new
                         {
@@ -599,7 +6829,35 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentRequest", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.StudentMark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Mark")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaterialId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentMarks");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.StudentRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -722,7 +6980,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentToGroupAssignment", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.StudentToGroupAssignment", b =>
                 {
                     b.Property<int>("StudentToGroupAssignmentId")
                         .ValueGeneratedOnAdd()
@@ -750,7 +7008,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.ToTable("StudentToGroupAssignments");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Teacher", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Teacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -876,7 +7134,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Topic", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Topic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -920,7 +7178,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.User", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -989,15 +7247,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "9888c09b-2509-4cda-a82e-3dbea07d94eb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b877c2e-1bcb-4674-9d22-dec280ad4257",
+                            ConcurrencyStamp = "03af19d4-0e3d-4795-bbff-24c58ea37f26",
                             Email = "manager@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "manager@gmail.com",
                             NormalizedUserName = "manager@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMhRjo0Cn/pdlWQhBn1Mml3z+tmRHx9tEd6/0V5HwkLAZNSAUQBQUNCXs43UTxgIkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBuGr2JVcItIlPXODCtgGHY8U1+OfcJXqMjYQf70E4wizSA/ATi0ZRCHHkFP7d2pGg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2fc752c7-e39a-42e2-82ea-c3067e96e3fe",
+                            SecurityStamp = "334ab019-b20f-48b9-b844-f3c0b9c0daec",
                             TwoFactorEnabled = false,
                             UserName = "manager@gmail.com"
                         },
@@ -1005,15 +7263,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "8cccb2bc-95ed-4b5c-b72a-a2ee25bb6f94",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b32553d9-e780-4cce-a559-a3370062a95c",
+                            ConcurrencyStamp = "bee7498d-f78e-4f23-9af1-6eba1e563424",
                             Email = "rukavichnikova@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "rukavichnikova@gmail.com",
                             NormalizedUserName = "rukavichnikova@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOtM8F6dX8R81stmecwthNc3q6oQyOLP5iLytZ2ePKd8YbBlxHPHZaYtOLdn523keA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFvFjne3bbTQE4Qzk6tpJJwPCTdbChNSi1q/2ksy9rmwb/fS9u816ZzllQq7L677qg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dd240c7f-9570-485b-9088-afaeaaaa0b9a",
+                            SecurityStamp = "08ccfb26-5166-4a6e-a647-fab6e6394def",
                             TwoFactorEnabled = false,
                             UserName = "rukavichnikova@gmail.com"
                         },
@@ -1021,15 +7279,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "8594cfc3-4252-4502-80e9-5c9dc3341595",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fb297cf5-0ec3-4fcc-8909-de4df7daa0af",
+                            ConcurrencyStamp = "97fe5a77-29cc-4dea-8633-dbdd2b75104a",
                             Email = "astreiko@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "astreiko@gmail.com",
                             NormalizedUserName = "astreiko@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBMNB9c/KMv+oIFQnhb1EvQnZBlDTUKJxU3yuDNxR2wr1IOtjAJ7SBR8etigHO+VBA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK80YTm1IwsFiZj6sJy8NKlyV/lrcwiF3MIATejBMvCtDPqrT1GD8B391YX8Zto6YQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e323941e-70da-4390-8de0-ea0116e8ada3",
+                            SecurityStamp = "a6b5fe61-db46-4145-be89-cecb7cb785eb",
                             TwoFactorEnabled = false,
                             UserName = "astreiko@gmail.com"
                         },
@@ -1037,15 +7295,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "da19a821-caca-4aa8-b544-45dc830b99d1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "720bc843-6569-4e67-b310-919d12bac7d7",
+                            ConcurrencyStamp = "ca4a20f5-5d29-4cf9-8e10-7e74eb77e1ba",
                             Email = "morgun@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "morgun@gmail.com",
                             NormalizedUserName = "morgun@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMuTHcpPGf2YMzGbXOhxJd3cI+atLKczNNSgUx7j8pwYyZKMsgJ17HLHPNZ2jsQbgw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKyUh3Z5KyfyQh/LhPOA0U5M/RqXsCIQUWYUG2RggqRmCCEs/FCcnckhBR6SlJBH0w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "661cf81d-5f10-483c-a666-0bf981a63ef0",
+                            SecurityStamp = "8dc5fc19-3707-46bb-a9c8-6b2012aa0f08",
                             TwoFactorEnabled = false,
                             UserName = "morgun@gmail.com"
                         },
@@ -1053,15 +7311,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "4188500e-87e7-4375-937c-2a1670a84418",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3e99d1b7-7aeb-44ce-b0bd-46b01d87af6e",
+                            ConcurrencyStamp = "e566f077-00bb-40f1-8be7-ef7d5ed34d3b",
                             Email = "pinyutin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "pinyutin@gmail.com",
                             NormalizedUserName = "pinyutin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEtFX4c8u2HY8GOql+hiVkjYiGx1G4js35tGqBOmw2E3hA36m/F//fMloum4ST/seQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMPKAk/Hb8GU2cPvjt6MN1Z1A6lUHrnmRXVGpaP3uEQTf9yuGnoYoavn25TXuhKO7Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4cf38485-8bc9-48d4-a412-f628d7bbd7e0",
+                            SecurityStamp = "742a79a6-22de-4ccc-9be2-6cf515a74eca",
                             TwoFactorEnabled = false,
                             UserName = "pinyutin@gmail.com"
                         },
@@ -1069,15 +7327,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "6eca67d1-8174-46d9-9916-ed620e57e00d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7dbf0845-09d6-441f-b138-c0c55bffc0be",
+                            ConcurrencyStamp = "c8e40fd2-c6e9-41c0-83c0-d7274682853b",
                             Email = "samsonov@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "samsonov@gmail.com",
                             NormalizedUserName = "samsonov@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHXEbi8G4bjz9UPhRosZFQ3k/QgvKBEQW5Upuerxnb734C/g7Fr48HqbixbUo/O8hA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEErnCv02KywXXi4+EiGTOVnoUFPIzQSzCqaevMKWCNUeCtj89aAMoVzWM5GdDbGIcQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1c397160-d82d-4cf6-a1b0-59199a92bd0a",
+                            SecurityStamp = "b3122473-b037-45c9-bb31-29bae469ea30",
                             TwoFactorEnabled = false,
                             UserName = "samsonov@gmail.com"
                         },
@@ -1085,15 +7343,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "c05565d8-eaa8-4411-9b72-4ad0decdd06d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cd71ee78-5fe2-4164-9894-6f7a560138ba",
+                            ConcurrencyStamp = "040924c8-6971-4c9d-acb2-5e12d068d293",
                             Email = "belkevich@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "belkevich@gmail.com",
                             NormalizedUserName = "belkevich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAKqTaxAoWdZOX3uWwqbmQZ2lsqczeMCZ4SzQmZYYrDdVjBq7a14PCNLLB4g+uN/YQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDUIcAl56VzOqspu6a7ErWJ/OYs2/ppW/d97I1U2k7JwRjTPPze2Q4GCnUh/iFpmJg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3cd70434-f101-4890-a65b-3559e9c749b1",
+                            SecurityStamp = "941d8165-d7ca-4989-b531-420172623b3b",
                             TwoFactorEnabled = false,
                             UserName = "belkevich@gmail.com"
                         },
@@ -1101,15 +7359,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "6743e8d1-bb94-48ca-83ce-cd14ba74d17b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d555fd4-a8c0-49b4-8a63-051b65a766bd",
+                            ConcurrencyStamp = "d4abc1ef-ef59-449b-911e-75d4cef3fe6e",
                             Email = "mazgo@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "mazgo@gmail.com",
                             NormalizedUserName = "mazgo@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJB0DFKbKm97xU7noecB8G3uyQloDl1Umf0NivqCg1XnXY/X9M/8qjVT/jUnH1/I0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAmyhU+wg5gUT354/R8pkfvY0/A7pj1Bxd6jMNuCH/NogzpLi3az9TStI8Z/0iyqUA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e2fa139c-c044-40ad-8923-d0d757c21d36",
+                            SecurityStamp = "70927cf4-5a08-4bf3-afaa-ce2cc0939323",
                             TwoFactorEnabled = false,
                             UserName = "mazgo@gmail.com"
                         },
@@ -1117,15 +7375,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "79301f3b-d0ed-4331-9af8-7c751bce2f9b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "205367fa-5613-41dc-b9cc-ced34362c54c",
+                            ConcurrencyStamp = "41d6061b-1dee-48c9-bf50-52762cc547ff",
                             Email = "voitekhovich.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "voitekhovich@gmail.com",
                             NormalizedUserName = "voitekhovich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB4U4zuDQFioVa3nrL23qJGwWJZkVqLkGKUqeMLYw/q/M+rlHpnZdVth1lT4Okd82A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEON0mTUPDof90PkXDlfGxGWFybdlelTCyIU4st5VzegJ+VvQok+6CWmD7IW8/ujUPg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "682ce789-21c4-4d08-8b85-31da60b3f3f4",
+                            SecurityStamp = "e4e484f8-5eca-4bf9-ae0c-312245740809",
                             TwoFactorEnabled = false,
                             UserName = "voitekhovich@gmail.com"
                         },
@@ -1133,15 +7391,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "13309c41-4a79-402e-a5e4-63645c9ce8dd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f3e72d7-6413-4f03-b8cd-d4aace902460",
+                            ConcurrencyStamp = "57432256-f34e-4a2d-ac72-118c2ee0e1da",
                             Email = "sokol@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "sokol@gmail.com",
                             NormalizedUserName = "sokol@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGi6JxFcY+kaI9qDRn1GnqZMYjfW27XMzMmih9LcF88UhtrjcwBBzvNH7TOHMkndAg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFSD70/dEDale/Yh/WSxUWjU1ST/cpP6bdIDWDADxWADqHdTdeDvfcUaUoXHSFChyA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "50c240c3-9fa4-4b54-9600-36bcbbd46886",
+                            SecurityStamp = "ba64f502-532a-4708-9869-78a9ec1e25d1",
                             TwoFactorEnabled = false,
                             UserName = "sokol@gmail.com"
                         },
@@ -1149,33 +7407,34 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         {
                             Id = "9eb23459-2eaa-40a0-ad80-2f3288665d19",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c66ddc39-9c39-49e1-9dc7-690bdc03495d",
+                            ConcurrencyStamp = "19bab30d-e76d-46cf-9457-9e9907279cbc",
                             Email = "martsinkevich@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "martsinkevich@gmail.com",
                             NormalizedUserName = "martsinkevich@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENsn16NjlCykGd9v1R8kzfXYy1A03FIUfcdMj/IQhNoHNnSskd4tFWuoQoThu3kE0Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECh4dbGUKnKuHhZHzX6ToXAFxag1BJDhon/0wF7ZVFruNCyKt5oGmTA2UM0p4ZVAxQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "62e8d153-1ad9-4ea1-9f6c-e5db5a9af251",
+                            SecurityStamp = "640e504d-7ee8-4050-82fc-fc42228b1c3b",
                             TwoFactorEnabled = false,
                             UserName = "martsinkevich@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "20141624-04de-4fc2-aaf7-3154609f66f1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8c01a368-070c-4c3b-a30f-52cb7a100bbd",
+                            Email = "fedorova@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "fedorova@gmail.com",
+                            NormalizedUserName = "fedorova@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJB8Wx3DCf8zQfb7K9SXrsobMg2OJsXNeZQodCamO8niNi/UDl4r+Ocgnb3uA3k1nw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "136aee40-25ce-465d-bb0c-e8f405697c3a",
+                            TwoFactorEnabled = false,
+                            UserName = "fedorova@gmail.com"
                         });
-                });
-
-            modelBuilder.Entity("FileMaterial", b =>
-                {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.File", null)
-                        .WithMany()
-                        .HasForeignKey("FilesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Material", null)
-                        .WithMany()
-                        .HasForeignKey("MaterialsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1189,7 +7448,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.User", null)
+                    b.HasOne("TrainingCenterCRM.Core.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1198,7 +7457,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.User", null)
+                    b.HasOne("TrainingCenterCRM.Core.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1213,7 +7472,7 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrainingCenterCRM.BLL.Models.User", null)
+                    b.HasOne("TrainingCenterCRM.Core.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1222,16 +7481,16 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.User", null)
+                    b.HasOne("TrainingCenterCRM.Core.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Course", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Course", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Topic", "Topic")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Topic", "Topic")
                         .WithMany("Courses")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1240,24 +7499,68 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.File", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.CourseReview", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Course", "Course")
+                        .WithMany("CourseReviews")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TrainingCenterCRM.Core.Models.Student", "Student")
+                        .WithMany("CourseReview")
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.File", b =>
+                {
+                    b.HasOne("TrainingCenterCRM.Core.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.FileToMaterialAssignment", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
+                    b.HasOne("TrainingCenterCRM.Core.Models.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TrainingCenterCRM.Core.Models.Material", "Material")
+                        .WithMany("FileToMaterialAssignments")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TrainingCenterCRM.Core.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("File");
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Group", b =>
+                {
+                    b.HasOne("TrainingCenterCRM.Core.Models.Course", "Course")
                         .WithMany("Groups")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Teacher", "Teacher")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Teacher", "Teacher")
                         .WithMany()
                         .HasForeignKey("TeacherId");
 
@@ -1266,18 +7569,19 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Manager", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Manager", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.User", "User")
+                    b.HasOne("TrainingCenterCRM.Core.Models.User", "User")
                         .WithOne("Manager")
-                        .HasForeignKey("TrainingCenterCRM.BLL.Models.Manager", "UserId");
+                        .HasForeignKey("TrainingCenterCRM.Core.Models.Manager", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Material", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Material", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1286,30 +7590,50 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Student", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Student", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Group", "Group")
                         .WithMany("Students")
                         .HasForeignKey("GroupId");
 
-                    b.HasOne("TrainingCenterCRM.BLL.Models.User", "User")
+                    b.HasOne("TrainingCenterCRM.Core.Models.User", "User")
                         .WithOne("Student")
-                        .HasForeignKey("TrainingCenterCRM.BLL.Models.Student", "UserId");
+                        .HasForeignKey("TrainingCenterCRM.Core.Models.Student", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Group");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentRequest", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.StudentMark", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Course", "Course")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TrainingCenterCRM.Core.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.StudentRequest", b =>
+                {
+                    b.HasOne("TrainingCenterCRM.Core.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Student", "Student")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1320,15 +7644,15 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.StudentToGroupAssignment", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.StudentToGroupAssignment", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Group", "Group")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrainingCenterCRM.BLL.Models.Student", "Student")
+                    b.HasOne("TrainingCenterCRM.Core.Models.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1339,31 +7663,44 @@ namespace TrainingCenterCRM.DAL.EF.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Teacher", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Teacher", b =>
                 {
-                    b.HasOne("TrainingCenterCRM.BLL.Models.User", "User")
+                    b.HasOne("TrainingCenterCRM.Core.Models.User", "User")
                         .WithOne("Teacher")
-                        .HasForeignKey("TrainingCenterCRM.BLL.Models.Teacher", "UserId");
+                        .HasForeignKey("TrainingCenterCRM.Core.Models.Teacher", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Course", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Course", b =>
                 {
+                    b.Navigation("CourseReviews");
+
                     b.Navigation("Groups");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Group", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Group", b =>
                 {
                     b.Navigation("Students");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.Topic", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Material", b =>
+                {
+                    b.Navigation("FileToMaterialAssignments");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Student", b =>
+                {
+                    b.Navigation("CourseReview");
+                });
+
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.Topic", b =>
                 {
                     b.Navigation("Courses");
                 });
 
-            modelBuilder.Entity("TrainingCenterCRM.BLL.Models.User", b =>
+            modelBuilder.Entity("TrainingCenterCRM.Core.Models.User", b =>
                 {
                     b.Navigation("Manager");
 

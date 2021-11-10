@@ -1,40 +1,30 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
-using TrainingCenterCRM.DAL.Interfaces;
+using TrainingCenterCRM.Core.Filters;
+using TrainingCenterCRM.Core.Models;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class TeacherService : ITeacherService
     {
-        private readonly IRepository<Teacher> repository;
-        private readonly ILocalFileService localFileService;
+        private readonly ITeacherRepository repository;
 
-        public TeacherService(IRepository<Teacher> repository, ILocalFileService localFileService)
+        public TeacherService(ITeacherRepository repository)
         {
             this.repository = repository;
-
-            this.localFileService = localFileService;
         }
         public async Task AddTeacherAsync(Teacher teacher)
         {
-            if (teacher == null)
-                throw new ArgumentException();
-
-            await repository.CreateAsync(teacher);
+            await repository.Create(teacher);
         }
 
         public async Task DeleteTeacherAsync(int id)
         {
-
-            var teacher = await repository.GetAsync(id);
-            localFileService.DeleteFile(teacher.PathToIcon);
-
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditTeacherAsync(Teacher teacher)
@@ -42,17 +32,22 @@ namespace TrainingCenterCRM.BLL.Services
             if (teacher == null)
                 throw new ArgumentException();
 
-            await repository.UpdateAsync(teacher);
+            await repository.Update(teacher);
         }
 
         public Task<Teacher> GetTeacherAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public Task<List<Teacher>> GetTeachersAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
+        }
+
+        public Task<IEnumerable<Teacher>> GetTeachersByPaginationAsync(PaginationFilter pagination)
+        {
+            return repository.GetAllByPagination(pagination);
         }
     }
 }

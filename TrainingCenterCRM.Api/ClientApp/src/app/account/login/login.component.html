@@ -1,0 +1,27 @@
+<main class="main">
+    <div class="pannel">
+        <ngx-ui-loader [loaderId]="'loginLoader'"></ngx-ui-loader>
+        <h1 class="pannel-header">Sign in to Training Center</h1>
+        <form method="post" [formGroup]="form" (submit)="login()" class="mt-4">
+            <div class="text-danger"></div>
+            <div class="form-group row mb-3">
+                <label asp-for="Email" class="col-sm-2 col-form-label pannel-label">Email</label>
+                <div class="col-sm-10">
+                    <input name="username" class="form-control pannel-input" formControlName="email" placeholder="Email" />
+                    <span class="text-danger" *ngIf="form.get('email').touched && form.get('email').errors">This field is invalid</span>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label asp-for="Password" class="col-sm-2 col-form-label pannel-label">Password</label>
+                <div class="col-sm-10">
+                    <input name="password" type="password" class="form-control pannel-input" formControlName="password" placeholder="Password">
+                    <span class="text-danger" *ngIf="form.get('password').touched && form.get('password').errors">This field is required</span>
+                </div>
+            </div>
+            <div class="pannel-group mt-4 mb-4">
+                <button type="submit" class="pannel-btn" [disabled]="form.invalid">Sign in</button>
+                <!--<a asp-controller="Accounts" asp-action="RecoveryPassword" class="pannel-link block-link">Forgot password?</a>-->
+            </div>
+        </form>
+    </div>
+</main>

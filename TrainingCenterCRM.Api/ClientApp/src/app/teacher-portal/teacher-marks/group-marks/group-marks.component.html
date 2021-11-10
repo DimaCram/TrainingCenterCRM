@@ -1,0 +1,57 @@
+
+<div class="content-wrapper">
+    <h1 class="content__header">Group marks</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-8">
+                <div class="card">
+                    <ngx-ui-loader [loaderId]="'groupMarksLoader'"></ngx-ui-loader>
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <input class="form-control" type="text" placeholder="Search..." (input)="search($event.target.value)"/>
+                        </div>
+                        <div class="table-responsive" *ngIf="filteredGroupMarks.length > 0;else  elseTemplate" >
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Student</th>
+                                        <th scope="col">Mark</th>
+                                        <th scope="col">Material name</th>
+                                        <th scope="col">Material type</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let groupMark of filteredGroupMarks | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                        <th scope="col">{{groupMark.student.name}} {{groupMark.student.surname}}</th>
+                                        <th scope="col">
+                                            {{groupMark.mark}}
+                                            <span class="cursor-pointer" *ngIf="groupMark.comment" placement="top" [ngbPopover]="groupMark.comment" popoverTitle="Comment">
+                                                <i class="fas fa-info-circle"></i>
+                                            </span>
+                                        </th>
+                                        <th scope="col">{{groupMark.material.name}}</th>
+                                        <th scope="col">{{groupMark.material.materialType}}</th>
+                                        <th scope="col" class="text-center">
+                                            <a class="btn btn-success m-1" [routerLink]="['/teacher/marks/edit', groupMark.id]" [queryParams]="{groupId: groupId, studentId: groupMark.studentId}"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger m-1" (click)="deleteMark(groupMark.id)"><i class="fas fa-trash"></i></a>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="filteredGroupMarks.length"></ngb-pagination>
+                        </div>
+                        <ng-template #elseTemplate>
+                            <div>
+                                <p class="alert-danger">Group marks not found</p>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2"></div>
+        </div>
+    </div>
+</div>

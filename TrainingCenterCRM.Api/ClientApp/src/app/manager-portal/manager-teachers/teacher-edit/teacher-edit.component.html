@@ -1,0 +1,83 @@
+<div class="content-wrapper">
+    <div class="position-relative toast-box">
+        <div class="toast-container position-absolute top-0 end-0">
+        </div>
+    </div>
+    <h1 class="content__header">Work with teacher</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3"></div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">Teacher</div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" method="post" [formGroup]="form" autocomplete="off" (submit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div id="drop-area" appDnd (fileDropped)="onFileDropped($event)">
+                                        <input type="file" #fileDropRef id="fileDropRef" accept=".png, .jpg , .jpeg" (change)="fileBrowseHandler($event.target.files)">
+                                        <label class="btn btn-head" for="fileDropRef">
+                                            Select image
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <img id="img-icon" class="img-fluid" [src]="icon" />
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" formControlName="name" />
+                                    <span class="alert-danger" *ngIf="form.get('name').touched && form.get('name').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Surname</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" formControlName="surname" />
+                                    <span class="alert-danger" *ngIf="form.get('surname').touched && form.get('surname').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Age</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="number" formControlName="age" />
+                                    <span class="alert-danger" *ngIf="form.get('age').touched && form.get('age').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Bio</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" formControlName="bio" rows="5"></textarea>
+                                    <span class="alert-danger" *ngIf="form.get('bio').touched && form.get('bio').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row" *ngIf="!id">
+                                <label class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" formControlName="email" />
+                                    <span class="alert-danger" *ngIf="form.get('email').touched && form.get('email').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row" *ngIf="!id">
+                                <label class="col-sm-3 col-form-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="password" formControlName="password" />
+                                    <span class="alert-danger" *ngIf="form.get('password').touched && form.get('password').errors?.required">This field is required</span>
+                                    <span class="alert-danger" *ngIf="form.get('password').touched && form.get('password').errors?.pattern">
+                                        This field can has 8 characters length, lowercase letter, uppercase letter, Numbers, special character
+                                    </span>
+                                </div>
+                            </div>
+                            <input formControlName="userId" type="number" hidden/>
+                            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ok</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3"></div>
+        </div>
+    </div>
+</div>

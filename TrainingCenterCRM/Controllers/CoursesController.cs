@@ -4,16 +4,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "manager")]
     public class CoursesController : Controller
     {
         private readonly ICourseService courseService;
@@ -91,9 +89,9 @@ namespace TrainingCenterCRM.Controllers
                     var course = mapper.Map<Course>(courseModel);
 
                     if (course.Id == 0)
-                        await courseService.AddCourseAsync(course);
+                        await courseService.AddCourseAsync(course, icon);
                     else
-                        await courseService.EditCourseAsync(course);
+                        await courseService.EditCourseAsync(course, null);
 
                     return RedirectToAction("Index");
                 }

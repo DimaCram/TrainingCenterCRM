@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Enums;
+using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.DAL.EF.Context
 {
@@ -20,12 +20,13 @@ namespace TrainingCenterCRM.DAL.EF.Context
             //roles
             var roleTeacher = new IdentityRole { Id = "dc580e4d-92ba-47a9-bb31-62b0afb85445", Name = "teacher", NormalizedName = "teacher" };
             var roleManager = new IdentityRole { Id = "9d5aeb79-50ca-48db-91dc-3a72f06c978f", Name = "manager", NormalizedName = "manager" };
+            var roleStudent = new IdentityRole { Id = "3f0d93b3-02a9-482b-b6d9-9ecbfcfb3e56", Name = "student", NormalizedName = "student" };
 
             modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole { Id = "021cb353-a049-404c-b2f6-b067a48a3b9a", Name = "user", NormalizedName = "user" },
                 new IdentityRole { Id = "800ac90f-e24c-485a-8be4-5869972e12a7", Name = "admin", NormalizedName = "admin"},
                 roleTeacher,
-                roleManager
+                roleManager,
+                roleStudent
             );
 
             var managerUser = new User
@@ -270,15 +271,79 @@ namespace TrainingCenterCRM.DAL.EF.Context
             {
                 RoleId = roleTeacher.Id,
                 UserId = teacherUser1.Id
-            });
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser2.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser3.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser4.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser5.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser6.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser7.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser8.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser9.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleTeacher.Id,
+                UserId = teacherUser10.Id
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = roleManager.Id,
+                UserId = managerUser.Id
+            }
+            );
 
             //Students
+            var studentUser1 = new User
+            {
+                Id = "20141624-04de-4fc2-aaf7-3154609f66f1",
+                UserName = "fedorova@gmail.com",
+                NormalizedEmail = "fedorova@gmail.com",
+                Email = "fedorova@gmail.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "fedorova@gmail.com",
+            };
+            studentUser1.PasswordHash = ph.HashPassword(studentUser1, passwordStudent);
+            modelBuilder.Entity<User>().HasData(studentUser1);
+
             var student1 = new Student
             {
                 Id = 1,
                 Name = "Darya",
                 Surname = "Fedorova",
-                Age = 22
+                Age = 22,
+                UserId = studentUser1.Id
             };
             var student2 = new Student()
             {
@@ -420,6 +485,13 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 student11, student12, student13, student14, student15,
                 student16, student17, student18, student19, student20
             );
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {   
+                    RoleId = roleStudent.Id,
+                    UserId = studentUser1.Id
+                }
+            );
 
             var topic1 = new Topic
             {
@@ -466,78 +538,111 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 Id = 1,
                 Title = "C# Programming",
                 Description = "Basic course",
+                Price = 499,
+                Level = CourseLevel.Advanced,
                 TopicId = topic1.Id
             };
+
             var course2 = new Course
             {
                 Id = 2,
                 Title = "Industrial programming with ASP.NET",
                 Description = "Professional course",
+                Level = CourseLevel.Beginner,
+                Price = 755,
                 TopicId = topic1.Id
             };
+
             var course3 = new Course
             {
                 Id = 3,
                 Title = "Development of mobile games on the Unity engine",
                 Description = "Professional course",
+                Level = CourseLevel.Expert,
+                Price = 699,
                 TopicId = topic1.Id
             };
+
             var course4 = new Course
             {
                 Id = 4,
                 Title = "Java programming",
                 Description = "Basic course",
+                Level = CourseLevel.Beginner,
+                Price = 499,
                 TopicId = topic1.Id
             };
+
             var course5 = new Course
             {
                 Id = 5,
                 Title = "Development of mobile applications for Android",
                 Description = "Professional course",
+                Level = CourseLevel.Advanced,
+                Price = 710,
                 TopicId = topic1.Id
             };
+
             var course6 = new Course
             {
                 Id = 6,
                 Title = "Java Web Development",
                 Description = "Professional course",
+                Level = CourseLevel.Advanced,
+                Price = 755,
                 TopicId = topic1.Id
             };
+
             var course7 = new Course
             {
                 Id = 7,
                 Title = "HTML, CSS and JavaScript",
                 Description = "Basic course",
+                Level = CourseLevel.Beginner,
+                Price = 610,
                 TopicId = topic3.Id
             };
+
             var course8 = new Course
             {
                 Id = 8,
                 Title = "JavaScript Web Application Development",
                 Description = "Professional course",
+                Price = 729,
+                Level = CourseLevel.Advanced,
                 TopicId = topic3.Id
             };
+
             var course9 = new Course
             {
                 Id = 9,
                 Title = "React and Angular for web development",
                 Description = "Professional course",
+                Price = 699,
+                Level = CourseLevel.Advanced,
                 TopicId = topic3.Id
             };
+
             var course10 = new Course
             {
                 Id = 10,
                 Title = "C and C++ Programming",
                 Description = "Basic course",
+                Price = 599,
+                Level = CourseLevel.Beginner,
                 TopicId = topic4.Id
             };
+
             var course11 = new Course
             {
                 Id = 11,
                 Title = "Professional game development in C++",
                 Description = "Professional course",
+                Level = CourseLevel.Expert,
+                Price = 719,
                 TopicId = topic4.Id
             };
+
 
             modelBuilder.Entity<Course>().HasData(
                 course1, course2, course3,
@@ -545,6 +650,11 @@ namespace TrainingCenterCRM.DAL.EF.Context
                 course7, course8, course9,
                 course10, course11
             );
+            
+            modelBuilder.Entity<CourseReview>().HasData(
+                GenerateCourseReviews()
+            );
+
             modelBuilder.Entity<StudentRequest>().HasData(
                 new StudentRequest
                 {
@@ -631,7 +741,32 @@ namespace TrainingCenterCRM.DAL.EF.Context
                     RequestStatus = RequestStatus.Open
                 }
             );
-            
+        }
+        private static IEnumerable<CourseReview> GenerateCourseReviews()
+        {
+            var courseReviews = new List<CourseReview>();
+            Random rnd = new Random();
+            var courseCount = 11;
+
+            var id = 1;
+            for(int c = 1; c <= courseCount; c++)
+            {
+                var maxCountReview = rnd.Next(50, 100);
+                for (int i = 0; i < maxCountReview; i++)
+                {
+                    courseReviews.Add(new CourseReview
+                    {
+                        Id = id,
+                        Rating = rnd.Next(1, 5),
+                        CourseId = c,
+                        StudentId = rnd.Next(1, 20)
+                    });
+
+                    id++;
+                }
+            }
+
+            return courseReviews;
         }
     }
 }

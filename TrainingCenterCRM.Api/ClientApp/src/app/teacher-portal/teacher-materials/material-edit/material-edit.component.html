@@ -1,0 +1,53 @@
+<div class="content-wrapper">
+    <h1 class="content__header">Work with material</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3"></div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">Material</div>
+                    <div class="card-body">
+                        <form method="post" [formGroup]="form" autocomplete="off" (submit)="onSubmit()">
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Group</label>
+                                <div class="col-sm-9" *ngIf="group">
+                                    <input class="form-control" type="text" [value]="group.name" readonly />
+                                    <span class="alert-danger" *ngIf="groupError">This field is required</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label asp-for="Name" class="col-sm-3 col-form-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" formControlName="name" />
+                                    <span class="alert-danger" *ngIf="form.get('name').touched && form.get('name').errors">This field is required</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label asp-for="MaterialType" class="col-sm-3 col-form-label">Material type</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="materialType">
+                                        <option value="">Select status</option>
+                                        <option [value]="type" *ngFor="let type of materialTypes">{{type}}</option>
+                                    </select>
+                                    <span class="alert-danger" *ngIf="form.get('materialType').touched && form.get('materialType').errors">This field is required</span>
+                                </div>
+                            </div>
+                            <p>Selected files</p>
+                            <p class="alert-danger" *ngIf="this.form.value.fileIds">{{fileLengthError}}</p>
+                            <ul class="list-files mb-3">
+                                <li class="list-group-item" *ngFor="let file of filesForGroup">
+                                    <label class="list-item">
+                                        {{file.name}}
+                                        <input type="checkbox" [value]="file.id" (change)="onCheckChange($event)" [checked]="file.hasMaterial">
+                                    </label>
+                                </li>
+                            </ul>
+                            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ok</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3"></div>
+        </div>
+    </div>
+</div>

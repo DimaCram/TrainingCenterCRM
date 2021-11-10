@@ -1,24 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
-using TrainingCenterCRM.DAL.Interfaces;
+using TrainingCenterCRM.Core.Models;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class FileService : IFileService
     {
-        private readonly IRepository<File> repository;
-        private readonly IGroupService groupService;
+        private readonly IFileRepository repository;
 
-        public FileService(IRepository<File> repository,
-                           IGroupService groupService)
+        public FileService(IFileRepository repository)
         {
             this.repository = repository;
-            this.groupService = groupService;
         }
 
         public async Task AddFileAsync(File file)
@@ -26,46 +22,58 @@ namespace TrainingCenterCRM.BLL.Services
             if (file == null)
                 throw new ArgumentException();
 
-            await repository.CreateAsync(file);
+            await repository.Create(file);
         }
 
-        public async Task AddFilesAsync(List<File> files)
+        public async Task AddFilesAsync(List<IFormFile> formFiles, int courseId)
         {
-            if(files == null || files.Count == 0)
+            if(courseId == 0 || formFiles.Count == 0)
                 throw new ArgumentException();
 
-            foreach (var file in files)
-                await repository.CreateAsync(file);
+
+            foreach (var formFileModel in formFiles)
+            {
+                var file = new File
+                {
+                    Name = formFileModel.FileName,
+                    FileType = formFileModel.ContentType,
+                    CreateDate = DateTime.Now,
+                    CourseId = courseId,
+                };
+
+                using (var target = new System.IO.MemoryStream())
+                {
+                    formFileModel.CopyTo(target);
+                    file.Data = target.ToArray();
+                }
+
+                await repository.Create(file);
+            }
         }
 
         public async Task DeleteFileAsync(int id)
         {
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditFileAsync(File file)
         {
-            await repository.UpdateAsync(file);
+            await repository.Update(file);
         }
 
         public Task<File> GetFileAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public Task<List<File>> GetFilesAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
         }
 
-        public async Task<IEnumerable<File>> GetFilesByGroupAsync(int groupId)
+        public async Task<IEnumerable<File>> GetFilesByCourseAsync(int courseId)
         {
-            var group = await groupService.GetGroupAsync(groupId);
-            return repository.Find(f => f.CourseId == group.CourseId);
-        }
-        public List<File> GetFilesByMaterialAsync(int materialId)
-        {
-            return repository.Find(f => f.Materials.Any(m => m.Id == materialId)).ToList();
+            return await repository.Find(f => f.CourseId == courseId);
         }
     }
 }

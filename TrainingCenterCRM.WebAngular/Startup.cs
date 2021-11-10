@@ -1,18 +1,17 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
+using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Context;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 using TrainingCenterCRM.DAL.EF.Repositories;
-using TrainingCenterCRM.DAL.Interfaces;
 using TrainingCenterCRM.WebAngular.Mapper;
 
 namespace TrainingCenterCRM.WebAngular
@@ -38,11 +37,11 @@ namespace TrainingCenterCRM.WebAngular
             services.AddSingleton(mapper);
 
             services.AddDbContext<TrainingCenterContext>(options =>
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrainingCenterDB;Trusted_Connection=True;"));
+                options.UseSqlServer(Configuration["ConnectionString"]));
 
-            services.AddScoped<IRepository<Topic>, TopicRepository>();
-            services.AddScoped<IRepository<Course>, CourseRepository>();
-            services.AddScoped<IRepository<Teacher>, TeacherRepository>();
+            services.AddScoped<ITeacherRepository, TeacherRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<ITopicRepository, TopicRepository>();
 
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<ICourseService, CourseService>();

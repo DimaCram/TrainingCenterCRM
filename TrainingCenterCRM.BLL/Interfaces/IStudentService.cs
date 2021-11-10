@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Filters;
+using TrainingCenterCRM.Core.Models;
 
 namespace TrainingCenterCRM.BLL.Interfaces
 {
@@ -14,5 +13,8 @@ namespace TrainingCenterCRM.BLL.Interfaces
         Task<Student> GetStudentAsync(int id);
         Task<Student> GetStudentWithGroupAsync(int id);
         Task<List<Student>> GetStudentsAsync();
+        Task<IEnumerable<Student>> GetStudentsByGroupAsync(int groupId);
+        Task<IEnumerable<Student>> GetStudentsByPaginationAsync(PaginationFilter filter);
+        Task<Student> GetStudentWithUserById(int id);
     }
 }

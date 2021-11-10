@@ -1,23 +1,18 @@
-    using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
 using TrainingCenterCRM.BLL.Services;
+using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.DAL.EF.Context;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 using TrainingCenterCRM.DAL.EF.Repositories;
-using TrainingCenterCRM.DAL.Interfaces;
 using TrainingCenterCRM.Mappings;
 
 namespace TrainingCenterCRM
@@ -73,7 +68,12 @@ namespace TrainingCenterCRM
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<TrainingCenterContext>();
 
-            services.ConfigureApplicationCookie(options => options.LoginPath = "/Accounts/LogIn");
+            services.ConfigureApplicationCookie(
+                options =>
+                {
+                    options.LoginPath = "/Accounts/LogIn";
+                    options.AccessDeniedPath = "/error/401";
+                });
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -107,6 +107,11 @@ namespace TrainingCenterCRM
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                    name: "teacherPortal",
+                    areaName: "teacherPortal",
+                    pattern: "teacherPortal/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Students}/{action=Index}/{id?}");

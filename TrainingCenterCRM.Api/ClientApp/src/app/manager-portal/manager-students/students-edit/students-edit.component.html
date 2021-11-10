@@ -1,0 +1,58 @@
+<div class="content-wrapper">
+    <h1 class="content__header">Work with student</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3"></div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <form method="post" [formGroup]="form" autocomplete="off" (submit)="onSubmit()">
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" formControlName="name" />
+                                    <span class="alert-danger" *ngIf="form.get('name').touched && form.get('name').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Surname</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" formControlName="surname" />
+                                    <span class="alert-danger" *ngIf="form.get('surname').touched && form.get('surname').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Age</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" formControlName="age" type="number" />
+                                    <span class="alert-danger" *ngIf="form.get('age').touched && form.get('age').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row" *ngIf="!id">
+                                <label class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" formControlName="email" />
+                                    <span class="alert-danger" *ngIf="form.get('email').touched && form.get('email').errors">This field is invalid</span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row" *ngIf="!id">
+                                <label class="col-sm-3 col-form-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="password" formControlName="password" />
+                                    <span class="alert-danger" *ngIf="form.get('password').touched && form.get('password').errors?.required">This field is required</span>
+                                    <span class="alert-danger" *ngIf="form.get('password').touched && form.get('password').errors?.pattern">
+                                        This field can has 8 characters length, lowercase letter, uppercase letter, Numbers, special character
+                                    </span>
+                                </div>
+                            </div>
+                            <input formControlName="userId" type="number" hidden/>
+                            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ok</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="content-wrapper">
+    <h1 class="content__header">My groups</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-header">Table</div>
+                    <div class="card-body">
+                        <ngx-ui-loader [loaderId]="'groupsLoader'"></ngx-ui-loader>
+                        <div class="mb-3">
+                            <input class="form-control" type="text" placeholder="Search..." (input)="search($event.target.value)"/>
+                        </div>
+                        <div class="table-responsive" *ngIf="filteredTeacherGroups.length > 0;else  elseTemplate" >
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Start date</th>
+                                        <th scope="col">Teacher</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let group of filteredTeacherGroups | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                        <th scope="col">{{group.name}}</th>
+                                        <th scope="col">{{group.startDate | date:'longDate'}}</th>
+                                        <th scope="col">{{group.course.title}}</th>
+                                        <th scope="col" class="text-center">
+                                            <a class="btn btn-success m-1" [routerLink]="['/teacher/groupControl']" [queryParams]="{groupId: group.id}">manage</a>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ng-template #elseTemplate>
+                            <div>
+                                <p class="alert-danger">Groups not found</p>
+                            </div>
+                        </ng-template>
+                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="filteredTeacherGroups.length"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2"></div>
+    </div>
+</div>

@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
-using TrainingCenterCRM.DAL.Interfaces;
+using TrainingCenterCRM.Core.Filters;
+using TrainingCenterCRM.Core.Models;
+using TrainingCenterCRM.DAL.EF.Interfaces;
 
 namespace TrainingCenterCRM.BLL.Services
 {
     public class MaterialService : IMaterialService
     {
-        private readonly IRepository<Material> repository;
-        private readonly IFileService fileService;
+        private readonly IMaterialRepository repository;
+        private readonly IFileToMaterialAssignmentService _materialAssignmentService;
 
-        public MaterialService(IRepository<Material> repository,
-                               IFileService fileService)
+        public MaterialService(IMaterialRepository repository,
+                               IFileToMaterialAssignmentService materialAssignmentService)
         {
             this.repository = repository;
-            this.fileService = fileService;
+            _materialAssignmentService = materialAssignmentService;
         }
 
         public async Task AddMaterialAsync(Material material, List<int> fileIds)
@@ -26,16 +25,22 @@ namespace TrainingCenterCRM.BLL.Services
             if (material == null)
                 throw new ArgumentException();
 
-            var allfiles = await fileService.GetFilesAsync();
+            await repository.Create(material);
 
-            material.Files = allfiles.Where(f => fileIds.Contains(f.Id)).ToList();
-
-            await repository.CreateAsync(material);
+            foreach(var fileId in fileIds)
+            {
+                await _materialAssignmentService.AddAssignmentAsync(new FileToMaterialAssignment
+                {
+                    FileId = fileId,
+                    MaterialId = material.Id,
+                    TeacherId = 1
+                });
+            }
         }
 
         public async Task DeleteMaterialAsync(int id)
         {
-            await repository.DeleteAsync(id);
+            await repository.Delete(id);
         }
 
         public async Task EditMaterialAsync(Material material, List<int> fileIds)
@@ -43,36 +48,42 @@ namespace TrainingCenterCRM.BLL.Services
             if (material == null)
                 throw new ArgumentException();
 
-            /*
-            var allfiles = await fileService.GetFilesAsync();
+            //remove old assignment
+            await _materialAssignmentService.DeleteAssignmentsByMaterial(material.Id);
 
-            var material2 = await repository.GetAsync(material.Id);
-            material2.Files.RemoveAll(f => !fileIds.Contains(f.Id));
-            material2.Files.AddRange(allfiles.Where(f => fileIds.Contains(f.Id) && !material2.Files.Any(mf => mf.Id == f.Id)));
-            await repository.UpdateAsync(material2);*/
+            //add new assignment
+            foreach (var fileId in fileIds)
+            {
+                await _materialAssignmentService.AddAssignmentAsync(new FileToMaterialAssignment 
+                { 
+                    MaterialId = material.Id,
+                    FileId = fileId,
+                    TeacherId = 1
+                });
+            }
 
-            //material.Files = a.Files;
-
-
-
-            //material.Files = allfiles.Where(f => f.Materials.Any(m => m.Id == material.Id)).ToList();  //fileService.GetFilesByMaterialAsync(material.Id);
-            /*            material.Files.RemoveAll(f => !fileIds.Contains(f.Id));
-
-                        await repository.UpdateAsync(material);
-
-                        material.Files = allfiles.Where(f => fileIds.Contains(f.Id)).ToList();
-
-                        await repository.UpdateAsync(material);*/
+            await repository.Update(material);
         }
 
         public Task<Material> GetMaterialAsync(int id)
         {
-            return repository.GetAsync(id);
+            return repository.Get(id);
         }
 
         public Task<List<Material>> GetMaterialsAsync()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
+        }
+
+        public async Task<IEnumerable<Material>> GetMaterialsByGroupAsync(int groupId)
+        {
+            var res = await repository.GetMaterialsWithFilesByGroup(groupId);
+            return res;
+        }
+
+        public Task<IEnumerable<Material>> GetMaterialsByPaginationAsync(PaginationFilter pagination)
+        {
+            return repository.GetAllByPagination(pagination);
         }
     }
 }

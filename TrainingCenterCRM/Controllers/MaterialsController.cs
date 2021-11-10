@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TrainingCenterCRM.BLL.Interfaces;
-using TrainingCenterCRM.BLL.Models;
+using TrainingCenterCRM.Core.Models;
 using TrainingCenterCRM.Models;
 
 namespace TrainingCenterCRM.Controllers
 {
+    [Authorize(Roles = "manager")]
     public class MaterialsController : Controller
     {
 
@@ -100,26 +100,7 @@ namespace TrainingCenterCRM.Controllers
         {
             if (ModelState.IsValid)
             {
-                var files = new List<File>();
-                foreach(var fileModel in model.Files)
-                {
-                    var file = new File
-                    {
-                        Name = fileModel.FileName,
-                        FileType = fileModel.ContentType,
-                        CreateDate = DateTime.Now,
-                        CourseId = model.CourseId,
-                    };
-
-                    using (var target = new System.IO.MemoryStream())
-                    {
-                        fileModel.CopyTo(target);
-                        file.Data = target.ToArray();
-                    }
-
-                    files.Add(file);
-                }
-                await fileService.AddFilesAsync(files);
+                await fileService.AddFilesAsync(model.Files, model.CourseId.Value);
             }
 
             ViewBag.Courses = await courseService.GetCoursesAsync();
@@ -135,7 +116,7 @@ namespace TrainingCenterCRM.Controllers
                 if (materialId != 0)
                 {
                     var material = await materialService.GetMaterialAsync(materialId);
-                    var selectedFiles = mapper.Map<List<FileModel>>(material.Files);
+                    /*var selectedFiles = mapper.Map<List<FileModel>>(material.Files);
 
                     foreach(var selectedFile in selectedFiles)
                     {
@@ -144,7 +125,7 @@ namespace TrainingCenterCRM.Controllers
                             filesForGroup.Add(selectedFile);
                         else
                             filesForGroup.FirstOrDefault(grf => grf.Id == file.Id).HasMaterial = true;
-                    }
+                    }*/
                 }
 
                 return Json(filesForGroup);
